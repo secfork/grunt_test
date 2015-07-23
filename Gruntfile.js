@@ -17,6 +17,7 @@ module.exports = function (grunt) {
 
   // Configurable paths for the application
   var appConfig = {
+    bower: require('./bower.json') ,
     app: require('./bower.json').appPath || 'app',
     dist: 'dist'
   };
@@ -292,7 +293,7 @@ module.exports = function (grunt) {
     // uglify: {
     //   dist: {
     //     files: {
-    //       '<%= yeoman.dist %>/scripts/scripts.js': [
+    //       '<%= yeoman.dist %>/scripts/scripts_min.js': [
     //         '<%= yeoman.dist %>/scripts/scripts.js'
     //       ]
     //     }
@@ -356,13 +357,13 @@ module.exports = function (grunt) {
 
                  //  自己添加部分;    annotate 处理 自己代码  
                 {
-                   expand: true,
+                  expand: true,  //  动态匹配  src -- dist ;  ????; 
 
-                  //cwd:  '<%= yeoman.app %>',
+                  cwd:  '<%= yeoman.app%>',
                   
-                  src:  'app/scripts/{,**/}*.js',
+                  src:  'scripts/{,**/}*.js',
                   // src:  'app/scripts/controllers/main.js' , //{,*/}*.js',
-                  dest: '.tmp/annotate/scripts'
+                  dest: '.tmp/.annotate'
 
                 }  
         ]
@@ -379,30 +380,50 @@ module.exports = function (grunt) {
     // Copies remaining files to places other tasks can use
     copy: {
       dist: {
-        files: [{
+        options:{
+          dot: true
+        },
+
+        files: [
+                // 静态文件;  font , img , styles  ;  script 用 ngAnnotate , jshite 处理; 
+               {
                 expand: true,
-                dot: true,
+                dot: true, //  它允许模式模式匹配句点开头的文件名，即使模式并不明确文件名开头部分是否有句点
                 cwd: '<%= yeoman.app %>',
                 dest: '<%= yeoman.dist %>',
                 src: [
                   '*.{ico,png,txt}',
-                  '.htaccess',
                   '*.html',
-                  'views/{,*/}*.html',
-                  'images/{,*/}*.{webp}',
-                  'styles/fonts/{,*/}*.*'
+                  '.htaccess',
+                  'styles/{,**/}*.css',
+                  '{fonts,images,views}/{,**/}*.*' 
                 ]
-              }, {
+              },  
+
+              { // 拷贝 bower.json 文件;  被 concat 命令 合并到了  .tmp/concat/  scripts/vendor.js     
+                //  "scripts/vendor.js" 是在 index.html中配置的; 
+                  expand:true , 
+                  cwd:  '.tmp/concat',  
+                  src:   'scripts/{,**/}*.js',
+                  dest: '<%= yeoman.dist %>'
+
+              }, 
+
+
+
+
+              //  angular js 文件 ; 
+              {
                 expand: true,
                 cwd: '.tmp/images',
                 dest: '<%= yeoman.dist %>/images',
                 src: ['generated/*']
-              }, {
-                expand: true,
-                cwd: '.',
-                src: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
-                dest: '<%= yeoman.dist %>'
-              }]
+              } ,
+
+
+
+
+        ]
       },
       styles: {
         expand: true,
@@ -468,24 +489,28 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    //'wiredep',  // 加载 bower.json 中 的类库; 
+     'wiredep',  // 加载 bower.json 中 的类库;  
+      'useminPrepare', 
+    // 'concurrent:dist',   //   img , svg  文件  压缩 并复制到 dist 目录;  
+    // 'autoprefixer',    //  处理 css ;  添加前缀????   
+     'concat',         // 
 
-    'useminPrepare',
 
-    //'concurrent:dist',   //   img , svg  文件  压缩 并复制到 dist 目录; 
-    
-    // 'autoprefixer',    //  处理 css ;  添加前缀????  
 
-    // 'concat',         // 
+    'ngAnnotate',   //    ng  function($scope)  转变成   ['$scope', function($scope){ ..}]  形式;  
 
-    'ngAnnotate',   //   
-    'copy:dist',
-    'cdnify',
-    'cssmin',
-    'uglify',
-    'filerev',
-    'usemin',
-    'htmlmin'
+ 
+    //---------------分水岭----------------
+    'copy:dist',    // 拷贝  html , css , js , img ...  到 dist目录; 
+
+   // 'cdnify',
+
+
+   // 'cssmin',
+     'uglify',
+    //'filerev',
+    //'usemin',
+   // 'htmlmin'
   ]);
 
   grunt.registerTask('default', [
