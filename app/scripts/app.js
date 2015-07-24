@@ -1,34 +1,23 @@
-'use strict';
+/* global localStorage */
+define([
+        'jQuery', 
+        'angular',
+        'lodash',
+        
+        'angular-ui',
+        'angular-ui-router',
+        'angular-translate',
+        'angular-resource',
 
-/**
- * @ngdoc overview
- * @name thinglinxApp
- * @description
- * # thinglinxApp
- *
- * Main module of the application.
- */
-angular
-  .module('thinglinxApp', [
-    'ngAnimate',
-    'ngCookies',
-    'ngMessages',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch'
-  ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  });
+ 
+
+], function(angular) {
+    'use strict';
+ 
+ 
+
+    var app = angular.module('app', configFn);
+
+   
+    return app;
+});

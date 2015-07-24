@@ -239,8 +239,8 @@ module.exports = function (grunt) {
         src: [
           '<%= yeoman.dist %>/scripts/{,*/}*.js',
           '<%= yeoman.dist %>/styles/{,*/}*.css',
-          '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-          '<%= yeoman.dist %>/styles/fonts/*'
+         // '<%= yeoman.dist %>/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+           
         ]
       }
     },
@@ -299,6 +299,21 @@ module.exports = function (grunt) {
     //     }
     //   }
     // },
+
+   uglify: {
+            options: {
+                mangle: true,
+                compress: true,
+                report: 'min'
+            },
+            files:{
+              expand:true ,
+              cwd:"<%= yeoman.dist %>/scripts",
+              src:"{,**/}*.js", 
+              dest:"<%= yeoman.dist %>/scripts"
+            }
+        },
+
     // concat: {
     //   dist: {}
     // },
@@ -385,46 +400,75 @@ module.exports = function (grunt) {
         },
 
         files: [
-                // 静态文件;  font , img , styles  ;  script 用 ngAnnotate , jshite 处理; 
+
+              // 'bootstrap.prod.js',
+
+
+                // 静态文件;  font , img , styles  ; 
+                // script 用 ngAnnotate , jshite 处理; 
                {
-                expand: true,
-                dot: true, //  它允许模式模式匹配句点开头的文件名，即使模式并不明确文件名开头部分是否有句点
-                cwd: '<%= yeoman.app %>',
-                dest: '<%= yeoman.dist %>',
-                src: [
-                  '*.{ico,png,txt}',
-                  '*.html',
-                  '.htaccess',
-                  'styles/{,**/}*.css',
-                  '{fonts,images,views}/{,**/}*.*' 
-                ]
-              },  
+                  expand: true,
+                  dot: true, //  它允许模式模式匹配句点开头的文件名，即使模式并不明确文件名开头部分是否有句点
+                  cwd: '<%= yeoman.app %>',
+                  dest: '<%= yeoman.dist %>',
+                  src: [
+                    '*.{ico,png,txt}',
+                    '*.html',
+                    'require_config.prod.js',
 
-              { // 拷贝 bower.json 文件;  被 concat 命令 合并到了  .tmp/concat/  scripts/vendor.js     
-                //  "scripts/vendor.js" 是在 index.html中配置的; 
-                  expand:true , 
-                  cwd:  '.tmp/concat',  
-                  src:   'scripts/{,**/}*.js',
-                  dest: '<%= yeoman.dist %>'
+                    //htaccess文件(或者"分布式配置文件"）提供了针对目录改变配置的方法，
+                    //'.htaccess', 
 
-              }, 
+                    //'scripts/{,**/}*.js',   // js 文件有 requirejs 任务 处理; 
 
+                    '{fonts,img,views}/{,**/}*.*' 
+                  ]
+                },  
 
+                { // 拷贝 bower.json 文件;  被 concat 命令 合并到了 
+                  //  .tmp/concat/  scripts/vendor.js     
+                  //  "scripts/vendor.js" 是在 index.html中配置的; 
+                     // expand:true , 
+                     // cwd:  '.tmp',  
+                     // src:   '{concat,**/}*.*', 
+                     // dest: '<%= yeoman.dist %>'
 
-
-              //  angular js 文件 ; 
-              {
-                expand: true,
-                cwd: '.tmp/images',
-                dest: '<%= yeoman.dist %>/images',
-                src: ['generated/*']
-              } ,
+                },  
+                //  angular js 文件 ; 
+                {
+                  expand: true,
+                  cwd: '.tmp/img',
+                  dest: '<%= yeoman.dist %>/images',
+                  src: ['generated/*']
+                } ,
 
 
 
 
         ]
       },
+
+
+      vendor:{
+          expand: true,
+          cwd:'bower_components',
+          dest:'<%= yeoman.dist %>/vendor',
+          src:[
+               'requirejs/require.js', 
+
+              'jquery/jquery.min.js', 
+              'angular/angular.min.js',
+
+              'lodash/lodash.min.js',  
+              'angular-bootstrap/ui-bootstrap-tpls.min.js',
+
+              'angular-ui-router/release/angular-ui-router.min.js',
+              'angular-translate/angular-translate.min.js',
+              'angular-resource/angular-resource.min.js'
+         
+          ]
+      },
+
       styles: {
         expand: true,
         cwd: '<%= yeoman.app %>/styles',
@@ -454,7 +498,49 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
-    }
+    } ,
+
+
+
+    processhtml: {
+            options: {
+                commentMarker: 'process'
+            },
+            dist: {
+                files: {
+                    '<%= yeoman.dist %>/index.html': 
+                    '<%= yeoman.dist %>/index.html'
+                }
+            }
+    },
+    requirejs: {
+          compile: {
+              options: {
+                  baseUrl: 'app/scripts',
+                  mainConfigFile: 'app/require_config.js',
+
+                  include: ['app', 'boot'],  // 额外的define ; 
+
+                  insertRequire: ['boot'],  //  额外的 require(..);
+                  
+                  out: '<%= yeoman.dist  %>/thinglinx.js',
+                  paths: {
+                        'jQuery': 'empty:',
+                        'angular': 'empty:',
+                        'lodash': 'empty:',
+                        
+                        'angular-ui': 'empty:', 
+                        'angular-ui-router': 'empty:', 
+                        'angular-translate': 'empty:', 
+                        'angular-resource': 'empty:'
+
+                  }
+              }
+          }
+      }
+
+
+
   });
 
 
@@ -489,28 +575,44 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-     'wiredep',  // 加载 bower.json 中 的类库;  
-      'useminPrepare', 
-    // 'concurrent:dist',   //   img , svg  文件  压缩 并复制到 dist 目录;  
-    // 'autoprefixer',    //  处理 css ;  添加前缀????   
-     'concat',         // 
+    
+    //  'wiredep',  // 加载 bower.json 中 的类库 , ;  这里手动 该; 
+                    // 需要有<!-- build:js |css  
+                    //          <!- bower:js|css    两个标签的支持; 
+
+    'useminPrepare',  // 预处理 index.html 文件; 内存中生成 concat, cssmin , uglify 命令; 
+
+       // 'concurrent:dist',   //   img , svg  文件  压缩 并复制到 dist 目录;  
+       // 'autoprefixer',    //  处理 css ;  添加前缀????  
 
 
+    //'concat',         // 处理 合并build:js ,  
+                        // 不处理 build:css ;  
+                        //无<!-- build:js 时  , useminPrepare 不会生成该命令 ; 
+                           // 想用 须手动配置; 
 
-    'ngAnnotate',   //    ng  function($scope)  转变成   ['$scope', function($scope){ ..}]  形式;  
+    // 'ngAnnotate',   //    ng  function($scope)  转变成   ['$scope', function($scope){ ..}]  形式;  
 
  
     //---------------分水岭----------------
-    'copy:dist',    // 拷贝  html , css , js , img ...  到 dist目录; 
+    
+    'copy:dist',    // 拷贝  html , img , bower.json 类库文件 ...  到 dist目录; 
+    'copy:vendor',  
+    // 'cdnify',
+  
 
-   // 'cdnify',
+    'cssmin',  // 合并 build:css 文件; 
+    //'uglify',  //  拷贝 build:js ,到 dist 并压缩;  
+                 //  若想不压缩; 须在copy中配置  从.tmp 拷贝到  dist ; 
+                 // 无 <!-- build:js , useminPrepare 不会生成该命令 ; 想用 须手动配置;
+    //'filerev', // md5 命名文件; 
+
+    'requirejs',  //   
 
 
-   // 'cssmin',
-     'uglify',
-    //'filerev',
-    //'usemin',
-   // 'htmlmin'
+    'usemin',  // 使用 build:js , build:css  合并后的文件路径; 并使用Md5 名称;  
+    // 'htmlmin' // 压缩 html 代码; 
+    'processhtml'
   ]);
 
   grunt.registerTask('default', [
@@ -526,11 +628,11 @@ module.exports = function (grunt) {
         'useminPrepare',
         'autoprefixer',
 
-
-
-
+ 
 
   ])
 
 
 };
+
+

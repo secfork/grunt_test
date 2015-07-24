@@ -1,0 +1,1 @@
+"use strict";angular.module("thinglinxApp").controller("MainCtrl",function(a){a.awesomeThings=["HTML5 Boilerplate","AngularJS","Karma"]});
