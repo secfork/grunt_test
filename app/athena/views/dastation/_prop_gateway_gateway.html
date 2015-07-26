@@ -1,0 +1,142 @@
+
+
+
+   <table class=" table   table-bordered  bg-white "    ng-init = " initGateWay() ">
+            <thead class="flip-content"  >
+                <tr  >
+                        <th    >  类型  </th>
+                        <th    > 名称       </th>
+                        <th    >  是否可用    </th>
+
+                        <th     >  参数 </th>
+                       <!--  <th   >组</th> -->
+                        <th    >    </th>
+                </tr>
+            </thead>
+
+           <!--  sysmodel 下的 gateway default  -->
+      <!--      <tbody  ng-if="false"  class="text-center "  ng-repeat=" ($T,$W) in sysmodel.gateway_default "  class="b-b-none"
+                   ng-if = " $T !='GPS' "
+               >
+
+                 <tr  ng-repeat ="($t,$data) in $W"  class="hover"  >
+
+                    <td>  {{ $t }}   </td>
+                    <td>  {{$data.baud_rate}}</td>
+                    <td>  {{$data.data_bits}}</td>
+                    <td>  {{$data.stop_bits}}</td>
+                    <td>  {{$data.parity}}</td>
+                    <td>  {{$data.delay}}</td>
+                    <td>  默认串口 </td>
+                  </tr>
+            </tbody> -->
+
+          
+            <tbody class="text-center "  ng-repeat=" ($T,$d)  in gateway  "     >
+
+                <tr  ng-repeat="  ($t,$way)  in $d  "  class="hover" >
+                    <td> {{$T}} </td>
+
+                    <td>  {{ $t }}   </td>
+                    <td>  {{ $way.enable }}   </td>
+                    <td>  {{ $way  }}</td>
+
+                    <td    >
+                        <a   class="text-link m-r-xs"
+                             ng-click="c_u_way ( $T , $t,  $way   )" >编辑</a>
+
+                        <a   class="text-link m-r-xs"  translate="bu.bu4"
+                             ng-click="del_way ( $T , $t,  $way  )" >移除</a>
+                    </td>
+                </tr>
+            </tbody>
+
+            <tbody>
+                <tr >
+                   <td colspan=5  class="text-left"   >
+                        <button      class="btn btn-success btn-sm  m-l  "
+                          ng-click=" c_u_way( ) " >
+                              添加网络参数
+                        </button>
+
+
+                       <span class="text-danger"  ng-show =" needUpdate.gateway ">
+                            <button   
+                                     class=" btn btn-sm m-l btn-primary " 
+                                     ng-click = "  updateSystem( 'gateway' );  "
+                                  
+                            >
+                             保存网络参数
+                            </button>
+                            <i class="fa  fa-exclamation-triangle  "></i> 
+                             编辑完成后请保存网络参数
+                        </span>
+                  
+                        <span  ng-show = " hasSave.gateway ">
+                           <strong  class= "text-info  m-lg"> 
+                            <i class="fa  fa-thumbs-o-up "></i> <span>保存成功!</span>  </strong>
+                        </span>
+
+
+
+
+                   </td>
+                </tr>
+
+
+
+                <tr  ng-if = "false" >
+                    <td   class="text-left  in-line">
+                         <div class="checkbox m-l m-t-none m-b-none">
+                          <label class="i-checks">
+                            <input type="checkbox" value=""  ng-model="enbaleGPS" ng-change="enbaleGpsChange()"  >
+                            <i></i>
+                                GPS
+                          </label>
+                        </div>
+                   </td>
+
+
+
+                   <td   ng-if="enbaleGPS "  colspan=2>
+
+                        <span> Distance</span>
+
+                        <select
+                            ng-model="GateWay.GPS.distance"
+                            class="  input-sm w  inline"
+                            ng-options = "  k for k  in $sys.gateway.gps_distance"
+                            ng-change=" cc() "
+                            label="Distance"
+                            >
+
+                        </select>
+
+                   </td>
+
+
+
+                   <td  ng-if="enbaleGPS "  colspan=2 >
+                        <span> 波特率</span>
+                        <select
+                            ng-model="GateWay.GPS.baud_rate"
+                            class="  input-sm w  inline"
+                             ng-change=" cc() "
+                            ng-options = "  k for k  in $sys.gateway.gps_baud_rate"
+
+                            >
+
+                        </select>
+
+                   </td>
+
+                </tr>
+
+
+
+
+
+
+            </tbody>
+   </table>
+

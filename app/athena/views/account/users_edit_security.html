@@ -1,0 +1,84 @@
+
+<div  class="panel-body hbox"  ng-controller="acco_useredit_security">
+
+    <div class="  col-sm-11 col-md-8  col-lg-6  vbox " >
+
+        <div class="col-md-3  col-xs-6   text-left   ">
+            <span class="m-l-n">服务器端警告配置:</span>
+        </div>
+
+        <div class="  btn-group col-md-9 col-xs-6  m-t-n-xs  m-b-xs "    >
+            <label class="btn  btn-sm btn-info ng-valid ng-dirty ng-pristine active" ng-model="radioModel" btn-radio=" true ">
+                <i class="fa fa-check text-active"></i>
+                ON
+            </label>
+            <label class="btn btn-sm btn-dark    ng-valid ng-dirty ng-pristine" ng-model="radioModel" btn-radio=" false ">
+                <i class="fa fa-check text-active"> </i>
+                OFF
+            </label>
+        </div>
+
+
+
+
+
+
+
+
+
+        <div   ng-show="radioModel  ">
+
+            <label class="  ">Security code should be sent to this mobile/cell phone number</label>
+
+             <div class="row" >
+                 <div class=" col-md-4  col-xs-7  ">
+                     <input ng-model="  project.projectname  " class="form-control ng-pristine ng-valid">
+                 </div>
+
+                 <div class=" col-md-8  col-xs-5">
+                     <button  class="btn btn-success btn-sm w-xs" > 发送测试短信 </button>
+                 </div>
+             </div>
+
+
+            <div  class="  row "  >
+                <div class="col-md-7">
+                         <input type="checkbox"  name="" checked>   A Text SMS has been successfully received.   <br>
+                </div>
+
+                <div class="col-md-7">
+                    <strong> &nbsp;&nbsp;&nbsp;&nbsp;Generate new recovery codes</strong>
+                    You can genereate new set of recovery codes that can be used to login in when SMS/text message
+                    to the mobile phone can't be used. When generating a new set of recovery codes the old ones will be
+                    obsolete.
+
+                </div>
+            </div>
+        </div>
+
+        <div class="text-left m-t-md ">
+            <button class="btn btn-hex btn-success  w-xs "  ng-click=" done() " >保存</button>
+            <button class="btn btn-hex btn-success w-xs "  ng-click=" cancel() " >取消</button>
+        </div>
+
+    </div>
+
+    <div class="col-md-4 hidden-sm hidden-md">
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

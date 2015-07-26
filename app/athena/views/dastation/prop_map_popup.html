@@ -1,0 +1,49 @@
+  
+ <div  style="    padding-top : 10px; width:300px "  >
+	 
+	<div  class="row  m-n  b-b line-dashed "  >
+		<div  class=" col-sm-5 " >采集站:</div>
+		<div  class=" col-sm-7  " >  
+			 <a href="#/app/station/{{station_id}}/prop/_basic" class="text-link">{{name}}</a>
+			 <i class="glyphicon glyphicon-signal  text-info  " ></i> 
+		</div>
+	</div><div  class="row  m-n  b-b line-dashed "  ng-if="false" >
+		<div  class=" col-sm-5  " >SN:</div>
+		<div  class=" col-sm-7  " >{{sn}}</div>
+	</div>
+
+	<div  class="row  m-n  b-b line-dashed "  >
+		<div  class=" col-sm-5 " >类型:</div> 
+		<div  class=" col-sm-7 " >{{type}}</div>
+	</div>
+
+	<div  class="row  m-n  b-b line-dashed "  >
+		<div  class=" col-sm-5 " >所属项目:</div>
+		<div  class=" col-sm-7 " >   {{proj_name}} </div>
+	</div>
+
+	<div  class="row  m-n  b-b line-dashed "  >
+		<div  class="col-sm-5  " >创建时间:</div>
+		<div  class=" col-sm-7 " >  {{create_time}}</div>
+	</div>
+
+	<div  class="row  m-n "  >
+		<div  class=" col-sm-5  " >备注性息:</div>
+
+	</div>	
+
+	<div  class="row  m-n " >
+		<div  class=" col-sm-12  " > 
+			<textarea  readonly class="w-full">{{desc}}</textarea>
+		</div>
+
+	</div>
+
+
+</div> 
+
+ 
+ 
+	 
+
+ 

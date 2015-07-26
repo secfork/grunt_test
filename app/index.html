@@ -1,11 +1,12 @@
 <!doctype html>
-<html class="no-js">
+<html lang="en" ng-app="app"   >
   <head>
     <meta charset="utf-8">
-    <title></title>
+     <title>ThingLinx</title>
+
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
- 
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1 "   />
+
 
     <!-- build:css(app) styles/main.css -->
          <link rel="stylesheet" href="styles/animate.css">
@@ -19,8 +20,16 @@
 
 
   </head>
-  <body ng-app="thinglinxApp">
+   <body    scroll='no'  >
+      <div class="app" id="app"
+           ng-class="   {'app-header-fixed':app.settings.headerFixed,
+                        'app-aside-fixed':app.settings.asideFixed,
+                        'app-aside-folded':app.settings.asideFolded  } "
+            ui-view  >
+      </div>
 
+
+ng-controller="AppCtrl"
   
     <div class="header">
       <div class="navbar navbar-default" role="navigation">
@@ -34,9 +43,25 @@
       </div>
     </div>
 
-    <div class="container">
-         <div ng-view=""></div>
+    <div  >
+      data = {{data}}
+      <hr/>
+        <div tlwrap ></div>
+      <hr/>
+
+         $sys = {{$sys}}
+
+
     </div>
+
+    <div class="container">
+         <div ng-view ></div>
+    </div>
+
+
+      
+  </body>
+
 
      
  
@@ -51,6 +76,6 @@
                                    src="vendor/requirejs/require.js"></script> 
             
     <!-- /process --> 
-      
-</body>
+
+    
 </html>

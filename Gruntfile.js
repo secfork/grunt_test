@@ -35,8 +35,9 @@ module.exports = function (grunt) {
         tasks: ['wiredep']
       },
       js: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
-        tasks: ['newer:jshint:all'],
+        files: ['<%= yeoman.app %>/{,**/}*.js'],
+       // tasks: ['newer:jshint:all'],
+        tasks:['requirejs'],
         options: {
           livereload: '<%= connect.options.livereload %>'
         }
@@ -237,7 +238,7 @@ module.exports = function (grunt) {
     filerev: {
       dist: {
         src: [
-          '<%= yeoman.dist %>/scripts/{,*/}*.js',
+         // '<%= yeoman.dist %>/{,*/}*.js',
           '<%= yeoman.dist %>/styles/{,*/}*.css',
          // '<%= yeoman.dist %>/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
            
@@ -300,19 +301,30 @@ module.exports = function (grunt) {
     //   }
     // },
 
-   uglify: {
-            options: {
-                mangle: true,
-                compress: true,
-                report: 'min'
+
+    uglify:{
+            options : {
+               // banner:'/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
+                sourceMapRoot: '../',
+                sourceMap:'dist/' + '.map',
+                sourceMapUrl: '.min.js.map'
             },
-            files:{
-              expand:true ,
-              cwd:"<%= yeoman.dist %>/scripts",
-              src:"{,**/}*.js", 
-              dest:"<%= yeoman.dist %>/scripts"
-            }
-        },
+    },
+
+   // uglify: {
+   //          options: {
+   //              mangle: true,
+   //              compress: true,
+   //              report: 'min'
+   //          },
+   //          files:{
+   //            expand:true ,
+   //            cwd:"<%= yeoman.dist %>/scripts",
+   //            src:"{,**/}*.js", 
+   //            dest:"<%= yeoman.dist %>/scripts"
+   //          }
+   //      },
+
 
     // concat: {
     //   dist: {}
@@ -352,7 +364,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.dist %>',
-          src: ['*.html', 'views/{,*/}*.html'],
+          src: ['*.html', 'views/{,**/}*.html'],
           dest: '<%= yeoman.dist %>'
         }]
       }
@@ -413,7 +425,7 @@ module.exports = function (grunt) {
                   dest: '<%= yeoman.dist %>',
                   src: [
                     '*.{ico,png,txt}',
-                    '*.html',
+                    '{,**/}*.html',
                     'require_config.prod.js',
 
                     //htaccess文件(或者"分布式配置文件"）提供了针对目录改变配置的方法，
@@ -449,24 +461,35 @@ module.exports = function (grunt) {
       },
 
 
-      vendor:{
-          expand: true,
-          cwd:'bower_components',
-          dest:'<%= yeoman.dist %>/vendor',
-          src:[
-               'requirejs/require.js', 
+      vendor:{ files:  [
+                        { expand: true,
+                          cwd:"app/vendor",
+                          src:"*.js",
+                          dest:"dist/vendor"
+                        },
+                        {
+                          expand: true,
+                          cwd:'bower_components',
+                          dest:'<%= yeoman.dist %>/vendor',
+                          src:[
+                               'requirejs/require.js', 
 
-              'jquery/jquery.min.js', 
-              'angular/angular.min.js',
+                              'jquery/jquery.min.js', 
+                              'angular/angular.min.js',
 
-              'lodash/lodash.min.js',  
-              'angular-bootstrap/ui-bootstrap-tpls.min.js',
+                              'lodash/lodash.min.js',  
+                              'angular-bootstrap/ui-bootstrap-tpls.min.js',
 
-              'angular-ui-router/release/angular-ui-router.min.js',
-              'angular-translate/angular-translate.min.js',
-              'angular-resource/angular-resource.min.js'
-         
-          ]
+                              'angular-ui-router/release/angular-ui-router.min.js',
+                              'angular-translate/angular-translate.min.js',
+                              'angular-resource/angular-resource.min.js',
+
+                              'angular-animate/angular-animate.min.js',
+                              'angular-cookies/angular-cookies.min.js'
+                         
+                          ]
+                        }
+                 ] 
       },
 
       styles: {
@@ -480,7 +503,7 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
-        'compass:server'
+       // 'compass:server'
       ],
       test: [
         'compass'
@@ -516,23 +539,49 @@ module.exports = function (grunt) {
     requirejs: {
           compile: {
               options: {
+                 
                   baseUrl: 'app/scripts',
+
                   mainConfigFile: 'app/require_config.js',
 
                   include: ['app', 'boot'],  // 额外的define ; 
 
                   insertRequire: ['boot'],  //  额外的 require(..);
+ 
+                  out: '<%= yeoman.dist  %>/scripts/thinglinx.js',
+
+                  //generateSourceMaps: true,
+
+                  optimize:"none",
+
+                 // stubModules: ['directive'], 
+
                   
-                  out: '<%= yeoman.dist  %>/thinglinx.js',
+
                   paths: {
+                          
+                        "scripts":".", // scripes  路径忽略; 
+
+                        "vendor":"empty:", // 忽略 wendor 路径 js 文件; 
+
+
                         'jQuery': 'empty:',
                         'angular': 'empty:',
-                        'lodash': 'empty:',
-                        
+                        'lodash': 'empty:',  
                         'angular-ui': 'empty:', 
                         'angular-ui-router': 'empty:', 
                         'angular-translate': 'empty:', 
-                        'angular-resource': 'empty:'
+                        'angular-resource': 'empty:',
+                        
+                        'angular-animate': 'empty:',
+                        'angular-cookies': 'empty:',
+
+
+
+                        'ngStorage': 'empty:',
+                        'ui-jq': 'empty:',
+                        'ui-load': 'empty:',
+                        'ui-validate': 'empty:',
 
                   }
               }
@@ -573,6 +622,24 @@ module.exports = function (grunt) {
     'karma'
   ]);
 
+
+
+  grunt.registerTask('dist', [
+        'clean:dist',
+        'useminPrepare',
+        'copy:dist', 
+        'copy:vendor', 
+        'cssmin', 
+        'requirejs',  //   
+        //'filerev', // md5 命名文件; 
+        'usemin',  
+        'processhtml',
+        'watch:js'
+  ])
+
+
+
+
   grunt.registerTask('build', [
     'clean:dist',
     
@@ -605,15 +672,22 @@ module.exports = function (grunt) {
     //'uglify',  //  拷贝 build:js ,到 dist 并压缩;  
                  //  若想不压缩; 须在copy中配置  从.tmp 拷贝到  dist ; 
                  // 无 <!-- build:js , useminPrepare 不会生成该命令 ; 想用 须手动配置;
-    //'filerev', // md5 命名文件; 
 
     'requirejs',  //   
+    //'filerev', // md5 命名文件; 
 
 
     'usemin',  // 使用 build:js , build:css  合并后的文件路径; 并使用Md5 名称;  
     // 'htmlmin' // 压缩 html 代码; 
     'processhtml'
+
   ]);
+
+
+  grunt.registerTask('r', [
+     'requirejs'
+  ]);
+
 
   grunt.registerTask('default', [
     'newer:jshint',
@@ -622,15 +696,7 @@ module.exports = function (grunt) {
   ]);
 
 
-  grunt.registerTask( "study" ,[
-        'clean:dist',
-         'wiredep',
-        'useminPrepare',
-        'autoprefixer',
-
  
-
-  ])
 
 
 };

@@ -1,0 +1,113 @@
+
+<div class="panel panel-default    ">
+
+
+      <div class="panel-heading   ">
+              <div class="input-group col-sm-4 col-sm-push-8 ">
+                  <span class="input-group-btn">
+                     <span class="btn btn-default height-30  "
+                           translate="common.search"  >搜索</span>
+                  </span>
+                  <input class="form-control input-sm" type="text"  ng-change=" filteProjByName() "  ng-model="f_projname" >
+            </div>
+      </div>
+
+
+  <div class="panel-body table-responsive no-padder">
+
+    <table class=" table   table-bordered ">
+      <thead class="flip-content"  >
+          <tr  class="background ">
+            <th >
+              <span translate="th.th21" >系统模型名称</span>
+            </th>
+
+            <th >
+              <span translate="th.th22" >版本</span>
+            </th>
+
+            <th>
+              <a  translate="th.th23">模式 mode </a>
+            </th>
+            <th>
+              <a  translate="th.th24" >创建时间
+              </a>
+            </th>
+            <th>
+              <a  translate="th.th25" > 上次更新时间
+              </a>
+            </th>
+
+            <th    translate="th.th26">  设备 个数  </th>
+            <th    translate="th.th27"> 配置  个数 </th>
+            <th    translate="th.th28"> 描述 </th>
+            <th   ></th>
+
+          </tr>
+      </thead>
+
+      <tbody class="text-center "> 
+
+          <tr  ng-repeat=" sm in page.data  "  class="hover" >
+            <td>
+              <a  ng-click=" goto( 'app.model.sysmodel_p.sysprofile' , sm , sm  )"  class="text-link"> {{sm.name}} </a>
+            </td>
+
+            <td>   {{ sm.version }}    </td>  
+
+            <td>  {{   $sys.sysModelMode.values[sm.mode]   }}   </td>
+            
+            <td>   {{ sm.create_time | date:"yyyy-MM-dd HH:mm"  }}     </td>
+            <td>   {{ sm.last_modify_time | date:"yyyy-MM-dd HH:mm" }} </td> 
+            <td>   {{ sm.device_count  }}    </td> 
+            <td>   {{sm.profile_count }}     </td>
+            <td>   {{sm.desc }}     </td>
+            <td>  
+              
+              <a   translate="bu.bu3"  class="text-link"  ng-click="updateSM( this, $index , sm  )"  > </a> 
+              <a   translate="bu.bu4"  class="text-link"  ng-click="deleteSM( $index , sm  )"  > </a> 
+
+            </td>
+ 
+          </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+
+  <div  class="panel-footer" >
+
+
+   <!--  <ng-include  src=" 'athena/views/debris/_pager.html'  "></ng-include>
+ -->
+    <button      class="btn btn-info btn-sm  m-l  "  ng-click=" createSM() " >
+      新建系统模型
+    </button>
+
+
+  </div>
+
+
+</div>
+
+
+<div ng-if="$debug">
+  page ={{page}}
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

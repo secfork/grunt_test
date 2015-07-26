@@ -1,0 +1,27 @@
+<div class="modal-header ">
+    <h4  >添加用户</h4> 
+
+</div>
+
+<div class="modal-body  ">
+
+    <form name="form" class=" form-validation form-horizontal   ">
+
+        <input type="submit" class="hidden"> 
+
+        <select  tl-wrap required  ng-model="d.projId" label="工程"
+ ng-options = "  p.id as p.projName for p in projs"
+        >
+            <option value="">--选择工程--</option>
+        </select>
+
+        <select tl-wrap required  ng-model="d.roleId" label="角色"
+                ng-options = " o.id as (o.name ) for o in roles"
+        >
+            <option value="">--选择角色--</option>
+         </select>
+
+    </form>
+</div>
+
+<ng-include src=" 'athena/views/debris/_modal_footer.html' "></ng-include>

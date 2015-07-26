@@ -1,0 +1,32 @@
+
+<div class="container w-xl w-auto-xs"   style="background-color : rgb(224, 224, 224) ; border-radius: 5px ;" >
+  <a href class="navbar-brand block m-t">
+   <!-- {{app.name}}-->
+    <img src="img/logo_2.png"   >
+  </a>
+  <div class="m-b-lg">
+    <div class="wrapper text-center">
+      <strong>请输入您用于找回密码的邮箱</strong>
+    </div>
+    <form name="reset" ng-init="isCollapsed=true">
+      <div class="list-group list-group-sm">
+        <div class="list-group-item">
+          <input type="email" placeholder="Email" ng-model="email" class="form-control no-border" required >
+        </div>
+      </div>
+      <button type="submit" ng-disabled="reset.$invalid" class="btn btn-lg btn-primary btn-block"
+              ng-click=" sendEmail() " >发送</button>
+    </form>
+
+    <div collapse="isCollapsed" class="m-t">
+      <div class="alert alert-success text-center"  style="padding: 10px 2px">
+        <p>
+            重置密码连接已发送到您邮箱   <br>
+            <a ui-sref="access.signin" class="btn btn-lg btn-success btn-block  " style="margin: 10px 0px">Sign in</a>
+        </p>
+      </div>
+    </div>
+
+  </div>
+  <div class="text-center" ng-include="'page_footer.html'"></div>
+</div>

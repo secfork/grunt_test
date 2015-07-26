@@ -1,0 +1,122 @@
+<div class="panel-body  col-lg-12 " id="profile_edit">
+
+    <div class="row ">
+
+        <label class=" col-md-2   col-sm-3 m-t-xs text-right " translate="nav.manage_chi.profile">
+            配置项
+        </label>
+        <!-- ng-disabled =" !isedit"-->
+        <div class="col-md-4 col-sm-8 m-b-xs">
+            <input ng-if=" isedit" class="form-control  " ng-model="profile.name" required>  </input>
+            <div ng-if=" !isedit" class="m-t-xs"> {{ profile.name }}</div>
+        </div>
+        <!--
+           <div class="col-md-2  col-sm-3">
+               <button  class="btn  btn-sm btn-info">保存</button>
+           </div>
+           -->
+    </div>
+
+    <div class="row ">
+
+        <label class=" col-md-2   col-sm-3 m-t-xs text-right ">
+            已连接的模版
+        </label>
+        <!-- ng-disabled =" !isedit"-->
+        <div class="col-md-4 col-sm-8  " style="
+            background-color: white;
+            padding: 5px;
+            border: 1px solid  #DDDDDD  ;
+            border-radius: 5px;
+            min-height: 45px;
+        ">
+            <!-- selectTemp( temp ,$index)  op_temp = temp  -->
+            <div  class="btn-group m-b-xs m-l-xs" ng-repeat="  temp in profile.temps"   >
+                <button class=" btn  btn-default  btn-sm"
+                        ng-class="{'btn-info': op_temp.template_id == temp.template_id}"
+                        ng-click=" selectTemp( temp ,$index)  "
+                        >{{temp.name}}</button>
+
+                <button class="btn  btn-default  btn-sm "  ng-show="op_temp.template_id == temp.template_id"
+                        ng-class="{'btn-info': op_temp.template_id == temp.template_id}"
+                        ng-click=" stripTemp( temp , $index ) "
+                        > <i class="glyphicon glyphicon-remove "></i></button>
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <div class="row  m-t-sm"  ng-if="false">
+
+        <label class="col-md-2 col-sm-3 m-t-xs text-right ">
+            已连接的模版
+        </label>
+
+        <div class="col-md-4   col-sm-8   ">
+            <!-- <input    class="form-control  " ng-model="dastation.name" required    >  </input>
+
+              ng-options="  o  as  o.name   for o in profile.temps"
+
+            -->
+            <select class="form-control  " ng-model="op_temp "
+                    ng-options="  o  as  o.name   for o in profile.temps"
+                    >
+            </select>
+
+            <!--<input class="form-control" ng-model="dastation.deviceno" required>-->
+            <select ui-jq="chosen" multiple class=" w-full" ng-model="xxxx">
+                <option value="AK">f分骄傲i俄方姐啊饿哦if</option>
+                <option value="HI">Hawaiawaiawaiawaiawaiawaiawaiawaii</option>
+                <option value="CA">Caawaiawaiawaiawaiawaiawaiawaiawaiawairnia</option>
+                <option value="NV">Neawaiawaiawaiawaiawaiawaiawaida</option>
+                <option value="OR">Orawaiawaiawaiawaiawaiawaiegon</option>
+                <option value="WA">Washawaiawaiawaiawaiawaiawaiawaiington</option>
+                <!--<option  ng-repeat=" temp in temps " value= {{ temp.id }}>{{temp.name }}</option>-->
+            </select>
+        </div>
+    </div>
+
+
+    <div class=" row m-t-sm" ng-if=" isedit ">
+        <div class="  col-md-offset-2  col-sm-offset-3 ">
+            <button class="btn btn-sm btn-info  m-l w-xs " ng-click=" done() "> 保存</button>
+        </div>
+    </div>
+
+
+    <div class="line line-dashed b-b"></div>
+
+
+    <!-- 表格 -->
+    <div class="m-t-xs  m-l-n-sm m-r-n-sm ">
+        <ul class="nav  nav-tabs   ">
+            <li ui-sref-active="active">
+                <a ui-sref="app.profile.edit._dev"> 受控设备 </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.profile.edit._profpoint">日志记录</a>
+            </li>
+
+            <!--    <li  ui-sref-active="active"    >
+                    <a  ui-sref="app.profile.edit._visual"  >可视化</a>
+                </li>
+            -->
+            <li ui-sref-active="active">
+                <a ui-sref="app.profile.edit._alarm">警告 </a>
+            </li>
+            <!-- <li  ui-sref-active="active" >
+                 <a  ui-sref="app.profile.edit._gatway"  >网关配置 </a>
+             </li>-->
+        </ul>
+        <div ui-view class=" panel panel-default b-white "></div>
+    </div>
+
+
+</div>
+
+<div ng-if="$debug">
+    op_temp = {{op_temp}} <br/>
+    opt = {{opt}}
+</div>

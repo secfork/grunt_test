@@ -1,0 +1,65 @@
+<div class="  panel-body padding-0  table-responsive b-white ">
+    <table class=" table   table-bordered  table-condensed   ">
+        <thead class="flip-content">
+        <tr> 
+             <th  >模版点</th>
+
+            <th  >触发条件</th>
+            <th  >严重性</th>
+            <th  >备注</th>
+            <th >活动</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr  ng-repeat=" alarm in  profAlarmPoints  | pageLimit:currentPage ">
+            <td> {{  alarm.pointname }}</td>
+
+            <td> {{ $sys.alarmtype.values[ alarm.type ].k }} {{  alarm.params }} </td>
+
+            <td> {{ $sys.alarm_sev.values[ alarm.severity ].k }}  </td>
+            <td> {{alarm.desc}} </td>
+            <td>
+                <a class="  text-link" ng-click="updateProfAlarmPoint(this , alarm, $index )">编辑</a>
+                <a class="  text-link" ng-click="delPropAlarmPoint( alarm , $index )">删除</a>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+</div>
+
+<div class="panel-footer padding-5"   ng-init="currentPage=1" >
+    
+        <pagination  
+                class="pagination-sm m-t-none"  
+                
+                total-items="profAlarmPoints.length"
+
+                ng-model="currentPage"  
+                items-per-page = "$sys.pager.itemsPerPage"
+                 
+                num-pages="page.numPages"
+ 
+     
+                max-size="10"
+                boundary-links="true" 
+                rotate="false" 
+
+                firstText = "首页"
+                previousText = "上一页"
+                nextText = "下一页"
+                lastText  =  "尾页"  
+        >
+        </pagination>   
+
+
+
+    <button class="btn btn-info btn-sm m-l"  style="position: absolute;" ng-click=" addProfAlarmPoint(this) "> 添加警报参数</button>
+
+
+
+</div>
+
+
+      

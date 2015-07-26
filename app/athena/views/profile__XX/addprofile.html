@@ -1,0 +1,71 @@
+<!--  替换采集站  弹出窗口   -->
+
+<div  class="panel-body hbox">
+    <div class=" col-md-2    hidden-sm  hidden-md">
+    </div>
+
+    <div class="  col-sm-11 col-md-8  col-lg-6 ">
+    <form  name="form"  class="form-horizontal form-validation  m-t-sm  "  >
+
+
+        <div class="   text-center ">
+            <h4   >添加配置项</h4>
+        </div>
+
+  <!--      <div class="line line-dashed  b-b"></div>-->
+
+
+        <input  tl-wrap-l label="配置项名称"  ng-model="profile.name"  required="" >
+
+
+
+
+     <!--   <div class="form-group">
+            <label class="   col-sm-3 control-label"> 协议类型
+            </label>
+
+            <div class=" col-sm-9">
+                <select  class="form-control"   ng-model="drivertype"
+                         ng-options="  obj.v   as obj.k  for  obj  in type   "
+                ></select>
+            </div>
+        </div>-->
+
+
+
+
+    <!--    <div class="form-group">
+            <label class="   col-sm-3 control-label">模版
+            </label>
+
+            <div class=" col-sm-9">
+                <select  class="form-control"   ng-model="profile.template_id"    required
+                         ng-options="  obj.template_id as obj.name for obj  in template"
+                ></select>
+            </div>
+        </div>
+-->
+        <textarea tl-wrap-l label="备注"  ng-model="profile.desc" style="resize:vertical"
+                  placeholder=" 不应超过100字符"
+                ></textarea>
+
+
+
+         <div class="col-md-offset-2  text-center ">
+             <button  class="btn btn-sm btn-info m-l-xs w-xs "  ng-click="createProfile()">保存</button>
+         </div>
+
+          <div ng-if="debug">
+            {{  form_addprof | json  }}      <br>
+            {{ profile | json  }}
+         </div>
+
+    </form>
+
+    </div>
+
+    <div class="col-md-4 hidden-sm hidden-md">
+</div>
+
+</div>
+
