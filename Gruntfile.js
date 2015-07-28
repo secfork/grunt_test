@@ -310,7 +310,8 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.dist %>',
-          src: ['*.html'],
+          src: ['*.html' , 'athena/{,**/}*.html'],
+         // src: [  'athena/views/dastation/*.html'],
           dest: '<%= yeoman.dist %>'
         }]
       }
