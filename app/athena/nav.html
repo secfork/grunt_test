@@ -1,0 +1,319 @@
+<ul class="nav">
+
+<li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+    <span><h5 translate="nav.a">展示</h5></span>
+</li>
+
+
+<!-- <li ng-class="{active:$state.includes('app.alarm')}"> --> 
+<li ng-class="{active:$state.includes('app.show')}">
+
+    <a href class="auto">
+          <span class="pull-right text-muted">
+            <i class="fa fa-fw fa-angle-right text"></i>
+            <i class="fa fa-fw fa-angle-down text-active"></i>
+          </span>
+          <i class="  fa fa-bell  text-info-dk"></i>
+          <span>系统</span>
+    </a>
+
+    <ul class="nav nav-sub dk">
+        <li ui-sref-active="active">
+            <a  ui-sref="app.show.proj">
+                <span   > 区域</span>
+            </a>
+        </li>
+
+        <li ui-sref-active="active">
+            <a  ui-sref="app.show.system({isactive:'1'})"  >
+                <span    > 系统</span>
+            </a>
+        </li>
+    </ul>
+</li>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+<li ng-class="{active:$state.includes('app.alarm')}">
+    <a href class="auto">
+          <span class="pull-right text-muted">
+            <i class="fa fa-fw fa-angle-right text"></i>
+            <i class="fa fa-fw fa-angle-down text-active"></i>
+          </span>
+          <i class="  fa fa-bell  text-info-dk"></i>
+          <span translate = "nav.f">所有报警</span>
+    </a>
+
+    <ul class="nav nav-sub dk">
+        <li ui-sref-active="active">
+            <a ui-sref="app.alarm.a">
+                <span  translate="nav.f1"> 实时报警</span>
+            </a>
+        </li>
+
+        <li ui-sref-active="active">
+            <a ui-sref="app.alarm.b">
+                <span  translate="nav.f2" > 历史报警</span>
+            </a>
+        </li>
+    </ul>
+</li>
+
+
+<li ng-class="{active:$state.includes('app.table')}"  ng-if="false">
+    <a href class="auto">
+        <span class="pull-right text-muted">
+            <i class="fa fa-fw fa-angle-right text"></i>
+            <i class="fa fa-fw fa-angle-down text-active"></i>
+        </span>
+        <i class=" fa fa-gear   text-info-dk"></i>
+        <span  >设备管理</span>
+    </a>
+    <ul class="nav nav-sub dk">
+
+        <li ui-sref-active="active">
+            <a ui-sref="app.table.a">
+                <span  > 设备台账</span>
+            </a>
+        </li>
+
+        <li ui-sref-active="active">
+            <a ui-sref="app.table.b">
+                <span  > 设备备件记录</span>
+            </a>
+        </li>
+
+        <li ui-sref-active="active">
+            <a ui-sref="app.table.c">
+                <span  > 设备资料库</span>
+            </a>
+        </li>
+
+        <li ui-sref-active="active">
+            <a ui-sref="app.table.d">
+                <span  > 设备维修记录日志</span>
+            </a>
+        </li>
+
+        <li ui-sref-active="active">
+            <a ui-sref="app.table.e">
+                <span  > 设备运行报告</span>
+            </a>
+        </li>
+
+        <li ui-sref-active="active">
+            <a ui-sref="app.table.f">
+                <span  > 历史数据报表</span>
+            </a>
+        </li>
+
+        <li ui-sref-active="active">
+            <a ui-sref="app.table.g">
+                <span  > 故障分析报告</span>
+            </a>
+        </li>
+
+        <li ui-sref-active="active">
+            <a ui-sref="app.table.h">
+                <span  > 设备巡检记录</span>
+            </a>
+        </li>
+
+
+
+    </ul>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--    <li class="line dk hidden-folded"></li>
+
+    <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+        <span> <h5 translate="nav.report">报告</h5>  </span>
+    </li>
+    <li ui-sref-active="active">
+        <a ui-sref="app.report.report">
+            <i class=" icon-bag     text-info-dker"></i>
+            <span translate="nav.report_chi.report"> 报告</span>
+        </a>
+    </li>
+    <li ui-sref-active="active">
+        <a ui-sref="app.report.addreport">
+            <i class=" icon-bag    text-info-dker"></i>
+            &lt;!&ndash; <b class="badge bg-info pull-right">3</b>&ndash;&gt;
+            <span translate="nav.report_chi.cratereport">创建报告</span>
+        </a>
+    </li>
+    -->
+
+
+
+<li class="line dk hidden-folded"></li>
+
+<li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+    <h5 translate="nav.b"> 管理 </h5>
+    <!-- <span translate="nav.manage" >  管理   </span>-->
+</li>
+
+
+
+  <!--  "g":"系统",
+      "g1":"区域",
+      "g2":"活跃系统",
+      "g3":"非活跃系统",
+      "g4":"添加系统", -->
+
+<!-- <li  > -->
+ <li ng-class="{active:$state.includes('app.proj') || $state.includes('app.station') }">
+
+    <a href class="auto">
+          <span class="pull-right text-muted">
+               <i class="fa fa-fw fa-angle-right text"></i>
+               <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+        <i class="glyphicon glyphicon-th-large icon  text-info-lter"></i>
+        <span translate="nav.g">系统</span>
+    </a>
+    <ul class="nav nav-sub dk">
+        <li ui-sref-active="active">
+            <a ui-sref="app.proj.manage">
+                <span translate="nav.g1">  区域 </span>
+            </a>
+        </li>
+
+        <li ui-sref-active="active">
+            <a ui-sref="app.proj.addproj">
+                <!-- <b class="badge bg-info pull-right">3</b>-->
+                <span translate="nav.g5">添加区域</span>
+            </a>
+        </li>
+
+        <li ui-sref-active="active">
+            <a ui-sref="app.station.active({isactive:'1'})" >
+                <!-- <b class="badge bg-info pull-right">3</b>-->
+                <span translate="nav.g2">活跃系统</span>
+            </a>
+        </li>
+        <li ui-sref-active="active">
+            <a ui-sref="app.station.unactive({isactive:'0'})" >
+                <!-- <b class="badge bg-info pull-right">3</b>-->
+                <span translate="nav.g3">非活跃系统</span>
+            </a>
+        </li>
+
+        <li ui-sref-active="active">
+            <a ui-sref="app.station.add">
+                <span translate="nav.g4">添加系统</span>
+            </a>
+        </li>  
+
+
+
+    </ul>
+</li>
+
+ 
+ 
+
+ <li ng-class="{active: $state.includes('app.model')} ">
+
+    <a href class="auto">
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+        <i class=" fa fa-paper-plane text-info-dker"></i>
+        <span translate="nav.c">模型 , 配置项</span>
+    </a>
+    <ul class="nav nav-sub dk">
+
+
+        <li ui-sref-active="active">
+            <a  ui-sref="app.model.sysmodel" >
+                <span translate="nav.c2"> 系统模型</span>
+            </a>
+        </li>
+
+        <li ui-sref-active="active">
+            <a ui-sref="app.model.devmodel" >
+                <span translate="nav.c1"> 设备模型</span>
+            </a>
+        </li>
+
+    </ul>
+</li>
+
+ 
+
+ <li ng-class="{active:$state.includes('app.account')}">
+<!-- <li  >   -->
+    <a href class="auto">
+              <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+              </span>
+        <i class=" glyphicon glyphicon-user text-info-dker"></i>
+        <span translate="nav.u">用户</span>
+    </a>
+
+    <ul class="nav nav-sub dk">
+
+        <li ui-sref-active="active">
+            <a ui-sref="app.account.info">
+                <span translate="nav.u1"> 信息</span>
+            </a>
+        </li>
+
+
+     <!--  
+       <li ui-sref-active="active"  >
+            <a ui-sref="app.account.promise._billing">
+                 <b class="badge bg-info pull-right">3</b>
+                <span translate="nav.u2">许可</span>
+            </a>
+        </li>
+ -->
+
+        <li ui-sref-active="active">
+            <a ui-sref="app.account.user._all({why:''})">
+                <span translate="nav.u3">用户</span>
+            </a>
+        </li>
+
+        <li ui-sref-active="active">
+            <a ui-sref="app.account.author">
+                <span translate="nav.u4" >权限</span>
+            </a>
+        </li>
+ 
+ 
+    </ul>
+</li>
+
+
+</ul>
+
+

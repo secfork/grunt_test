@@ -1,0 +1,182 @@
+
+ 
+ 
+
+<!--      <div class="panel-heading  float-left w-full  ">
+                
+             <div class="float-left m-t-xs m-l-md m-r"> 配置项
+             </div>     
+             <div class="float-left"> 
+                <select     ng-model="profile" 
+                              class=" form-control  input-sm w   " 
+                              ng-options="   p as p.name for p in profiles  "   
+                              ng-change="loadSysTag( profile )"
+                         >
+                              
+                </select>  
+             </div>      
+
+    </div>  --> 
+
+    <div class="panel-body table-responsive no-padder">
+
+        <table class=" table   table-bordered " >
+
+            <thead class="flip-content"  >
+                <tr  > 
+                        <th  width="15%" > 串口   </th>
+                        <th  width="15%" > 波特率       </th> 
+
+                        <th  width="15%"  > data_bits</th> 
+                       <!--  <th   >组</th> -->
+                       
+                        <th  width="15%"  > stop_bits </th>
+
+                        <th  width="15%" > parity </th>
+                        <th  width="15%" >delay </th>  
+                        <th  width="10%" ></th> 
+                </tr>
+            </thead> 
+
+            <tbody class="text-center "  ng-repeat=" ($T,$W) in GateWay "  class="b-b-none" 
+                ng-if = " $T !='GPS' "
+             > 
+                 
+                 <tr  ng-repeat ="($t,$data) in $W"  class="hover"  >
+      
+                    <td>  {{ $t }}   </td>
+                    <td>  {{$data.baud_rate}}</td>
+                    <td>  {{$data.data_bits}}</td>
+                    <td>  {{$data.stop_bits}}</td>
+                    <td>  {{$data.parity}}</td>
+                    <td>  {{$data.delay}}</td>   
+
+                    <td>
+                        <a   class="text-link m-r-xs"     
+                             ng-click="c_u_Gateway(  $T , $t , $data  )" >编辑</a> 
+
+                        <a   class="text-link m-r-xs"  translate="bu.bu4" 
+                             ng-click="deleteGateway( $T, $t, $data   )" >移除</a> 
+
+                    </td> 
+                  </tr>   
+            </tbody> 
+
+
+
+
+            <tbody>
+
+
+                <tr >
+                   <td colspan=7 class="text-left"  ng-if="!canAddPort">
+                        <button      class="btn btn-success btn-xs  m-l  " 
+                         ng-click=" c_u_Gateway( ) " >
+                              添加串口 
+                        </button> 
+                   </td>
+                </tr>
+
+                <tr  >
+                    <td   class="text-left  in-line"> 
+                         <div class="checkbox m-l m-t-none m-b-none">
+                          <label class="i-checks">
+                            <input type="checkbox" value=""  ng-model="enbaleGPS" 
+                                 ng-change="gpsChange()"  >
+                            <i></i>
+                                GPS
+                          </label>
+                        </div>  
+                   </td>  
+
+
+
+                   <td   ng-if="enbaleGPS "  colspan=2>  
+
+                        <span> Distance</span>
+
+                        <select  
+                            ng-model="GateWay.GPS.distance"
+                            class="  input-sm w  inline"
+                            ng-options = "  k for k  in $sys.gateway.gps_distance"
+                            ng-change=" cc() "
+                            label="Distance"
+                            >
+  
+                        </select>
+
+                   </td> 
+
+ 
+
+                   <td  ng-if="enbaleGPS "  colspan=2 >
+                        <span> 波特率</span>   
+                        <select  
+                            ng-model="GateWay.GPS.baud_rate"
+                            class="  input-sm w  inline"
+                             ng-change=" cc() "
+                            ng-options = "  k for k  in $sys.gateway.gps_baud_rate"
+                            
+                            >
+
+                        </select>
+
+                   </td>    
+
+                </tr> 
+            </tbody> 
+        </table> 
+
+
+
+    </div>  
+
+  <div  class="panel-footer" >  
+
+    
+      <div ng-show="needUpdate"  >
+       <button     class="btn btn-info  btn-sm  w-xs m-l  "   token
+                     ng-click=" saveGateWay( ) " >
+                          保存网关设置
+                    </button> 
+
+        <strong class="text-danger m-l" ><i class="fa fa-exclamation-triangle"></i><span > 网关配置需要保存!!</span> </strong>
+
+      </div>
+
+      <div  ng-show = " haveSave  &&  !needUpdate ">
+         <strong  class= "text-info  m-lg"> <i class="fa  fa-thumbs-o-up "></i> <span>保存成功!</span>  </strong>
+      </div>
+
+
+    <!--    <ng-include  src=" 'athena/views/debris/_pager.html'  "></ng-include>   -->
+
+    
+   </div>  
+
+
+
+
+ 
+
+ 
+<div ng-if="$debug" >
+  needUpdate = {{needUpdate}}  <br>
+     GateWay = {{GateWay}}  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

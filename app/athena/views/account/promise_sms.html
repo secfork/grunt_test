@@ -1,0 +1,81 @@
+
+<!--<div class="panel panel-default">-->
+<div class="panel-body  table-responsive   b-white  padding-0">
+    <table class=" table  table-hover table-striped  table-bordered      ">
+        <thead class="flip-content">
+        <tr>
+            <th  width="20%"  >短信证书码</th>
+            <th  width="20%"  >订单号</th>
+            <th  width="20%"  >信息</th>
+            <th  width="15%"  >已使用</th>
+            <th  width="15%"  >添加日期</th>
+            <th  width="10%"  >选择</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td>  Modbus总线  </td>
+            <td>  DATAKOM - DKG-705   </td>
+            <td>  DATAKOM - DKG-705   </td>
+            <td>  DATAKOM - DKG-705   </td>
+            <td>  DATAKOM - DKG-705   </td>
+            <td   class="text-center"  >
+                <input  type="radio" name="smscode">
+            </td>
+        </tr>
+        <tr>
+            <td>  Modbus总线  </td>
+            <td>  DATAKOM - DKG-705   </td>
+            <td>  DATAKOM - DKG-705   </td>
+            <td>  DATAKOM - DKG-705   </td>
+            <td>  DATAKOM - DKG-705   </td>
+            <td   class="text-center"  >
+                <input  type="radio" name="smscode">
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+    <div   class="panel-footer  "  style="padding: 5px 5px"   >
+        <button class="btn btn-info  btn-sm"  ng-click=" addSmsNo() " > 添加短信证书码 </button>
+        <button class="btn btn-info  btn-sm"  ng-click=" useSmsNo() " > 使用短信证书码 </button>
+    </div>
+</div>
+
+<!--</div>-->
+
+
+<div  class="panel panel-info">
+
+    <div class="panel-heading  padding-5" >
+        资源池
+    </div>
+
+    <div class="panel-body table-responsive  padding-0  ">
+        <table class=" table  table-hover table-striped  table-bordered      ">
+            <thead class="flip-content">
+            <tr>
+                <th  width="30%"  > 资源池名称  </th>
+                <th  width="20%"  > 信息 </th>
+                <th  width="20%"  > 资源池中剩余短信数量 </th>
+                <th  width="5%"  class=" number ">选择</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>  Modbus总线  </td>
+                <td>  DATAKOM - DKG-705  </td>
+                <td>   705  </td>
+                <td  class="text-center" >
+                    <input  type="checkbox" name="smsPool">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

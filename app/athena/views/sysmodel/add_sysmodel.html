@@ -1,0 +1,42 @@
+<!--  添加  sysmodel  -->
+
+<div class="modal-header ">
+    <h4 ng-if="isAdd">新建系统模型</h4>
+    <h4 ng-if="!isAdd">编辑系统模型</h4>
+
+</div> 
+
+<div class="modal-body  ">
+
+    <form name="form"     class=" form-validation form-horizontal   ">
+
+        <!-- <input type="submit" class="hidden">  -->
+
+        <input tl-wrap   ng-model="sm.name"   
+                
+               label="系统模型名称"  
+               required 
+               > 
+ 
+        <select  tl-wrap ng-model="sm.mode"   
+                 ng-if="isAdd" 
+                 ng-options=" k as v  for (k,v) in $sys.sysModelMode.values"
+        	       tl-default = "$sys.sysModelMode.default"
+                 label="text.mode"  required  
+        >
+        </select>
+
+        <textarea    tl-wrap  ng-model="sm.desc" label="备注" >  </textarea>
+ 
+      
+    </form>
+<div ng-if="$debug">
+   sm= {{sm}} <br>
+    isAdd = {{isAdd}}
+</div>
+    
+</div>
+
+<ng-include src=" 'athena/views/debris/_modal_footer.html' "></ng-include>
+
+
