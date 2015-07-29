@@ -1,7 +1,7 @@
 /* Controllers   单独的modul  ; 其他控制器 属于app模块 */
 
 
-angular.module('app.controllers', [])
+angular.module('app.basecontroller', [])
   .controller('AppCtrl', ['$scope', '$translate', '$localStorage', '$window', '$modal',
     '$account', '$state',
     "$timeout", '$sessionStorage', '$source', "$project", "$q",
@@ -49,20 +49,22 @@ angular.module('app.controllers', [])
 
       // click 跳转 , 第一个  必须为 state ,
       //               第二个 必须是 params || null ; ,
-      //              第三个以后 ( 可多个) 是 cache
-
+      //              第三个以后 ( 可多个) 是 cache,   
+      // 参数可以是: ( a, b, c, d ) 或者 (a, b, [c,d])
       $scope.goto = function () {
         var state = arguments[0],
           params = arguments[1], //
           value = arguments[2];
 
         if (value) {
-          var v = Array.prototype.splice.call(arguments, 2)
+          var v =  angular.isArray(value)? value : Array.prototype.splice.call(arguments, 2)
           $sessionStorage.cache = v;
           $scope.$$cache = v;
         }
         $state.go(state, params);
       }
+
+
       // 自动存入 sessionStorage  ;
       $scope.$watch("$$cache", function (n, o) {
         console._log("放入 sessionStorage 数据", n);
@@ -158,11 +160,7 @@ angular.module('app.controllers', [])
       //===================================================================================
       //===================================================================================
 
-      /* if( $sessionStorage.navs){
-       $scope.navs = $sessionStorage.navs ;
-       }else{
-       $sessionStorage.navs = [] ;
-       }*/
+    
 
       if (!$sessionStorage.navs) {
         $sessionStorage.navs = [];
@@ -227,8 +225,6 @@ angular.module('app.controllers', [])
         if ($scope.navs[$scope.navs.length - 1].title != $title) {
           pushNav(transState($title, $state));
         }
-        console._log($scope.navs, $sessionStorage);
-
       };
 
       // (tab 类型 )替换最后一个 nav;
@@ -254,18 +250,7 @@ angular.module('app.controllers', [])
         //$state.go();
       };
 
-
-      // 弹出框 管理;
-      $scope.popupWindow = function (cfg) {
-        $modal.open({
-          templateUrl: cfg.tmeplateUrl, //'athena/views/file_upload_temp.html',
-          controller: function () {
-          },
-          size: cfg.size, //size
-          resolve: cfg.resolve
-        });
-      };
-
+ 
       // 关闭弹出 window
       $scope.cancel = function () {
         this.$modalInstance.dismiss('cancel');
@@ -332,27 +317,6 @@ angular.module('app.controllers', [])
             next();
           })
         })
-
-
-        /*  $modal.open({
-         templateUrl: 'athena/views/dastation/station_efficacy.html',
-         size: "md", //
-         resolve: {
-         station: function() {
-         return station
-         }
-         },
-         controller: function($scope, $modalInstance, station) {
-         $scope.station = station;
-         console._log("effStation 采集占失效 有效 失败;  ");
-
-         $scope.cancel = function() {
-         $modalInstance.dismiss('cancel')
-         };
-
-
-         }
-         });*/
       };
 
 
@@ -471,29 +435,7 @@ angular.module('app.controllers', [])
             alert(angular.toJson(resp))
           });
         }
-
-
       }
-
-
-      // 弹出展示属性;
-      $scope.popup2ShowProps = function (title, props) {
-        $modal.open({
-          templateUrl: '../../debris/prop_view.html',
-          //   resolve:{ title: function (){ return  title } ,  props: function (){ return props} } ,
-          //   controller: function( $scope ,$modalInstance , title , props  ){
-          controller: function ($scope, $modalInstance) {
-            console._log("  delStation  ");
-            $scope.cancel = function () {
-              $modalInstance.dismiss('cancel')
-            };
-            console._log(props);
-            $scope.props = props;
-            $scope.title = title;
-
-          }
-        });
-      };
 
       /**
        * msg = { title : '标题' , note:  注释 , warn: 警告  }
@@ -518,75 +460,14 @@ angular.module('app.controllers', [])
           }
         });
       };
-
-
-      //************** tip 显隐 ************************************
-
-      var tipDom, b, pos, x, y, _x, _y;
-      $scope.showTip = function (type, version, params, $ele) {
-        if (null == params) return;
-
-        if (!tipDom) tipDom = $("#tip_dom");
-
-        $scope.$apply(function () {
-          pos = $ele.offset();
-          try {
-            b = angular.fromJson(params);
-            // tip 为数字, json 串 ;
-            angular.isNumber(b) ? (
-              $scope.tip_params = undefined,
-                $scope.tip_msg = b
-            ) : ( // json 对象;
-              $scope.tip_params = b,
-                $scope.tip_msg = undefined
-            );
-
-            $scope.type = type;
-            $scope.version = version;
-            console.log(type, version);
-          } catch (e) {
-            // tip 为 字符串;
-            $scope.tip_params = undefined;
-            $scope.tip_msg = params + "";
-          }
-          tipDom.show();
-          $timeout(function () {
-            x = tipDom.innerWidth(),
-              y = tipDom.innerHeight(),
-              _x = $ele.innerWidth(),
-              _y = $ele.innerHeight();
-            tipDom.offset({
-              top: pos.top - y - 10,
-              left: pos.left + (_x - x) / 2
-            });
-          }, 10)
-        });
-
-      };
-
-      $scope.hiddenTip = function () {
-        $scope.$apply(function () {
-          $scope.tip_params = undefined;
-          $scope.tip_msg = undefined;
-          tipDom.offset({
-            left: -300
-          });
-        });
-      };
-
+ 
 
       //********************
 
     }
   ])
 
-
-  .controller("app_xx", function ($scope, $state) {
-    console._log("app");
-
-
-  })
-
+ 
   .controller("access_signin", function ($scope, $account, $state, $timeout, $localStorage, $sys, $sessionStorage) {
 
     console._log("sign controller");
@@ -713,21 +594,7 @@ angular.module('app.controllers', [])
     };
   })
 
-  .controller('CarouselDemoCtrl', ['$scope', function ($scope) {
-    $scope.myInterval = 555000;
-    var slides = $scope.slides = [];
-    $scope.addSlide = function () {
-      slides.push({
-        // image: 'img/c' + slides.length + '.jpg',
-        image: 'img/generator_left_' + slides.length + '.png',
-        text: ['Carousel text #0', 'Carousel text #1', 'Carousel text #2', 'Carousel text #3'][slides.length % 4]
-      });
-    };
-    for (var i = 0; i < 4; i++) {
-      $scope.addSlide();
-    }
-  }])
-
+ 
 
 
 //========================================================================
