@@ -2,7 +2,7 @@ angular.module('app.sysconfig', [], function () {
 }) 
 
 .service("$sys", function ( $translate){ return { 
-            '$debug': false ,
+            '$debug': true ,
  
 
             plotChartConfig : {

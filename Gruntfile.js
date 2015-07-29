@@ -352,10 +352,10 @@ module.exports = function (grunt) {
     // Copies remaining files to places other tasks can use
     copy: {
       dist: {
-        files: [{
+        files: [{ 
           expand: true,
           dot: true,
-          cwd: '<%= yeoman.app %>',
+          cwd: '<%= yeoman.app %>', 
           dest: '<%= yeoman.dist %>',
           src: [
             '*.{ico,png,txt}',
@@ -364,8 +364,8 @@ module.exports = function (grunt) {
             'images/{,*/}*.{webp}',
             'styles/fonts/{,*/}*.*'
 
-
             ,'{athena,fonts,img}/**'
+            ,'lib/*/**'  //  jquery 插件拷贝; 
           ]
         }, {
           expand: true,
@@ -459,4 +459,7 @@ module.exports = function (grunt) {
     'test',
     'build'
   ]);
+ 
+ 
+
 };
