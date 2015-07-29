@@ -1,7 +1,7 @@
 /* Controllers   单独的modul  ; 其他控制器 属于app模块 */
 
 
-angular.module('app.controllers', [])
+angular.module('app.basecontroller', [])
   .controller('AppCtrl', ['$scope', '$translate', '$localStorage', '$window', '$modal',
     '$account', '$state',
     "$timeout", '$sessionStorage', '$source', "$project", "$q",
@@ -225,8 +225,6 @@ angular.module('app.controllers', [])
         if ($scope.navs[$scope.navs.length - 1].title != $title) {
           pushNav(transState($title, $state));
         }
-        console._log($scope.navs, $sessionStorage);
-
       };
 
       // (tab 类型 )替换最后一个 nav;

@@ -24,10 +24,8 @@ var app = angular.module('thinglinx', [
   // "ngResource"
   // 'ngMessages',
 
-  'app.account',
-   'app.controllers',
-   'app.model.device', 'app.model.system', 'app.project',
-  'app.show.proj', 'app.show.system', 'app.system', 'app.system.prop',
+  'app.basecontroller',  'app.account',  'app.model.device', 'app.model.system', 'app.project',
+      'app.show.proj', 'app.show.system', 'app.system', 'app.system.prop',
   'app.directives',
   'app.filters',
   'app.services', 'app.sysconfig'
