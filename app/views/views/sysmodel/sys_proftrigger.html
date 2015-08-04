@@ -1,0 +1,81 @@
+ 
+
+  
+
+    <div class="panel-heading float-left w-full  "   ng-if="isModelState" > 
+
+             <div class="float-left m-t-xs m-l-md m-r"> 配置项   </div>     
+             <div class="float-left"> 
+                <select  ng-model="prof_uuid" 
+                        class=" form-control  input-sm w " 
+                        ng-options="   p.uuid as p.name for p in profiles  "   
+                        ng-change="loadTriggers( prof_uuid  )"
+                         >
+                        
+               </select> 
+             </div>      
+
+    </div>
+
+
+    <div class="panel-body table-responsive no-padder">
+
+      <table class=" table   table-bordered " >
+        <thead class="flip-content"  >
+          <tr  class="background "> 
+                    <th >  名称    </th> 
+
+                    <th>Type</th>
+                    <th > Action Type </th> 
+                   <!--  <th   >组</th> -->
+                   
+                    <th > origin </th> 
+                    
+                   
+                    <th > conditons</th>
+                    <th >  备注 </th>
+                    <th ng-if="isModelState"  >   </th>
+
+          </tr>
+        </thead>
+
+        <tbody class="text-center "  ng-init=" _config = $sys.trigger "> 
+
+          <tr  ng-repeat="    t in triggers  "  class="hover" >
+
+                <td>  {{t.name}}</td>
+                <td>  {{ _config.type[t.type]     }}</td>
+                <td>  {{ _config.action[t.action] }}</td>
+               
+                <td>  {{ _config.origin[t.origin] }}</td> 
+
+                <td >  <i class="fa fa-android  text-info-dker "  ng-clcik="showCondi( t )" ></i> </td>
+
+                <td>  {{t.desc}}</td> 
+                
+                
+
+                <td  ng-if="isModelState"  >
+                    <a   class="text-link m-r-xs"     
+                         ng-click="c_u_Trigger(  $index  , t   )" >编辑</a> 
+
+                    <a   class="text-link m-r-xs"  translate="bu.bu4" 
+                         ng-click="deleteTrigger(  $index  , t   )" >移除</a>
+ 
+
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class =" panel-fotter b-t"  ng-if="isModelState" >
+            <button      class="btn btn-success btn-sm  m-l m-t-xs m-b-xs"  ng-click=" c_u_Trigger('create') " >
+              添加触发器
+            </button>
+
+    </div>
+
+ 

@@ -95,7 +95,7 @@ angular.module('app.project', [])
 
 	console._log("proj_prop_station") ;
 
-	$scope.$popNav($scope.project.projName + "(采集站列表)", $state) ;
+	$scope.$popNav($scope.project.projName + "(系统列表)", $state) ;
 
 	$scope.updataORdel = "updata";
 
@@ -153,11 +153,10 @@ angular.module('app.project', [])
 	// var d = { currentPage:1, itemsPerPage: $sys.pager.itemsPerPage };
 	$scope.page = { currentPage: 1 };
 
-	$scope.loadPageData(1);
-
+	$scope.loadPageData(1); 
 
 	$scope.go2AddDas = function() {
-		$state.go("app.proj.prop.addstation", $stateParams);
+		$state.go("app.proj.prop.addstation");
 	};
 
 
@@ -171,7 +170,7 @@ angular.module('app.project', [])
 
 	console._log($scope);
 
-	//$scope.$popNav($stateParams.projname + "(详细属性)", $state);
+	$scope.$popNav($scope.project.projName + "(区域属性)", $state) ;
 
 
 	$scope.proj =  angular.copy( $scope.project );

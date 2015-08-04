@@ -171,6 +171,7 @@ angular.module('app.basecontroller', [])
       console._log($scope.navs);
 
       function transState($title, $state, tab) {
+        //var msg = $translate.instant("valid." + type);
         if (angular.isString($state)) {
           return {
             id: $state,
@@ -594,11 +595,59 @@ angular.module('app.basecontroller', [])
     };
   })
 
+
+
+//========================================================================
+//========================================================================
+
+
+// 联系我们; 技术支持; 问题反馈, 帮助; 
+// 在 app.html 中!
+.controller('service',  function( $scope , $modal ){
+    
+    var S = $scope;
+    //联系我们; 
+    $scope.c= function(){
+       $modal.open({
+          templateUrl:'athena/contactus.html', 
+       }) 
+    }
+
+    //使用条框; 
+    $scope.u= function(){
+      $modal.open({
+          templateUrl:'athena/useclauses.html', 
+       })
+    }
+
+    // 问题反馈;  
+    $scope.feedback = function(){
+        $modal.open({
+            templateUrl:'athena/feedback.html',
+            controller:function($scope , $modalInstance ){
+                $scope.$modalInstance = $modalInstance;
+                $scope.__proto__ = S ; 
+
+
+            }
+        })
+    }
+
+
+    // 技术支持; 
+    $scope.support = function(){
+
+
+    } 
+
+
+
+
+
+})
  
 
 
-//========================================================================
-//========================================================================
 //========================================================================
 
 ;

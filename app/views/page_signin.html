@@ -1,0 +1,93 @@
+<!--
+background-image:url('./img/generator_left_1.png');
+background-repeat: no-repeat;
+background-size: auto;
+background-clip: content-box ;
+
+   <div ng-controller="CarouselDemoCtrl"  style="
+            width: 500px;height: 400px;
+            background-image:url('./img/generator_left_1.png');
+            background-repeat: no-repeat;
+            background-size: auto;
+            background-clip: content-box ; "
+                 >
+
+         </div>
+
+    <div ng-controller="CarouselDemoCtrl"  style="
+            width: 500px;height: 400px;
+            background-image:url('./img/generator_left_1.png');
+            background-repeat: no-repeat;
+            background-size: auto;
+            background-clip: content-box ; "
+                 >
+
+         </div>
+-->
+
+<div class=" container w-xxl w-auto-xs ">
+    <a href class="navbar-brand block m-t " style="font-size: 35px">
+        <!--  {{app.name}}-->
+        <img src="img/logo_2.png">
+    </a>
+
+    <div>
+        <div class="m-b-lg">
+            <div class="wrapper text-center">
+            </div>
+            <form name="form"  >
+
+
+                <div class="list-group list-group-sm">
+                    <div class="list-group-item">
+                        <input placeholder="Company" class=" form-control no-border" required
+                               ng-model="user.companyName" ng-keydown="showErr = false"
+                                >
+                    </div>
+                    <div class="list-group-item">
+                        <input placeholder="User Name" class=" form-control no-border"
+                               ng-keydown="showErr = false"
+                               ng-model="user.username" required>
+                    </div>
+
+                    <div class="list-group-item">
+                        <input 
+                        onfocus="this.type='password'" 
+                        autocomplete="off"
+                        placeholder="Passwod" 
+                        class=" form-control no-border"
+                        ng-keydown="showErr =false " name="password" ng-model="user.password" required>
+                    </div>
+
+                </div>
+                <!-- ng-disabled='form.$invalid'-->
+                <div class="text-danger wrapper text-center" ng-show=" showErr ">
+                    帐号或密码不正确!
+                </div>
+                <button type="submit" class="btn btn-lg btn-primary btn-block"
+                        ng-click="login()"
+                        token = 5000
+                        > 登录
+                </button>
+
+                <div class="text-center m-t m-b"><a ui-sref="access.forgotpwd"
+                                                    class=" text-primary font-normal">忘记密码?</a></div>
+                <div class="line line-dashed"></div>
+                <!-- <p class="text-center"><small>Do not have an account?</small></p>-->
+                <a ui-sref="access.signup" class="btn btn-lg btn-default btn-block">企业注册</a>
+            </form>
+        </div>
+    </div>
+
+    <div class="text-center" ng-include="'athena/page_footer.html'"></div>
+</div>
+
+
+
+
+
+
+
+
+
+

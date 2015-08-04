@@ -75,12 +75,15 @@ angular.module('app.services', ["ngResource" ] ,function(){
 .service('$show', ['$resource', function($resource){
 
     var live    = angular.rootUrl + "web/show/live/:uuid" ,
-        history = angular.rootUrl + "web/show/history/:uuid" ,
+        liveWrite = angular.rootUrl + 'web/show/livewrite'
+        his = angular.rootUrl + "web/show/history/:uuid" ,
         alarm   = angular.rootUrl + "web/show/alarm/:uuid" ;
 
-    this.live    =  $resource(live, {} ,{} ) ;
-    this.history =  $resource(history, {}  , {} );
-    this.alarm   =  $resource(alarm, {} , {});
+    this.live    =  $resource(live ) ;
+    this.his =  $resource(his);
+    this.alarm   =  $resource(alarm);
+    this.liveWrite = $resource(liveWrite);
+
 
 
 }])
@@ -242,7 +245,7 @@ angular.module('app.services', ["ngResource" ] ,function(){
                    // $modal.open({ template:"faefea"})
                     $dom  = $dom.length? $dom : $("#ajax_modal") ;
 
-                    $dom.show();
+                    // $dom.show();
                 }
                 // 添加区域字段;
                 // html 的不添加 local ;
@@ -278,7 +281,7 @@ angular.module('app.services', ["ngResource" ] ,function(){
                     // 停止滚动;
                         animat  = !animat ;
 
-                        $dom.hide();
+                        // $dom.hide();
 
                     }, 100);
                 }
@@ -366,12 +369,7 @@ angular.module('app.services', ["ngResource" ] ,function(){
                 });
                 return c;
             } ,
-            page : function ( resp ){
-                var  p  = {} ;
-                p.data  =  JSON.parse( resp.data).ret;
-                p.total =  JSON.parse( resp.total );
-                return  p ;
-            } ,
+         
 
             // profile  连接模版时用;
             findTempByid: function (temps, tempid) {
@@ -397,23 +395,8 @@ angular.module('app.services', ["ngResource" ] ,function(){
             },
 
 
-            /** 返回数组 ,  接收 [jsonobj , jsonobj ,... ] 检索 jsonobj 的 prop 值, 放到一个数组中, 去重复 */
-            "collectProp": function (arrayjson, prop) {
-                a = {}, b = [];
-                $.each(arrayjson, function (i, n) {
-                    a[n[prop]] = null;
-                });
-
-                return Object.keys(a);
-            },
-            /**  以prop 为key  指向该对象; 返回 { prop: obj , ... }  */
-            "propAsKey": function (arrayJson, prop) {
-                a = {};
-                $.each(arrayJson, function (i, n) {
-                    a[n[prop]] = n;
-                })
-                return a;
-            },
+          
+           
 
             /**  统计 [ { keyProp:"k", countProp:"A" }    { keyProp:"k", countProp:"B" }     ]
              *  返回:  { k:{A:N , B:M} ,  ...  }
@@ -430,84 +413,7 @@ angular.module('app.services', ["ngResource" ] ,function(){
                 return a;
             },
 
-            /**  作废 ;
-             *   在 展示   das config , log 点是  统计log 点;
-             *  */
-            pp_Of_DevS: function (devs) {
-                a = [];
-
-                $.each(devs, function (k, v) {
-                    $.each(v.points, function (pk, pv) {
-                        pv.dev_name = k;
-                        pv.PROF = v.profile;
-                        pv.TEMP = v.template;
-                        a.push(pv);
-
-                    });
-                });
-                return a;
-            },
-
-            // 分解 station alllevel 数据为合适的数据;  过滤掉  无 profile 的 temp点;
-            //  0 = devs ;
-            //  1 =  logpoints : {logid: logpoing , ...} ;
-            //  2 =  alarmpoint : [{alarm} ...];
-
-            resolveAllLevel: function (allLevel) {
-                a = [] , // device ;
-                e =[],  // log points
-                c=[] ,  // alarm points
-
-                b = {} , // ref  temp ;     {pid: p }
-
-                angular.forEach(allLevel, function (dev, i) {
-
-                    angular.forEach(dev.points, function (p, i) {
-
-                       // if('name' in p.log ){
-                          //  p.is_log_point =  ('name' in p.log ) ;
-                            //p.dev = {device_id: dev.device_id, name: dev.name};
-                            p.devname =    dev.name ;
-                            p.device_id = dev.device_id;
-
-                        // }
-                        p.prof = dev.profile;
-                        p.temp = dev.template;
-                        b[p.point_id] = p ;
-                        e.push(p) ;
-
-                    });
-                    angular.forEach(dev.alarms, function (al,i) {
-                        //al.dev ={device_id: dev.device_id, name: dev.name};
-                        al.devname  = dev.name ;
-                        al.device_id = dev.device_id ;
-
-                        al.pointname = b[''+al.point_id].name ;
-                        c.push(al);
-                    });
-                    delete  dev.points;
-                    a.push(dev);
-                });
-
-                return [a,e,c];
-
-            },
-            //删除 设备时 , 同事 内存中删除 log point 点;
-            delD2delP4Level: function (points, dev) {
-                console._log({delP4Level: arguments});
-                a = [];
-                angular.forEach(points, function (n, i) {
-                   // console._log(n, i);
-                    if (  n.device_id != dev.device_id ) {
-                       // points[i] = undefined;
-                        a.push(n);
-                    }
-                });
-              /*  angular.forEach(points, function (n, i) {
-                    n ? a.push(n) : undefined;
-                });*/
-                return a;
-            }
+       
 
         }
     })

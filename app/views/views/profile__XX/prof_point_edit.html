@@ -1,0 +1,21 @@
+
+<!--  日志 可视化  产看 编辑 模版 !   -->
+
+<div class="modal-header  text-center ">
+   <h4>参数编辑</h4>
+</div>
+<div  class="modal-body"   >
+    <form class="    bs-example form-horizontal form-validation   padding-10 "  name="form" >
+
+        <input type="submit"  class="hidden">
+
+        <ng-include  src=" 'athena/views/profile/_profpoint_basic.html' " ></ng-include>
+
+    </form>
+</div>
+<ng-include   src = " 'athena/views/debris/_modal_footer.html' " ></ng-include>
+
+
+        <div ng-if="$debug">
+            pp = {{pp}}
+        </div>

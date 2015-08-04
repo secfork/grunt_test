@@ -16,9 +16,9 @@ angular.module('app.system', [])
 
 
 	if ($scope.isShowModul) {
-		$scope.$moduleNav("采集站", $state);
+		$scope.$moduleNav("系统", $state);
 	} else {
-		$scope.$moduleNav($stateParams.isactive == '1' ? "已激活采集站" : "未激活采集站", $state);
+		$scope.$moduleNav($stateParams.isactive == '1' ? "已激活系统" : "未激活系统", $state);
 	}
 
 
@@ -43,7 +43,7 @@ angular.module('app.system', [])
  	$scope.loadPageData = function(pageNo, total) {
 
  		$scope.page.currentPage = pageNo ;
-		// 分页加载 采集站数据;
+		// 分页加载 系统数据;
 		var d = angular.extend({ currentPage: pageNo, total: total  },  $stateParams, $sys.pager);
 
 		$source.$system.query(d).$promise.then(function(resp) {
@@ -61,7 +61,7 @@ angular.module('app.system', [])
 
 			promise_A = $project.getProjNameByIdS(Object.keys(projids)).$promise;
 
-			// 激活的采集站;
+			// 激活的系统;
 			 if ($stateParams.isactive == '1') {
 				// proj name ;
 				// 是否要 同步;
@@ -111,15 +111,13 @@ angular.module('app.system', [])
 	function($state, $scope, $stateParams, $project, $source ) {
 
 	console._log("dastation_add");
-	// 由采集站 转来 无 projid= nudifund ,  由 project 转来有projid ;
+	// 由系统 转来 无 projid= nudifund ,  由 project 转来有projid ;
 	console._log($state, $stateParams);
-
-
-	// 有 clear 有  pop ;
-	if ($stateParams.projname) {
-		$scope.$popNav($stateParams.projname + "(添加采集站)", $state);
+ 
+	if ( $scope.project  ) {
+		$scope.$popNav( $scope.project.projName + "(添加系统)", $state);
 	} else {
-		$scope.$moduleNav("添加采集站", "_station");
+		$scope.$moduleNav("添加系统" , $state);
 	}
 
 
@@ -166,7 +164,7 @@ angular.module('app.system', [])
 		$scope.dastation.timezone = $scope.b[0].value;
 	};
 
-	// 提交采集站
+	// 提交系统
 	$scope.commit = function() {
 		$scope.validForm();
 

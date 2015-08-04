@@ -1,0 +1,31 @@
+
+
+
+
+
+<input ng-model="pp.name" label=" 名称 " tl-wrap required/>
+<input ng-model="pp.desc" label=" 描述 " tl-wrap/>
+<input ng-model="pp.deviation" label="偏差 "  type="number"  tl-wrap  tl-default="0"  required/>
+
+<input ng-model="pp.scale" label=" 比例缩放"   type="number" tl-wrap  tl-default="1"   required/>
+
+<!--<select  tl-wrap   ng-show="false"
+         tl-default="1"
+        ng-model="pp.save_log"
+        label="是否保存历史"
+        ng-options=" o.v as o.k for o in $sys.save_his.values  "
+
+        ></select>-->
+<div class="hidden"  ng-init="pp.save_log =1"></div>
+
+<div ng-if="pp.save_log">
+    <select ng-options="  o.v as o.k  for o in  $sys.log_period.values"
+            tl-wrap ng-model="pp.log_cycle"
+            ng-init=" pp.log_cycle || ( pp.log_cycle =  $sys.log_period.default )"
+            label="日志记录间隔"
+            ></select>
+</div>
+<!--
+ng-init=" pp.hasOwnProperty('save_log') ? null:( pp.save_log = $sys.save_his.default)  "
+    ng-init=" pp.hasOwnProperty('log_cycle') ? null:( pp.log_cycle = $sys.log_period.default)  "
+-->
