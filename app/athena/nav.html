@@ -1,58 +1,24 @@
 <ul class="nav">
 
 <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
-    <span><h5 translate="nav.a">展示</h5></span>
+    <span><h5 translate="nav.a">展1示</h5></span>
 </li>
+ 
 
-
-<!-- <li ng-class="{active:$state.includes('app.alarm')}"> --> 
-<!-- <li ng-class="{active:$state.includes('app.show')}">
-
-    <a href class="auto">
-          <span class="pull-right text-muted">
-            <i class="fa fa-fw fa-angle-right text"></i>
-            <i class="fa fa-fw fa-angle-down text-active"></i>
-          </span>
-          <i class="  fa fa-bell  text-info-dk"></i>
-          <span>系统</span>
+<li ui-sref-active="active">
+    <a  ui-sref="app.show.proj">
+       <i class="  fa fa-cubes  text-info-dk"></i>  
+        <span   > 区域</span>
     </a>
-
-    <ul class="nav nav-sub dk">
-        <li ui-sref-active="active">
-            <a  ui-sref="app.show.proj">
-                <span   > 区域</span>
-            </a>
-        </li>
-
-        <li ui-sref-active="active">
-            <a  ui-sref="app.show.system({isactive:'1'})"  >
-                <span    > 系统</span>
-            </a>
-        </li>
-    </ul>
 </li>
-  -->
 
-  <li ui-sref-active="active">
-            <a  ui-sref="app.show.proj">
-               <!--  <i class="  fa fa-bell  text-info-dk"></i> -->
-                <span   > 区域</span>
-            </a>
-        </li>
-
-        <li ui-sref-active="active">
-            <a  ui-sref="app.show.system({isactive:'1'})"  >
-                <span    > 系统</span>
-            </a>
-        </li>
-
-
-
-
-
-
-
-
+<li ui-sref-active="active">
+    <a  ui-sref="app.show.system({isactive:'1'})"  >
+       <i class="  fa  fa-leaf  text-info-dk"></i>  
+        
+        <span    > 系统</span>
+    </a>
+</li>
 
 
  

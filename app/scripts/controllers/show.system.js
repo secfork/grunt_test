@@ -1,24 +1,13 @@
 angular.module('app.show.system', [])
 
-.controller('show_system_prop', function($scope, $source, $q, $sys, $filter,$source ,$localStorage ,$timeout) {
+.controller('show_system_prop', function($scope,$state, $source, $q, $sys, $filter ) {
 
 	$scope.system = $scope.$$cache[0];
 
 	var sysModel = $scope.system.model,
-		//td = $filter("date")(new Date(), "yyyy-MM-dd"),
-		plot,
-		plot_config = angular.copy($sys.plotChartConfig),
-		arr, d  ;
-
-	//初始化页面; 
-	$scope.getArray = function() {
-		arr = [],
-			d = new Date().getTime();
-		arr[0] = [d - $scope.op.c_int * $scope.op.pointSize, undefined];
-		// arr[$scope.op.pointSize-1] = [ d , undefined ] ;     
-		return arr;
-	}
-
+		//td = $filter("date")(new Date(), "yyyy-MM-dd"), 
+		arr, d  ; 
+ 
 	$scope.op = {
 		start: "",
 		num: 50, 
@@ -36,18 +25,9 @@ angular.module('app.show.system', [])
 
 	$scope.loadTagPromise.then( function( resp){
 		$scope.tags = resp.ret;
-	})
- 
-	$scope.initFlotChart = function(_plot_data) {
-		console._log(_plot_data);
+	});
 
-		_plot_data = _plot_data || { 	data: $scope.getArray() };
-		 
-		plot = $.plot("#show_live_data", [_plot_data], plot_config);
-		 
-	}
-
-
+ 	 
 
 	$scope.openCalendar = function(e, exp) {
 		e.preventDefault();
@@ -56,7 +36,11 @@ angular.module('app.show.system', [])
 		this.$eval(exp);
 	};
  
- 
+ 	
+ 	$scope.goHis = function( t ){ 
+ 		$scope.op.his_tag = t.name ; 
+ 		$state.go('app.show.system_prop.history');
+ 	}
 
 
 
@@ -70,7 +54,7 @@ angular.module('app.show.system', [])
 	//$scope.$popNav($scope.system.name + "()", $state);
 
 	$scope.$on("$destroy", function() {
-		$interval.cancel(interval);
+		$interval.cancel(interval); 
 	})
 
 	var   names=[] , doms_v , doms_t; 
@@ -83,11 +67,9 @@ angular.module('app.show.system', [])
  		console.log(names); 
  	})
  
-
- 
  
 
-	// 订阅数据;   faea 发饿
+	// 订阅数据;   
     $scope.liveData =  function ( need ) {
     	if(!need) return ; 
 
@@ -129,18 +111,42 @@ angular.module('app.show.system', [])
 					}
 		$show.liveWrite.save( d , function( resp){
 			console.log( resp );
-		})
-
+		}) 
 	}
+
+
+
+
 
 })
 
-.controller('show_system_history', function($scope, $show) {
+.controller('show_system_history', function($scope, $show ,$sys) {
 
-	$scope.od = {
-		showS: false,
-		showE: false
-	};
+	// $scope.od = {
+	// 	showS: false,
+	// 	showE: false
+	// };
+
+	$scope.$on("$destroy" , function(){
+		$scope.op.his_tag = null ; 
+	})
+
+
+	var  polt , plot_config = angular.copy($sys.plotChartConfig) ; 
+
+	$scope.initFlotChart = function(_plot_data) {
+		console._log(_plot_data); 
+  		if($scope.op.his_tag){
+  			$scope.op.start = new Date( new Date() - 86400000) ; 
+  			$scope.op.end = new Date()  ; 
+  			$scope.queryHistory();
+  		}else{
+  			plot = $.plot("#show_live_data", [{data:[], label:"未选择点"}], plot_config);
+  		}
+		
+		 
+	}
+ 
 
 	$scope.queryHistory = function() {
 		$scope.validForm();
@@ -166,16 +172,16 @@ angular.module('app.show.system', [])
 
 			$.each(data, function(i, v, t) {
 				d.push([v.ts, v.pv]);
-			})
+			}) 
 
-			$scope.initFlotChart({
-				data: d,
-				label: op.his_tag
-			});
+			plot = $.plot("#show_live_data", [{data:d, label:op.his_tag}], plot_config);
 
 		});
 
-	}
+	} 
+
+
+
 
 })
 
@@ -246,40 +252,4 @@ angular.module('app.show.system', [])
 
 .controller('show_system_map', function() {
 
-}).controller('datepicker', function($scope) {
-	$scope.today = function() {
-		$scope.dt = new Date();
-	};
-	$scope.today();
-
-	$scope.clear = function() {
-		$scope.dt = null;
-	};
-
-	// Disable weekend selection
-	$scope.disabled = function(date, mode) {
-		return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
-	};
-
-	$scope.toggleMin = function() {
-		$scope.minDate = $scope.minDate ? null : new Date();
-	};
-	$scope.toggleMin();
-
-	$scope.open = function($event) {
-		$event.preventDefault();
-		$event.stopPropagation();
-
-		$scope.opened = true;
-	};
-
-	$scope.dateOptions = {
-		formatYear: 'yyyy',
-		startingDay: 1,
-		class: 'datepicker'
-	};
-
-	$scope.initDate = new Date('2016-15-20');
-	$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-	// $scope.format = $scope.formats[1];
-})
+}) 

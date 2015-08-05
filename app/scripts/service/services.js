@@ -20,7 +20,7 @@ angular.module('app.services', ["ngResource" ] ,function(){
 
               };
 
-    //angular.rootUrl = 'http://localhost:8090/thinglinx/' ;
+    // angular.rootUrl = 'http://localhost:8090/thinglinx/' ;
     angular.rootUrl = '' ;
 
 })
