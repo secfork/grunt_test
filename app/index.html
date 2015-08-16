@@ -3,14 +3,12 @@
   <head>
     <meta charset="utf-8">
     <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css(.) styles/vendor.css -->
-    <!-- bower:css -->
-    <!-- endbower -->
-    <!-- endbuild -->
+    <meta name="description" content="thinglinx 工业云 云 工控 力控 圆通 三维力控 ">
+    <meta name="viewport" content="width=device-width , initial-scale=1, maximum-scale=1">
 
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+ 
     <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/bootstrap.css" type="text/css"  />
         <link rel="stylesheet" href="styles/animate.css"   type="text/css" />
@@ -19,7 +17,7 @@
         <link rel="stylesheet" href="styles/font.css" type="text/css" />
         <link rel="stylesheet" href="styles/app.css"  type="text/css" />   
     <!-- endbuild -->
-   <link rel="stylesheet" href="lib/datepicker/datepicker.css" type="text/css"  /> 
+ 
 
   </head>
   <body   ng-controller="AppCtrl"   scroll='no' >
@@ -36,29 +34,9 @@
             ui-view  >
       </div>
 
-
-
-
-
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-    <script>
-       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
-       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
-       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
-       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script> 
-
  
-
-<!-- build:js({.tmp,app}) scripts/vendor.js -->
-<!-- bower:js -->
-<!-- endbower -->
-<!-- endbuild -->
-
-
+ 
+ 
  
 
    <!--build:js({.tmp,app})  scripts/vendor-lib.js --> 
@@ -73,6 +51,7 @@
        <script  src="lib/ui-bootstrap-tpls.min.js" ></script>  
        <script  src="lib/angular-translate.js"></script> 
 
+       <script  src="lib/datetime_picker/datetimepicker.js"></script>
 
        <script  src="lib/ngStorage.min.js"></script>
        <script  src="lib/ui-jq.js"></script>
@@ -80,8 +59,8 @@
        <script  src="lib/ui-validate.js"></script>
 
 
-       <script  src="lib/datepicker/bootstrap-datepicker.js" ></script> 
-       <script  src="lib/datepicker/bootstrap-datepicker.zh-CN.js" ></script> 
+
+
        
 
     <!-- endbuild -->
@@ -110,11 +89,11 @@
 <!-- 百度 地图  -->
 
  
- 
-<script  src="http://api.map.baidu.com/api?v=1.5&ak=M9b53slaoqAKQj8jX0CRz6xA" type="text/javascript"></script>
+  
+  <script  src="http://api.map.baidu.com/api?v=1.5&ak=M9b53slaoqAKQj8jX0CRz6xA" type="text/javascript"></script>
 
  
-
+ 
       
 </body>
 </html>

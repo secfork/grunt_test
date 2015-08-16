@@ -3,13 +3,13 @@
 
   <form class="form-inline  form-validation ng-pristine ng-valid" name="form">
 
-      <div class="form-group"> 
+      <div class="form-group " style= "height: 35px; padding-top: 5px;"> 
 
-            <div class="radio m-l">
-              <label class="i-checks">
+            <div class="radio  ">
+              <label class="i-checks  ">
                 <input type="radio"  ng-model="op.ala" name="a" value="a">
                 <i></i>
-                实时报警
+                活跃报警
               </label>
             </div>
 
@@ -17,52 +17,48 @@
               <label class="i-checks">
                 <input type="radio" name="a"  ng-model="op.ala" value="b" checked="true">
                 <i></i>
-                历史报警
+                全部报警
               </label>
             </div> 
       </div>
       
       <div ng-if=" op.ala == 'b'" class="inline">
 
-            <div class="form-group">
-                <label class=" w-xxs text-right control-label"  for="exampleInputPassword2">
-                     起始时间 
-                 </label>
-               
-                <input  ng-model="op.start" class="form-control w-xs inline m-t-xs" 
-                        mydatepicker 
-                        value="{{op.start}}"
-                        required   
-                  > 
-                  </input>
-                  <select ng-model="op.start_h" class="form-control w-xs inline m-t-xs" 
-                          ng-options=" h for h in hours "
-                          required
-                          >
-                  </select>
+            <div class="form-group   ">   
+                <label class=" w-xxs text-right control-label float-left m-t-xs"   >起始时间:</label>
+                
+                <input type="text" class=" input input-sm  float-left"
+                     datetime-picker  date-format='yyyy-MM-dd HH:mm'
+                     nofocus
+                     data-readonly-input='false'
+                     ng-model="op.start"  is-open='od.showS'  />
 
+                <span class=" float-left">
+                      <button type="button" class="btn btn-default btn-sm" 
+                      ng-click="openCalendar($event, 'od.showS=true')">
+                      <i class="fa fa-calendar"></i></button>
+                </span>
+                  
+            </div>
 
-              </div>
             
-            <div class="form-group">
-                <label class=" w-xxs text-right control-label"  for="exampleInputPassword2">结束时间</label>
-               
-            <input  ng-model="op.end" class="form-control w-xs inline m-t-xs" 
-                value="{{op.end}}"
-                       mydatepicker required >
+            <div class="form-group   ">   
+                <label class=" w-xxs text-right control-label float-left m-t-xs"   >结束时间:</label>
+                
+                  <input type="text" class=" input input-sm float-left"
+                     datetime-picker  date-format='yyyy-MM-dd HH:mm'
+                     nofocus
+                     ng-model="op.end"  is-open='od.showE'  />
 
-              </input>
-              
-              <select ng-model="op.end_h"
-                    class="form-control w-xs inline m-t-xs" 
-                      ng-options=" h for h in hours "
-                      required
-                      >
-              </select>
+                  <span class=" float-left">
+                      <button type="button" class="btn btn-default btn-sm" 
+                      ng-click="openCalendar($event, 'od.showE=true')">
+                      <i class="fa fa-calendar"></i></button>
+                  </span> 
+            </div>
 
-              </div>
 
-              <div class="form-group"  ng-if="false">
+            <div class="form-group"  ng-if="false">
                   <label class=" w-30 text-right"  for="exampleInputPassword2">条数</label>
                   
                   <select ng-model="op.num" class="form-control w-xs inline m-t-xs" 
@@ -70,34 +66,16 @@
                         required
                         >
                   </select> 
-              </div> 
-          </div>
+            </div>  
 
-        <div class="form-group"> 
+            <div class="form-group">  
 
-          <button class="btn btn-info w-xs m-l m-t-xs" ui-toggle-class="show inline"
-              ng-click="liveAlarm()"
-              ng-if=" op.ala =='a'"
-              token='5000'
-             >
-            <span class="text">监控</span>
-            <span class="text-active">监控中...</span>
-          </button>  
-
-          <span  ng-if=" op.ala !='a'" class="btn btn-info w-xs m-l m-t-xs" 
-                 ng-click="queryAlarm()" token='5000' > 
-               查询
-          </span>
-
-        </div>
-
-
-    <!-- <div class="bootstrap-timepicker"/>
-        <input id="timepicker" data-template="modal"
-               data-minute-step="1" data-modal-backdrop="true" type="text"/>
-        </div> -->
-
-
+                <span  ng-if=" op.ala !='a' "  class="btn btn-info btn-sm w-xs m-l m-t-xs" 
+                       ng-click="queryAlarm()" token='5000' > 
+                     查询
+                </span>
+            </div>
+      </div> 
     </form> 
 </div>
  
@@ -105,54 +83,36 @@
  
     <div class="panel-body table-responsive no-padder"   ng-init=" _$A = $sys.trigger.op">
 
-      <table class=" table   table-bordered ">
+      <table class=" table   table-bordered "   ng-init="_config = $sys.trigger.severity">
           <thead class="flip-content"  >
             <tr  class="background ">
                       <th>  报警ID     </th> 
-                      <th>  报警时间</th>
-                      <th>  关闭时间 </th>
-                      <th>   系统id  </th>
-                      <th>   设备id  </th>
-
-                      <th>   紧急程度  </th>  
-                      <th>  报警类别</th>
-
-                      <th>  报警信息  </th>
+                      <th>  报警时间</th> 
                       <th>  报警描述  </th>
+                      <th>  重要性 </th>
 
-                      <th>  报警源id   </th>
-                      <th>  触发器id   </th>
-                  
-                      <th>  alarm type</th>
-                      <th>  active</th>  
-                      <th>   报警确认id  </th>
+                      <th> 类别   </th>
+                      <th> 活跃状态  </th> 
+                      <th class="w-xs">  </th> 
+
 
             </tr>
-          </thead>
- 
+          </thead> 
   
           <tbody class="text-center ">
             
              <tr  ng-repeat="  a  in alarms  "  class="hover" >
                 <td>  {{ a.id }} </td>
-                <td>  {{ a.timestamp | date:"yyyy-MM-dd HH:mm"  }}</td>
-                <td>  {{ a.close_time| date:"yyyy-MM-dd HH:mm"  }}</td>
+                <td>  {{ a.timestamp | date:"yyyy-MM-dd  HH:mm:ss"  }}</td>
+                <td>  {{ a.desc  }}</td>
 
 
-                <td>  {{ system.name }} </td>
-                <td>  {{ a.device_id }} </td>
+                <td>  {{ _config[a.severity] }} </td>
+                <td>  {{ a.class_id }} </td>
 
-                <td > severity = {{ a.severity }} </td>
-                <td>   {{ a.class_id }} </td>
-                <td>{{a.info}}</td>
-                <td>{{a.desc}}</td>
-                
-                <td>{{a.source_id  }}</td>
-                <td>{{a.trigger_id }}</td>
+                <td >   {{ a.active?"活跃":"关闭" }} </td>
 
-                <td>{{ _$A[a.type]}}</td>
-                <td>{{a.active  }}</td>
-                <td>{{a.ack_id    }}</td> 
+                <td> <a class="text-link" ng-click="alarmMsg(a)">详细信息</a></td> 
              </tr>
 
             </tbody>

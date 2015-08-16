@@ -1,0 +1,230 @@
+<!--
+     用户编辑时 也 用到!
+  -->
+  
+
+         
+        <form name="form"  panelclass  class="form-horizontal form-validation">
+ 
+            <div class="form-group">
+                <label class="col-sm-3  control-label">
+                      用户名<mark/>
+                </label>
+
+                <div class="  col-sm-9">
+                    <input class="form-control" ng-model=" user.username  " 
+                        required ng-keyup="checkname()" 
+                        ng-minlength = '3'
+                        ng-maxlength="15"
+                        >
+                    <span   class="text-danger"  ng-show=" can_use" >用户名已被占用!</span>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <!-- <label   for="dfae"  class="col-sm-3  control-label"   >项目名称</label>-->
+                <label class="col-sm-3  control-label">
+                     密码<mark/>
+                </label>
+
+                <div class="  col-sm-9">
+
+                    <input type="password"  placeholder="密码(至少六位)"  
+                           name="password"
+                           ng-maxlength="20"      ng-minlength="6"
+                           class="form-control "
+                           ng-model=" user.password " required
+                    >
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3  control-label">
+                     确认密码 <mark/>
+                </label>
+                <div class="  col-sm-9">
+                    <input type="password" class="form-control  "
+                         name="confirm_password"
+                         required
+                         ng-model="confirm_password"
+                         placeholder=" 确认密码 "
+                         ui-validate=" '$value==user.password' "
+                    >
+
+                </div>
+            </div>
+
+           <!--  
+           <div class="form-group"   >
+                <label class="col-sm-3  control-label">
+                        <a class="btn btn-info btn-sm" ng-click="addProj() ">添加角色</a>
+                </label>
+
+                <div class="  col-sm-9 ">
+                    <div  ng-repeat = " r in rs "  class="row"  >
+
+                        <div class="col-sm-1">
+                               <i class="fa fa-times text-danger m-t m-l-xs" ng-click=" delP($index)"></i>
+                        </div>
+                        
+                        <div  class="col-sm-5 m-t-xs">
+                             <select ui-jq="chosen" multiple  class="w-full "  
+                                  ng-model="pj.roles" 
+                                   data-placeholder="----选择角色----"
+                                   >
+                               
+                              <option  ng-repeat = " r in roles"   value="{{r.id}}">{{r.roleName}}</option> 
+                            </select>
+                        </div>
+                         
+                    </div>    
+                </div>
+            </div>   
+             -->
+ 
+
+             <select  tl-wrap-l  ng-model=" user.roleId " 
+                      ng-init="user.roleId = uiRoles[0].id "
+                      ng-options=" o.id as o.name  for o  in uiRoles " 
+                      label="角色"
+                       required
+                      >
+             </select>
+
+
+
+
+
+            <div class="form-group"    ng-if="false" >
+                <label class="col-sm-3  control-label">
+                        <a class="btn btn-info btn-sm" ng-click="addProj() ">添加工程</a>
+                </label>
+
+                <div class="  col-sm-9 ">
+                    <div  ng-repeat = " pj in pjs "  class="row"  >
+
+                        <div class="col-sm-1">
+                               <i class="fa fa-times text-danger m-t m-l-xs" ng-click=" delP($index)"></i>
+                        </div>
+                          
+                        <div  class="col-sm-5 m-t-xs">
+                            <select  class="form-control  " 
+                                 ng-model="pj.projId" 
+                                 ng-change="checkDup( pj  , $index)" 
+                                 ng-options = "p.id as p.projName for p in projs">
+                                 <option value="">-选择访问的工程-</option>
+                            </select>
+                        </div>    
+                         
+                        <div  class="col-sm-6 m-t-xs">
+                            <!--   ui-jq="chosen"  multiple -->
+                             <select   class="w-full form-control"  
+                                  type="number"
+                                  ng-model="pj.roles"   
+                                   data-placeholder="----选择角色----"
+                                   >
+                               <option value="">-选择角色-</option> 
+                              <option  ng-repeat = " r in projRoles" 
+                                     value="{{r.id}}">{{r.name}}</option> 
+                            </select>
+                        </div>
+                         
+                    </div>    
+                </div>
+            </div>   
+
+
+
+
+
+          <!--   <div class="form-group"   >
+                <label class="col-sm-3  control-label">角色</label>
+
+                <div class="  col-sm-9">
+                    <select ui-jq="chosen" multiple  class="w-full  mychosen"  
+                              ng-model="user.roles"  >
+                              <option  ng-repeat = " r in roles" value="{{r.id}}">{{r.roleName}}</option> 
+                    </select>
+                </div>
+            </div> 
+
+            <div class="form-group"   >
+                <label class="col-sm-3  control-label">可访问的工程</label>
+
+                 <div class="  col-sm-9">   
+                    <select ui-jq="chosen" multiple  class="w-full"  
+                              ng-model="user.projs"  >
+                              <option  ng-repeat = " p in projs" value="{{p.id}}">{{p.projName}}</option> 
+                    </select>
+                </div>  
+            </div>
+ -->
+
+
+
+
+ 
+
+         
+            <input  tl-wrap-l
+                    label="电子邮件"
+                    ng-model=" user.email "
+                    type="email"
+                    >
+
+
+            <input tl-wrap-l
+                   label="手机"
+                   ng-model="user.cellPhone"
+                    >
+            
+            <textarea  tl-wrap-l  label="备注" 
+                    ng-maxlength = '100'
+                    ng-model="user.describtion"
+                >
+            </textarea>
+
+
+
+           <!--  <input tl-wrap-l
+                   label="地址"
+                   ng-model="user.address"
+                    >
+
+            <input tl-wrap-l
+                   label="省"
+                   ng-model="user.province"
+                    >
+
+            <input tl-wrap-l
+                   label="市"
+                   ng-model="user.city"
+                    >
+ -->
+         <!--   <div class="form-group">
+                <label class="col-sm-3  control-label">覆盖远程系统时区</label>
+
+                <div class="  col-sm-9">
+                    <input type="text" class="form-control" ng-model=" project.expandmsg "  >
+                </div>
+            </div>-->
+
+
+
+            <footer class="  text-center     m-b-lg">
+                <!--  在不同的controler 中 作用不同 ; -->
+              <!--  <button type="submit" class="btn btn-info  btn-block-middle"
+                        ng-click=" commit()" >
+                    Submit
+
+                </button>-->
+                 <button  class="btn btn-info  btn-block-middle"
+                         ng-click="commit()"
+                         > 创建用户
+
+                 </button>
+
+            </footer>
+
+        </form> 
+ 

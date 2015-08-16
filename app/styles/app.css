@@ -1,38 +1,35 @@
-
-/*.form-control.ng-invalid {
-  color:white;
-  background: red;
-}
-*/
-
 hr {
   border-color: #cfdadd ;
   margin: 10px 0px;
-} 
- 
+}
+
 
 
 input, select {
   border-color: #cfdadd;
 }
 
-textarea {
-  /* // resize: none;*/
-  /*  height: 300px;*/
+.input {
+  border-color: #cfdadd;
+  border-radius: 2px;
+ /* height: 34px;
+  padding: 5px 2px;*/
+  /* padding: 6px 2px; */
+  font-size: 14px;
+  border: 1px solid #ccc;
+
 }
+
+
 
 table,tbody{
   text-align: center;
 
 }
 
-tr.hover:hover{
- /* background-color: #B0E0f6;  ffffcc */
-/* background-color: #BACACD; :hover */
-}
 
 tr.hover:hover td {
-  border-color:  #BACACD ; 
+  border-color:  #BACACD ;
   background-color: #BACACD
 }
 .hover-bg-info:hover {
@@ -52,7 +49,7 @@ tr.hover:hover td {
 }
 
 
-.w-50% {
+.w-50 {
   width: 50% ;
 }
 
@@ -303,6 +300,9 @@ th {
 /*=============================================*/
 .height-30 {
     height: 30px;
+}
+.height-40 {
+    height:40px;
 }
 .height-45 {
     height: 45px;
@@ -599,7 +599,7 @@ a.list-group-item:focus {
 }
 .nav-tabs > li.active > a {
   border-bottom-color: #fff !important;
-  /*border-top: 2px solid blue ;*/ 
+  /*border-top: 2px solid blue ;*/
 }
 .nav-tabs-alt .nav-tabs.nav-justified > li {
   display: table-cell;

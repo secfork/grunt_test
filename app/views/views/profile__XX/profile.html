@@ -1,0 +1,49 @@
+
+<div class="panel panel-default"> 
+    
+    <div class="panel-body  padding-0 table-responsive   ">
+        <table class=" table    table-bordered      ">
+            <thead class="flip-content">
+            <tr>
+                <th  width="30%"  translate="th.profilename" > 配置项名称 </th>
+                <th  width="30%"   translate="th.cratetime" > 创建时间 </th>
+                <th  width="30%"     > 备注 </th>
+                <th  width="20%"  class=" number "></th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+                <tr ng-repeat="  prof  in   privateProf "  class="hover">
+                    <td>
+                        <a class="text-link" ui-sref="app.profile.edit._dev( { profid: prof.profile_id  , edit: false } )"  >
+                           {{ prof.name }}
+                        </a>
+                    </td>
+                 <!--   <td> {{ prof.dev_conn_params }}</td>-->
+
+                    <td> {{ prof.create_time |  date :"yyyy-MM-dd hh:mm" }}</td>
+                    <td class="text-center">
+                        <!--<i class="fa  fa-file-text-o"  tip="{{prof.desc}}" ></i>-->
+                        {{prof.desc}}
+                      </td>
+
+                    <td   class="text-center"  >
+                        <!--
+                        <a  class=" text-link"   ui-sref="app.profile.edit._dev( { profid: prof.id , type: prof.type , edit:false } )"  > 查看</a>
+                        <a  class="text-link"    ui-sref="app.profile.edit._dev( { profid: prof.id , type: prof.type  , edit: true } )"  > 复制</a>
+                        <a  class="text-link"   ng-click = "delete()" > 移除 </a>
+                        -->
+                        <a  class="text-link"    ui-sref="app.profile.edit._dev( { profid: prof.profile_id  , edit: false } )"  > 编辑</a>
+                       <!-- <a  class="text-link"    ui-sref="app.profile.edit._dev( { profid: prof.profile_id  , edit: true } )"  > 复制</a>-->
+                        <a  class="text-link"   ng-click = "delete(prof , $index )" > 移除 </a>
+
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+ 
+</div> 
+

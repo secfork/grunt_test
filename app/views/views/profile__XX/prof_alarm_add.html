@@ -1,0 +1,28 @@
+<div class="modal-header  text-center  ">
+    <h4> 参数编辑</h4>
+</div>
+
+
+<div class="modal-body ">
+
+    <form class=" bs-example  form-validation form-horizontal  padding-10 " name="form">
+        <div ng-if="$debug">
+            opt = {{opt}}<br/>
+            op_temp = {{op_temp}}<br/>
+            profPoing = {{pp}} <br/>
+            form.$valid = {{form.$valid}} <br/>
+            alarm = {{alarm}}
+        </div>
+
+
+        <input type="submit" class="hidden">
+
+        <ng-include  src = "  'athena/views/debris/_driver_temp_point.html'  "></ng-include>
+
+        <ng-include  src = "  'athena/views/profile/_profalarm_basic.html'  "></ng-include>
+
+    </form>
+
+</div>
+
+<ng-include src=" 'athena/views/debris/_modal_footer.html' "></ng-include>

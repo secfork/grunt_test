@@ -1,84 +1,74 @@
-<div class="panel-heading " style="padding-top:0px" >
+ 
 
-
+<div class="panel-heading "  >  
 	<form class="form-inline  form-validation ng-pristine ng-valid" name="form">
-        <div class="form-group">
-           <label  class=" w-30 text-right control-label " for="exampleInputEmail2">设备</label>
+
+    <!--     <div class="form-group">
+           <label  class=" w-30 text-right control-label "  >设备</label>
           
-		   <select  ng-model="op.devId " class="form-control w inline m-t-xs"  ng-options = " d.id as d.name  for d in devices">
+		       <select  ng-model="op.devId " class="w-xxm input height-30 inline m-t-xs"  ng-options = " d.id as d.name  for d in devices">
 
-		    </select>
+		       </select>
 
-        </div>
+        </div> -->
     	<div class="form-group">
-        	<label class=" w-30 text-right control-label"  for="exampleInputPassword2">点</label>
+        	<label class=" w-30 text-right control-label" >点</label>
          
-			<select  ng-model="op.tagName" class="form-control w inline m-t-xs" 
+	  	  	<select  ng-model="op.his_tag" class="height-30   inline m-t-xs" 
 		             ng-options = " t.name as t.name  for t in tags" >
-
-		    </select>
+                  <option value="">-请选择tag点-</option>
+		      </select>
         </div>
-      
-    	<div class="form-group">
-        	<label class=" w-xxs text-right control-label"  for="exampleInputPassword2">起始时间</label>
          
-			<input  ng-model="op.start" class="form-control w-xs inline m-t-xs" 
-		          mydatepicker 
-		          value="{{op.start}}"
-		          required 	 
-		    > 
-		    </input>
-		    <select ng-model="op.start_h" class="form-control w-xs inline m-t-xs" 
-		            ng-options=" h for h in hours "
-		            required
-		            >
-		    </select>
-
-
-        </div>
       
-    	<div class="form-group">
-        	<label class=" w-xxs text-right control-label"  for="exampleInputPassword2">结束时间</label>
-         
-			<input  ng-model="op.end" class="form-control w-xs inline m-t-xs" 
-					value="{{op.end}}"
-		             mydatepicker required >
 
-		    </input>
-		    
-		    <select ng-model="op.end_h"
-		    	    class="form-control w-xs inline m-t-xs" 
-		            ng-options=" h for h in hours "
-		            required
-		            >
-		    </select>
-
-        </div>
-
-		<div class="form-group">
-        	<label class=" w-30 text-right control-label"  for="exampleInputPassword2">条数</label>
+    	<div class="form-group   ">   
+    		<label class=" w-xxs text-right control-label float-left m-t-xs"   >起始时间:</label>
           
-		    <select ng-model="op.num" class="form-control w-xs inline m-t-xs" 
-		            ng-options=" n for n in [50,100,200,300,400,500] "
-		            required
-		            >
-		    </select>
+            <input type="text" class=" input input-sm  float-left"
+            	 datetime-picker  date-format='yyyy-MM-dd HH:mm'
+               nofocus
+            	 data-readonly-input='false'
+            	 ng-model="op.start"  is-open='od.showS'  />
 
-        </div>
+            <span class=" float-left">
+                <button type="button" class="btn btn-default btn-sm" 
+                ng-click="openCalendar($event, 'od.showS=true')">
+                <i class="fa fa-calendar"></i></button>
+            </span>
+            
+  	   </div>
 
+
+		    <div class="form-group   ">   
+	    		<label class=" w-xxs text-right control-label float-left m-t-xs"   >结束时间:</label>
+	          
+	            <input type="text" class=" input input-sm float-left"
+	            	 datetime-picker  date-format='yyyy-MM-dd HH:mm'
+                 nofocus
+	            	 ng-model="op.end"  is-open='od.showE'  />
+
+	            <span class=" float-left">
+	                <button type="button" class="btn btn-default btn-sm" 
+	                ng-click="openCalendar($event, 'od.showE=true')">
+	                <i class="fa fa-calendar"></i></button>
+	            </span>
+	            
+	  	   </div>
+
+ 
+     
+ 
 
 
         <div class="form-group"> 
 
-        	<span class="btn btn-info w-xs m-l m-t-xs" ng-click="queryHistory()">查询</span>
+        	<span class="btn btn-info btn-sm w-xs m-l m-t-xs"
+              ng-disabled="!op.his_tag"
+               ng-click="queryHistory()">查询</span>
         </div>
 
-
-		<!-- <div class="bootstrap-timepicker"/>
-		    <input id="timepicker" data-template="modal"
-		           data-minute-step="1" data-modal-backdrop="true" type="text"/>
-        </div> -->
-
+ 
 
     </form> 
 </div>

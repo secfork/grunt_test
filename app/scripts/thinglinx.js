@@ -8,7 +8,8 @@
  *
  * Main module of the application.
  */
- 
+
+
 
 var app = angular.module('thinglinx', [
 
@@ -17,6 +18,7 @@ var app = angular.module('thinglinx', [
   'ngStorage',
   'ui.router',
   'ui.bootstrap',
+  'ui.bootstrap.datetimepicker',
   'ui.load',
   'ui.jq',
   'ui.validate',
@@ -33,9 +35,9 @@ var app = angular.module('thinglinx', [
 ])
 
 .run(
-    ['$rootScope', '$state', '$stateParams', '$sys', "$compile", "$localStorage", 
+    ['$rootScope', '$state', '$stateParams', '$sys', "$compile", "$localStorage",
       "$cacheFactory", "$translate",
-      function($rootScope, $state, $stateParams, $sys, $compile, $localStorage, 
+      function($rootScope, $state, $stateParams, $sys, $compile, $localStorage,
         $cacheFactory, $translate) {
 
         $rootScope.$state = $state;
@@ -100,7 +102,7 @@ var app = angular.module('thinglinx', [
         }])
 
 
-        // $provide.decorator('$rootScope', ['$delegate', function($delegate) { 
+        // $provide.decorator('$rootScope', ['$delegate', function($delegate) {
         //   // ['$delegate',
         //   // 为 所有的 scope 注册  $destroy 事件; !!
         //   var $new_proxy = $delegate.$new;
@@ -125,7 +127,7 @@ var app = angular.module('thinglinx', [
         //   $delegate.$autoClearCache = function() {
         //     var args = arguments;
         //     this.$on("$destroy", function() {
-        //       console.log("$scope destroy  2 clear cache "); 
+        //       console.log("$scope destroy  2 clear cache ");
         //     });
         //   };
         //   return $delegate;
@@ -199,10 +201,10 @@ var app = angular.module('thinglinx', [
           controller: function($scope, $state) {
             $scope.$rootNav("展示");
           } ,
-          
+
           resolve: {
             deps: ['uiLoad', function(uiLoad) {
-              return uiLoad.load([ 
+              return uiLoad.load([
                 'lib/flot/jquery.flot.min.js',
                 'lib/flot/jquery.flot.navigate.min.js',
                 'lib/flot/jquery.flot.time.min.js',
@@ -701,7 +703,7 @@ var app = angular.module('thinglinx', [
   )
 
 
- 
+
 .config(['$translateProvider', function($translateProvider) {
 
 

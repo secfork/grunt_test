@@ -281,7 +281,7 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= yeoman.app %>/images',
+          cwd: '<%= yeoman.app %>/img',
           src: '{,*/}*.{png,jpg,jpeg,gif}',
           dest: '<%= yeoman.dist %>/images'
         }]
@@ -325,7 +325,7 @@ module.exports = function (grunt) {
           usemin: 'scripts/scripts.js'
         },
         cwd: '<%= yeoman.app %>',
-        src: 'views/{,*/}*.html',
+        src: 'athena/{,**/}*.html',
         dest: '.tmp/templateCache.js'
       }
     },
@@ -393,8 +393,8 @@ module.exports = function (grunt) {
       ],
       dist: [
         'copy:styles',
-        'imagemin',
-        'svgmin'
+        //'imagemin',
+        //'svgmin'
       ]
     },
 
@@ -443,7 +443,7 @@ module.exports = function (grunt) {
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
-    'ngtemplates',
+    //'ngtemplates',
     'concat',
     'ngAnnotate',
     'copy:dist',
@@ -452,13 +452,18 @@ module.exports = function (grunt) {
     'uglify',
     //'filerev',
     'usemin',
-    'htmlmin'
+   //'htmlmin'
   ]);
 
   grunt.registerTask('default', [
-    'newer:jshint',
-    'test',
-    'build'
+    // 'newer:jshint',
+    // 'test',
+    // 'build'
+
+    'clean:dist',
+    'wiredep',
+    'useminPrepare',
+    'concurrent:dist'
   ]);
  
  

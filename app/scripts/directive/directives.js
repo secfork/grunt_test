@@ -383,25 +383,114 @@
   */
 
 
- .directive("mydatepicker", function($window, $localStorage) {
+ .directive("mydatepicker", function( ) {
 
-     return function($scope, $element, $attrs) {
-         
-        var local = $localStorage.NG_TRANSLATE_LANG_KEY;
-        $element.datepicker({
-            format: "yyyy-mm-dd",
-            todayBtn: "linked",
-            //language: $scope.langkey,
-            language:   local || "en",
-            calendarWeeks: true,
-            autoclose: true,
-            todayHighlight: true,
-            Default:"2015-11-11"
+    var temp =[
+           // '<input  tl-wrap label="xxx" />' ,
+           '<div class="form-group">',
+           '<label class=" w-xxs text-right control-label"  for="exampleInputPassword2">起始时间</label>',
+          
+           ' <div class="input-group  w ">',
+            '  <input type="text" class=" form-control  w-xxs" datepicker-popup="{{format}}" ',
+            '             ng-model="dt" is-open="opened"   datepicker-options="dateOptions" ',
+             '  ng-required="true"   close-text="Close" />',
+               
+            '  <span class="input-group-btn">',
+             '   <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button> ',
+             ' </span>   </div></div>' ,
 
-        });
-        $element.nextUntil("button").on("click", function() {
-             $input.focus()
-        })
+              // ' <timepicker ng-model="mytime" ng-change="changed()" ',
+              //   '     hour-step="hstep" minute-step="mstep" ',
+              //   '     show-meridian="ismeridian"></timepicker> ' ,
+
+
+
+        ].join("");
+
+     return {
+        restrict: "A" ,
+        replace:true ,
+        template: temp,
+        scope:{
+
+        },
+        link:function( $scope , $element, $attrs){
+
+                $scope.today = function() {
+                  $scope.dt = new Date();
+                };
+                $scope.today();
+
+                $scope.clear = function () {
+                  $scope.dt = null;
+                };
+
+                // Disable weekend selection
+                $scope.disabled = function(date, mode) {
+                  return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+                };
+
+                $scope.toggleMin = function() {
+                  $scope.minDate = $scope.minDate ? null : new Date();
+                };
+                $scope.toggleMin();
+
+                $scope.open = function($event) {
+                  $event.preventDefault();
+                  $event.stopPropagation();
+
+                  $scope.opened = true;
+                };
+
+                $scope.dateOptions = {
+                  formatYear: 'yy',
+                  startingDay: 1,
+                  class: 'datepicker'
+                };
+
+                $scope.initDate = new Date('2016-15-20');
+                $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+                $scope.format = $scope.formats[1];
+
+
+
+
+    $scope.mytime = new Date();
+
+    $scope.hstep = 1;
+    $scope.mstep = 15;
+
+    $scope.options = {
+      hstep: [1, 2, 3],
+      mstep: [1, 5, 10, 15, 25, 30]
+    };
+
+    $scope.ismeridian = true;
+    $scope.toggleMode = function() {
+      $scope.ismeridian = ! $scope.ismeridian;
+    };
+
+    $scope.update = function() {
+      var d = new Date();
+      d.setHours( 14 );
+      d.setMinutes( 0 );
+      $scope.mytime = d;
+    };
+
+    $scope.changed = function () {
+      //console.log('Time changed to: ' + $scope.mytime);
+    };
+
+    $scope.clear = function() {
+      $scope.mytime = null;
+    };
+
+
+
+
+
+
+        }
 
      }
 
@@ -656,7 +745,13 @@
      }
  })
 
-
+.directive("nofocus" , function(){
+    return function(a,b){
+        b.focus(function(){
+            $(this).blur();
+        })
+    }
+})
 
  // 展示  template  t ;  device  d ; templatePoint  tp ;  profpoint pp ;  profalarm pa
  //       project   proj ; station  s ;
@@ -783,44 +878,8 @@
      }
  })
 
- .directive("delete", function() {
-         return function(s, e, a) {
-
-         }
-     })
-     .directive("edit", function() {
-         return function(s, e, a) {
-
-         }
-     })
-
- .directive("tip", function($brower, $compile, $sce) {
-     var g = $brower.isSmart ? "mouseclick" : "mouseenter";
-
-     return {
-         restrict: "A",
-         link: function(s, e, a, c) {
-             // var  t  = $sce.getTrustedHtml( s.$eval(a.tip) )  ; 
-             var d = s.$eval(a.tip),
-                 t, dom;
-
-             if (d) {
-                 t = d.replace(new RegExp(":", "g"), ": "),
-                     dom = "<i class='fa fa-gear text-info'  popover= '" + t + "' popover-trigger='" + g + "' ></i>  ";
-                 // popover-trigger="mouseenter"
-                 e.replaceWith($compile(dom)(s));
-
-             }
-         }
-     }
- })
+ 
 
  
 
- /*
-  
-  
-  
-  
-  
-  */
+ 

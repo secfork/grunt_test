@@ -1,0 +1,57 @@
+<div class="panel-body table-responsive no-padder">
+   <table class=" table   table-bordered ">
+      <thead class="flip-content"  >
+        <th class="w">变量</th>
+        <th class="w">值</th>
+        <th class="w">时间戳</th>
+        <th class="w">下置</th>
+        <th class="w" >查看历史</th> 
+
+      </thead>
+
+ 
+
+
+      <tbody>
+        <tr   ng-repeat="t in ct track by $index">
+          <td  class="full-td">
+            <select ng-options =" tag.name as tag.name for tag in tags" 
+                ng-model="t"
+                class=""
+                ng-change="ccSubItem( $index , t  )"
+              >
+               <option value="">-选择tag-</option>
+             </select>
+
+
+
+          </td>
+
+          <td  class="current_val_{{t}}"  > </td>
+          <td  class="current_time_{{t}}"> <!-- {{ |  date:"yyyy-MM-dd HH:mm"}} --> </td>
+
+          <td>
+              <input  class="input h-30 " ng-model="v">
+              <button  class="btn btn-info btn-xs" ng-click="liveWrite(t,v , this )">下置</button>
+              <span  id="current_msg_{{t}}" class="w" >  {{ msg }}</span>
+          </td>
+          <td>
+              <button class="btn btn-info btn-xs"  ng-click="">查看历史</button>
+
+              <i class=" fa fa-minus-circle pull-right text-danger m-t-xs "
+                  ng-click="delSubItem( $index , t )"
+              ></i>
+
+          </td>
+
+        </tr>
+
+        <tr>
+          <td colspan="6">
+            <button class="btn btn-info btn-sm float-left" ng-click=" addSub()">添加监控点</button> 
+          </td>
+        </tr>
+
+      </tbody>
+
+</div>
