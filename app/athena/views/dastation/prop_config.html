@@ -3,10 +3,7 @@
 
 <div  class=" bg-light  bg  panel"> 
   
-      <div  ng-if=" false &&  $debug">
-
-        system.profile = {{station.profile}} 
-        <hr/>
+      <div  ng-if="  $debug"> 
         system.network = {{station.network}}
         <hr/>
 
@@ -14,14 +11,10 @@
         <hr/>
 
         station ={{station}}
-        <hr/>
-        
-        sysModel.mode = {{sysmode.node }}
-        <hr/>
-
+        <hr/> 
         sysModel.devices =  {{sysmodel.devices}}
         <hr/>
-        gateway_default = {{ sysmodel.gateway_default}}
+        sysmodel.gateway_default = {{ sysmodel.gateway_default}}
         <hr/> 
       </div>
 
@@ -80,14 +73,14 @@
 <!--   托管  daserver  模式 -->
 
       <div class="col-xs-8  text-left m-t-xs m-b   "  
-        ng-if=" sysmodel.mode ==1 &&  station.comm_type == 1   " >
+        ng-if=" sysmodel.mode ==1 &&  sysmodel.comm_type == 1   " >
          
          <h5  class="m-l-xs"  > 网络参数 </h5>
 
          <ng-include src="  'athena/views/dastation/_prop_daserver_network.html'  "   ></ng-include>
 
       </div>  
-      <div class="line b-b "  ng-if=" station.comm_type == 1   " ></div>
+      <div class="line b-b "  ng-if=" sysmodel.comm_type == 1   " ></div>
 
 
 
@@ -96,26 +89,25 @@
 -->
 
       <div  class="col-md-8 col-xs-12  text-left    panel-body  table-responsive no-padder  no-border " 
-            ng-if=" sysmodel.mode ==1 && station.comm_type ==2   "  >
+            ng-if=" sysmodel.mode ==1 && sysmodel.comm_type ==2   "  >
 
           <h5  class="m-l m-t-none"  > 网关配置  </h5>
 
           <ng-include src="  'athena/views/dastation/_prop_gateway_gateway.html'  "  ></ng-include>
-
-
+          
       </div>  
 
-      <div class="line b-b "   ng-if="station.comm_type ==2   " ></div>
+      <div class="line b-b "   ng-if="sysmodel.comm_type ==2   " ></div>
 
       <div  class="col-xs-8  text-left    table-responsive no-padder  no-border " 
-            ng-if=" sysmodel.mode ==1 && station.comm_type ==2   "> 
-          <h5  class="m-l m-t-none"  > 网络参数   </h5>
+            ng-if=" sysmodel.devices.length && sysmodel.mode ==1 && sysmodel.comm_type ==2 "> 
+          <h5  class="m-l m-t-none"  > 设备网络参数   </h5>
 
-         <ng-include src="  'athena/views/dastation/_prop_gateway_device.html'  "  ></ng-include>
-
+          <ng-include src="  'athena/views/dastation/_prop_gateway_device.html'  "  ></ng-include>
+ 
       </div>  
 
-      <div class="line b-b"  ng-if="station.comm_type ==2   "  ></div>
+      <div class="line b-b"  ng-if="sysmodel.comm_type ==2   "  ></div>
 
 
       <div class="col-md-2  col-xs-6   text-left  ">

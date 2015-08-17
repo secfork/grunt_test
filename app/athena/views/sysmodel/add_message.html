@@ -39,13 +39,15 @@
 
         <div class="form-group  ng-scope">
             <label class="col-sm-3 col-sm-offset-1 control-label ">  
-                <span  >User Catetory</span> 
+                <span  >User Catetory 多选</span> 
             </label>
 
             <div class=" col-sm-7">
                 <div class="checkbox inline">
                   <label class="i-checks">
                     <input type="checkbox" ng-model="op.pt " checked="" 
+                        ui-validata=""
+                        ui-validata-watch=""
                         ng-change="op.xx =true "
                     ><i></i>
                     <span> 平台用户</span>

@@ -22,12 +22,14 @@ input, select {
 
 
 
-table,tbody{
+table,tbody {
   text-align: center;
+  font-size: 14px;
 
 }
 
 
+ 
 tr.hover:hover td {
   border-color:  #BACACD ;
   background-color: #BACACD
@@ -259,9 +261,12 @@ html {
   background-color: #f0f3f4;
 }
 body {
-  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /*font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
  /* font-family: "微软雅黑";*/
-  font-size: 14px;
+
+ font:  "Microsoft YaHei", SimHei, helvetica, arial, verdana, tahoma, sans-serif;
+
+  font-size: 15px;
   color: #58666e;
   background-color: transparent;
    /*background:   #3A3D3F;*/
@@ -286,9 +291,10 @@ a {
 }
 
 tr > th{
-  font-size: 14px;
+  /*font-size: 14px;*/
   font-weight: normal;
 }
+
 
 th {
 /*  background-color: #EDF1F2;*/
@@ -729,6 +735,7 @@ a.list-group-item:focus {
 pre {
   background-color: #edf1f2;
   border-color: #dee5e7;
+  font-size: 14px;
 }
 .dropdown-menu {
   border-radius: 2px;
@@ -3252,7 +3259,8 @@ a.text-success:hover {
 }
 
 .text-link{
-    color: #0081c2;
+    /*color: #0081c2;*/
+    color: #003DE4
 }
 
 

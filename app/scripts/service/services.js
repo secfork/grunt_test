@@ -554,7 +554,7 @@ angular.module('app.services', ["ngResource" ] ,function(){
 
             marks =   createDAPoint(stations, projName );
 
-            map = $map.createMap("bdmap" , marks);
+            map = $map.createMap( domid , marks);
             return  map ;
         }
 

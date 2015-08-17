@@ -560,8 +560,7 @@ angular.module('app.system.prop', [])
 
 
       mapContextMenu = new BMap.ContextMenu();
-      mapContextMenu.addItem(new BMap.MenuItem("定位位于此处",
-        junpLocation, 100));
+      mapContextMenu.addItem(new BMap.MenuItem("定位位于此处", junpLocation, 100));
       map.addContextMenu(mapContextMenu);
     }
 

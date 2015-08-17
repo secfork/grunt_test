@@ -21,10 +21,38 @@
         <select  tl-wrap ng-model="sm.mode"   
                  ng-if="isAdd" 
                  ng-options=" k as v  for (k,v) in $sys.sysModelMode.values"
-        	       tl-default = "$sys.sysModelMode.default"
+        	       ng-change=" sm.comm_type=sm.mode=='1'?'1':undefined "
                  label="text.mode"  required  
         >
         </select>
+
+
+        <div class="form-group "  ng-if=" sm.mode == 1" >
+            <label class="col-sm-3 col-sm-offset-1 control-label  ">  
+              <span    >通讯类型</span> 
+            </label>
+            <div class=" col-sm-7">  
+                    <div class="radio inline ">
+                      <label class="i-checks">
+                        <input type="radio"  value="2"     ng-model="sm.comm_type"  >
+                        <i></i>
+                        <span>GateWay</span>
+                      </label>    
+                    </div> 
+                    <div class="radio inline m-l ">
+                      <label class="i-checks">
+                        <input type="radio"   value="1"    ng-model="sm.comm_type"   >
+                        <i></i>
+                        <span>DAServer</span> 
+                      </label>
+                    </div> 
+            </div>
+        </div>
+
+
+
+
+
 
         <textarea    tl-wrap  ng-model="sm.desc" label="备注" >  </textarea>
  

@@ -66,6 +66,7 @@
                       --> 
                         <a  class="text-info-dk"  
                             ng-click="goto( _$stationState , das , das     )"  > 
+
                             {{ das.name }} 
 
                         </a>   
@@ -76,7 +77,7 @@
 
 
                     <a  class="text-info-dk"    ng-disabled="true"
-                         ng-click=" goto(      )         "
+                       
                         ui-sref=" {{ ( isShowModul ?'app.show.system_prop.station':'app.proj.prop.station'   ) +
                           '({ projid :   das.project_id  || pathProj.p_id  ,   projname: das.proj_name || pathProj.projname  })'
                                   }} "       >
@@ -96,14 +97,14 @@
                     <td  >
 
                          <a  ng-click = " goto( _$mapState, das , das  )"   >
-
+ 
                              <span  ng-if="das.latitude"  
                                     class="fa fa-location-arrow text-success"  >
 
                              </span>
                              <span  ng-if=" !das.latitude && !isShowModul  "
                                     class="label bg-success m-l-sm  ng-scope"   >
-                                   去定位
+                                   去定位  
                              </span>
 
                          </a>

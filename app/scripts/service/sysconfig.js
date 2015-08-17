@@ -2,7 +2,7 @@ angular.module('app.sysconfig', [], function () {
 }) 
 
 .service("$sys", function ( $translate){ return { 
-            '$debug': false ,
+            '$debug': true ,
  
 
             plotChartConfig : {
@@ -34,7 +34,7 @@ angular.module('app.sysconfig', [], function () {
             // systemo 模式: manage , unmanage ,unknown ; 
             manageMode : 1, 
 
-            pager:{ itemsPerPage:25 } ,
+            pager:{ itemsPerPage:10 } ,
              
             // application  首页;
             rootState: "app.proj.manage",
@@ -149,6 +149,13 @@ angular.module('app.sysconfig', [], function () {
                           {v:'3600',k:"60分钟" }
                         ]
             },
+            log_type: {
+                default:"RAW",
+                values:{
+                    "RAW":"保存原始记录",
+                    "CHANGED":"只在变化时存储"
+                }
+            } ,
 
             // 添加 device 时 根据类型 加载;
             device_type: [] ,

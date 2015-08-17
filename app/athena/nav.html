@@ -1,24 +1,24 @@
 <ul class="nav">
 
-<li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
-    <span><h5 translate="nav.a">展1示</h5></span>
-</li>
- 
+    <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+        <span><h5 translate="nav.a">展1示</h5></span>
+    </li>
+     
 
-<li ui-sref-active="active">
-    <a  ui-sref="app.show.proj">
-       <i class="  fa fa-cubes  text-info-dk"></i>  
-        <span   > 区域</span>
-    </a>
-</li>
+    <li ui-sref-active="active">
+        <a  ui-sref="app.show.proj">
+           <i class="  fa fa-cubes  text-info-dk"></i>  
+            <span   > 区域</span>
+        </a>
+    </li>
 
-<li ui-sref-active="active">
-    <a  ui-sref="app.show.system({isactive:'1'})"  >
-       <i class="  fa  fa-leaf  text-info-dk"></i>  
-        
-        <span    > 系统</span>
-    </a>
-</li>
+    <li ui-sref-active="active">
+        <a  ui-sref="app.show.system({isactive:'1'})"  >
+           <i class="  fa  fa-leaf  text-info-dk"></i>  
+            
+            <span    > 系统</span>
+        </a>
+    </li>
 
 
  
@@ -115,15 +115,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
+ 
 
 
 <!--    <li class="line dk hidden-folded"></li>
@@ -164,20 +156,23 @@
       "g4":"添加系统", -->
 
 <!-- <li  > -->
- <li ng-class="{active:$state.includes('app.proj') || $state.includes('app.station') }">
+
+
+<li ng-class="{active:$state.includes('app.proj') }">
+
 
     <a href class="auto">
           <span class="pull-right text-muted">
                <i class="fa fa-fw fa-angle-right text"></i>
                <i class="fa fa-fw fa-angle-down text-active"></i>
-            </span>
-        <i class="glyphicon glyphicon-th-large icon  text-info-lter"></i>
-        <span translate="nav.g">系统</span>
+            </span> 
+        <i class="  fa fa-cubes  text-info-dk"></i>  
+        <span  >区域</span>
     </a>
     <ul class="nav nav-sub dk">
         <li ui-sref-active="active">
             <a ui-sref="app.proj.manage">
-                <span translate="nav.g1">  区域 </span>
+                <span  >  区域 </span>
             </a>
         </li>
 
@@ -187,7 +182,27 @@
                 <span translate="nav.g5">添加区域</span>
             </a>
         </li>
+    </ul>
+</li>
 
+
+
+
+
+ <li ng-class="{active:  $state.includes('app.station') }">
+
+    <a href class="auto">
+          <span class="pull-right text-muted">
+               <i class="fa fa-fw fa-angle-right text"></i>
+               <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span> 
+        <i class="  fa  fa-leaf  text-info-dk"></i>  
+        <span translate="nav.g">系统</span>
+    </a>
+
+ 
+
+    <ul class="nav nav-sub dk">    
         <li ui-sref-active="active">
             <a ui-sref="app.station.active({isactive:'1'})" >
                 <!-- <b class="badge bg-info pull-right">3</b>-->
@@ -289,6 +304,59 @@
  
     </ul>
 </li>
+
+<!-- <li class="line dk hidden-folded"></li> -->
+
+<li ng-class="{active: $state.includes('app.model')} "  ng-if="false">
+
+    <a href class="auto">
+          <!--   fa  fa-question -->
+        <i class=" icon icon-question text-info-dker "></i>
+        <span  >支持</span>
+    </a>
+    <ul class="nav nav-sub dk">
+    
+    <li ui-sref-active="active">
+        <a  ui-sref=" "  > 
+            
+            <span    > 使用条款</span>
+        </a>
+    </li>
+    
+    <li ui-sref-active="active">
+        <a  ui-sref=" "> 
+            <span   > 技术支持</span>
+        </a>
+    </li>
+
+    <li ui-sref-active="active">
+        <a  ui-sref=" "  > 
+            
+            <span    > 联系我们</span>
+        </a>
+    </li>
+
+
+    <li ui-sref-active="active">
+        <a  ui-sref=" "  >   
+            
+            <span    > 问题反馈</span>
+        </a>
+    </li>
+    <li ui-sref-active="active">
+        <a  ui-sref=" "  >
+             
+            <span    > 帮助 </span>
+        </a>
+    </li>
+
+
+    </ul>
+    
+</li>        
+
+
+    
 
 
 </ul>

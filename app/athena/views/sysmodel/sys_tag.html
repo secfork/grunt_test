@@ -7,10 +7,10 @@
              <div class="float-left m-t-xs m-l-md m-r"> 配置项
              </div>     
              <div class="float-left"> 
-                <select   ng-model="prof_uuid" 
+                <select   ng-model="odp.puuid" 
                           class=" form-control  input-sm w   " 
                           ng-options="   p.uuid as p.name for p in profiles  "   
-                          ng-change="loadSysTag( prof_uuid  )"
+                          ng-change="loadSysTag( odp.puuid  )"
                   >
                               
                 </select>  
@@ -46,12 +46,12 @@
           </tr>
         </thead>
 
-        <tbody class="text-center "> 
+        <tbody class="text-center " ng-init="_$type = $sys.log_type.values"> 
 
-          <tr  ng-repeat="  tag  in systags  "  class="hover" >
+          <tr  ng-repeat="  tag  in systags  "  class="hover"   >
 
                 <td>  {{tag.name}}</td>
-                <td ng-if="isManageMode">  {{tag.connect}}</td>
+                <td ng-if="isManageMode"   ng-init="splictC( tag  , $last )" >  {{tag.connect}}</td>
                 <td>  {{tag.type}}</td>
                 
 
@@ -65,7 +65,7 @@
 
                 </td>
                 <td >  <span ng-show="tag.save_log">{{tag.log_cycle }}  </span>  </td>
-                <td >  <span ng-show="tag.save_log"> {{tag.log_type ||'RAW' }}  </span> </td>
+                <td >  <span ng-show="tag.save_log"> {{   _$type[tag.log_type] ||'RAW' }}  </span> </td>
 
                
                 <td>  {{  tag.desc +'  '+tag.tp_desc }}</td>

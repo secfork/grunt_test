@@ -1,3 +1,6 @@
+<div class="panel panel-default">
+
+    <div class="panel-body table-responsive no-padder bg-light"> 
 
 
 <div ng-if="$debug">
@@ -42,41 +45,14 @@
         <option value="">--请选择配置项--</option>
     </select>
 
- 
+  
+<!--
+  && systemModel.mode == $sys.sysManageMode 
+-->
 
     <div class="form-group "  
-          ng-if=" systemModel.mode == $sys.sysManageMode "
-          ng-init= "system.comm_type = '1'  "
-     >
-        <label class="col-sm-3 control-label  ">  
-          <span    >通讯类型</span> 
-        </label>
-        <div class=" col-sm-9"> 
-                <div class="radio inline ">
-                  <label class="i-checks">
-                    <input type="radio"  value="2"     ng-model="system.comm_type" 
-                           ng-change=" system.comm_type =='2' && (system.network = {} )  ">
-                    <i></i>
-                    <span>GateWay</span>
-                  </label>    
-                </div> 
-                <div class="radio inline m-l ">
-                  <label class="i-checks">
-                    <input type="radio"   value="1"    ng-model="system.comm_type"
-
-                    >
-                    <i></i>
-                    <span>DAServer</span> 
-                  </label>
-                </div> 
-        </div>
-    </div>
-
-
-    <div class="form-group "  
-          ng-if=" system.comm_type == '1'  && systemModel.mode == $sys.sysManageMode "
-          ng-init= " system.network= { daserver: { type:'DTU'}  } ;  "
-     >
+          ng-if=" systemModel.mode==1 && systemModel.comm_type == 1 "
+          ng-init= " system.network= { daserver: { type:'DTU'}  }; " >
         <label class="col-sm-3 control-label  ">  
           <span    >网络类型</span> 
         </label>
@@ -118,11 +94,18 @@
   
 
 <div panelclass  class="text-center">
-   <button  type="submit" class="btn  btn-info  btn-block-middle w-xs "
+   <button  type="submit" class="btn  btn-info  btn-block-middle w-xs m-b "
             ng-click=" commit()"   token >     保存       </button>
 </div>
 
  
+
+     </div>
+     
+</div>      
+
+
+
 
 
 

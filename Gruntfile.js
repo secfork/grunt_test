@@ -354,7 +354,7 @@ module.exports = function (grunt) {
       dist: {
         files: [{ 
           expand: true,
-          dot: true,
+          dot: false, //  是否包含与点 开头的文件  ( .svn )
           cwd: '<%= yeoman.app %>', 
           dest: '<%= yeoman.dist %>',
           src: [
@@ -363,9 +363,10 @@ module.exports = function (grunt) {
             '*.html',
             'images/{,*/}*.{webp}',
             'styles/fonts/{,*/}*.*'
-
+ 
             ,'{athena,fonts,img}/**'
             ,'lib/*/**'  //  jquery 插件拷贝; 
+            
           ]
         }, {
           expand: true,

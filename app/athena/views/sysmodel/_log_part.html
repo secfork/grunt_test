@@ -34,7 +34,20 @@
             <option value=''  > --不保存日志--</option>
         </select> 
 
- 
+        <div ng-if="L.log_cycle"  >
+                
+                <select tl-wrap  
+                        
+                        ng-options='  k as v for (k,v) in $sys.log_type.values' 
+                        tl-default="$sys.log_type.default"
+                        ng-model="L.log_type"
+                        label="日志类型"
+
+                        >
+                </select>
+
+        </div>
+
 
        <!--  <select tl-wrap 
             ng-model="L.profile"    

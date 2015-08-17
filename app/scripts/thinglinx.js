@@ -27,7 +27,7 @@ var app = angular.module('thinglinx', [
   // 'ngMessages',
 
   'app.basecontroller',  'app.account',  'app.model.device', 'app.model.system', 'app.project',
-      'app.show.proj', 'app.show.system', 'app.system', 'app.system.prop',
+      'app.show.proj', 'app.show.system', 'app.system', 'app.system.prop','app.support' ,
   'app.directives',
   'app.filters',
   'app.services', 'app.sysconfig'
@@ -36,14 +36,15 @@ var app = angular.module('thinglinx', [
 
 .run(
     ['$rootScope', '$state', '$stateParams', '$sys', "$compile", "$localStorage",
-      "$cacheFactory", "$translate",
+      "$cacheFactory", "$translate", '$sce',
       function($rootScope, $state, $stateParams, $sys, $compile, $localStorage,
-        $cacheFactory, $translate) {
+        $cacheFactory, $translate , $sce) {
 
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
         $rootScope.$sys = $sys;
         $rootScope.$translate = $translate;
+        $rootScope.$sceHtml = $sce.trustAsHtml ; 
 
 
 
@@ -266,8 +267,14 @@ var app = angular.module('thinglinx', [
           templateUrl: "athena/views/show/system_prop.html"
         })
 
+          .state("app.show.system_prop.basic",{
+              url:"/_basic",
+              templateUrl:"athena/views/show/system_prop_basic.html",
+              controller:"show_system_basic"
 
-        .state("app.show.system_prop.current", {
+          })
+
+          .state("app.show.system_prop.current", {
             url: "/_current",
             templateUrl: "athena/views/show/system_prop_current.html",
             controller: "show_system_current"
@@ -286,7 +293,8 @@ var app = angular.module('thinglinx', [
 
         .state("app.show.system_prop.map", {
           url: "/_map",
-          template: "<div class='panel-body h-full' id='station_map' >  </div>",
+          templateUrl: "athena/views/show/system_prop_map.html",
+          //template: "<div class='panel-body h-full' id='station_map' > 423 </div>",
           controller: "show_system_map"
         })
 
@@ -697,12 +705,40 @@ var app = angular.module('thinglinx', [
           })
 
         //============ access  ===========================================================
+        // 联系我们; 技术支持; 使用条款; 问题反馈; 帮助; 
+        // .state("support", {
+        //   url:"support",
+        //   template:'<div ui-view class="smooth"></div>'
+        // })
+          .state("conncet" ,{
+
+          })
+          .state( 'app.tech' ,{
+             url:"/tech",
+             templateUrl:"athena/views/support/tech.html",
+             controller:"tech"
+
+          })
+          .state("app.tech_detail" , {
+              url:"/techdetail",
+              templateUrl:"athena/views/support/techdetail.html",
+              controller:"techdetail"
+          })
+          .state( 'protocol' ,{})
+          .state( 'htlp' ,{}) 
+
+
 
       }
     ]
   )
 
+.constant('JQ_CONFIG', {
 
+    wysiwyg: ['lib/wysiwyg/bootstrap-wysiwyg.js',
+              'lib/wysiwyg/jquery.hotkeys.js'
+            ]
+})
 
 .config(['$translateProvider', function($translateProvider) {
 

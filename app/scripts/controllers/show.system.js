@@ -8,6 +8,12 @@ angular.module('app.show.system', [])
 		//td = $filter("date")(new Date(), "yyyy-MM-dd"), 
 		arr, d  ; 
  
+	$source.$sysModel.getByPk({pk: sysModel} ,function( resp ){
+		$scope.systemModel = resp.ret ; 
+		//$scope.system.network = angular.fromJson( $scope.system.network);
+	})	
+
+
 	$scope.op = {
 		start: "",
 		num: 50, 
@@ -15,8 +21,8 @@ angular.module('app.show.system', [])
 		start: new Date( new Date() - 86400000),
 		ala: "b", // a: 实时报警; b: 历史报警; 
 		pointSize: 60, // 曲线上的点数; 
-		c_int: 2000, // 实时数据 interval 时间; 
-		a_int: 2000 // 实时报警; interva 时间; 
+		c_int: 10000, // 实时数据 interval 时间; 
+		a_int: 10000 // 实时报警; interva 时间; 
 	};
  
 	// 得到 sysmodel 下的tags ; 
@@ -46,6 +52,9 @@ angular.module('app.show.system', [])
 
 })
 
+.controller('show_system_basic' , function( $scope , $sys , $show){
+
+})
 
 .controller('show_system_current', function($scope, $show, $interval, $sys,$state , $filter) {
 
@@ -64,7 +73,7 @@ angular.module('app.show.system', [])
  		angular.forEach(resp.ret, function(v, i){
  			names.push(v.name);	
  		});
- 		console.log(names); 
+ 		console._log(names); 
  	})
  
  
@@ -81,25 +90,34 @@ angular.module('app.show.system', [])
     	doms_v =  doms_v || $(".current_val");
 
 
-		$interval.cancel(interval); 
-		interval = $interval(function() {
 
-			$show.live.get({
+
+
+		$interval.cancel(interval); 
+		getCurrent();
+		interval = $interval(function() { 
+			getCurrent();
+		}, $scope.op.c_int );
+	}
+
+	function getCurrent(){
+		$show.live.get({
 				uuid: $scope.system.uuid,
 				tag:  names
 			}, function(resp) { 
-				console.log( names);
+				console._log( names);
 		 		$.each( resp.ret , function(i,d){ 
-		 			t = $filter("date")( d.src , 'yyyy-MM-dd HH:mm');  
+		 			if(!d) {
+		 				d = {src:null , pv:null};
+		 			} ; 
+		 			t = $filter("date")( d.src , 'MM-dd HH:mm:ss');  
 		 			doms_v.eq(i).text(d.pv);
 		 			doms_t.eq(i).text(t); 
 		 		})
 
-			})
-
-
-		}, $scope.op.c_int );
+			});
 	}
+
 
 
 	$scope.liveWrite= function(t,v){
@@ -110,13 +128,9 @@ angular.module('app.show.system', [])
 					value: v
 					}
 		$show.liveWrite.save( d , function( resp){
-			console.log( resp );
+			console._log( resp );
 		}) 
 	}
-
-
-
-
 
 })
 
@@ -179,9 +193,7 @@ angular.module('app.show.system', [])
 		});
 
 	} 
-
-
-
+ 
 
 })
 
@@ -193,28 +205,29 @@ angular.module('app.show.system', [])
 		$interval.cancel(interval);
 	});
 
-	$scope.$watch("op.ala", function() {
-		$scope.alarms = [];
-
+	$scope.$watch("op.ala", function(n) {
+		$scope.alarms = []; 
 		$interval.cancel(interval); 
-		interval = null;
+		interval ; 
+		 console._log(n);
+		if(n =='a'){ 
+			$scope.liveAlarm();
+		}
+ 
 	})
 
-	$scope.liveAlarm = function() {
-		if (interval) {
-			$interval.cancel(interval);
-			interval = null;
-			return;
-		}
+	function getAlarm (){
+		$show.alarm.get({ uuid: $scope.system.uuid }, function(resp) {
+			$scope.alarms = resp.ret;
+		})
+	}
 
-		interval = $interval(function() {
-			console._log("live alarm ", $interval);
-			$show.alarm.get({
-				uuid: $scope.system.uuid
-			}, function(resp) {
-				$scope.alarms = resp.ret;
-			})
-		}, 2000)
+
+	$scope.liveAlarm = function() { 
+		getAlarm();
+		interval = $interval(function() { 
+			getAlarm();
+		}, $scope.op.a_int );
 	}
 
 
@@ -235,6 +248,7 @@ angular.module('app.show.system', [])
 		})
 	}
  
+ 	// alarm 详细信息; 
 	var S = $scope ;
 	$scope.alarmMsg = function(a){
 		$modal.open({
@@ -242,7 +256,7 @@ angular.module('app.show.system', [])
 			controller:function( $scope ,$modalInstance ){
 				$scope.__proto__ = S ; 
 				$scope.$modalInstance = $modalInstance;
-				$scope.done = $scope.cancel;
+				// $scope.done = $scope.cancel;
 				$scope.alarm = a ; 
 			}
 		})
@@ -250,6 +264,13 @@ angular.module('app.show.system', [])
 
 })
 
-.controller('show_system_map', function() {
+.controller('show_system_map', function( $scope , $map) {
+
+		var map;
+		$scope.initMap = function() {
+			console._log("initMap");
+			map = $map.initMap($scope, [ $scope.system], "station_map", 135, "$stateParams.projname");
+
+		}
 
 }) 
