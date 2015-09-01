@@ -1,0 +1,38 @@
+<div class="panel-body   no-padder table-responsive no-border">
+    <table class=" table   table-bordered  table-condensed      ">
+        <thead class="flip-content  ">
+            <tr>
+                <th>用户名称</th>
+                <th> 是否有效</th>
+                <th> 上次登录IP </th>
+                <th> 上次登录时间 </th> 
+                <th>   </th>  
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="hover">
+                <td>11</td>
+                <td>11</td>
+                <td>11</td>
+                <td>11</td>  
+                <td> </td>  
+            </tr> 
+            <tr ng-repeat=" u in page.data" class="hover">
+                <td>
+                    <i class="fa {{ u.emailEffective?'fa-check text-success':'fa-times  text-danger' }}"></i>
+                </td>
+                <td>
+                    <i class="fa {{ u.emailEffective?'fa-check text-success':'fa-times  text-danger' }}"></i>
+                </td>
+                <td>
+                    <a href="" class="text-link" ng-click="addProjForUser( u )">编辑</a>
+                    <a href="" class="text-link" ng-click="addProjForUser( u )">组用户</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="panel-footer  ">
+    <ng-include src=" 'athena/views/debris/_pager.html'  "></ng-include>
+</div>
+

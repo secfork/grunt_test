@@ -1,13 +1,9 @@
 angular.module('app.model.device', [])
-.controller("devmodel", [ 
-    '$scope', '$compile', '$state', '$modal', '$log', '$http',
-    '$timeout', '$source',   '$utils' ,
-    function($scope, $compile, $state, $modal, $log, $http,
-        $timeout, $source,  $utils
-    ) {
+    .controller("devmodel", function($scope, $compile, $state, $modal, $log, $http,
+        $timeout, $source) {
         // 加载 projects ;
         console._log("template", $window); //postcode   $source.$dmPoint ,
-        
+
         var tempScope = $scope;
 
         $scope.$rootNav("管理");
@@ -15,7 +11,7 @@ angular.module('app.model.device', [])
 
         var $window = $(window);
 
-    
+
 
         // 监视屏幕滚动;
         var _timeout, w_st, w_h, t_p, t_b, p_t, p_b,
@@ -61,9 +57,9 @@ angular.module('app.model.device', [])
 
         });
 
-         // 加载 device model ; 
-$source.$deviceModel.get(function(resp) { 
-            $scope.deviceModels  =  resp.ret ;  
+        // 加载 device model ; 
+        $source.$deviceModel.get(function(resp) {
+            $scope.deviceModels = resp.ret;
         });
 
 
@@ -75,7 +71,7 @@ $source.$deviceModel.get(function(resp) {
                         device_model: devModel.uuid
                     },
                     function(resp) {
-                        scope.points =  resp.ret;
+                        scope.points = resp.ret;
                     }
                 );
             }
@@ -84,8 +80,8 @@ $source.$deviceModel.get(function(resp) {
         // 添加 || 编辑  模版; 弹出框 ;=================================================
         $scope.add_edit_t = function(scope, t) { //  temp-scope , 或者; super-scope ;
             $modal.open({
-                templateUrl: 'athena/views/template/temp.html', 
-                controller: function($scope, $modalInstance, $driver, $source  ) {
+                templateUrl: 'athena/views/template/temp.html',
+                controller: function($scope, $modalInstance, $driver, $source) {
                     console._log("edit or new  temp ", t);
                     $scope.__proto__ = scope;
                     $scope.$modalInstance = $modalInstance;
@@ -94,14 +90,16 @@ $source.$deviceModel.get(function(resp) {
 
                     if (!t) { // 新建; 
                         //$scope.drivers =
-                         $driver.getDriverList(function(resp) { 
-                            $scope.drivers = [ {id:2, driver_id:"FCS_MODBUS" , version:"1.0.0.0" } ]  
-                                            // resp;
-                            $scope.d = $scope.drivers[0]; 
-                         });
+                        $driver.getDriverList(function(resp) {
+                            $scope.drivers = [{
+                                    id: 2,
+                                    driver_id: "FCS_MODBUS",
+                                    version: "1.0.0.0"
+                                }]
+                                // resp;
+                            $scope.d = $scope.drivers[0];
+                        });
                     }
-
-
 
 
 
@@ -113,29 +111,31 @@ $source.$deviceModel.get(function(resp) {
                     };
                     // 编辑 新建 template ;
                     $scope.done = function(btn) {
-                        $scope.validForm();     
+                        $scope.validForm();
 
                         if (!t) {
                             // 新建;
                             $scope.T.driver_id = $scope.d.driver_id;
-                            $scope.T.driver_ver   = $scope.d.version ; 
-                            console._log($scope.T);  
-$source.$deviceModel.save($scope.T,  function(resp) {
-                                    
-                                    $scope.T.uuid = resp.ret;
-                                    $scope.deviceModels.push($scope.T);
-                                    // $scope.page.total ++ ; 
-                                    $scope.cancel()
-                                }
-                            );
+                            $scope.T.driver_ver = $scope.d.version;
+                            console._log($scope.T);
+                            $source.$deviceModel.save($scope.T, function(resp) {
+
+                                $scope.T.uuid = resp.ret;
+                                $scope.deviceModels.push($scope.T);
+                                // $scope.page.total ++ ; 
+                                $scope.cancel()
+                            });
                         } else {
                             //更名; 
-$source.$deviceModel.put( { uuid: t.uuid , name:$scope.T.name, desc: $scope.T.desc },   function(resp) {
-                                    t.name = $scope.T.name;
-                                    t.desc = $scope.T.desc;
-                                    $scope.cancel()
-                                }
-                            )
+                            $source.$deviceModel.put({
+                                uuid: t.uuid,
+                                name: $scope.T.name,
+                                desc: $scope.T.desc
+                            }, function(resp) {
+                                t.name = $scope.T.name;
+                                t.desc = $scope.T.desc;
+                                $scope.cancel()
+                            })
                         }
                     }
                 }
@@ -267,18 +267,20 @@ $source.$deviceModel.put( { uuid: t.uuid , name:$scope.T.name, desc: $scope.T.de
         // ============================= 用户删除 tempalte  group file ===========================
         // 删除 tempalte
 
-        $scope.delTemp = function(  index, obj) {
-             
+        $scope.delTemp = function(index, obj) {
+
             var msg = {
-                title: "删除模版!" + obj.name +" ?" 
+                title: "删除模版!" + obj.name + " ?"
             };
             if (obj.ref)
-                msg.warn = "该模版被" + obj.ref + "个设备使用! 不可删除!"; 
-            $scope.confirmInvoke(msg,  function(next) {
-                if (obj.ref) return; 
-$source.$deviceModel.delete({  uuid: obj.uuid   },  function(resp) {
+                msg.warn = "该模版被" + obj.ref + "个设备使用! 不可删除!";
+            $scope.confirmInvoke(msg, function(next) {
+                if (obj.ref) return;
+                $source.$deviceModel.delete({
+                    uuid: obj.uuid
+                }, function(resp) {
                     if (resp) {
-                        $scope.deviceModels.splice(index, 1); 
+                        $scope.deviceModels.splice(index, 1);
                         // $scope.page.total-- ; 
                         next();
                     }
@@ -301,7 +303,7 @@ $source.$deviceModel.delete({  uuid: obj.uuid   },  function(resp) {
             })
         };
 
- 
+
         //--------------
         //添加 point;
 
@@ -309,21 +311,21 @@ $source.$deviceModel.delete({  uuid: obj.uuid   },  function(resp) {
             console._log(" add_f or edit_f  ");
 
             $modal.open({
-                templateUrl: 'athena/views/template/file.html', 
-                controller: function($scope,   $modalInstance,   $sys ) {
+                templateUrl: 'athena/views/template/file.html',
+                controller: function($scope, $modalInstance, $sys) {
                     $scope.__proto__ = scope;
                     $scope.$modalInstance = $modalInstance;
                     $scope.point = {};
 
                     if (p) {
-                        $scope.point = angular.copy(p); 
-                        $scope.point.params = angular.fromJson( $scope.point.params); 
-                    }else{
-                         var  dm =  scope.dm ;  
-                         $scope.point =  angular.copy( $sys.point[dm.driver_id  ][dm.driver_ver ].entity )
+                        $scope.point = angular.copy(p);
+                        $scope.point.params = angular.fromJson($scope.point.params);
+                    } else {
+                        var dm = scope.dm;
+                        $scope.point = angular.copy($sys.point[dm.driver_id][dm.driver_ver].entity)
                     };
 
-                    console._log( p ,  $scope.point);
+                    console._log(p, $scope.point);
 
                     // $scope.g = {hex: "0001ffdf", show: "2", type: "2", mask: true};
 
@@ -350,10 +352,9 @@ $source.$deviceModel.delete({  uuid: obj.uuid   },  function(resp) {
                     };
                 }
             });
-        }; 
+        };
         $scope.clone_f = function(f_id) {
             console._log(arguments)
         };
 
-    }
-]);
+    });

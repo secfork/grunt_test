@@ -1,5 +1,33 @@
 angular.module('app.show.system', [])
 
+.controller("show_alarm" , function( $scope , $source ,$project,$sys, $q ){
+	
+
+	$scope.openCalendar = function(e, exp) {
+		e.preventDefault();
+		e.stopPropagation();
+
+		this.$eval(exp);
+	};
+ 
+	$project.getAllprojs( function( resp){
+		$scope.projs = resp.ret ; 
+	})
+
+	$scope.op = {} ;
+	$scope.od = { class:0 , severity :'0' , 
+	    end: new Date(),
+		start: new Date( new Date() - 86400000)
+	} ; 
+
+
+	
+	
+
+})
+
+
+
 .controller('show_system_prop', function($scope,$state, $source, $q, $sys, $filter ) {
 
 	$scope.system = $scope.$$cache[0];

@@ -4,7 +4,7 @@
 
 angular.module('app.system', [])
 	.controller("dastation_ignore_active", function($scope, $state, $stateParams, $source,
-		$modal, $project, $q, $map, $sys) {
+		$modal,  $q, $map, $sys) {
 
 
 		//是否为 show 模块;
@@ -46,8 +46,9 @@ angular.module('app.system', [])
 			// 分页加载 系统数据;
 			var d = angular.extend({
 				currentPage: pageNo,
-				total: total
-			}, $stateParams, $sys.pager);
+				total: total ,
+				itemsPerPage : $sys.itemsPerPage 
+			}, $stateParams );
 
 			$source.$system.query(d).$promise.then(function(resp) {
 
@@ -62,7 +63,7 @@ angular.module('app.system', [])
 					sys_ref[n.uuid] = n;
 				})
 				console.log(projids);
-				promise_A = $project.getProjNameByIdS(Object.keys(projids)).$promise;
+				 promise_A =   {}  // $source.$region.getProjNameByIdS(Object.keys(projids)).$promise;
 
 				// 激活的系统;
 				if ($stateParams.isactive == '1') {
@@ -86,7 +87,9 @@ angular.module('app.system', [])
 						n.needsync = sta2sync && sta2sync[n.uuid];
 					});
 
-					angular.extend($scope.page, resp)
+					angular.extend($scope.page, resp);
+
+					$scope.page.currentPage = pageNo;
 						//$scope.page = resp_A ;
 
 					// 翻页 刷新  地图上的点;
@@ -113,7 +116,7 @@ angular.module('app.system', [])
 
 //添加系统;
 .controller("dastation_add",
-	function($state, $scope, $stateParams, $project, $source) {
+	function($state, $scope, $stateParams, $source) {
 
 		console._log("dastation_add");
 		// 由系统 转来 无 projid= nudifund ,  由 project 转来有projid ;
@@ -131,12 +134,13 @@ angular.module('app.system', [])
 
 		var a = $stateParams.projid;
 		// 加载可操作的 project ;
-		$project.getAllprojsBasic(
-			function(resp) {
-				$scope.projects = resp.ret;
-				$scope.system.group_id = a ? a : resp.ret[0].id;
-			}
-		);
+		$source.$region.query( { currentPage:1 , itemsPerPage:5000} , function( resp ){
+			$scope.projects = resp.data;
+		    $scope.system.group_id = a ? a : resp.data[0] && resp.data[0].id;
+		})
+
+	 
+
 		// 加载 所有 systemModel ;
 		$source.$sysModel.get(function(resp) {
 			$scope.sysmodels = resp.ret,

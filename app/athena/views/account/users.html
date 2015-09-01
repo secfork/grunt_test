@@ -1,20 +1,21 @@
+<tabset class="tab-container">
+    <tab>
+		<tab-heading ><i class=" icon icon-users"></i>  所有用户 </tab-heading>
+ 		<ng-include src="'athena/views/account/users_all.html'"  ></ng-include>
+    </tab>
+ 
+    <tab>
+    	<tab-heading ><i class="icon icon-user-follow"></i> 添加用户 </tab-heading>
+    	<ng-include src="'athena/views/account/users_add.html'"  ></ng-include>
+    </tab> 
+</tabset>
+
+ 
 
 
-    <ul class="nav  nav-tabs   ">
-
-        <li  ui-sref-active="active"  >
-            <a   ui-sref="app.account.user._all"    translate="tab.t7"  >   所有用户  </a>
-        </li>
-
-       <li  ui-sref-active="active"  >
-            <a  ui-sref="app.account.user._byproj"  translate="tab.t8" >   按项目划分用户  </a>
-        </li>
-
-        <li  ui-sref-active="active"  >
-            <a  ui-sref="app.account.user._add"  translate="tab.t9"  >  添加用户 </a>
-        </li>
-    </ul>
-
-    <div ui-view  class="well-xs"   >    </div>
 
 
+
+
+
+ 

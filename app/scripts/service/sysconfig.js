@@ -2,9 +2,7 @@ angular.module('app.sysconfig', [], function () {
 }) 
 
 .service("$sys", function ( $translate){ return { 
-            '$debug': true ,
- 
-
+            $debug: true ,
             plotChartConfig : {
                 colors: ['#23b7e5'], 
                // series: { shadowSize: 1 },  
@@ -34,7 +32,7 @@ angular.module('app.sysconfig', [], function () {
             // systemo 模式: manage , unmanage ,unknown ; 
             manageMode : 1, 
 
-            pager:{ itemsPerPage:10 } ,
+            itemsPerPage:5 ,
              
             // application  首页;
             rootState: "app.proj.manage",

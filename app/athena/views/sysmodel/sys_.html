@@ -2,6 +2,14 @@
 
 <ul class="nav  nav-tabs  m-t-xxs ">
 
+<!-- 
+  <li  ui-sref-active="active"    >   
+    <a  class="inline" ui-sref="app.model.sysmodel_p.basic" > 
+      <i class="glyphicon glyphicon-align-justify"></i> 
+      <span   > 基本信息 </span> 
+    </a> 
+  </li>
+ -->
 
   <li  ui-sref-active="active"    >   
     <a  class="inline" ui-sref="app.model.sysmodel_p.sysprofile"     > 
@@ -44,7 +52,7 @@
   </li>
 
 
-  <li  ui-sref-active="active"  ng-if="sysmodel.mode == 1  "   >
+  <li  ui-sref-active="active"  ng-if="sysmodel.mode == 1 && sysmodel.comm_type == 2 "  >
     <a  ui-sref="app.model.sysmodel_p.gateway"        > 
       <i class="glyphicon glyphicon-random"></i>
       <span translate="tab.t15">    网关 </span>

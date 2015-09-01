@@ -1,0 +1,16 @@
+<div class="panel-body  no-padder  bg-light b-t-none">
+    <h4 class="text-center">添加用户组</h4>
+    <form name="form" panelclass class="form-horizontal form-validation  "> 
+
+        <input tl-wrap-l label="组名" required ng-model=" ug.name "> 
+        <input tl-wrap-l label="账户角色" ng-model=" ug.contact_user ">
+        <input tl-wrap-l label="权限" ng-model=" proj."  >
+               <li class="line b-b"></li>
+        <div class="form-group  " ng-if=" !isShowModul ">
+            <label class="col-sm-3 control-label">
+                <button type="submit" class="btn  btn-info  btn-block-middle  w-xs " 
+                ng-click=" commit()"> 保存 </button>
+            </label>
+        </div> 
+    </form>
+</div>

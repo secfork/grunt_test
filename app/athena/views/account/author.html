@@ -1,117 +1,42 @@
- <div class="panel panel-default">
-
-    <div class="panel-body table-responsive no-padder bg-light"> 
-
- <!--    ui  权限  -->
-
-     <h4>模块权限</h4>
-    <div  ng-repeat='r in roles[0]' > 
-        <div class='row  b-b temp-row ' style="background-color: #B0E0E6"     >
-            <div class=" float-left  m-l  w b-r"
-                  ng-click=' loadPoints ( this , $event,  $index , t  ) ; showp = !showp ; par = par || true'  >
-
-                  <a   ng-class="{ 'fa':true , 'fa-plus-square-o': !showp ,
-                                               'fa-minus-square-o':showp  }" ></a>
-                  {{r.name }}   
-            </div> 
-
-            <div class=' float-left  m-l'>
-                  {{r.describtion ||"无描述!" }}
-            </div>
-
-            <div  class=" b-l float-right w-sm text-center" ng-if=" !r.readOnly">  
-                 <a  class="text-link" ng-click="delRole(r , $index )" > 删除</a>
-            </div>
-
-        </div>
-
-
-        <div ng-show=" showp "  ng-if=" par "  class="well"  >
-            
-
-             <!--  ng-disabled  =  "r.readOnly"  -->
-          <label class="checkbox i-checks  inline m-r w-sl m-l"   ng-repeat=' a in authors[0] ' >
-                  <input type="checkbox"  ng-checked=" r.authorIds[ a.id ] "  
-                                          ng-model = "r.authorIds[ a.id ]"
-                                          ng-click=" editRole(r)"
-                   class="ng-pristine ng-valid" >
-                  <i></i>  
-                  {{ a.name}}   <strang ng-if="$debug">  -- {{a.id}} </strang> 
-          </label>  
- 
-        </div>
-    </div>
- 
-
-
-   <h4> 工程权限</h4>
-
- <!--    proj  权限  -->
-    <div  ng-repeat='r in roles[1]' > 
-        <div class='row  b-b temp-row ' style="background-color: #B0E0E6"     >
-            <div class=" float-left  m-l  w b-r"
-                  ng-click=' loadPoints ( this , $event,  $index , t  ) ; showp = !showp ; par = par || true'  >
-
-                  <a   ng-class="{ 'fa':true , 'fa-plus-square-o': !showp ,
-                                               'fa-minus-square-o':showp  }" ></a>
-                  {{r.name }}   
-
-                  <!-- <i class="fa fa-spin fa-spinner "  ></i> -->
-
-                  <!-- dide  show   ng-show= " !showp "  -->
-            </div> 
-
-            <div class=' float-left  m-l'>
-                  {{r.describtion ||"无描述!" }}
-            </div>
-
-            <div  class=" b-l float-right w-sm text-center" ng-if=" !r.readOnly">  
-                 <a  class="text-link" ng-click="delRole(r , $index )"> 删除</a>
-            </div>
-        </div>
-        <div ng-show=" showp "  ng-if=" par "  class="well"  >
-
-          <!--  ng-disabled  =  "r.readOnly"    ng-checked=" r.authorIds[ a.id ] "   -->
-          <label class="checkbox i-checks  inline m-r w-sl m-l"   ng-repeat=' a in authors[1] ' >
-                  <input type="checkbox"  
-                            
-                              ng-model = "r.authorIds[ a.id ]"
-                             
-                              ng-click=" editRole(r)"
-                            class="ng-pristine ng-valid">
-                  <i></i>  
-                  {{ a.name}}  <strang ng-if="$debug"> -{{a.id}} </strang> 
-          </label>
- 
-        </div>
-    </div>
+<div class="panel-body bg-light   table-responsive no-padder ">
+    <table class=" table   table-bordered  table-condensed lter ">
+        <thead class="flip-content  ">
+            <tr>
+                <th width="15%">区域</th>
+                <th width="15%">用户组</th>
+                <th width="60%">权限</th>
+                <th width="10%"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr  >
+                <td  class="b-r-none">1223</td>
+                <td colspan=3></td>
+            </tr>
+            <tr class="hover"   >
+                <td class="text-right">gg1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+        </tbody>
 
 
 
-
-
-
+        <tbody>
+            <tr>
+                <td   >456</td>
+                 <td colspan=3></td>
+            </tr>
+            <tr class="hover">
+                <td class="text-right">g1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr> 
+        </tbody>
 
 
  
-    <button class='btn m-b-xs m-t-xs  btn-sm  btn-info w-xs' ng-click='addRole( this  )' >添加角色</button>
-    <button class='btn m-b-xs m-t-xs  btn-sm  btn-info w-xs' ng-click='updateRoles( this  )'
-            ng-disabled = " !role2updata.length"
-
-     >保存</button>
-   
-
-    </div>
-  </div>    
-
-
-<!--<span my-draggable>Drag ME</span>-->
-<!-- 
- <div   class=" fade-in-up smooth h-full wrapper-xs   "   >
-    
-
-
- </div>
- 
-
-   -->
+    </table>
+</div>

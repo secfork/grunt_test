@@ -131,6 +131,9 @@ angular.module("app.model.system", [])
 ])
 
 
+.controller("sysmodel_basic", function($scope , $source ){
+  console.log( "sysmodel_basic");
+})
 
 .controller("sysmodel_device", ['$scope', '$sessionStorage', '$source', '$modal',
   function($scope, $sessionStorage, $source, $modal) {
@@ -860,13 +863,7 @@ angular.module("app.model.system", [])
  
           $scope.done = function() {
             $scope.validForm();
-
-            if ($scope.op.pt || $scope.op.lxr) {
-              $scope.M.user_category = $scope.op.pt ? 1 : 0;
-
-            } else {
-              return;
-            }
+ 
 
             if ($scope.isAdd) {
               $scope.M.profile = puuid;

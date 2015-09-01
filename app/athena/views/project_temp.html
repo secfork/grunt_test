@@ -44,7 +44,7 @@
                                               | pageLimit  : currentPageNo * $sys.page.pagesize : $sys.page.pagesize
                                               | orderBy    : predicate:reverse  "
                  >   -->
-          <tr  ng-repeat="  proj  in page.data | filter:{projName:f_projname } "  class="hover" >  
+          <tr  ng-repeat="  proj  in page.data | filter:{name:f_projname } "  class="hover" >  
                 <td  class="text-left">
                     <i class="glyphicon glyphicon-signal
                       {{ !proj.das_act_num ? ' text-danger':''  }}
@@ -58,7 +58,7 @@
                 <td>
                     <a  class="text-info-dk  "   
                         ng-click = "  goto ( _$nextState ,  undefined  , proj ); "  > 
-                        {{ proj.projName }}  
+                        {{ proj.name }}  
 
                     </a> 
                      

@@ -1,6 +1,7 @@
  
- 
-<form   class=" form-validation   form-inline  p-b-5  m-t-xs  b-white">
+<div class="panel-header bg-light">
+
+  <form   class=" form-validation   form-inline  p-b-5  m-t-xs m-l-xs ">
 
         <div class="inline   m-r-lg "  >
               <span class="w-xs">搜索</span>
@@ -26,123 +27,16 @@
 
 
         <button class="btn btn-success btn-sm    " ng-click=" locatedStation()"
-                token
-                >
+                token   >
             定位 {{ station.name  }}
-        </button>
-
-
-      <!--  <div class="form-group m-b-xs ">
-             <select  class="form-control"
-                      ng-model = "station.pos_type"
-                      ng-options="  o.v as o.k for o in  [{v:0,k:'百度坐标'},{v:1,k:'谷歌坐标'}]"
-                      tl-default="0"
-                     >
-
-             </select>
-        </div>
-     -->
-
-        <!--<div class="checkbox m-l m-r-xs">
-            <label class="i-checks">
-                <input type="checkbox"><i></i> Remember me
-            </label>
-
-             ng-disabled="  station.station_id || theMovStation.station_id "
-
-        </div>-->
-      
-
-      <!--   <div class="visible-sm m-b-sm"></div> -->
-
+        </button> 
 
   </form>
- 
-  <div class="panel-body  well m-b-none "   id="station_map"  ng-init="createMap()" ></div>
+</div>
+
+
+<div class="panel-body  well m-b-none "   id="station_map"  ng-init="createMap()" ></div>
 
 
    
-
-
-
-<!--
-
-      <script>
-
-          // 百度地图API功能
-          var map = new BMap.Map("allmap");    // 创建Map实例
-          map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
-
-          //          map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
-          map.enableScrollWheelZoom(true);
-
-          // 左上角，添加比例尺
-          var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});
-           //左上角，添加默认缩放平移控件
-          var top_left_navigation = new BMap.NavigationControl();
-
-          //右上角，仅包含平移和缩放按钮
-          var top_right_navigation = new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL});
-          /*缩放控件type有四种类型:
-           BMAP_NAVIGATION_CONTROL_SMALL：仅包含平移和缩放按钮；BMAP_NAVIGATION_CONTROL_PAN:仅包含平移按钮；BMAP_NAVIGATION_CONTROL_ZOOM：仅包含缩放按钮*/
-          map.addControl(top_left_control);
-          map.addControl(top_left_navigation);
-          map.addControl(top_right_navigation);
-
-
-
-
-
-
-          console.log( locations );
-          console.log(index ||1);
-          console.log(  index % 5  );
-          var  p  =  locations[1],
-
-
-               pt = new BMap.Point(p[0], p[1]);
-          var myIcon = new BMap.Icon("img/bmap_station.png", new BMap.Size(64,64));
-
-//          var marker_point = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
-          var marker_point = new BMap.Marker(new BMap.Point(p[0], p[1])); // 创建点
-
-          map.addOverlay(marker_point);
-
-
-          // 百度地图API功能
-          var sContent =  '   <div class="row" style="width: 450px">  ' +
-                               ' <div class="col-xs-12"> <h4>采集站</h4></div>' +
-                               ' <div class="col-xs-6"> ' +
-                                     '<video  draggable   src="videos/1532.mp4"  width="200px" height="200px"  ' +
-                                        'autoplay="autoplay" ' +
-                                       ' loop="loop"    > '  +
-                                     '</video> '+
-                               '</div> '+
-                              '<div class="col-xs-6 m-t-md" > '+
-                                     '<span class="col-xs-12 padding-0" >设备编号1</span> <span class="col-xs-12 m-l-md " >48464167486</span> '+
-                                     '<div class="col-xs-12 padding-0 " >上次配置更新 </div> <div class="col-xs-12 m-l-md" >2014-09-17 17:51:27</div> '+
-                                     '<div class="col-xs-12 padding-0 " >上次同步</div> <div class="col-xs-12 m-l-md" >2014-09-17 11:11:16 </div> '+
-                                     '<div class="col-xs-12 padding-0 " >流量历史</div> <div class="col-xs-12 m-l-md" >484486 </div> '+
-                              '</div> '+
-                          ' </div>'  ;
-
-          var marker_window = new BMap.Marker(pt);
-        //  var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
-
-
-         marker_point.addEventListener("click", function(){
-               console.log( this );
-              this.openInfoWindow(infoWindow);
-              //图片加载完毕重绘infowindow
-              /*document.getElementById('imgDemo').onload = function (){
-                  infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
-              }*/
-          });
-
-          map.centerAndZoom(pt, 12);  // 初始化地图,设置中心点坐标和地图级别
-
-        //  marker_point.openInfoWindow(infoWindow);
-
-      </script>
--->
-
+ 

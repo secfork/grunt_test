@@ -21,14 +21,16 @@ input, select {
 }
 
 
-
-table,tbody {
+thead {
+   text-align: center;
+  font-size: 15px;
+}
+tbody {
   text-align: center;
   font-size: 14px;
 
 }
-
-
+ 
  
 tr.hover:hover td {
   border-color:  #BACACD ;
@@ -264,7 +266,7 @@ body {
   /*font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
  /* font-family: "微软雅黑";*/
 
- font:  "Microsoft YaHei", SimHei, helvetica, arial, verdana, tahoma, sans-serif;
+ font-family:  "Microsoft YaHei", SimHei, helvetica, arial, verdana, tahoma, sans-serif;
 
   font-size: 15px;
   color: #58666e;
@@ -414,7 +416,8 @@ a:hover .caret-white {
   border-color: #dee5e7;
 }
 .progress {
-  background-color: #edf1f2;
+ /* background-color: #edf1f2;*/
+  background-color: #BBBBBB; 
 }
 .progress-xxs {
   height: 2px;
@@ -624,7 +627,7 @@ a.list-group-item:focus {
   margin-bottom: 15px;
 }
 .tab-container .tab-content {
-  padding: 15px;
+ /* padding: 15px;*/
   background-color: #fff;
   border: 1px solid #dee5e7;
   border-top-width: 0;

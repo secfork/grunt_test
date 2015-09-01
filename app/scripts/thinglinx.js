@@ -36,21 +36,24 @@ var app = angular.module('thinglinx', [
 
 .run(
     ['$rootScope', '$state', '$stateParams', '$sys', "$compile", "$localStorage",
-      "$cacheFactory", "$translate", '$sce',
+      "$cacheFactory", "$translate", '$sce',"$sessionStorage",
       function($rootScope, $state, $stateParams, $sys, $compile, $localStorage,
-        $cacheFactory, $translate , $sce) {
+        $cacheFactory, $translate , $sce , $sessionStorage) {
 
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
         $rootScope.$sys = $sys;
         $rootScope.$translate = $translate;
         $rootScope.$sceHtml = $sce.trustAsHtml ; 
+        $rootScope.$session = $sessionStorage ; 
 
 
 
         // $rootScope.$err = $err ;
 
-        $rootScope.$debug = $sys.$debug;
+        $rootScope.$debug =   $sys.$debug;
+ 
+
         // $rootScope.$$cache = null ;
 
         if ($sys.$debug) {
@@ -96,13 +99,8 @@ var app = angular.module('thinglinx', [
 
         console.log(document.cookie, $resourceProvider);
 
-        $provide.decorator("$resource", ['$delegate', function($delegate) {
-
-          return $delegate
-
-        }])
-
-
+       
+ 
         // $provide.decorator('$rootScope', ['$delegate', function($delegate) {
         //   // ['$delegate',
         //   // 为 所有的 scope 注册  $destroy 事件; !!
@@ -298,6 +296,13 @@ var app = angular.module('thinglinx', [
           controller: "show_system_map"
         })
 
+        .state("app.show.alarm" , {
+            url:"/alarm",
+            templateUrl:"athena/views/show/alarm.html",
+            controller:"show_alarm"
+        })
+
+
 
 
         //===========================================================
@@ -340,6 +345,11 @@ var app = angular.module('thinglinx', [
               }
             },
             controller: "sysmodelProp"
+          })
+          .state("app.model.sysmodel_p.basic", {
+              url:"/basic",
+              templateUrl:"athena/views/sysmodel/sys_basic.html",
+              controller:"sysmodel_basic"
           })
           .state("app.model.sysmodel_p.sysdevice", {
             url: "/sysdevice",
@@ -434,6 +444,7 @@ var app = angular.module('thinglinx', [
 
 
         //==========采集站 =====================   class="fade-in-right-big smooth"
+        //
         .state('app.station', {
             url: '/station',
             template: '<div ui-view  class="  wrapper-xs   "></div>',
@@ -538,7 +549,7 @@ var app = angular.module('thinglinx', [
 
         .state('app.account', {
           url: '/account',
-          template: '<div ui-view class="    wrapper-xs "></div>',
+          template: '<div ui-view class=" wrapper-xs "></div>',
           /* resolve: {
                deps: ['uiLoad',
                    function (uiLoad) {
@@ -559,66 +570,39 @@ var app = angular.module('thinglinx', [
           templateUrl: "athena/views/account/info.html"
         })
 
-        .state("app.account.promise", {
-            url: "/promise",
-            controller: "acco_promi",
-            templateUrl: "athena/views/account/promise.html"
-          })
-          .state("app.account.promise._billing", {
-            url: "/_billing",
-            controller: "acco_promi_billing",
-            templateUrl: "athena/views/account/promise_billing.html"
-          })
-          .state("app.account.promise._regist", {
-            url: "/_regist",
-            controller: "acco_promi_regist",
-            templateUrl: "athena/views/account/promise_regist.html"
-          })
-          .state("app.account.promise._sms", {
-            url: "/_sms",
-            controller: "acco_promi_sms",
-            templateUrl: "athena/views/account/promise_sms.html"
-          })
-          .state("app.account.promise._user", {
-            url: "/_user",
-            controller: "acco_promi_user",
-            templateUrl: "athena/views/account/promise_user.html"
-          })
-
         .state("app.account.user", {
             url: "/user",
             templateUrl: "athena/views/account/users.html",
             controller: "account_users"
-          })
-          .state("app.account.user._all", {
-            url: "/_all",
-            controller: "acco_user_all",
-            templateUrl: "athena/views/account/users_all.html"
-          })
-          .state("app.account.user._byproj", {
-            url: "/_byproj",
-            controller: "acco_user_byproj",
-            templateUrl: "athena/views/account/users_byproj.html",
-            resolve: {
-              data: function($account) {
-                return $account.getUsersGroupByProj().$promise;
-              }
-            }
-          })
-          .state("app.account.user._add", {
-            url: "/_add",
-            controller: "acco_user_add",
-            templateUrl: "athena/views/account/users_add.html",
-            resolve: {
-              role_proj: function($project, $account, $q) {
-                var a, b;
-                a = $project.getAllprojsBasic().$promise;
-                b = $account.getRoles().$promise;
-                return $q.all([b, a]);
+          })  
 
-              }
-            }
-          })
+        .state( "app.account.usergroup" ,{
+            //url:"/usergroup",
+            abstract:true,
+            templateUrl:"athena/views/account/usergroup.html",
+            controller:"usergroup"
+        }) 
+
+        .state( "app.account.usergroup.all" ,{
+            url:"/usergroup",
+            templateUrl:"athena/views/account/usergroup_all.html",
+            controller:"usergroup_all"
+        })  
+        .state("app.account.usergroup.users" , {
+            url:"/groupusers",
+            templateUrl:"athena/views/account/usergroup_users.html",
+            controller:"usergroup_users"
+        })
+
+        .state( "app.account.usergroup.add" ,{
+            url:"/addusergroup",
+            templateUrl:"athena/views/account/usergroup_add.html",
+            controller:"usergroup_add"
+        })  
+
+
+ 
+
           // 账户 --> 用户  --> 编辑用户;
           .state("app.account.edit", {
             url: "/useredit",
@@ -629,54 +613,18 @@ var app = angular.module('thinglinx', [
 
         //app.account.author
         // 账户 -->编辑权限;
-        .state("app.account.author", {
-          url: "/author",
-          controller: "acco_author",
-          templateUrl: "athena/views/account/author.html"
-
-          ,
-          resolve: {
-            data: function($account, $q) {
-
-              return $q.all([
-                $account.getRoles().$promise,
-                $account.getAuthor({
-                  type: "all"
-                }).$promise
-              ])
-            }
-          }
-
-
+        .state("app.account.role", {
+          url: "/role",
+          controller: "acco_role",
+          templateUrl: "athena/views/account/role.html"
         })
 
-
-        .state("app.account.visdata", {
-            url: "/visdata",
-            controller: "acco_visdata",
-            templateUrl: "athena/views/account/visdata.html"
-          })
-          .state("app.account.visdata._net", {
-            url: "/_net",
-            controller: "acco_visdata_net",
-            templateUrl: "athena/views/account/visdata_net.html"
-          })
-          .state("app.account.visdata._rss", {
-            url: "/_rss",
-            controller: "acco_visdata_rss",
-            templateUrl: "athena/views/account/visdata_rss.html"
-          })
-          .state("app.account.visdata._profiles", {
-            url: "/_profiles",
-            controller: "acco_visdata_profiles",
-            templateUrl: "athena/views/account/visdata_profiles.html"
-          })
-
-        .state("app.account.custom", {
-          url: "/custom",
-          templateUrl: "athena/views/account/custom.html"
+        .state("app.account.author" ,{
+           url:"/author" ,
+           templateUrl:"athena/views/account/author.html",
+           controller:"acco_author"
         })
-
+  
 
 
         //   access/signin
