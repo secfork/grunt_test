@@ -1,0 +1,67 @@
+ 
+<div class="modal-header ">
+    <h4  >添加角色</h4>
+</div>
+
+{{r}}
+
+<div class="modal-body  ">
+
+    <form name="form" class=" form-validation form-horizontal   ">
+ 
+		<input  tl-wrap ng-model="r.name" required  label="角色名"  >
+ 
+ 		<select  tl-wrap ng-model="r.type"  ng-init=" r.type='ui'" 
+ 		 		ng-options = " k as v for (k,v) in {ui:'模块' ,proj:'工程权限集'}"
+ 		 		label="角色类型"
+ 		 		ng-change="r.authorIds = {} "
+ 		 		required
+ 		 		>
+ 			 
+ 		</select>
+ 
+
+		<div class="row"  ng-if="r.type==='proj'">
+
+				<div class=" col-sm-3 col-sm-offset-1" >
+					 模块 
+				</div>		 
+			    <div class="col-sm-8  "> 
+			    	<label class="checkbox i-checks inline w-sm m-l"  ng-repeat =  " a in authors[1]">
+		              <input type="checkbox"  ng-model="r.authorIds[ a.id ]" ><i></i>  {{a.name}}  
+		            </label> 
+		        </div> 
+		</div>
+ 
+
+		<div class="row"  ng-if=" r.type==='ui'">
+				<div class="col-sm-3 col-sm-offset-1">
+					 工程权限 
+				</div>		 
+			    <div class="col-sm-8 "> 
+			    	<label class="checkbox i-checks inline w-sm m-l"  ng-repeat =  " a in authors[0]">
+		              <input type="checkbox"  ng-model="r.authorIds[ a.id ]" ><i></i>  {{a.name}}  
+		            </label> 
+				       
+		        </div>
+ 
+		</div>
+
+		<div  class="line "></div>
+
+		<textarea   tl-wrap  label="备注"  ng-model =" r.describtion"></textarea>
+
+
+
+    </form>
+</div>
+
+<ng-include src=" 'athena/views/debris/_modal_footer.html' "></ng-include>
+
+
+
+
+
+
+
+ 
