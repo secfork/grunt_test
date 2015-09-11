@@ -15,7 +15,7 @@
         	<label class=" w-30 text-right control-label" >点</label>
          
 	  	  	<select  ng-model="op.his_tag" class="height-30   inline m-t-xs" 
-		             ng-options = " t.name as t.name  for t in tags" >
+		             ng-options = " t.name as t.name  for t in tags | filter:{save_log:1}" >
                   <option value="">-请选择tag点-</option>
 		      </select>
         </div>
@@ -73,8 +73,7 @@
     </form> 
 </div>
 
-<div class="panel-body "  >
-   	
+<div class="panel-body "  > 
       
    	<div class="col-lg-12 col-md-12"
    		 id="show_live_data"

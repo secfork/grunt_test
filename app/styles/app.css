@@ -4,7 +4,7 @@ hr {
 }
 
 
-
+ 
 input, select {
   border-color: #cfdadd;
 }
@@ -22,12 +22,17 @@ input, select {
 
 
 
-table,tbody{
+thead {
+   text-align: center;
+  font-size: 15px;
+}
+tbody {
   text-align: center;
+  font-size: 14px;
 
 }
-
-
+ 
+ 
 tr.hover:hover td {
   border-color:  #BACACD ;
   background-color: #BACACD
@@ -238,6 +243,9 @@ tr.hover:hover td {
   margin-right: auto ;
 }
 
+.gap-n-1{
+  margin: -1px;
+}
 
 .gap-5 {
   margin: 5px;
@@ -259,9 +267,12 @@ html {
   background-color: #f0f3f4;
 }
 body {
-  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
- /* font-family: "微软雅黑";*/
-  font-size: 14px;
+  /*font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+  /* font-family: "微软雅黑"; */
+
+  font-family:  "Microsoft YaHei",  helvetica, arial, verdana, tahoma, sans-serif;
+
+  font-size: 15px;
   color: #58666e;
   background-color: transparent;
    /*background:   #3A3D3F;*/
@@ -286,9 +297,10 @@ a {
 }
 
 tr > th{
-  font-size: 14px;
+  /*font-size: 14px;*/
   font-weight: normal;
 }
+
 
 th {
 /*  background-color: #EDF1F2;*/
@@ -408,7 +420,8 @@ a:hover .caret-white {
   border-color: #dee5e7;
 }
 .progress {
-  background-color: #edf1f2;
+ /* background-color: #edf1f2;*/
+  background-color: #BBBBBB; 
 }
 .progress-xxs {
   height: 2px;
@@ -615,10 +628,11 @@ a.list-group-item:focus {
   border-bottom-color: #23b7e5 !important;
 }
 .tab-container {
-  margin-bottom: 15px;
+ /* margin-bottom: 15px;*/
+  margin:1px;
 }
 .tab-container .tab-content {
-  padding: 15px;
+ /* padding: 15px;*/
   background-color: #fff;
   border: 1px solid #dee5e7;
   border-top-width: 0;
@@ -729,6 +743,7 @@ a.list-group-item:focus {
 pre {
   background-color: #edf1f2;
   border-color: #dee5e7;
+  font-size: 14px;
 }
 .dropdown-menu {
   border-radius: 2px;
@@ -2274,6 +2289,7 @@ fieldset[disabled] .i-checks input + i {
 fieldset[disabled] .i-checks input + i:before {
   /*background-color: #dee5e7; */
   background-color: #047F89;
+  cursor: not-allowed;
 }
 .i-checks > i {
  /* width: 20px;
@@ -3252,7 +3268,8 @@ a.text-success:hover {
 }
 
 .text-link{
-    color: #0081c2;
+    /*color: #0081c2;*/
+    color: #003DE4
 }
 
 
@@ -3573,12 +3590,15 @@ a.text-black:hover {
 .b-a {
   border: 1px solid #dee5e7;
 }
-.b-t-none {
+.b-t-none  , .b-b-none , .b-l-none ,.b-r-none {
   border-top-style: none;
 }
+
+
 .b-t {
   border-top: 1px solid #dee5e7;
 }
+
 .b-r {
   border-right: 1px solid #dee5e7;
 }

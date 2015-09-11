@@ -1,15 +1,12 @@
-
-<ul class="nav nav-tabs ">
-
-    <li ng-repeat="tab in tabs"
-        ng-class="{active:isActiveTab(tab.url)}"
-        ng-click="onClickTab(tab)">
-        <!--<a translate="{{tab.title}}">      </a>-->
-        <a>   {{tab.title}} </a>
-    </li>
-</ul>
-<div >
-
-    <div data-ng-include="currentTab"></div>
-
+  <div class="modal-header ">
+    <h4 ng-if="isAdd">添加设备模型</h4>
+    <h4 ng-if="!isAdd">编辑用户</h4>
 </div>
+<div class="modal-body" style="padding: 0 12%;">
+    <form name="form"   class="form-horizontal form-validation no-border   ">
+        <ng-include src=" 'athena/views/account/_user_form.html' "></ng-include>
+    </form>
+</div>
+<ng-include src=" 'athena/views/debris/_modal_footer.html' "></ng-include>
+
+ 

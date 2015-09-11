@@ -39,13 +39,17 @@
 
         <div class="form-group  ng-scope">
             <label class="col-sm-3 col-sm-offset-1 control-label ">  
-                <span  >User Catetory</span> 
+                <span  >User Catetory </span> 
             </label>
 
             <div class=" col-sm-7">
-                <div class="checkbox inline">
+               
+
+              <!--   <div class="checkbox inline">
                   <label class="i-checks">
                     <input type="checkbox" ng-model="op.pt " checked="" 
+                        ui-validata=""
+                        ui-validata-watch=""
                         ng-change="op.xx =true "
                     ><i></i>
                     <span> 平台用户</span>
@@ -59,10 +63,26 @@
                     ><i></i>
                     <span> 联系人用户</span>
                   </label>
+                </div> -->
+
+                 <div class="radio inline">
+                  <label class="i-checks">
+                    <input type="radio" ng-model="M.user_category "  
+                        value="1"
+                       
+                    ><i></i>
+                    <span> 平台用户</span>
+                  </label>
                 </div>
-                <div class="text-danger"  ng-show="op.xx && !(op.pt || op.lxr) ">
-                    User Catetory为必选项!
-                </div>
+
+                <div class="radio inline m-l ">
+                  <label class="i-checks">
+                    <input type="radio"   ng-model=" M.user_category "   value="0"
+                    ><i></i>
+                    <span> 联系人用户</span>
+                  </label>
+                </div> 
+ 
             </div>
         </div>
 

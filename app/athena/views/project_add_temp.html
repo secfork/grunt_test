@@ -1,23 +1,14 @@
 <!-- project  添加 和 属性展示 模版  -->
-
-<h4 class="text-center">添加区域</h4>
-
-
-
-<form name="form"  panelclass class="form-horizontal form-validation  ">
-
-
-
-    <!--    <div class="form-group  "  >
+<div class="panel-body table-responsive no-padder  no-border bg-light">
+    <h4 class="text-center">添加区域</h4>
+    <form name="form" panelclass class="form-horizontal form-validation  ">
+        <!--    <div class="form-group  "  >
     <label class= " col-sm-3 control-label   "  >  <h4   >添加项目</h4> </label>
     </div>
     -->
-    <input  tl-wrap-l  label="区域名称"  required ng-model=" proj.projName "     >
-
-
-    <div class="form-group">
-        <!-- <label   for="dfae"  class= "col-sm-3 control-label"   >项目名称</label>-->
-        <label class= "col-sm-3 control-label">开始查看</label>
+        <input tl-wrap-l label="区域名称" required ng-model=" proj.name ">
+        <!--  <div class="form-group">
+         <label class= "col-sm-3 control-label">开始查看</label>
 
         <div class=" col-sm-4">
             <select class="form-control m-b-xxs "  ng-model="proj.displayMod"
@@ -27,56 +18,32 @@
             </select>
 
         </div>
-    </div>
-
-    <!--   <input  tl-wrap-l  label="公司"    ng-model=" proj.proj_company " >-->
-    <input  tl-wrap-l  label="联系人"    ng-model=" proj.contact " >
-
-    <input  tl-wrap-l  label="电话号码"   ng-model=" proj.tel"     ng-pattern="/^\d{8,12}$/" >
-
-    <input  tl-wrap-l  label="电子邮件"    ng-model=" proj.email " type="email" >
-
-
-    <input  tl-wrap-l  label="地址"    ng-model=" proj.address "  >
-
-    <div ng-if="more">
-        <input  tl-wrap-l  label="邮编"    ng-model=" proj.postcode "  ng-pattern="/^[0-9]*$/"  >
-        <input  tl-wrap-l  label="城市"    ng-model=" proj.city "  >
-        <input  tl-wrap-l  label="省/县"    ng-model=" proj.province "  >
-        <input  tl-wrap-l  label="国家"    ng-model=" proj.country "  >
-    </div>
-
-    <textarea tl-wrap-l label="备注"  ng-model=" proj.describtion "
-        style="resize: none"
-        ng-maxlength='100'
-        placeholder=" 不应超过100字符"
-        ></textarea>
-
-    <li class="line b-b"></li>
-
-    <div class="form-group  "  ng-if = " !isShowModul ">
-        <label class= "col-sm-3 control-label">
-        <button type="submit" class="btn  btn-info  btn-block-middle  w-xs "
-        ng-click=" commit()"  >     保存     </button>
-        </label>
-
-
-    </div>
-
-
-    <!--   <footer class="  text-center   lter m-b-lg">
-    &lt;!&ndash;  在不同的controler 中 作用不同 ; &ndash;&gt;
-    <button type="submit" class="btn  btn-info  btn-block-middle"
-    ng-click=" commit()"  >     Submit       </button>
-    </footer>
-    -->
-
-</form>
-
-<div  ng-if="$debug">
-    form.$valid =  {{form.$valid}} <br/>
-    project = {{proj}}
-</div>
-
-
+    </div> -->
+        <!--   <input  tl-wrap-l  label="公司"    ng-model=" proj.proj_company " >-->
+        <input tl-wrap-l label="联系人" ng-model=" proj.contact_user ">
+        <input tl-wrap-l label="电话号码" ng-model=" proj.mobile_phone" ng-pattern="/^\d{8,12}$/">
+        <input tl-wrap-l label="电子邮件" ng-model=" proj.email " type="email">
+        <input tl-wrap-l label="地址" ng-model=" proj.address ">
+        <div ng-if="more">
+            <input tl-wrap-l label="邮编" ng-model=" proj.postcode " ng-pattern="/^[0-9]*$/">
+            <input tl-wrap-l label="城市" ng-model=" proj.city ">
+            <input tl-wrap-l label="省/县" ng-model=" proj.province ">
+            <input tl-wrap-l label="国家" ng-model=" proj.country ">
+        </div>
+        <textarea tl-wrap-l label="备注" ng-model=" proj.desc " style="resize: none" ng-maxlength='100' placeholder=" 不应超过100字符"></textarea>
+       
+    <!--     <div class="form-group  " ng-if=" !isShowModul ">
+            <label class="col-sm-3 control-label">
+                <button type="submit" class="btn  btn-info  btn-block-middle  w-xs " 
+                ng-click=" commit()" token> 保存 </button>
+            </label>
+        </div> -->
  
+        
+    </form> 
+
+     <div panelclass class="text-center" ng-if=" !isShowModul ">
+        <button type="submit" class="btn  btn-info  btn-block-middle w-xs m-b " 
+           ng-click=" commit()" token> 保存 </button>
+    </div>
+</div>

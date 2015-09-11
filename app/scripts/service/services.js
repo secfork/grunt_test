@@ -7,10 +7,8 @@
 // ajax  响应 ,不会被拦截的响应 ;
 
 /**
-
  修改 angualr-resource.js  源码 133 行, 增加put 方式;
 增加   getByPk:{method:"GET"} , 方法;
-
 */
 
 angular.module('app.services', ["ngResource"], function() {
@@ -20,49 +18,59 @@ angular.module('app.services', ["ngResource"], function() {
 
     };
 
-    //angular.rootUrl = 'http://localhost:8090/thinglinx/' ;
-    angular.rootUrl = '';
+    // angular.rootUrl = 'http://localhost:8090/thinglinx/web/' ;
+    angular.rootUrl = 'web/';
 
 })
 
 
-
 .service('$source', ['$resource', function($resource) {
 
-    var devmodel = angular.rootUrl + "web/devmodel/:pk",
-        dmPoint = angular.rootUrl + "web/devmodel/points/:pk",
-        sysProfile = angular.rootUrl + "web/profile/:pk",
-        sysLogTag = angular.rootUrl + "web/profile/tags/:pk",
-        sysTag = angular.rootUrl + "web/sysmodel/tags/:pk",
-        sysProfTrigger = angular.rootUrl + "web/profile/triggers/:pk",
-        sysModel = angular.rootUrl + "web/sysmodel/:pk",
-        sysDevice = angular.rootUrl + "web/sysmodel/devices/:pk",
-        message = angular.rootUrl + "web/sysmodel/messages",
 
-        system = angular.rootUrl + "web/system/:pk/:options/:proj_id",
-        contact = angular.rootUrl + "web/system/contacts/:pk",
-        common = "/xx";
 
-    this.$deviceModel = $resource(devmodel);
-    this.$dmPoint = $resource(dmPoint);
-    this.$sysProfile = $resource(sysProfile);
-    this.$sysLogTag = $resource(sysLogTag);
-    this.$sysTag = $resource(sysTag);
-    this.$sysProfTrigger = $resource(sysProfTrigger);
-    this.$sysModel = $resource(sysModel);
-    this.$sysDevice = $resource(sysDevice);
-    this.$message = $resource(message);
-    this.$contact = $resource(contact);
+     function $createSource ( url, config1 , config2){ 
+        return  $resource( angular.rootUrl + url , config1 ,config2 );
+     } 
 
-    this.$common = $resource(common, {}, {
+
+    this.$deviceModel = $createSource("devmodel/:pk");
+    this.$dmPoint = $createSource("devmodel/points/:pk");
+    this.$sysProfile = $createSource("profile/:pk");
+    this.$sysLogTag = $createSource("profile/tags/:pk");
+    this.$sysTag = $createSource("sysmodel/tags/:pk");
+    this.$sysProfTrigger = $createSource("profile/triggers/:pk");
+    this.$sysModel = $createSource("sysmodel/:pk");
+    this.$sysDevice = $createSource("sysmodel/devices/:pk");
+    this.$message = $createSource("sysmodel/messages/:pk");
+    this.$contact = $createSource( "system/contacts/:pk" );
+    this.$region = $createSource( "region/:pk" );
+    this.$account = $createSource( "account/:pk" );
+    this.$role = $createSource("role/:pk");
+    this.$driver = $createSource("driver/:type");
+
+    this.$common = $createSource("common", {}, {
         cc_passWord: {
-            url: angular.rootUrl + "web/common/ccpassword",
+            url: angular.rootUrl + "common/ccpassword",
             method: "PUT"
         }
+    });
+
+    this.$user = $createSource("user/:pk", {}, {
+        login: {
+            url: angular.rootUrl + "user/login",
+            method: "POST"
+        },
+        logout: {
+            url:angular.rootUrl + "user/logout"
+        }
+    });
+/// {pk:"@pk", userid:"@userid"} ,
+    this.$userGroup = $createSource("usergroup/:pk/:userid" ,  {}, {
+          queryUser :{ url: angular.rootUrl + "usergroup/:pk/users" },
 
     });
 
-    this.$system = $resource(angular.rootUrl + "web/system/:pk/:options/:proj_id", {}, {
+    this.$system = $createSource("system/:pk/:options/:proj_id", {}, {
         sync: {
             method: "PUT"
         },
@@ -75,21 +83,24 @@ angular.module('app.services', ["ngResource"], function() {
         call: {
             method: "POST"
         },
-
         needSync: {
-            url: angular.rootUrl + "web/system/needsync/uuids"
+            url: angular.rootUrl + "system/needsync/uuids"
         }
-    })
+    });
+
+    // 权限;
+    this.$permission = $createSource( "permission/:source/:source_id/:group_id"  )
+
 }])
 
 
 
 .service('$show', ['$resource', function($resource) {
 
-    var live = angular.rootUrl + "web/show/live/:uuid",
-        liveWrite = angular.rootUrl + 'web/show/livewrite'
-    his = angular.rootUrl + "web/show/history/:uuid",
-        alarm = angular.rootUrl + "web/show/alarm/:uuid";
+    var live = angular.rootUrl + "show/live/:uuid",
+        liveWrite = angular.rootUrl + 'show/livewrite'
+    his = angular.rootUrl + "show/history/:uuid",
+        alarm = angular.rootUrl + "show/alarm/:uuid";
 
     this.live = $resource(live);
     this.his = $resource(his);
@@ -103,224 +114,26 @@ angular.module('app.services', ["ngResource"], function() {
 
 
 // driver ;
-.factory("$driver", function($resource) {
+// .factory("$driver", function($resource) {
+//     return $resource(angular.rootUrl + "driver/:pk", {}, {
 
-    return $resource(angular.rootUrl + "web/driver/:pk", {}, {
+//         // template , type =0 得到的是 driver最高版本;
+//         getDriverList: {
+//             params: {
+//                 id: "list",
+//                 type: 0
+//             }
+//         },
 
-        // template , type =0 得到的是 driver最高版本;
-        getDriverList: {
-            params: {
-                id: "list",
-                type: 0
-            }
-        },
-
-        // station ; type = 1 ;  得到 dtu ;
-        getDtuList: {
-            params: {
-                id: "list",
-                type: 1
-            }
-        },
-        /**
-         * type =  tempalte_ui,  driver_ui ;
-         */
-        getUi: {
-            isArray: true
-        },
-
-        getDaserveInfo: {
-            url: angular.rootUrl + "web/driver/daserver/:id"
-        }
-
-    })
-})
-
-.factory('$account', ['$resource', '$http', function($resource, $http) {
-    //transformResponse
-
-    console._log($http.defaults);
-
-
-    return $resource(angular.rootUrl + 'web/account/:operate', {}, {
-
-        login: {
-            url: angular.rootUrl + "web/common/login",
-            method: "POST"
-                // , transformRequest:[shaPW].concat($http.defaults.transformRequest)
-        },
-
-        logout: {
-            url: angular.rootUrl + "web/account/logout"
-        },
-        // 检查 user 重名
-        isDuplicate: {
-            url: angular.rootUrl + "web/account/isduplicate/user"
-        },
-        //  检查 acco 重名;
-        isDupOfAcco: {
-            url: angular.rootUrl + "web/account/isduplicate/acco"
-        },
-
-        isInviteCode: {
-            url: angular.rootUrl + "web/account/invitecode"
-        },
-
-        // 得到account 的所有角色信息;
-        getRoles: {
-            url: angular.rootUrl + "web/account/roles/all/true"
-        },
-
-        getUiRoles: {
-            url: angular.rootUrl + "web/account/roles/ui/:withAuthor"
-        },
-        getProjRoles: {
-            url: angular.rootUrl + "web/account/roles/proj/:withAuthor"
-        },
-
-        // type =  all || ui || proj  ;
-        getAuthor: {
-            url: angular.rootUrl + "web/account/authors/:type"
-        },
-
-        // 批量更新roles ;
-        updateRoles: {
-            params: {
-                operate: 'roles'
-            },
-            method: "PUT"
-        },
-        //批量创建 roles ;
-        crateRoles: {
-            params: {
-                operate: "roles"
-            },
-            method: "POST"
-        },
-        delRoles: {
-            params: {
-                operate: "roles"
-            },
-            method: "DELETE"
-        },
-
-
-        // 得到 account 下的采集站sn 号 ;
-        getStationSn: {
-            url: angular.rootUrl + "web/account/station_sn"
-        },
-        getBasicInfo: {
-            url: angular.rootUrl + "web/account/basicinfo"
-        }
-
-
-        ,
-        getAuthorData: {
-            url: angular.rootUrl + "web/common/islogined"
-        }
-        // 注册account 用户;
-        ,
-        signUp: {
-            url: angular.rootUrl + "web/common/regist",
-            method: "POST"
-        }
-        // 在account 下 添加 user ;
-        ,
-        createUser: {
-            url: angular.rootUrl + "web/account/adduser",
-            method: "POST"
-        },
-        createProjUser: {
-            url: angular.rootUrl + "web/account/addprojuser"
-        }
-        // 更新 user 在某个proj 上的 角色;
-        ,
-        updateProjUser: {
-            url: angular.rootUrl + "web/account/updataprojuser"
-        }
-
-
-        ,
-        getAllUser: {
-            url: angular.rootUrl + "web/account/users",
-            cache: true
-        },
-        alluserinfo: {
-            url: angular.rootUrl + "web/account/alluserinfo"
-        }
-
-
-        ,
-        getUsersGroupByProj: {
-            url: angular.rootUrl + "web/account/users_by_proj"
-        }
-
-        //得到user  和其管理关联的proj
-        ,
-        getUserWidthProj: {
-            url: angular.rootUrl + "web/account/user_m_proj"
-        }
-
-        ,
-        log_ygf: {
-            url: angular.rootUrl + "web/account/login_ygf",
-            method: "POST"
-        }
-
-    });
-}])
-
-
-.factory('$project', ['$resource', '$http', function($resource, $http) {
-
-    return $resource(angular.rootUrl + "web/project", {}, {
-
-
-        // 建采集站用;只加载 id , projname 属性;
-        getAllprojsBasic: {
-            url: angular.rootUrl + "web/project/basic"
-        },
-        // 展示project list ;
-        getAllprojs: {
-            url: angular.rootUrl + "web/project/list"
-        },
-        //展示 project 下的 stations
-        getSatationByProjid: {
-            url: angular.rootUrl + "web/project/:projid/dastation/list"
-        },
-
-        // 展示 project 属性;
-        getProjAttr: {
-            method: "GET",
-            url: angular.rootUrl + "web/project/:projid/property"
-        },
-
-        crateProect: {
-            method: "POST",
-            url: angular.rootUrl + "web/project/create "
-        },
-        deletePoject: {
-            url: angular.rootUrl + "web/project/:projid/delete "
-        },
-        updataProject: {
-            method: "POST",
-            url: angular.rootUrl + "web/project/:projid/updata"
-        },
-
-        // 展示 rest  stations 列表 ,由 proj_id  得到 proj_name ;
-        getProjNameByIdS: {
-            method: "POST",
-            url: angular.rootUrl + "web/project/getnamebyids"
-        },
-
-        //获得时区 数据;
-        getTimeZone: {
-            url: angular.rootUrl + "web/data/timezone"
-        }
-
-    });
-
-}])
+//         // station ; type = 1 ;  得到 dtu ;
+//         getDtuList: {
+//             params: {
+//                 id: "list",
+//                 type: 1
+//             }
+//         },  
+//     })
+// })
 
 
 
@@ -366,13 +179,15 @@ angular.module('app.services', ["ngResource"], function() {
             // 添加区域字段;
             // html 的不添加 local ;
             if (!/(.html)$/.test(config.url)) {
-                if (config.params) {
-                    config.params.local = navigator.language;
-                } else {
-                    config.params = {
-                        local: navigator.language
-                    };
-                }
+
+                config.headers['Accept-Language'] = localStorage.NG_TRANSLATE_LANG_KEY || "en";
+                config.console = true ; 
+
+                // if(config.params){
+                //     config.params.local=navigator.language ;
+                // }else{ 
+                //     config.params = {local : 'en'};
+                // }
             } else {
                 // config.url ="//www.baidu.com/" + config.url ;
             }
@@ -408,7 +223,7 @@ angular.module('app.services', ["ngResource"], function() {
                 //alert( $err[response.data.err+'']|| response.data.err );
                 alert(response.data.err);
                 console.error("_ERR_:" + response.data.err);
-                throw error("_ERR_:" + response.data.err)
+                // throw error("_ERR_:"+ response.data.err )
             }
             //return response || $q.when(response); 
             if (response.data.order) {
@@ -433,8 +248,13 @@ angular.module('app.services', ["ngResource"], function() {
                      alert("session失效!!");
                     window.location.href = "/athena";
                     return;
-                }*/
-            console.error(response.status + "--" + response);
+                }*/ 
+
+            if( response.config.console ){
+                alert( "responseStatus:" +  response.status);
+                throw (response.status + "--" + response);
+            }
+            console.log(response.status + "--" + response);
             return response;
 
         }
@@ -472,10 +292,10 @@ angular.module('app.services', ["ngResource"], function() {
 .factory("$utils", function() {
     var a, b, c, d, e, f;
     return {
-        getWorker: function() {
+        
+     
 
-        },
-
+        // 拷贝 部分属性; 
         copyProp: function() {
             var a, b, c = {};
             a = arguments[0],
@@ -499,6 +319,7 @@ angular.module('app.services', ["ngResource"], function() {
             });
             return t;
         },
+
         // profile 连接模版时用;
         containTemp: function(temps, tempid) {
             var t = false;
@@ -512,22 +333,7 @@ angular.module('app.services', ["ngResource"], function() {
         },
 
 
-
-        /**  统计 [ { keyProp:"k", countProp:"A" }    { keyProp:"k", countProp:"B" }     ]
-         *  返回:  { k:{A:N , B:M} ,  ...  }
-         * */
-        KeyAsCountProp: function(arrayJson, keyProp, countProp) {
-            console._log(arguments);
-            a = {};
-            $.each(arrayJson, function(i, n) {
-                b = n[keyProp];
-                c = n[countProp];
-                a[b] ? null : a[b] = {};
-                a[b][c] ? a[b][c] ++ : a[b][c] = 1;
-            });
-            return a;
-        },
-
+ 
 
 
     }
@@ -683,7 +489,7 @@ angular.module('app.services', ["ngResource"], function() {
 
         marks = createDAPoint(stations, projName);
 
-        map = $map.createMap("bdmap", marks);
+        map = $map.createMap(domid, marks);
         return map;
     }
 

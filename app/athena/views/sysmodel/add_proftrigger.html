@@ -1,6 +1,6 @@
 <!--  添加  sysmodel  -->
  
- 
+  
 
 <div class="modal-header ">
     <h4 ng-if="isAdd">新建触发器</h4>
@@ -11,10 +11,6 @@
 <div class="modal-body  m-t-n "  ng-init="stepx={percent:33, step:1}"    >
     <progressbar value="stepx.percent" class="progress-xs  m-b-xs " type="success"></progressbar>
  
-   
-
- 
-
     <form name="step1"  ng-show="stepx.step == 1"  
         class=" form-validation form-horizontal " 
         ng-init="_config = $sys.trigger "   >  
@@ -99,8 +95,8 @@
 tl-default="_config.fn_default" 
                                   -->
                                 <select ng-options = " v as k for (k,v) in _config.fn"  
-                                        ng-model = " c.exp.left.fn "  
-                                        ng-change ="  c.exp.left.args = undefined ;  "
+                                        ng-model = " l.fn "  
+                                        ng-change ="  l.args = undefined ;  "
                                         class = "form-control "
   
                                 > 
@@ -112,19 +108,25 @@ tl-default="_config.fn_default"
                                 <!-- ng-show = " c.exp.left.fn == 'PV' "    fileTag(pl)  tags_nv[tn].type  -->
                                 <select ng-if=" l.fn  == 'PV' "   
                                         ng-options = " t.name as t.name for  t  in  tags_arr"  
-                                        ng-model = " c.exp.left.args "  
+                                        ng-model = " l.args "  
                                         class = "form-control  animated  animate-if"
+                                        ui-validate="  '$value != r.args' " 
+                                        ui-validate-watch = " 'r.args' "
                                         required
                                 >  
                                     <option value=''> 请选择tag </option>
                                 </select>  
  
-                                 <!--   ng-show = " c.exp.left.fn == 'null' "  -->    
+                                 <!--   ng-show = " c.exp.left.fn == 'null' "   c.exp.left.args -->    
                                 <input  ng-if=" l.fn  == null || l.fn == 'null' " 
-                                        ng-model="c.exp.left.args" 
+                                        ng-model="l.args" 
                                         class="form-control  animated  animate-if   "  
                                         type  = "{{ tags_nv[r.args].type }}"
                                         placeholder ='{{ typer }}' 
+                                        
+                                        ui-validate="  ' $value != r.args' " 
+                                        ui-validate-watch = " 'r.args' "
+                                        
                                         required 
                                 ></input> 
                             </td>
@@ -132,7 +134,7 @@ tl-default="_config.fn_default"
                             <td>    
                                 <select ng-options=" o for o in _config.op"  
                                         tl-default="_config.op_default"
-                                        ng-model=" c.exp.op"
+                                        ng-model="op"
                                         class = "form-control"
                                          
                                 >
@@ -142,8 +144,8 @@ tl-default="_config.fn_default"
 
                             <td> 
                                 <select ng-options = " v as k for (k,v) in _config.fn"  
-                                        ng-model="c.exp.right.fn" 
-                                        ng-change =" c.exp.right.args = null ;"
+                                        ng-model="r.fn" 
+                                        ng-change =" r.args = null ;"
                                         class = "form-control" 
                                 >
                                      <option value=''> 数值</option>
@@ -155,8 +157,11 @@ tl-default="_config.fn_default"
                                 <!-- ng-show = " c.exp.right.fn == 'PV' " -->
                                 <select ng-if="  r.fn == 'PV'" 
                                         ng-options = " t.name as t.name for  t  in  tags_arr"   
-                                        ng-model="c.exp.right.args"  
+                                        ng-model="r.args"  
                                         class = "form-control  animated  animate-if"
+                                        
+                                        ui-validate="  '$value != l.args' " 
+                                        ui-validate-watch = " 'l.args'  "
                                         required     
                                 > 
                                     <option value=''>请选择tag</option>
@@ -165,10 +170,14 @@ tl-default="_config.fn_default"
                                 <!-- ng-show = " c.exp.right.fn == 'null' " --> 
                                 <input  
                                         ng-if = " r.fn == null || r.fn == 'null' "
-                                        ng-model=" c.exp.right.args" 
+                                        ng-model=" r.args" 
                                         class = "form-control  animated  animate-if "
                                         placeholder ='{{ typel }}'
                                         type  = "{{ tags_nv[l.args].type }}"
+
+                                        ui-validate="  '$value!= l.args' " 
+                                        ui-validate-watch = " 'l.args' "
+                                        
                                         required   >
                                    
 
@@ -256,14 +265,6 @@ tl-default="_config.fn_default"
 
 
 </div>
-
-
-
-
-
-
-
-
 
 
 

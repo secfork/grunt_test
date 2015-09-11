@@ -1,53 +1,7 @@
 angular.module('app.show.system', [])
 
-.controller('show_system_prop', function($scope, $source, $q, $sys, $filter,$source ,$localStorage ,$timeout) {
-
-	$scope.system = $scope.$$cache[0];
-
-	var sysModel = $scope.system.model,
-		//td = $filter("date")(new Date(), "yyyy-MM-dd"),
-		plot,
-		plot_config = angular.copy($sys.plotChartConfig),
-		arr, d  ;
-
-	//初始化页面; 
-	$scope.getArray = function() {
-		arr = [],
-			d = new Date().getTime();
-		arr[0] = [d - $scope.op.c_int * $scope.op.pointSize, undefined];
-		// arr[$scope.op.pointSize-1] = [ d , undefined ] ;     
-		return arr;
-	}
-
-	$scope.op = {
-		start: "",
-		num: 50, 
-		end: new Date(),
-		start: new Date( new Date() - 86400000),
-		ala: "b", // a: 实时报警; b: 历史报警; 
-		pointSize: 60, // 曲线上的点数; 
-		c_int: 2000, // 实时数据 interval 时间; 
-		a_int: 2000 // 实时报警; interva 时间; 
-	};
- 
-	// 得到 sysmodel 下的tags ; 
-
-	$scope.loadTagPromise = $source.$sysTag.get({  system_model: sysModel }).$promise ;
-
-	$scope.loadTagPromise.then( function( resp){
-		$scope.tags = resp.ret;
-	})
- 
-	$scope.initFlotChart = function(_plot_data) {
-		console._log(_plot_data);
-
-		_plot_data = _plot_data || { 	data: $scope.getArray() };
-		 
-		plot = $.plot("#show_live_data", [_plot_data], plot_config);
-		 
-	}
-
-
+.controller("show_alarm" , function( $scope , $source ,$sys, $q ){
+	
 
 	$scope.openCalendar = function(e, exp) {
 		e.preventDefault();
@@ -56,12 +10,78 @@ angular.module('app.show.system', [])
 		this.$eval(exp);
 	};
  
+	$source.$region.query( { currentPage:1} , function( resp){
+		$scope.projs = resp.ret ; 
+	})
+
+	$scope.op = {} ;
+	$scope.od = { class:0 , severity :'0' , 
+	    end: new Date(),
+		start: new Date( new Date() - 86400000)
+	} ; 
  
+
+})
+
+
+
+.controller('show_system_prop', function($scope,$state, $source, $q, $sys, $filter ) {
+
+	$scope.system = $scope.$$cache[0];
+
+	var sysModel = $scope.system.model,
+		//td = $filter("date")(new Date(), "yyyy-MM-dd"), 
+		arr, d  ; 
+ 
+	$source.$sysModel.getByPk({pk: sysModel} , function( resp ){
+		$scope.systemModel = resp.ret ; 
+		//$scope.system.network = angular.fromJson( $scope.system.network);
+	})	
+
+
+	$scope.op = {
+		start: "",
+		num: 50, 
+		end: new Date(),
+		start: new Date( new Date() - 86400000),
+		ala: "b", // a: 实时报警; b: 历史报警; 
+		pointSize: 60, // 曲线上的点数; 
+		c_int: 10000, // 实时数据 interval 时间; 
+		a_int: 10000 // 实时报警; interva 时间; 
+	};
+ 
+	// 得到 sysmodel 下的 log tags ;  
+    $scope.loadTagPromiseA = $source.$sysTag.get({  system_model: sysModel }).$promise ;
+
+	$scope.loadTagPromise = $source.$sysLogTag.get({  profile: $scope.system.profile  }).$promise ; 
+
+
+	$scope.loadTagPromise.then( function( resp){
+		$scope.tags = resp.ret;
+	});
+
+ 	 
+
+	$scope.openCalendar = function(e, exp) {
+		e.preventDefault();
+		e.stopPropagation();
+
+		this.$eval(exp);
+	};
+ 
+ 	
+ 	$scope.goHis = function( t ){ 
+ 		$scope.op.his_tag = t.name ; 
+ 		$state.go('app.show.system_prop.history');
+ 	}
 
 
 
 })
 
+.controller('show_system_basic' , function( $scope , $sys , $show){
+
+})
 
 .controller('show_system_current', function($scope, $show, $interval, $sys,$state , $filter) {
 
@@ -70,7 +90,7 @@ angular.module('app.show.system', [])
 	//$scope.$popNav($scope.system.name + "()", $state);
 
 	$scope.$on("$destroy", function() {
-		$interval.cancel(interval);
+		$interval.cancel(interval); 
 	})
 
 	var   names=[] , doms_v , doms_t; 
@@ -80,14 +100,12 @@ angular.module('app.show.system', [])
  		angular.forEach(resp.ret, function(v, i){
  			names.push(v.name);	
  		});
- 		console.log(names); 
+ 		console._log(names); 
  	})
  
-
- 
  
 
-	// 订阅数据;   faea 发饿
+	// 订阅数据;   
     $scope.liveData =  function ( need ) {
     	if(!need) return ; 
 
@@ -99,48 +117,77 @@ angular.module('app.show.system', [])
     	doms_v =  doms_v || $(".current_val");
 
 
-		$interval.cancel(interval); 
-		interval = $interval(function() {
 
-			$show.live.get({
+
+
+		$interval.cancel(interval); 
+		getCurrent();
+		interval = $interval(function() { 
+			getCurrent();
+		}, $scope.op.c_int );
+	}
+
+	function getCurrent(){
+		$show.live.get({
 				uuid: $scope.system.uuid,
 				tag:  names
 			}, function(resp) { 
-				console.log( names);
+				console._log( names);
 		 		$.each( resp.ret , function(i,d){ 
-		 			t = $filter("date")( d.src , 'yyyy-MM-dd HH:mm');  
+		 			if(!d) {
+		 				d = {src:null , pv:null};
+		 			} ; 
+		 			t = $filter("date")( d.src , 'MM-dd HH:mm:ss');  
 		 			doms_v.eq(i).text(d.pv);
 		 			doms_t.eq(i).text(t); 
 		 		})
 
-			})
-
-
-		}, $scope.op.c_int );
+			});
 	}
+
 
 
 	$scope.liveWrite= function(t,v){
 		//console.log(arguments);  // String system_id , String name ,String value
 		if(!t) return ; 
-		var d = { system_id : $scope.system.uuid ,
-					name: t,
+		var d = {	system_id : $scope.system.uuid ,
+					tagname: t ,//.name ,
 					value: v
-					}
+				}
 		$show.liveWrite.save( d , function( resp){
-			console.log( resp );
-		})
-
+			console._log( resp );
+		}) 
 	}
 
 })
 
-.controller('show_system_history', function($scope, $show) {
+.controller('show_system_history', function($scope, $show ,$sys) {
 
-	$scope.od = {
-		showS: false,
-		showE: false
-	};
+	// $scope.od = {
+	// 	showS: false,
+	// 	showE: false
+	// };
+
+	$scope.$on("$destroy" , function(){
+		$scope.op.his_tag = null ; 
+	})
+
+
+	var  polt , plot_config = angular.copy($sys.plotChartConfig) ; 
+
+	$scope.initFlotChart = function(_plot_data) {
+		console._log(_plot_data); 
+  		if($scope.op.his_tag){
+  			$scope.op.start = new Date( new Date() - 86400000) ; 
+  			$scope.op.end = new Date()  ; 
+  			$scope.queryHistory();
+  		}else{
+  			plot = $.plot("#show_live_data", [{data:[], label:"未选择点"}], plot_config);
+  		}
+		
+		 
+	}
+ 
 
 	$scope.queryHistory = function() {
 		$scope.validForm();
@@ -166,16 +213,14 @@ angular.module('app.show.system', [])
 
 			$.each(data, function(i, v, t) {
 				d.push([v.ts, v.pv]);
-			})
+			}) 
 
-			$scope.initFlotChart({
-				data: d,
-				label: op.his_tag
-			});
+			plot = $.plot("#show_live_data", [{data:d, label:op.his_tag}], plot_config);
 
 		});
 
-	}
+	} 
+ 
 
 })
 
@@ -187,28 +232,29 @@ angular.module('app.show.system', [])
 		$interval.cancel(interval);
 	});
 
-	$scope.$watch("op.ala", function() {
-		$scope.alarms = [];
-
+	$scope.$watch("op.ala", function(n) {
+		$scope.alarms = []; 
 		$interval.cancel(interval); 
-		interval = null;
+		interval ; 
+		 console._log(n);
+		if(n =='a'){ 
+			$scope.liveAlarm();
+		}
+ 
 	})
 
-	$scope.liveAlarm = function() {
-		if (interval) {
-			$interval.cancel(interval);
-			interval = null;
-			return;
-		}
+	function getAlarm (){
+		$show.alarm.get({ uuid: $scope.system.uuid }, function(resp) {
+			$scope.alarms = resp.ret;
+		})
+	}
 
-		interval = $interval(function() {
-			console._log("live alarm ", $interval);
-			$show.alarm.get({
-				uuid: $scope.system.uuid
-			}, function(resp) {
-				$scope.alarms = resp.ret;
-			})
-		}, 2000)
+
+	$scope.liveAlarm = function() { 
+		getAlarm();
+		interval = $interval(function() { 
+			getAlarm();
+		}, $scope.op.a_int );
 	}
 
 
@@ -229,6 +275,7 @@ angular.module('app.show.system', [])
 		})
 	}
  
+ 	// alarm 详细信息; 
 	var S = $scope ;
 	$scope.alarmMsg = function(a){
 		$modal.open({
@@ -236,7 +283,7 @@ angular.module('app.show.system', [])
 			controller:function( $scope ,$modalInstance ){
 				$scope.__proto__ = S ; 
 				$scope.$modalInstance = $modalInstance;
-				$scope.done = $scope.cancel;
+				// $scope.done = $scope.cancel;
 				$scope.alarm = a ; 
 			}
 		})
@@ -244,42 +291,13 @@ angular.module('app.show.system', [])
 
 })
 
-.controller('show_system_map', function() {
+.controller('show_system_map', function( $scope , $map) {
 
-}).controller('datepicker', function($scope) {
-	$scope.today = function() {
-		$scope.dt = new Date();
-	};
-	$scope.today();
+		var map;
+		$scope.initMap = function() {
+			console._log("initMap");
+			map = $map.initMap($scope, [ $scope.system], "station_map", 135, "$stateParams.projname");
 
-	$scope.clear = function() {
-		$scope.dt = null;
-	};
+		}
 
-	// Disable weekend selection
-	$scope.disabled = function(date, mode) {
-		return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
-	};
-
-	$scope.toggleMin = function() {
-		$scope.minDate = $scope.minDate ? null : new Date();
-	};
-	$scope.toggleMin();
-
-	$scope.open = function($event) {
-		$event.preventDefault();
-		$event.stopPropagation();
-
-		$scope.opened = true;
-	};
-
-	$scope.dateOptions = {
-		formatYear: 'yyyy',
-		startingDay: 1,
-		class: 'datepicker'
-	};
-
-	$scope.initDate = new Date('2016-15-20');
-	$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-	// $scope.format = $scope.formats[1];
-})
+}) 

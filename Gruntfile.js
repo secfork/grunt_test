@@ -302,10 +302,10 @@ module.exports = function (grunt) {
     htmlmin: {
       dist: {
         options: {
-          collapseWhitespace: true,
-          conservativeCollapse: true,
-          collapseBooleanAttributes: true,
-          removeCommentsFromCDATA: true
+          //collapseWhitespace: true,
+         // conservativeCollapse: true,
+         // collapseBooleanAttributes: true,
+         // removeCommentsFromCDATA: true
         },
         files: [{
           expand: true,
@@ -320,15 +320,60 @@ module.exports = function (grunt) {
     ngtemplates: {
       dist: {
         options: {
-          module: 'ngAppApp',
-          htmlmin: '<%= htmlmin.dist.options %>',
-          usemin: 'scripts/scripts.js'
+          module: 'thinglinxTemp',
+         // htmlmin: '<%= htmlmin.dist.options %>',
+         // usemin: 'scripts/scripts.js' ,
+          htmlmin: {
+            collapseBooleanAttributes: true,
+            collapseWhitespace: true,
+            removeAttributeQuotes: true,
+            removeComments: true,
+            removeEmptyAttributes: true,
+            removeRedundantAttributes: true,
+            removeScriptTypeAttributes: true,
+            removeStyleLinkTypeAttributes: true
+          } 
         },
         cwd: '<%= yeoman.app %>',
-        src: 'athena/{,**/}*.html',
+        src: 'athena/views/{,**/}*.html',
+       // src: 'athena/views/debris/{,**/}*.html',
         dest: '.tmp/templateCache.js'
       }
     },
+
+    // ngtemplates: {
+    //   'ntd.directives': {
+    //     cwd: '<%= yeoman.app%>',
+    //     src: 'templates/**.html',
+    //     dest: '.tmp/concat/scripts/angular-adminui-tpl.js',
+    //     options: {
+    //       htmlmin: {
+    //         collapseBooleanAttributes: true,
+    //         collapseWhitespace: true,
+    //         removeAttributeQuotes: true,
+    //         removeComments: true,
+    //         removeEmptyAttributes: true,
+    //         removeRedundantAttributes: true,
+    //         removeScriptTypeAttributes: true,
+    //         removeStyleLinkTypeAttributes: true
+    //       }
+    //     }
+    //   }
+    // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // ng-annotate tries to make the code safe for minification automatically
     // by using the Angular long form for dependency injection.
@@ -355,7 +400,7 @@ module.exports = function (grunt) {
       dist: {
         files: [{ 
           expand: true,
-          dot: true,
+          dot: false, //  是否包含与点 开头的文件  ( .svn )
           cwd: '<%= yeoman.app %>', 
           dest: '<%= yeoman.dist %>',
           src: [
@@ -364,9 +409,11 @@ module.exports = function (grunt) {
             '*.html',
             'images/{,*/}*.{webp}',
             'styles/fonts/{,*/}*.*'
-
-            ,'{athena,fonts,img}/**'
+              
+             // athena 下的文件做成 tempalteCache ;   {athena,fonts,img}
+            ,'{fonts,img}/**'
             ,'lib/*/**'  //  jquery 插件拷贝; 
+            
           ]
         }, {
           expand: true,
@@ -443,7 +490,8 @@ module.exports = function (grunt) {
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
-    //'ngtemplates',
+    'ngtemplates', 
+
     'concat',
     'ngAnnotate',
     'copy:dist',

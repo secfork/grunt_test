@@ -1,99 +1,88 @@
 <!doctype html>
 <html ng-app="thinglinx">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title></title>
-    <meta name="description" content="thinglinx 工业云 云 工控 力控 圆通 三维力控 ">
+    <meta name="description" content="thinglinx 工业云 云 工控 力控 力控元通 三维力控 ">
     <meta name="viewport" content="width=device-width , initial-scale=1, maximum-scale=1">
-
-
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
- 
     <!-- build:css(.tmp) styles/main.css -->
-        <link rel="stylesheet" href="styles/bootstrap.css" type="text/css"  />
-        <link rel="stylesheet" href="styles/animate.css"   type="text/css" />
-        <link rel="stylesheet" href="styles/font-awesome.min.css"  type="text/css" />
-        <link rel="stylesheet" href="styles/simple-line-icons.css" type="text/css" />
-        <link rel="stylesheet" href="styles/font.css" type="text/css" />
-        <link rel="stylesheet" href="styles/app.css"  type="text/css" />   
+    <link rel="stylesheet" href="styles/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="styles/animate.css" type="text/css" />
+    <link rel="stylesheet" href="styles/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="styles/simple-line-icons.css" type="text/css" />
+    <link rel="stylesheet" href="styles/font.css" type="text/css" />
+    <link rel="stylesheet" href="styles/app.css" type="text/css" />
     <!-- endbuild -->
- 
+</head>
 
-  </head>
-  <body   ng-controller="AppCtrl"   scroll='no' >
+<body ng-controller="AppCtrl" scroll='no'>
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-
     <!-- Add your site or application content here -->
-    
-      <div class="app" id="app"
-           ng-class="   {'app-header-fixed':app.settings.headerFixed,
+    <div class="app" id="app" ng-class="   {'app-header-fixed':app.settings.headerFixed,
                         'app-aside-fixed':app.settings.asideFixed,
-                        'app-aside-folded':app.settings.asideFolded  } "
-            ui-view  >
-      </div>
+                        'app-aside-folded':app.settings.asideFolded  } " ui-view>
 
- 
- 
- 
- 
-
-   <!--build:js({.tmp,app})  scripts/vendor-lib.js --> 
-     
-       <script  src="lib/jquery.min.js" ></script>
-       <script  src="lib/angular.min.1.3.js" ></script>
-       <script  src="lib/angular-resource.min.js" ></script>
-       <script  src="lib/angular-cookies.min.js" ></script>
-       <script  src="lib/angular-messages.min.js" ></script>
-       <script  src="lib/angular-animate.min.js" ></script>
-       <script  src="lib/angular-ui-router.min.js" ></script> 
-       <script  src="lib/ui-bootstrap-tpls.min.js" ></script>  
-       <script  src="lib/angular-translate.js"></script> 
-
-       <script  src="lib/datetime_picker/datetimepicker.js"></script>
-
-       <script  src="lib/ngStorage.min.js"></script>
-       <script  src="lib/ui-jq.js"></script>
-       <script  src="lib/ui-load.js"></script>
-       <script  src="lib/ui-validate.js"></script>
+    </div>
 
 
+    <!--    cdn   -->
 
-
-       
-
-    <!-- endbuild -->
-
- 
-
-      <!-- build:js({.tmp,app}) scripts/thinglinx.js -->
-        <script src="scripts/controllers/account.js"></script>
-        <script src="scripts/controllers/basecontroller.js"></script>
-        <script src="scripts/controllers/model.device.js"></script>
-        <script src="scripts/controllers/model.system.js"></script>
-        <script src="scripts/controllers/project.js"></script>
-        <script src="scripts/controllers/show.proj.js"></script>
-        <script src="scripts/controllers/show.system.js"></script>
-        <script src="scripts/controllers/system.js"></script>
-        <script src="scripts/controllers/system.prop.js"></script>
-
-        <script src="scripts/directive/directives.js"></script>
-        <script src="scripts/filter/filters.js"></script>
-        <script src="scripts/service/services.js"></script>
-        <script src="scripts/service/sysconfig.js"></script>  
-
-        <script src="scripts/thinglinx.js"></script>
-      <!-- endbuild -->
-
-<!-- 百度 地图  -->
-
- 
+   
   
+
+    <!--   cdn   -->
+
+<!--
+    <script  src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script  src="cdn.bootcss.com/angular.js/1.3.0-beta.3/angular.js"></script>
+
+    <script src="lib/angular-messages.min.js"></script>
+-->
+
+    <!--build:js({.tmp,app})  scripts/vendor-lib.js -->
+    
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/angular.min.1.3.js"></script>
+    <script src="lib/angular-resource.min.js"></script>
+    <script src="lib/angular-cookies.min.js"></script>
+   
+    <script src="lib/angular-animate.min.js"></script>
+    <script src="lib/angular-ui-router.min.js"></script>
+    
+    <script src="lib/ui-bootstrap-tpls.min.js"></script>
+    <script src="lib/angular-translate.js"></script>
+    <script src="lib/datetime_picker/datetimepicker.js"></script>
+    <script src="lib/ngStorage.min.js"></script>
+    <script src="lib/ui-jq.js"></script>
+    <script src="lib/ui-load.js"></script>
+    <script src="lib/ui-validate.js"></script>
+    <!-- endbuild -->
+    <!-- build:js({.tmp,app}) scripts/thinglinx.js -->
+    <script src="scripts/controllers/account.js"></script>
+    <script src="scripts/controllers/basecontroller.js"></script>
+    <script src="scripts/controllers/model.device.js"></script>
+    <script src="scripts/controllers/model.system.js"></script>
+    <script src="scripts/controllers/project.js"></script>
+    <script src="scripts/controllers/show.proj.js"></script>
+    <script src="scripts/controllers/show.system.js"></script>
+    <script src="scripts/controllers/system.js"></script>
+    <script src="scripts/controllers/system.prop.js"></script>
+    <script src="scripts/controllers/support.js"></script>
+    <script src="scripts/directive/directives.js"></script>
+    <script src="scripts/filter/filters.js"></script>
+    <script src="scripts/service/services.js"></script>
+    <script src="scripts/service/sysconfig.js"></script>
+    <script src="scripts/thinglinx.js"></script>
+    <!-- endbuild -->
+    <!-- 百度 地图  -->
+        
   <script  src="http://api.map.baidu.com/api?v=1.5&ak=M9b53slaoqAKQj8jX0CRz6xA" type="text/javascript"></script>
 
- 
- 
-      
+  
 </body>
+
 </html>

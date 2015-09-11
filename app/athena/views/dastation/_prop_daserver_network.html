@@ -1,99 +1,55 @@
- 
 <!-- 
 
-托管模式: ==>  daserver 类型; 
-
-
+托管模式: ==>  daserver 类型;  
 
  -->
- 
-
-<form   name="form" panelclass  class="form-horizontal form-validation " 
-        ng-init = "  initDaServer() ; loadSupportDtus() ;  "   >
-
-
-            <div ng-if="    $debug "  >  
-                system.network.daserver ={{daserver}} <br/>  
-            </div>
- 
-            <div  ng-if=" daserver.type =='DTU' "    >
-
-                <select  tl-wrap-l 
-                         label="DTU驱动"  
-                         required   
-                         ng-model="daserver.params.driverid"   
-                         ng-change=" applyDtuData(daserver.params ) ;  "
-                         ng-options=" o.driver_id as o.driver_id  for o  in dtuList"
- 
-                >
-                    <option value="">--请选择DTU驱动--</option>
-                </select>
-                <!--
+<form name="form" panelclass class="form-horizontal form-validation " ng-init="  initDaServer() ; loadSupportDtus() ;  ">
+    <div ng-if="    $debug ">
+        system.network.daserver ={{daserver}}
+        <br/>
+    </div>
+    <div ng-if=" daserver.type =='DTU' ">
+        <select tl-wrap-l label="DTU驱动" required ng-model="daserver.params.driverid" ng-change=" applyDtuData(daserver.params ) ;  " ng-options=" o.driver_id as o.driver_id  for o  in dtuList">
+            <option value="">--请选择DTU驱动--</option>
+        </select>
+        <!--
                   <input  tl-wrap-l label="终端iD" required ng-model="network[type].simid"    > 
                   readonly
                 -->
-
-                <input  tl-wrap-l label="终端ID" 
-                        required ng-model="daserver.params.simid" 
-                        ng-change = " toUpdate('daserver') "  >
-
-            
-                <input  readonly  tl-wrap-l label="cmway" ng-model="daserver.params.cmway"       >
-
-                <input readonly  tl-wrap-l label="端口"   ng-model="daserver.params.port"     >
-               
-                <div    
-                    class="text-muted">
-
-                    <i class="fa  fa-warning   text-warning pos-rlt"></i>
-                    DSC地址和端口需要设置到指定的DTU设备中
-                </div> 
-
+        <input tl-wrap-l label="终端ID" required ng-model="daserver.params.simid" ng-change=" toUpdate('daserver') ">
+        <input readonly tl-wrap-l label="cmway" ng-model="daserver.params.cmway">
+        <input readonly tl-wrap-l label="端口" ng-model="daserver.params.port">
+        <div class="text-muted">
+            <i class="fa  fa-warning   text-warning pos-rlt"></i> DSC地址和端口需要设置到指定的DTU设备中
+        </div>
+    </div>
+    <!-- 手机-->
+    <div ng-if="daserver.type =='TcpClient' ">
+        <input tl-wrap-l label="SIM卡手机" required ng-model="a" type="number">
+        <input tl-wrap-l label="APN" required ng-model="a" type="number">
+        <input tl-wrap-l label="APN用户名" ng-model="a">
+        <input tl-wrap-l label="APN密码" ng-model="a">
+    </div>
+    <!-- dtu -->
+    <!--vpn-->
+    <div ng-if="daserver.type =='TcpServer' ">
+        <div class=" col-sm-12    m-t-xs  m-b-sm   text-left" style="padding-left: 0px">
+            <div class="checkbox">
+                <label class="i-checks">
+                    <input type="checkbox" ng-checked="true" ng-model="isvpn"><i></i> 是否使用VPN
+                </label>
             </div>
-
- 
-
-
-            <!-- 手机-->
-             <div  ng-if="daserver.type =='TcpClient' "  >
-                 <input  tl-wrap-l label="SIM卡手机" required ng-model="a"  type="number"  >
-                 <input  tl-wrap-l label="APN" required ng-model="a"  type="number"  >
-
-                 <input  tl-wrap-l label="APN用户名"   ng-model="a"    >
-                 <input  tl-wrap-l label="APN密码"    ng-model="a"     >
-             </div>
-
-                <!-- dtu -->
-
- 
-              <!--vpn--> 
-             <div  ng-if="daserver.type =='TcpServer' ">
-                 <div class=" col-sm-12    m-t-xs  m-b-sm   text-left"   style="padding-left: 0px" >
-                     <div class="checkbox">
-                         <label class="i-checks">
-                             <input type="checkbox" ng-checked="true"  ng-model="isvpn"  ><i></i>  是否使用VPN
-                         </label>
-                     </div>
-                 </div>
-
-                 <div ng-if="true">
-                     <input  tl-wrap-l label="VPN服务器" ng-model="a" required  type="number" >
-
-                     <input  tl-wrap-l label="用户名" ng-model="a" required    >
-                     <input  tl-wrap-l label="密码" ng-model="a" required  type="password" >
-                 </div>
-             </div>
-
-
-            <div class="line   line-dashed b-b line-chart m-l-n-sm   "  ></div>
-
-            
-            <div class="row m-t-xs">
-                <div class="col-xs-12" >
-
-
-                
-                        <span class="text-danger"  ng-show =" needUpdate.daserver ">
+        </div>
+        <div ng-if="true">
+            <input tl-wrap-l label="VPN服务器" ng-model="a" required type="number">
+            <input tl-wrap-l label="用户名" ng-model="a" required>
+            <input tl-wrap-l label="密码" ng-model="a" required type="password">
+        </div>
+    </div>
+   <!--  <div class="line   line-dashed b-b line-chart m-l-n-sm   "></div> -->
+    <div class="row m-t-xs">
+        <div class="col-xs-12">
+            <span class="text-danger" ng-show=" needUpdate.daserver ">
                             <button   
                                      class=" btn btn-sm m-l w-xs btn-primary " 
                                      ng-click = "  updateSystem( 'daserver' );  "
@@ -104,59 +60,9 @@
                             <i class="fa  fa-exclamation-triangle  "></i> 
                              编辑完成后请保存网络参数
                         </span>
-                  
-                        <span  ng-show = " hasSave.daserver ">
-                           <strong  class= "text-info  m-lg"> <i class="fa  fa-thumbs-o-up "></i> <span>保存成功!</span>  </strong>
-                        </span>
-
-
-
-
-
-
-
-
-
-                </div> 
-
-            </div>
-
-
-        </form>
-
-
- 
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            <span ng-show=" hasSave.daserver ">
+                           <strong  class= "text-info  m-lg"> <i class="fa  fa-thumbs-o-up "></i> <span>保存成功!</span> </strong>
+            </span>
+        </div>
+    </div>
+</form>

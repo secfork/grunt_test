@@ -895,7 +895,8 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+  font-family: "Microsoft YaHei", SimHei, helvetica, arial, verdana, tahoma, sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
   color: #333;
@@ -2259,15 +2260,17 @@ table th[class*="col-"] {
     -ms-overflow-style: -ms-autohiding-scrollbar;
     border: 1px solid #ddd;
   }
-  .table-responsive > .table {
+ /* .table-responsive 后的  ">" 号 全部删除 */
+
+  .table-responsive  .table {
     margin-bottom: 0;
   }
-  .table-responsive > .table > thead > tr > th,
-  .table-responsive > .table > tbody > tr > th,
-  .table-responsive > .table > tfoot > tr > th,
-  .table-responsive > .table > thead > tr > td,
-  .table-responsive > .table > tbody > tr > td,
-  .table-responsive > .table > tfoot > tr > td {
+  .table-responsive  .table > thead > tr > th,
+  .table-responsive  .table > tbody > tr > th,
+  .table-responsive  .table > tfoot > tr > th,
+  .table-responsive  .table > thead > tr > td,
+  .table-responsive  .table > tbody > tr > td,
+  .table-responsive  .table > tfoot > tr > td {
     white-space: nowrap;
   }
   .table-responsive > .table-bordered {
@@ -2296,6 +2299,9 @@ table th[class*="col-"] {
     border-bottom: 0;
   }
 }
+
+
+
 fieldset {
   min-width: 0;
   padding: 0;
@@ -2359,7 +2365,7 @@ output {
   display: block;
   width: 100%;
   height: 34px;
-  padding: 5px 2px;
+  padding: 0px 3px;
   /* padding: 6px 2px;*/
   font-size: 14px;
   line-height: 1.42857143;
@@ -2398,8 +2404,8 @@ fieldset[disabled] .form-control {
   opacity: 1;
 }
 textarea.form-control {
- /* height: 100px;*/
- height: auto;
+  min-height: 60px;
+ /* height: auto;*/
   resize: none;
  
 }
@@ -2471,14 +2477,18 @@ input[type="month"].input-lg {
   margin-top: 0;
   margin-left: 10px;
 }
-input[type="radio"][disabled],
-input[type="checkbox"][disabled],
+input[type="radio"][disabled] ,  
+input[type="checkbox"][disabled] ,
 input[type="radio"].disabled,
 input[type="checkbox"].disabled,
 fieldset[disabled] input[type="radio"],
 fieldset[disabled] input[type="checkbox"] {
   cursor: not-allowed;
 }
+
+
+
+
 .radio-inline.disabled,
 .checkbox-inline.disabled,
 fieldset[disabled] .radio-inline,
@@ -3632,6 +3642,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .nav-tabs {
   border-bottom: 1px solid #ddd;
+  /*margin-left: 1px;
+  margin-right: 1px;*/
 }
 .nav-tabs > li {
   float: left;

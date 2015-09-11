@@ -1,0 +1,49 @@
+<div class="panel-body  table-responsive  no-padder "  >
+ 
+     <h4 class="text-center" ng-show=" !page.data.length">无用户!</h4> 
+    
+
+
+    <table class=" table   table-bordered  table-condensed "  ng-show="page.data.length">
+        <thead class="flip-content  ">
+            <tr>
+                <th>用户名称</th>
+                <th> 手机是否有效</th>
+                <th> 邮件是否有效</th>
+                <th> 上次登录IP </th>
+                <th> 上次登录时间 </th> 
+                <th>   </th> 
+                 
+            </tr>
+        </thead>
+        <tbody>  
+                
+            <tr ng-repeat=" u in page.data" class="hover">
+                <td> {{u.username}}</td>
+                <td>
+                    <i class="fa {{ u.emailEffective?'fa-check text-success':'fa-times  text-danger' }}"></i>
+                </td>
+                <td>
+                    <i class="fa {{ u.emailEffective?'fa-check text-success':'fa-times  text-danger' }}"></i>
+                </td>
+
+                <td>
+                    {{ u.last_login_ip }}
+                </td>
+
+                 <td>
+                    {{ u.last_login_time }}
+                </td>
+                <td> 
+                    <a href="" class="text-link" ng-click="removeUser(page.data , u , $index )">移除</a>
+                </td>  
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!--
+<div class="panel-footer  ">
+    <ng-include src=" 'athena/views/debris/_pager.html'  "></ng-include>
+</div>
+ -->

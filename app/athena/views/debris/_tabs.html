@@ -1,0 +1,17 @@
+ <tabset class="tab-container">
+    <tab  ng-repeat = " tab in tabs ">
+		<tab-heading >
+			<i ng-class=" tab.icon " ></i>
+		 	<span  translate= "{{ tab.title}}"></span>
+		 </tab-heading>
+ 		<ng-include src=" tab.url"  ></ng-include>
+    </tab>
+
+
+  
+</tabset>
+
+<div ng-if="$debug">
+	page = {{ page }}
+
+</div>
