@@ -302,10 +302,10 @@ module.exports = function (grunt) {
     htmlmin: {
       dist: {
         options: {
-          collapseWhitespace: true,
-          conservativeCollapse: true,
-          collapseBooleanAttributes: true,
-          removeCommentsFromCDATA: true
+          //collapseWhitespace: true,
+         // conservativeCollapse: true,
+         // collapseBooleanAttributes: true,
+         // removeCommentsFromCDATA: true
         },
         files: [{
           expand: true,
@@ -319,16 +319,60 @@ module.exports = function (grunt) {
     ngtemplates: {
       dist: {
         options: {
-          module: 'ngAppApp',
-          htmlmin: '<%= htmlmin.dist.options %>',
-          usemin: 'scripts/scripts.js'
+          module: 'thinglinxTemp',
+         // htmlmin: '<%= htmlmin.dist.options %>',
+         // usemin: 'scripts/scripts.js' ,
+          htmlmin: {
+            collapseBooleanAttributes: true,
+            collapseWhitespace: true,
+            removeAttributeQuotes: true,
+            removeComments: true,
+            removeEmptyAttributes: true,
+            removeRedundantAttributes: true,
+            removeScriptTypeAttributes: true,
+            removeStyleLinkTypeAttributes: true
+          } 
         },
         cwd: '<%= yeoman.app %>',
         src: 'athena/views/{,**/}*.html',
-        //src: 'athena/views/debris/{,**/}*.html',
+       // src: 'athena/views/debris/{,**/}*.html',
         dest: '.tmp/templateCache.js'
       }
     },
+
+    // ngtemplates: {
+    //   'ntd.directives': {
+    //     cwd: '<%= yeoman.app%>',
+    //     src: 'templates/**.html',
+    //     dest: '.tmp/concat/scripts/angular-adminui-tpl.js',
+    //     options: {
+    //       htmlmin: {
+    //         collapseBooleanAttributes: true,
+    //         collapseWhitespace: true,
+    //         removeAttributeQuotes: true,
+    //         removeComments: true,
+    //         removeEmptyAttributes: true,
+    //         removeRedundantAttributes: true,
+    //         removeScriptTypeAttributes: true,
+    //         removeStyleLinkTypeAttributes: true
+    //       }
+    //     }
+    //   }
+    // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // ng-annotate tries to make the code safe for minification automatically
     // by using the Angular long form for dependency injection.
