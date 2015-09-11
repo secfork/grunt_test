@@ -1,4 +1,35 @@
 {
+    "del":"删除",
+    "update":"更新",
+    "do":"确定",
+    "cancel":"取消",
+    "edit":"编辑",
+
+
+
+    "desc":"账户权限,低16位表示,未占用的位空缺",
+    "REGION_MANAGE": "区域管理",
+    "MODEL_MANAGE":"模型管理",
+    "GROUP_MANAGE":"用户组管理",
+    "USER_MANAGE":"用户管理",
+    "ROLE_MANAGE":"角色管理",
+    "desc":"区域权限,高16位表示,未占用的位空缺",
+    "READ_DATA":"读数据",
+    "WRITE_DATA":"写数据",
+    "ALARM_VIEW":"报警查看",
+    "ACK_ALARM":"报警确认",
+    "SYSTEM_MANAGE":"系统管理",
+    "TICKET_MANAGE":"ticket管理",
+    "REGION_USER_MANAGE":"区域用户管理",
+    "SYSTEM_CONTROL":"系统控制",
+
+
+
+
+
+
+
+
   "desc": "",
   "common": {
     "search": "搜索"

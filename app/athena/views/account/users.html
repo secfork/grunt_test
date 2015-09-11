@@ -1,15 +1,49 @@
 <tabset class="tab-container">
-    <tab>
-		<tab-heading ><i class=" icon icon-users"></i>  所有用户 </tab-heading>
- 		<ng-include src="'athena/views/account/users_all.html'"  ></ng-include>
+    <tab  select="tabToUsers()" >
+		<tab-heading >
+			<i  class="icon icon-users " ></i>
+		 	<span  translate= "所有用户"></span>
+		 </tab-heading>
+ 		<ng-include src=" 'athena/views/account/users_all.html' "  ></ng-include>
     </tab>
- 
+
+
     <tab>
-    	<tab-heading ><i class="icon icon-user-follow"></i> 添加用户 </tab-heading>
-    	<ng-include src="'athena/views/account/users_add.html'"  ></ng-include>
-    </tab> 
+    	<tab-heading >
+			<i class=" icon icon-user-follow " ></i>
+		 	<span  translate= "添加用户"></span>
+		</tab-heading> 
+
+     <div class="panel-body table-responsive  bg-light  no-padder  no-border">
+    
+          <form name="form" panelclass class="form-horizontal form-validation no-border">
+
+            <ng-include src=" 'athena/views/account/_user_form.html' "></ng-include>
+
+          </form>
+          <div panelclass class="text-center">
+              <button type="submit" class="btn  btn-info  btn-block-middle w-xs m-b " ng-click=" createUser()" token> 保存 </button>
+          </div>
+      </div>
+
+  
+    </tab>
+  
 </tabset>
 
+
+ <!--  $scope.tabs = [
+      { title: "所有用户",
+        select:  loadData , 
+        icon:" icon icon-users" , 
+        url:"athena/views/account/users_all.html" },
+      { title: "添加用户",                 
+        icon:"icon icon-user-follow",
+        url:"athena/views/account/users_add.html" }
+      
+  ]
+   -->
+ 
  
 
 

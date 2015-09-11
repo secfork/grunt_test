@@ -3,6 +3,9 @@
  		<div class="b-b m-b"> 系统 : {{system.name}}</div>
  		<div class="b-b m-b">系统描述 : {{system.desc}}</div>
  		<div class="b-b m-b">区域: {{system.group_id}} </div>
+ 		<div class="b-b m-b">创建时间: {{system.create_time | date:"yyyy-MM-dd HH:mm Z" }} </div>
+
+
  		<div class="b-b m-b"> 系统类型 : {{ $sys.sysModelMode.values[systemModel.mode]  }} </div> 
 
  		<div class="b-b m-b"> 通信类型 : {{ systemModel.comm_type  }}</div> 
@@ -15,7 +18,10 @@
  		<div class="b-b m-b"> 位置 : {{ system.longitude  +' , '+ system.latitude}}</div> 
  		<div class="b-b m-b"> 活跃状态 : {{ system.state?'激活':'未激活'  }} </div> 
  		<div class="b-b m-b"> 在线状态: {{ system.}}</div> 
- 		<div class="b-b m-b"> 数据最后更新时间 : {{ system.last_sync_time | date:"yyyy-MM-dd HH:mm"}}</div> 
+ 		<div class="b-b m-b"> 数据最后更新时间 :
+ 			 {{ system.last_modify_time | date:"yyyy-MM-dd HH:mm Z"}}</div> 
+ 		<div class="b-b m-b">
+ 		 数据最后同步时间 : {{ system.last_sync_time | date:"yyyy-MM-dd HH:mm Z"}}</div> 
  		<div class="b-b m-b"> 最近报警:</div> 
 
 

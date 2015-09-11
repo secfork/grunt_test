@@ -1,127 +1,56 @@
-
-  
-
-    <div class="panel-heading  float-left w-full  "    ng-if="isModelState" >
-                
-              
-             <div class="float-left m-t-xs m-l-md m-r"> 配置项
-             </div>     
-             <div class="float-left"> 
-                <select   ng-model="odp.puuid" 
-                          class=" form-control  input-sm w   " 
-                          ng-options="   p.uuid as p.name for p in profiles  "   
-                          ng-change="loadSysTag( odp.puuid  )"
-                  >
-                              
-                </select>  
-             </div>     
-
- 
-    </div> 
-
-    <div class="panel-body table-responsive no-padder">
-
-      <table class=" table   table-bordered " >
-        <thead class="flip-content"  >
-          <tr  class="background "> 
-                    <th >  Tag名称    </th>
-                    <th  ng-if=" isManageMode "  >  连接    </th> 
-
-                    <th >  类型 </th> 
-                   <!--  <th   >组</th> -->
-                  
-
-                    <th >缩放</th>
-                    <th >偏差</th>
-                    <th > 单位</th>
-
-                    <th >保存日志</th>
-                    <th >日志间隔(秒)</th>
-                    <th >日志类型</th>
-                    
-                   
-                    <th > 备注 </th>
-                    <th  ng-if="isModelState" ></th>
-
-          </tr>
-        </thead>
-
-        <tbody class="text-center " ng-init="_$type = $sys.log_type.values"> 
-
-          <tr  ng-repeat="  tag  in systags  "  class="hover"   >
-
-                <td>  {{tag.name}}</td>
-                <td ng-if="isManageMode"   ng-init="splictC( tag  , $last )" >  {{tag.connect}}</td>
-                <td>  {{tag.type}}</td>
-                
-
-                <td >  {{tag.scale}}</td>
-
-                <td>  {{tag.deviation}}</td>
-                <td>  {{tag.unit}}</td>
-                
-                <td>    
-                   <i  ng-if="tag.save_log"  class = "glyphicon glyphicon-ok text-success"></i>
-
-                </td>
-                <td >  <span ng-show="tag.save_log">{{tag.log_cycle }}  </span>  </td>
-                <td >  <span ng-show="tag.save_log"> {{   _$type[tag.log_type] ||'RAW' }}  </span> </td>
-
-               
-                <td>  {{  tag.desc +'  '+tag.tp_desc }}</td>
-
- 
-             <!--    <td  >  {{ proj.createTime | date:"yyyy-MM-dd HH:mm" }}</td> -->
-            
-
-                <td   ng-if="isModelState"  >
-                    <a   class="text-link m-r-xs"     
-                         ng-click="updateTag(  $index  , tag   )" >编辑</a>
-                    <a   class="text-link m-r-xs"     
-                         ng-click="add_update_Log(  $index  , tag   )" > 编辑配置</a>
-
-
-                    <a   class="text-link m-r-xs"  translate="bu.bu4" 
-                         ng-click="deleteTag(  $index  , tag   )" >移除</a>
-
-                   
-
-
-                </td>
-
-            </tr>
-            </tbody>
-        </table>
+<div class="panel-heading  float-left w-full  " ng-if="isModelState">
+    <div class="float-left m-t-xs m-l-md m-r"> 配置项
     </div>
-
-
-    <div  class="panel-footer"   ng-if="isModelState"  >
-
-
-     <!--   <ng-include  src=" 'athena/views/debris/_pager.html'  "></ng-include> -->
-
-       <button      class="btn btn-success btn-sm  m-l  "  ng-click=" addTag('add') " >
-              添加TAG
-       </button>
-
-
-     </div>
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <div class="float-left">
+        <select ng-model="odp.puuid" class=" form-control  input-sm w   " ng-options="   p.uuid as p.name for p in profiles  " ng-change="loadSysTag( odp.puuid  )">
+        </select>
+    </div>
+</div>
+<div class="panel-body table-responsive no-padder"  ng-class="{'b-t-none': !isModelState}">
+    <table class=" table   table-bordered ">
+        <thead class="flip-content">
+            <tr class="background ">
+                <th> Tag名称 </th>
+                <th ng-if=" isManageMode "> 连接 </th>
+                <th> 类型 </th>
+                <!--  <th   >组</th> -->
+                <th>缩放</th>
+                <th>偏差</th>
+                <th> 单位</th>
+                <th>保存日志</th>
+                <th>日志间隔(秒)</th>
+                <th>日志类型</th>
+                <th> 备注 </th>
+                <th ng-if="isModelState"></th>
+            </tr>
+        </thead>
+        <tbody class="text-center " ng-init="_$type = $sys.log_type.values">
+            <tr ng-repeat="  tag  in systags  " class="hover">
+                <td> {{tag.name}}</td>
+                <td ng-if="isManageMode" ng-init="splictC( tag  , $last )"> {{tag.connect}}</td>
+                <td> {{tag.type}}</td>
+                <td> {{tag.scale}}</td>
+                <td> {{tag.deviation}}</td>
+                <td> {{tag.unit}}</td>
+                <td>
+                    <i ng-if="tag.save_log" class="glyphicon glyphicon-ok text-success"></i>
+                </td>
+                <td> <span ng-show="tag.save_log">{{tag.log_cycle }}  </span> </td>
+                <td> <span ng-show="tag.save_log"> {{   _$type[tag.log_type] ||'RAW' }}  </span> </td>
+                <td> {{ tag.desc +' '+tag.tp_desc }}</td>
+                <!--    <td  >  {{ proj.createTime | date:"yyyy-MM-dd HH:mm" }}</td> -->
+                <td ng-if="isModelState">
+                    <a class="text-link m-r-xs" ng-click="updateTag(  $index  , tag   )">编辑</a>
+                    <a class="text-link m-r-xs" ng-click="add_update_Log(  $index  , tag   )"> 编辑配置</a>
+                    <a class="text-link m-r-xs" translate="bu.bu4" ng-click="deleteTag(  $index  , tag   )">移除</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="panel-footer b-t-none" ng-if="isModelState">
+    <!--   <ng-include  src=" 'athena/views/debris/_pager.html'  "></ng-include> -->
+    <button class="btn btn-success btn-sm     " ng-click=" addTag('add') ">
+        添加TAG
+    </button>
+</div>

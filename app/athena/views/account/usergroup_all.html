@@ -1,4 +1,4 @@
-<div class="panel-body   no-padder table-responsive no-border">
+<div class="panel-body   no-padder table-responsive no-border"  >
     <table class=" table   table-bordered  table-condensed      ">
         <thead class="flip-content  ">
             <tr>
@@ -16,8 +16,9 @@
                     <i class="fa {{ u.emailEffective?'fa-check text-success':'fa-times  text-danger' }}"></i>
                 </td>
                 <td>
-                    <a href="" class="text-link" ng-click="addProjForUser( u )">编辑</a>
-                    <a href="" class="text-link" ng-click="addProjForUser( u )">组用户</a>
+                    <a href="" class="text-link" ng-click=" editGroup( page.data , g, $index ) " translate="edit">编辑</a>
+                    <a href="" class="text-link" ng-click=" delGroup( page.data , g , $index ) " translate="del"> 删除</a>
+                    <a href="" class="text-link" ng-click="goto('app.account.usergroup_users' , unll , g )">组用户</a>
                 </td>
             </tr>
         </tbody>

@@ -1,6 +1,6 @@
 angular.module('app.show.system', [])
 
-.controller("show_alarm" , function( $scope , $source ,$project,$sys, $q ){
+.controller("show_alarm" , function( $scope , $source ,$sys, $q ){
 	
 
 	$scope.openCalendar = function(e, exp) {
@@ -10,7 +10,7 @@ angular.module('app.show.system', [])
 		this.$eval(exp);
 	};
  
-	$project.getAllprojs( function( resp){
+	$source.$region.query( { currentPage:1} , function( resp){
 		$scope.projs = resp.ret ; 
 	})
 
@@ -19,10 +19,7 @@ angular.module('app.show.system', [])
 	    end: new Date(),
 		start: new Date( new Date() - 86400000)
 	} ; 
-
-
-	
-	
+ 
 
 })
 
@@ -36,7 +33,7 @@ angular.module('app.show.system', [])
 		//td = $filter("date")(new Date(), "yyyy-MM-dd"), 
 		arr, d  ; 
  
-	$source.$sysModel.getByPk({pk: sysModel} ,function( resp ){
+	$source.$sysModel.getByPk({pk: sysModel} , function( resp ){
 		$scope.systemModel = resp.ret ; 
 		//$scope.system.network = angular.fromJson( $scope.system.network);
 	})	
@@ -53,9 +50,11 @@ angular.module('app.show.system', [])
 		a_int: 10000 // 实时报警; interva 时间; 
 	};
  
-	// 得到 sysmodel 下的tags ; 
+	// 得到 sysmodel 下的 log tags ;  
+    $scope.loadTagPromiseA = $source.$sysTag.get({  system_model: sysModel }).$promise ;
 
-	$scope.loadTagPromise = $source.$sysTag.get({  system_model: sysModel }).$promise ;
+	$scope.loadTagPromise = $source.$sysLogTag.get({  profile: $scope.system.profile  }).$promise ; 
+
 
 	$scope.loadTagPromise.then( function( resp){
 		$scope.tags = resp.ret;
@@ -151,10 +150,10 @@ angular.module('app.show.system', [])
 	$scope.liveWrite= function(t,v){
 		//console.log(arguments);  // String system_id , String name ,String value
 		if(!t) return ; 
-		var d = { system_id : $scope.system.uuid ,
-					name: t,
+		var d = {	system_id : $scope.system.uuid ,
+					tagname: t ,//.name ,
 					value: v
-					}
+				}
 		$show.liveWrite.save( d , function( resp){
 			console._log( resp );
 		}) 

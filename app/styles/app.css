@@ -4,7 +4,7 @@ hr {
 }
 
 
-
+ 
 input, select {
   border-color: #cfdadd;
 }
@@ -19,6 +19,7 @@ input, select {
   border: 1px solid #ccc;
 
 }
+
 
 
 thead {
@@ -242,6 +243,9 @@ tr.hover:hover td {
   margin-right: auto ;
 }
 
+.gap-n-1{
+  margin: -1px;
+}
 
 .gap-5 {
   margin: 5px;
@@ -264,9 +268,9 @@ html {
 }
 body {
   /*font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
- /* font-family: "微软雅黑";*/
+  /* font-family: "微软雅黑"; */
 
- font-family:  "Microsoft YaHei", SimHei, helvetica, arial, verdana, tahoma, sans-serif;
+  font-family:  "Microsoft YaHei",  helvetica, arial, verdana, tahoma, sans-serif;
 
   font-size: 15px;
   color: #58666e;
@@ -624,7 +628,8 @@ a.list-group-item:focus {
   border-bottom-color: #23b7e5 !important;
 }
 .tab-container {
-  margin-bottom: 15px;
+ /* margin-bottom: 15px;*/
+  margin:1px;
 }
 .tab-container .tab-content {
  /* padding: 15px;*/
@@ -2284,6 +2289,7 @@ fieldset[disabled] .i-checks input + i {
 fieldset[disabled] .i-checks input + i:before {
   /*background-color: #dee5e7; */
   background-color: #047F89;
+  cursor: not-allowed;
 }
 .i-checks > i {
  /* width: 20px;
@@ -3584,12 +3590,15 @@ a.text-black:hover {
 .b-a {
   border: 1px solid #dee5e7;
 }
-.b-t-none {
+.b-t-none  , .b-b-none , .b-l-none ,.b-r-none {
   border-top-style: none;
 }
+
+
 .b-t {
   border-top: 1px solid #dee5e7;
 }
+
 .b-r {
   border-right: 1px solid #dee5e7;
 }

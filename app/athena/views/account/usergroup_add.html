@@ -2,15 +2,20 @@
     <h4 class="text-center">添加用户组</h4>
     <form name="form" panelclass class="form-horizontal form-validation  "> 
 
-        <input tl-wrap-l label="组名" required ng-model=" ug.name "> 
-        <input tl-wrap-l label="账户角色" ng-model=" ug.contact_user ">
-        <input tl-wrap-l label="权限" ng-model=" proj."  >
-               <li class="line b-b"></li>
-        <div class="form-group  " ng-if=" !isShowModul ">
-            <label class="col-sm-3 control-label">
-                <button type="submit" class="btn  btn-info  btn-block-middle  w-xs " 
-                ng-click=" commit()"> 保存 </button>
-            </label>
-        </div> 
+        <input tl-wrap-l label="组名" required ng-model=" ug.name ">  
+
+        <textarea tl-wrap-l  label="备注" 
+              ng-model=" ug.desc "
+              ng-maxlength="100"
+             placeholder=" 不应超过100字符" 
+          ></textarea>
+
     </form>
+
+      <div panelclass class="text-center"   ng-if=" !isShowModul " >
+        <button type="submit" class="btn  btn-info  btn-block-middle w-xs m-b " 
+          ng-click=" commit()" token> 保存 </button>
+    </div>
+
 </div>
+ 

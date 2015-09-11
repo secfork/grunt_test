@@ -1,105 +1,43 @@
-
-  
-
-    <div class="panel-heading  float-left w-full  "  ng-if="isModelState" >
-                
-             <div class="float-left m-t-xs m-l-md m-r"> 配置项
-             </div>     
-             <div class="float-left"> 
-                <select     ng-model="odp.puuid" 
-                              class=" form-control  input-sm w   " 
-                              ng-options="   p.uuid as p.name for p in profiles  "   
-                              ng-change="loadMessages( odp.puuid  )"
-                         >
-                              
-                </select>  
-             </div>     
- 
-    </div> 
-
-    <div class="panel-body table-responsive no-padder">
-
-      <table class=" table   table-bordered " >
-        <thead class="flip-content"  >
-          <tr  class="background "> 
-                    <th >  Message名称    </th>
-                    <th >  触发器 Id   </th> 
-
-                    <th >  发送方式 </th> 
-                    <th >  发送对象 ( user_id ) </th> 
-
-                   <!--  <th   >组</th> -->
-                   
-                    <th > 消息体</th> 
-                    <th ng-if="isModelState"  ></th>
-
-          </tr>
-        </thead>
-
-        <tbody class="text-center "> 
-
-          <tr  ng-repeat="  m  in messages  "  class="hover" >
-
-                <td>  {{m.name}}</td>
-                <td>  {{m.trigger_id}}</td>
-                <td>  {{m.user_category}}</td>
-               
-                <td>  {{m.user_id }}</td>
-
- 
-
-                <td >  {{m.message_params}}</td> 
-
-             <!--    <td  >  {{ proj.createTime | date:"yyyy-MM-dd HH:mm" }}</td> -->
-            
-
-                <td  ng-if="isModelState"   >
-                    <a   class="text-link m-r-xs"     
-                         ng-click="createMessage(  $index  , m   )" >编辑</a> 
-
-
-                    <a   class="text-link m-r-xs"  translate="bu.bu4" 
-                         ng-click="deleteMessage(  $index  , m   )" >移除</a>
-
-                   
-
-
-                </td>
-
-            </tr>
-            </tbody>
-        </table>
+<div class="panel-heading  float-left w-full  " ng-if="isModelState">
+    <div class="float-left m-t-xs m-l-md m-r"> 配置项
     </div>
-
-
-    <div  class="panel-footer"  ng-if="isModelState"   >
-
-
-     <!--   <ng-include  src=" 'athena/views/debris/_pager.html'  "></ng-include> -->
-
-       <button      class="btn btn-success btn-sm  m-l  "  ng-click=" createMessage( ) " >
-           添加Message  
-       </button>
-
-
-     </div>
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <div class="float-left">
+        <select ng-model="odp.puuid" class=" form-control  input-sm w   " ng-options="   p.uuid as p.name for p in profiles  " ng-change="loadMessages( odp.puuid  )">
+        </select>
+    </div>
+</div>
+<div class="panel-body table-responsive no-padder"   ng-class="{'b-t-none': !isModelState}" >
+    <table class=" table   table-bordered ">
+        <thead class="flip-content">
+            <tr class="background ">
+                <th> Message名称 </th>
+                <th> 触发器 Id </th>
+                <th> 发送方式 </th>
+                <th> 发送对象 ( user_id ) </th>
+                <!--  <th   >组</th> -->
+                <th> 消息体</th>
+                <th ng-if="isModelState"></th>
+            </tr>
+        </thead>
+        <tbody class="text-center ">
+            <tr ng-repeat="  m  in messages  " class="hover">
+                <td> {{m.name}}</td>
+                <td> {{m.trigger_id}}</td>
+                <td> {{m.user_category}}</td>
+                <td> {{m.user_id }}</td>
+                <td> {{m.message_params}}</td>
+                <!--    <td  >  {{ proj.createTime | date:"yyyy-MM-dd HH:mm" }}</td> -->
+                <td ng-if="isModelState">
+                    <a class="text-link m-r-xs" ng-click="createMessage(  $index  , m   )">编辑</a>
+                    <a class="text-link m-r-xs" translate="bu.bu4" ng-click="deleteMessage(  $index  , m   )">移除</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="panel-footer b-t-none" ng-if="isModelState">
+    <!--   <ng-include  src=" 'athena/views/debris/_pager.html'  "></ng-include> -->
+    <button class="btn btn-success btn-sm   " ng-click=" createMessage( ) ">
+        添加Message
+    </button>
+</div>

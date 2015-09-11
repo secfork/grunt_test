@@ -191,7 +191,7 @@ var app = angular.module('thinglinx', [
 
         .state("app.show", {
           url: "/show",
-          template: '<div ui-view class="wrapper-xs"></div>'
+          template: '<div ui-view class="gap-5  panel panel-default    "></div>'
             // , templateUrl:
             ,
           data: {
@@ -309,7 +309,7 @@ var app = angular.module('thinglinx', [
 
         .state("app.model", {
           url: "/model",
-          template: '<div ui-view class=" wrapper-xs "></div>'
+          template: '<div ui-view class=" gap-5 panel panel-default"></div>'
             //template:'<div ui-view class="fade-in-up smooth wrapper-xs"></div>'
         })
 
@@ -392,15 +392,10 @@ var app = angular.module('thinglinx', [
         // project 管理 , 添加;  ================================================
         .state('app.proj', {
             url: '/proj',
-            template: '<div ui-view class="  wrapper-xs"></div>',
+            template: '<div ui-view class="gap-5  panel panel-default    "></div>',
             controller: function($scope, $state) {
               $scope.$rootNav("管理");
-            },
-            resolve: {
-              data: function() {
-                return "aa"
-              }
-            }
+            }, 
           })
           .state("app.proj.manage", {
             url: "/manage",
@@ -447,7 +442,7 @@ var app = angular.module('thinglinx', [
         //
         .state('app.station', {
             url: '/station',
-            template: '<div ui-view  class="  wrapper-xs   "></div>',
+            template: '<div ui-view  class=" gap-5  panel panel-default "></div>',
             controller: function($scope, $state) {
               $scope.$rootNav("管理");
             }
@@ -476,15 +471,7 @@ var app = angular.module('thinglinx', [
             //abstract:true ,
             url: "/prop", // 开始就传递 station id 参数;
             controller: "dastation_prop",
-            templateUrl: "athena/views/dastation/dastation_prop.html"
-              /* , resolve: {
-                   deps: ['uiLoad',
-                       function (uiLoad) {
-                           return uiLoad.load([
-                               'athena/controller/dastation_prop.js'
-                           ]);
-                       }]
-               }*/
+            templateUrl: "athena/views/dastation/dastation_prop.html" 
           })
           //========================
 
@@ -549,15 +536,7 @@ var app = angular.module('thinglinx', [
 
         .state('app.account', {
           url: '/account',
-          template: '<div ui-view class=" wrapper-xs "></div>',
-          /* resolve: {
-               deps: ['uiLoad',
-                   function (uiLoad) {
-                       return uiLoad.load([
-                           'athena/controller/account.js'
-                       ]);
-                   }]
-           } ,*/
+          template: '<div ui-view class="  gap-5 panel panel-default"></div>', 
           controller: function($scope, $state) {
             $scope.$rootNav("管理");
           }
@@ -576,40 +555,19 @@ var app = angular.module('thinglinx', [
             controller: "account_users"
           })  
 
+
         .state( "app.account.usergroup" ,{
-            //url:"/usergroup",
-            abstract:true,
+            url:"/usergroup",
+            // abstract:true,
+            // templateUrl:"athena/views/debris/_tabs.html",
             templateUrl:"athena/views/account/usergroup.html",
             controller:"usergroup"
-        }) 
-
-        .state( "app.account.usergroup.all" ,{
-            url:"/usergroup",
-            templateUrl:"athena/views/account/usergroup_all.html",
-            controller:"usergroup_all"
         })  
-        .state("app.account.usergroup.users" , {
-            url:"/groupusers",
+        .state("app.account.usergroup_users" ,{
+            url:"/group_users",
             templateUrl:"athena/views/account/usergroup_users.html",
             controller:"usergroup_users"
         })
-
-        .state( "app.account.usergroup.add" ,{
-            url:"/addusergroup",
-            templateUrl:"athena/views/account/usergroup_add.html",
-            controller:"usergroup_add"
-        })  
-
-
- 
-
-          // 账户 --> 用户  --> 编辑用户;
-          .state("app.account.edit", {
-            url: "/useredit",
-            controller: "acco_useredit",
-            templateUrl: "athena/views/account/users_edit.html"
-          })
-
 
         //app.account.author
         // 账户 -->编辑权限;
@@ -619,13 +577,25 @@ var app = angular.module('thinglinx', [
           templateUrl: "athena/views/account/role.html"
         })
 
-        .state("app.account.author" ,{
+        .state("app.account.author" , {
            url:"/author" ,
            templateUrl:"athena/views/account/author.html",
            controller:"acco_author"
         })
+        .state( "app.account.author.region" ,  {
+            url:"/region",
+            templateUrl:"athena/views/account/author_region.html",
+            controller:"author_region"
+        })
+        .state( "app.account.author.account" ,  {
+            url:"/account",
+            templateUrl:"athena/views/account/author_account.html",
+            controller:"author_account"
+        })
   
-
+  
+//================================================================
+//================================================================
 
         //   access/signin
         .state('access', {
@@ -685,14 +655,16 @@ var app = angular.module('thinglinx', [
 
     wysiwyg: ['lib/wysiwyg/bootstrap-wysiwyg.js',
               'lib/wysiwyg/jquery.hotkeys.js'
-            ]
+            ] ,
+    chosen:['lib/chosen/chosen.jquery.min.js',
+            'lib/chosen/chosen.css'],
 })
 
 .config(['$translateProvider', function($translateProvider) {
 
 
   $translateProvider.useStaticFilesLoader({
-    prefix: 'athena/l10n/',
+    prefix: 'l10n/',
     suffix: '.json'
   });
   $translateProvider.preferredLanguage('zh_CN');

@@ -324,7 +324,8 @@ module.exports = function (grunt) {
           usemin: 'scripts/scripts.js'
         },
         cwd: '<%= yeoman.app %>',
-        src: 'athena/{,**/}*.html',
+        src: 'athena/views/{,**/}*.html',
+        //src: 'athena/views/debris/{,**/}*.html',
         dest: '.tmp/templateCache.js'
       }
     },
@@ -363,8 +364,9 @@ module.exports = function (grunt) {
             '*.html',
             'images/{,*/}*.{webp}',
             'styles/fonts/{,*/}*.*'
- 
-            ,'{athena,fonts,img}/**'
+              
+             // athena 下的文件做成 tempalteCache ;   {athena,fonts,img}
+            ,'{fonts,img}/**'
             ,'lib/*/**'  //  jquery 插件拷贝; 
             
           ]
@@ -443,7 +445,8 @@ module.exports = function (grunt) {
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
-    //'ngtemplates',
+    'ngtemplates', 
+
     'concat',
     'ngAnnotate',
     'copy:dist',

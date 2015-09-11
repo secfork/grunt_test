@@ -81,7 +81,7 @@ angular.module('app.model.device', [])
         $scope.add_edit_t = function(scope, t) { //  temp-scope , 或者; super-scope ;
             $modal.open({
                 templateUrl: 'athena/views/template/temp.html',
-                controller: function($scope, $modalInstance, $driver, $source) {
+                controller: function($scope, $modalInstance,  $source) {
                     console._log("edit or new  temp ", t);
                     $scope.__proto__ = scope;
                     $scope.$modalInstance = $modalInstance;
@@ -90,13 +90,8 @@ angular.module('app.model.device', [])
 
                     if (!t) { // 新建; 
                         //$scope.drivers =
-                        $driver.getDriverList(function(resp) {
-                            $scope.drivers = [{
-                                    id: 2,
-                                    driver_id: "FCS_MODBUS",
-                                    version: "1.0.0.0"
-                                }]
-                                // resp;
+                        $source.$driver.get( {type:"device"} ,function(resp) {
+                            $scope.drivers =  resp.ret ; 
                             $scope.d = $scope.drivers[0];
                         });
                     }
@@ -279,11 +274,10 @@ angular.module('app.model.device', [])
                 $source.$deviceModel.delete({
                     uuid: obj.uuid
                 }, function(resp) {
-                    if (resp) {
-                        $scope.deviceModels.splice(index, 1);
-                        // $scope.page.total-- ; 
-                        next();
+                    if (!resp.err) {
+                        $scope.deviceModels.splice(index, 1); 
                     }
+                    next();
                 })
             });
         };

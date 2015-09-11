@@ -1,42 +1,65 @@
-<div class="panel-body bg-light   table-responsive no-padder ">
-    <table class=" table   table-bordered  table-condensed lter ">
-        <thead class="flip-content  ">
-            <tr>
-                <th width="15%">区域</th>
-                <th width="15%">用户组</th>
-                <th width="60%">权限</th>
-                <th width="10%"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr  >
-                <td  class="b-r-none">1223</td>
-                <td colspan=3></td>
-            </tr>
-            <tr class="hover"   >
-                <td class="text-right">gg1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-            </tr>
-        </tbody>
+<!-- <tabset class="tab-container">
+    <tab  ng-repeat = " tab in tabs ">
+		<tab-heading >
+			<i ng-class=" tab.icon " ></i>
+		 	<span  translate= "{{ tab.title}}"></span>
+		 </tab-heading>
+ 		<ng-include src=" tab.url"  ></ng-include>
+    </tab>
+  
+</tabset>
+ -->
+ 
+
+ <!--  station 属性 导航 tab
+ 状态     配置     信息版    地图   历史数据   固件    手机网络    属性  -->
 
 
 
-        <tbody>
-            <tr>
-                <td   >456</td>
-                 <td colspan=3></td>
-            </tr>
-            <tr class="hover">
-                <td class="text-right">g1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-            </tr> 
-        </tbody>
+ <!--  show   实时 历史 , 报警  -->
+
+
+
+<!-- id="sataion_prop_tabs"  用于 window resize 调节 map 高度;  -->
+
+<!--   ng-if = "  isShowModul || station.state =='1' || station.state =='2' "  -->
+
+<div > 
+
+  <!--  展示  -->
+
+    <ul class=" nav  nav-tabs"> 
+        <li  ui-sref-active="active"     >
+            <a   ui-sref="app.account.author.region"    >  
+             <i class="fa fa-wrench "></i>
+              <span translate="区域"></span>
+              
+            </a>
+       </li>
+
+       <li  ui-sref-active="active"     >
+            <a  ui-sref="app.account.author.account"    >  
+
+              <span translate="账户"></span>
+            </a>
+       </li> 
+    </ul> 
+
+   <div ui-view  class="panel panel-default b-t-none  "  > </div>
+
+</div>
 
 
  
-    </table>
-</div>
+
+
+
+
+
+
+
+
+ 
+
+
+

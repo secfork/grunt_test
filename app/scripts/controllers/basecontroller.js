@@ -73,7 +73,10 @@ angular.module('app.basecontroller', [])
     //=========form 验证=====  默认 验证 form[ name = "form"] ;
     $scope.validForm = function(formName) {
       formName = formName || "form";
-      var valids = this[formName] || this.$$childTail[formName];
+      var valids = this[formName] ||    // 递归去找 ? 不了; 
+                   this.$$childTail[formName] ||
+                   this.$$childTail.$$childTail[formName];
+
       if (valids && valids.$invalid) {
         // 处理 form 的 validate ;
         var errName;
@@ -85,7 +88,7 @@ angular.module('app.basecontroller', [])
 
           })
         });
-        throw (" form invalid !!")
+        throw (" form invalid !!" , valids.$error)
       }
     }
 
@@ -362,27 +365,26 @@ angular.module('app.basecontroller', [])
           $scope.__proto__ = scope;
           console._log(s, $scope);
           $scope.das = {
+            uuid: s.uuid ,
             name: s.name,
             desc: s.desc
           }; //angular.copy(s) ;
 
-          $scope.op = {};
-          $scope.projs = [];
+          $scope.op = {}; 
 
-          $project.getAllprojsBasic(function(resp) {
-            $scope.projs = resp.ret;
-            if (s.group_id) {
-              $.each($scope.projs, function(i, n) {
-                if (s.group_id == n.id) {
-                  $scope.op._proj = n;
-                  return false;
-                }
-              })
-            } else {
-              $scope.op._proj = resp.ret[0]
-            }
+          $source.$region.query({ currentPage:1} , function( resp){
+              $scope.projs = resp.data ; 
+              if(s.region_id){
+                $.each($scope.projs, function(i, n) {
+                  if (s.region_id == n.id) {
+                    $scope.op._proj = n;
+                    return false;
+                  }
+                })
+              }
 
-          });
+          })
+ 
 
           $scope.cancel = function() {
             $modalInstance.dismiss('cancel')
@@ -390,12 +392,12 @@ angular.module('app.basecontroller', [])
           $scope.done = function(btn) {
             // $scope.checkModalForm(btn, $scope);
             $scope.validForm();
-            var d = $scope.op._proj;
-            $scope.das.group_id = d.id,
-              $scope.das.uuid = s.uuid;
+            var region = $scope.op._proj;
+            $scope.das.region_id = region.id, 
+            
             $source.$system.put($scope.das, function(resp) {
               console._log(resp);
-              $scope.das.proj_name = d.projName;
+              $scope.das.region_name = region.name;
               angular.extend(s, $scope.das);
               $scope.cancel();
 
@@ -560,7 +562,7 @@ angular.module('app.basecontroller', [])
     $source.$account.save( $scope.comp , function( resp ){
         if( resp.ret){
            // 注册成功;
-          $localStorage.comp_name = $scope.comp.company_name;
+          $localStorage.comp_name = $scope.comp.name;
           // $scope.regok = true ;
           // $scope.$parent.user =  { username : $scope.comp.company_name  } ;
           alert("注册成功!");

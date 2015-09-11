@@ -1,31 +1,17 @@
-
-    <ul class="nav  nav-tabs   ">
-
-        <li  ui-sref-active="active"  >
-            <a  ui-sref="{{  (isShowModul ? 'app.show.proj_prop.station':'app.proj.prop.station') +'($stateParams)' }}  "   
-               >
-             <i class =" glyphicon glyphicon-tower"></i>
-                系统
-            </a>
-        </li>
-        <li  ui-sref-active="active"    >
-            <a  ui-sref=" {{ ( isShowModul ? 'app.show.proj_prop.attr': 'app.proj.prop.attr') +'($stateParams)' }} "
-                <i class = "fa  fa-th-list"></i>
-                  区域属性</a>
-        </li>
-
-        <li  ui-sref-active="active"  ng-if = " !isShowModul " >
-            <a  ui-sref="app.proj.prop.addstation( $stateParams)" 
-                    >
-                 
-                 <i class = " glyphicon glyphicon-plus "></i>
-                 添加系统
-            </a>
-        </li>
-    </ul>
-
-    <div ui-view  class="  h-full" >  
-
-    </div>
-
- 
+<ul class="nav  nav-tabs m-t-xxs   ">
+    <li ui-sref-active="active">
+        <a ui-sref="{{  (isShowModul ? 'app.show.proj_prop.station':'app.proj.prop.station') +'($stateParams)' }}  ">
+            <i class=" glyphicon glyphicon-tower"></i> 系统
+        </a>
+    </li>
+    <li ui-sref-active="active">
+        <a ui-sref=" {{ ( isShowModul ? 'app.show.proj_prop.attr': 'app.proj.prop.attr') +'($stateParams)' }} " <i class="fa  fa-th-list"></i>
+            区域属性</a>
+    </li>
+    <li ui-sref-active="active" ng-if=" !isShowModul ">
+        <a ui-sref="app.proj.prop.addstation( $stateParams)">
+            <i class=" glyphicon glyphicon-plus "></i> 添加系统
+        </a>
+    </li>
+</ul>
+<div ui-view  > </div>

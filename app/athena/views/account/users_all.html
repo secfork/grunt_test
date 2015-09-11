@@ -15,9 +15,9 @@
             <tbody>
                 <tr ng-repeat=" u in page.data" class="hover">
                     <td>
-                        <a class="text-link" ng-click=" goto('app.account.edit' , null  , u  ) ">   
+                           
                            {{ u.username }}
-                        </a>
+                        
                     </td> 
                     <td>
                         <i class="fa {{ u.emailEffective?'fa-check text-success':'fa-times  text-danger' }}"></i>
@@ -25,11 +25,11 @@
                     <td>
                         <i class="fa {{ u.emailEffective?'fa-check text-success':'fa-times  text-danger' }}"></i>
                     </td>
-                    <td> {{u.lastLoginIp }}</td>
-                    <td> {{u.lastLoginTime| date:'yyyy-MM-dd HH:mm:ss'}} </td>
+                    <td> {{u.last_login_ip }}</td>
+                    <td> {{u.last_login_time| date:'yyyy-MM-dd HH:mm:ss'}} </td>
                     <td> 
-                      <a href="" class="text-link" ng-click="addProjForUser( u )">编辑</a>
-                      <a href="" class="text-link" ng-click="addProjForUser( u )">添加组</a>
+                      <a href="" class="text-link" ng-click="editUser( page.data, u , $index)" translate="edit"> 编辑</a> 
+                      <a href="" class="text-link" ng-click="delUser( page.data, u , $index)" translate="del">  删除用户</a> 
                     </td>
                 </tr>
             </tbody>
@@ -38,4 +38,6 @@
     <div class="panel-footer  ">
         <ng-include src=" 'athena/views/debris/_pager.html'  "></ng-include>
     </div>
+ 
+ 
  

@@ -11,6 +11,7 @@
  修改 angualr-resource.js  源码 133 行, 增加put 方式;
 增加   getByPk:{method:"GET"} , 方法;
 
+
 */
 
 angular.module('app.services', ["ngResource"], function() {
@@ -47,6 +48,8 @@ angular.module('app.services', ["ngResource"], function() {
     this.$contact = $createSource( "system/contacts/:pk" );
     this.$region = $createSource( "region/:pk" );
     this.$account = $createSource( "account/:pk" );
+    this.$role = $createSource("role/:pk");
+    this.$driver = $createSource("driver/:type");
 
     this.$common = $createSource("common", {}, {
         cc_passWord: {
@@ -64,9 +67,10 @@ angular.module('app.services', ["ngResource"], function() {
             url:angular.rootUrl + "user/logout"
         }
     });
+/// {pk:"@pk", userid:"@userid"} ,
+    this.$userGroup = $createSource("usergroup/:pk/:userid" ,  {}, {
+          queryUser :{ url: angular.rootUrl + "usergroup/:pk/users" },
 
-    this.$userGroup = $createSource("usergroup/:pk" , {} ,{
-          queryUser :{ url: angular.rootUrl + "usergroup/:pk/users" }
     });
 
     this.$system = $createSource("system/:pk/:options/:proj_id", {}, {
@@ -85,7 +89,11 @@ angular.module('app.services', ["ngResource"], function() {
         needSync: {
             url: angular.rootUrl + "system/needsync/uuids"
         }
-    })
+    });
+
+    // 权限;
+    this.$permission = $createSource( "permission/:source/:source_id/:group_id"  )
+
 }])
 
 
@@ -109,38 +117,26 @@ angular.module('app.services', ["ngResource"], function() {
 
 
 // driver ;
-.factory("$driver", function($resource) {
+// .factory("$driver", function($resource) {
+//     return $resource(angular.rootUrl + "driver/:pk", {}, {
 
-    return $resource(angular.rootUrl + "driver/:pk", {}, {
+//         // template , type =0 得到的是 driver最高版本;
+//         getDriverList: {
+//             params: {
+//                 id: "list",
+//                 type: 0
+//             }
+//         },
 
-        // template , type =0 得到的是 driver最高版本;
-        getDriverList: {
-            params: {
-                id: "list",
-                type: 0
-            }
-        },
-
-        // station ; type = 1 ;  得到 dtu ;
-        getDtuList: {
-            params: {
-                id: "list",
-                type: 1
-            }
-        },
-        /**
-         * type =  tempalte_ui,  driver_ui ;
-         */
-        getUi: {
-            isArray: true
-        },
-
-        getDaserveInfo: {
-            url: angular.rootUrl + "driver/daserver/:id"
-        }
-
-    })
-})
+//         // station ; type = 1 ;  得到 dtu ;
+//         getDtuList: {
+//             params: {
+//                 id: "list",
+//                 type: 1
+//             }
+//         },  
+//     })
+// })
 
 
 
@@ -188,7 +184,7 @@ angular.module('app.services', ["ngResource"], function() {
             if (!/(.html)$/.test(config.url)) {
 
                 config.headers['Accept-Language'] = localStorage.NG_TRANSLATE_LANG_KEY || "en";
-
+                config.console = true ; 
 
                 // if(config.params){
                 //     config.params.local=navigator.language ;
@@ -255,8 +251,13 @@ angular.module('app.services', ["ngResource"], function() {
                      alert("session失效!!");
                     window.location.href = "/athena";
                     return;
-                }*/
-            console.error(response.status + "--" + response);
+                }*/ 
+
+            if( response.config.console ){
+                alert( "responseStatus:" +  response.status);
+                throw (response.status + "--" + response);
+            }
+            console.log(response.status + "--" + response);
             return response;
 
         }
@@ -294,10 +295,10 @@ angular.module('app.services', ["ngResource"], function() {
 .factory("$utils", function() {
     var a, b, c, d, e, f;
     return {
-        getWorker: function() {
+        
+     
 
-        },
-
+        // 拷贝 部分属性; 
         copyProp: function() {
             var a, b, c = {};
             a = arguments[0],
@@ -321,6 +322,7 @@ angular.module('app.services', ["ngResource"], function() {
             });
             return t;
         },
+
         // profile 连接模版时用;
         containTemp: function(temps, tempid) {
             var t = false;
@@ -334,22 +336,7 @@ angular.module('app.services', ["ngResource"], function() {
         },
 
 
-
-        /**  统计 [ { keyProp:"k", countProp:"A" }    { keyProp:"k", countProp:"B" }     ]
-         *  返回:  { k:{A:N , B:M} ,  ...  }
-         * */
-        KeyAsCountProp: function(arrayJson, keyProp, countProp) {
-            console._log(arguments);
-            a = {};
-            $.each(arrayJson, function(i, n) {
-                b = n[keyProp];
-                c = n[countProp];
-                a[b] ? null : a[b] = {};
-                a[b][c] ? a[b][c]++ : a[b][c] = 1;
-            });
-            return a;
-        },
-
+ 
 
 
     }
