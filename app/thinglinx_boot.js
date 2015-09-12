@@ -1,4 +1,8 @@
 
+/**
+ * 与 thinglinx.js 的差别就在    app 多了个以来module:  thinglinxTemp
+ */
+
 'use strict';
 
 var app = angular.module('thinglinx', [
@@ -20,7 +24,8 @@ var app = angular.module('thinglinx', [
       'app.show.proj', 'app.show.system', 'app.system', 'app.system.prop','app.support' ,
   'app.directives',
   'app.filters',
-  'app.services', 'app.sysconfig'
+  'app.services', 'app.sysconfig',
+  ,'thinglinxTemp'
 
 
 ])

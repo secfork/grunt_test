@@ -267,8 +267,9 @@ module.exports = function (grunt) {
     // uglify: {
     //   dist: {
     //     files: {
-    //       '<%= yeoman.dist %>/scripts/scripts.js': [
-    //         '<%= yeoman.dist %>/scripts/scripts.js'
+    //       '<%= yeoman.dist %>/scripts/scripts_temp.js': [
+    //         //'<%= yeoman.dist %>/scripts/scripts.js'
+    //         '.tmp/templateCache.js'
     //       ]
     //     }
     //   }
@@ -337,30 +338,7 @@ module.exports = function (grunt) {
         },
         cwd: '<%= yeoman.app %>',
 
-        src: 'athena/**/*.html',
-
-
-
-
-        //src: 'athena/account/*.html',
-        //src: 'athena/dastation/*.html',
-        //src: 'athena/debris/*.html',
-        // src: 'athena/device/*.html',
-        // src: 'athena/manage/*.html',
-        // src: 'athena/show/*.html',
-        // src: 'athena/support/*.html',
-        // src: 'athena/sysmodel/*.html',
-        // src: 'athena/tag/*.html',
-        // src: 'athena/template/*.html',
-        // src: 'athena/user/*.html',
-
-         // src: 'athena/*.html',
-         // src: 'athena/*.html',
-
-
-
-        //src: 'athena/account/*.html',
-
+        src: 'athena/{**/,}*.html',
 
         dest: '.tmp/templateCache.js'
       }
