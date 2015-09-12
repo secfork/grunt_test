@@ -1,0 +1,42 @@
+
+
+    <div class="panel-body table-responsive  no-padder  no-border">
+        <table class=" table   table-bordered  table-condensed   ">
+            <thead class="flip-content  ">
+                <tr>
+                    <th>用户名</th>
+                    <th> 手机有效 </th>
+                    <th> 电子邮件有效 </th>
+                    <th> 上次登录IP </th>
+                    <th> 上次登录时间 </th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat=" u in page.data" class="hover">
+                    <td>
+
+                           {{ u.username }}
+
+                    </td>
+                    <td>
+                        <i class="fa {{ u.emailEffective?'fa-check text-success':'fa-times  text-danger' }}"></i>
+                    </td>
+                    <td>
+                        <i class="fa {{ u.emailEffective?'fa-check text-success':'fa-times  text-danger' }}"></i>
+                    </td>
+                    <td> {{u.last_login_ip }}</td>
+                    <td> {{u.last_login_time| date:'yyyy-MM-dd HH:mm:ss'}} </td>
+                    <td>
+                      <a href="" class="text-link" ng-click="editUser( page.data, u , $index)" translate="edit"> 编辑</a>
+                      <a href="" class="text-link" ng-click="delUser( page.data, u , $index)" translate="del">  删除用户</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer  ">
+        <ng-include src=" 'athena/debris/_pager.html'  "></ng-include>
+    </div>
+
+

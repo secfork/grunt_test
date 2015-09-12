@@ -57,7 +57,7 @@ angular.module('app.model.device', [])
 
         });
 
-        // 加载 device model ; 
+        // 加载 device model ;
         $source.$deviceModel.get(function(resp) {
             $scope.deviceModels = resp.ret;
         });
@@ -80,7 +80,7 @@ angular.module('app.model.device', [])
         // 添加 || 编辑  模版; 弹出框 ;=================================================
         $scope.add_edit_t = function(scope, t) { //  temp-scope , 或者; super-scope ;
             $modal.open({
-                templateUrl: 'athena/views/template/temp.html',
+                templateUrl: '../../athena/template/temp.html',
                 controller: function($scope, $modalInstance,  $source) {
                     console._log("edit or new  temp ", t);
                     $scope.__proto__ = scope;
@@ -88,10 +88,10 @@ angular.module('app.model.device', [])
 
                     $scope.isAdd = !t;
 
-                    if (!t) { // 新建; 
+                    if (!t) { // 新建;
                         //$scope.drivers =
                         $source.$driver.get( {type:"device"} ,function(resp) {
-                            $scope.drivers =  resp.ret ; 
+                            $scope.drivers =  resp.ret ;
                             $scope.d = $scope.drivers[0];
                         });
                     }
@@ -117,11 +117,11 @@ angular.module('app.model.device', [])
 
                                 $scope.T.uuid = resp.ret;
                                 $scope.deviceModels.push($scope.T);
-                                // $scope.page.total ++ ; 
+                                // $scope.page.total ++ ;
                                 $scope.cancel()
                             });
                         } else {
-                            //更名; 
+                            //更名;
                             $source.$deviceModel.put({
                                 uuid: t.uuid,
                                 name: $scope.T.name,
@@ -141,7 +141,7 @@ angular.module('app.model.device', [])
         // 上传模版;==================================================================================
         $scope.upload_t = function() {
             $modal.open({
-                templateUrl: 'athena/views/template/temp_upload.html',
+                templateUrl: '../../athena/template/temp_upload.html',
                 controller: temp_upload,
                 size: "m", //size
                 resolve: {
@@ -275,7 +275,7 @@ angular.module('app.model.device', [])
                     uuid: obj.uuid
                 }, function(resp) {
                     if (!resp.err) {
-                        $scope.deviceModels.splice(index, 1); 
+                        $scope.deviceModels.splice(index, 1);
                     }
                     next();
                 })
@@ -305,7 +305,7 @@ angular.module('app.model.device', [])
             console._log(" add_f or edit_f  ");
 
             $modal.open({
-                templateUrl: 'athena/views/template/file.html',
+                templateUrl: '../../athena/template/file.html',
                 controller: function($scope, $modalInstance, $sys) {
                     $scope.__proto__ = scope;
                     $scope.$modalInstance = $modalInstance;
@@ -329,13 +329,13 @@ angular.module('app.model.device', [])
                         $scope.point.device_model = scope.dm.uuid;
 
                         if (p) {
-                            // 编辑;   
+                            // 编辑;
                             $source.$dmPoint.put($scope.point, function(resp) {
                                 $scope.points[index] = angular.copy($scope.point);
                                 $scope.cancel();
                             });
                         } else {
-                            // 创建 
+                            // 创建
                             $source.$dmPoint.save($scope.point, function(resp) {
                                 $scope.point.id = resp.ret;
                                 $scope.points.push($scope.point);

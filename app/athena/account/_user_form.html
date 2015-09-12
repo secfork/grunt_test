@@ -1,0 +1,65 @@
+
+
+<input tl-wrap-l label="用户名" ng-model=" user.username  " required>
+<!-- 是否更改密码 -->
+<div class="form-group " ng-if="op.isEdit">
+    <label class="col-sm-3   control-label  ">
+        <span>更改密码</span>
+    </label>
+    <div class=" col-sm-9">
+        <label class="i-checks m-t-xs">
+            <input type="checkbox"  ng-model="op.ccpass">
+            <i></i>
+        </label>
+    </div>
+</div>
+
+
+<div ng-if="op.ccpass">
+    <input  tl-wrap-l  label="新密码" name="password"
+       ng-minlength="6"
+       ng-maxlength="20"
+     ng-model=" user.password " required>
+</div>
+
+
+
+
+<div class="form-group" ng-if="!op.isEdit">
+    <label class="col-sm-3  control-label">
+        密码
+        <mark/>
+    </label>
+    <div class="  col-sm-9">
+        <input type="password" placeholder="密码(至少六位)" name="password" ng-maxlength="20" ng-minlength="6" class="form-control " ng-model=" user.password " required>
+    </div>
+</div>
+<div class="form-group" ng-if="!op.isEdit">
+    <label class="col-sm-3  control-label">
+        确认密码
+        <mark/>
+    </label>
+    <div class="  col-sm-9">
+        <input type="password" class="form-control  " name="confirm_password" required ng-model="confirm_password" placeholder=" 确认密码 " ui-validate=" '$value==user.password' ">
+    </div>
+</div>
+<!--
+    <select  tl-wrap-l  label="组"  ng-model="user.group_id"
+        ng-options="g.id as g.name  for g in groups"
+        ></select>
+ -->
+<div class="form-group">
+    <label class="col-sm-3 control-label">组
+        <mark/>
+    </label>
+    <div class="col-sm-9">
+        <select ui-jq="chosen" multiple required ng-model="od.groups" class="w-md">
+            <option ng-repeat=" g in  groups " value="{{g.id}}">{{g.name}}</option>
+        </select>
+    </div>
+</div>
+<input tl-wrap-l label="电子邮件" ng-model=" user.email " type="email">
+<input tl-wrap-l label="手机" ng-model="user.mobile_phone">
+<input tl-wrap-l label="地址" ng-model="user.address">
+<textarea tl-wrap-l label="备注" ng-maxlength='100' ng-model="user.desc">
+</textarea>

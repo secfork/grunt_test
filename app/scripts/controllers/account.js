@@ -9,7 +9,7 @@
 
      // 账户信息; 项目, user ,station 数量
 
-     return ; 
+     return ;
      $source.$account.getByPk({
          pk: 1234
      }, function(resp) {
@@ -24,13 +24,13 @@
      $scope.$moduleNav("用户pop", "_user");
 
 
-     // 分页 加载 users ;  
+     // 分页 加载 users ;
 
      $scope.page = {};
      $scope.user = {};
      $scope.od = {
          groups: []
-     }; // 添加用户时 所属的 组; 
+     }; // 添加用户时 所属的 组;
 
      $scope.loadPageData = function(pageNo) {
          var d = {
@@ -49,7 +49,7 @@
          //}
      }
 
-     // 加载所有 角色 信息; 
+     // 加载所有 角色 信息;
      $source.$userGroup.query({
          currentPage: 1
      }, function(resp) {
@@ -61,10 +61,10 @@
 
      // 更改密码;
      var S = $scope;
-     // $scope.op = {idAdd:true }  ; 
+     // $scope.op = {idAdd:true }  ;
      $scope.editUser = function(arr, user, index) {
          $modal.open({
-             templateUrl: "athena/views/account/users_edit.html",
+             templateUrl: "../../athena/account/users_edit.html",
              controller: function($scope, $modalInstance) {
                  $scope.__proto__ = S;
                  $scope.$modalInstance = $modalInstance;
@@ -87,7 +87,7 @@
          $scope.validForm();
          $source.$user.save($scope.user, function(resp) {
              if (resp.ret) {
-                 // 添加到组; 
+                 // 添加到组;
                  var p = [];
                  angular.forEach($scope.od.groups, function(v) {
                      p.push($source.$userGroup.put({
@@ -154,13 +154,13 @@
 
 
      $scope.tabToGroup = function() {
-         //if (!$scope.page.data ) { 
+         //if (!$scope.page.data ) {
          $scope.loadPageData(1);
-         //}  
+         //}
      }
      $scope.ug = {};
 
-     // 创建用户组; 
+     // 创建用户组;
      $scope.commit = function() {
          $source.$userGroup.save($scope.ug, function(resp) {
              if (resp.ret) {
@@ -170,7 +170,7 @@
      }
 
 
-     // 删除组; 
+     // 删除组;
      $scope.delGroup = function(arr, g, i) {
          $scope.confirmInvoke({
              title: "删除用户组:" + g.name + " ?"
@@ -187,11 +187,11 @@
 
      }
 
-     // 更新组; 
+     // 更新组;
 
      $scope.editGroup = function(arr, g, i) {
          $modal.open({
-             templateUrl: "athena/views/account/usergroup_edit.html",
+             templateUrl: "../../athena/account/usergroup_edit.html",
              controller: function($scope, $modalInstance) {
                  $scope.__proto__ = S;
                  $scope.$modalInstance = $modalInstance;
@@ -223,7 +223,7 @@
      };
      $scope.page = {};
 
-     //无分页接口; 
+     //无分页接口;
      ($scope.loadPageData = function(pageNo) {
          d.currentPage = pageNo || 1;
          $source.$userGroup.queryUser(d, function(resp) {
@@ -233,14 +233,14 @@
              //resp.currentPage = pageNo;
 
              //angular.extend($scope.page, resp);
-             //无分页接口; 
+             //无分页接口;
              $scope.page.data = resp.ret;
              // }
          })
      })(1);
      // $scope.loadPageData(1);
 
-     // 移除用户; 
+     // 移除用户;
      $scope.removeUser = function(arr, u, i) {
          $scope.confirmInvoke({
              title: "从组中移除用户:" + u.username + "?",
@@ -304,7 +304,7 @@
 
      $scope.addRole = function() {
          $modal.open({
-             templateUrl: "athena/views/account/role_add.html",
+             templateUrl: "../../athena/account/role_add.html",
              controller: function($scope, $modalInstance) {
                  $scope.__proto__ = thatScope;
                  $scope.$modalInstance = $modalInstance;
@@ -365,13 +365,13 @@
  })
 
  .controller('acco_author', function($scope, $state, $source) {
-     // 预先加载 所有组; 
+     // 预先加载 所有组;
 
      $scope.gp = $source.$userGroup.query({
          currentPage: 1
      }).$promise;
 
-     // 预先加载所有 角色 ;  
+     // 预先加载所有 角色 ;
      $scope.rp = $source.$role.get().$promise;
 
      $scope.gp.then(function(resp) {
@@ -391,15 +391,15 @@
          },
          S = $scope;
      $q.all([$scope.gp, $scope.rp]).then(function(resp) {
-         //过滤 roles 得到 区域角色; 
+         //过滤 roles 得到 区域角色;
          $scope.regionroles = $scope.allroles.filter(function(v, i) {
              return v.role_category;
          })
      })
 
      //{source: .. , group:..}
-     // source = region || app ;  
-     // 分页加载区域;   
+     // source = region || app ;
+     // 分页加载区域;
      $scope.loadPageData = function(pageNo) {
          d.currentPage = pageNo;
          $source.$region.query(d, function(resp) {
@@ -410,7 +410,7 @@
 
      $scope.loadPageData(1);
 
-     // 按需加载区域下的角色; 
+     // 按需加载区域下的角色;
      $scope.loadPermission = function(scope, region) {
          if (!scope.groups) {
              $source.$permission.get({
@@ -432,16 +432,16 @@
      }
 
 
-    // 想区域中添加组; 附带权限; 
+    // 想区域中添加组; 附带权限;
     $scope.addAuthor = function(scope, arr, r) {
-         
+
          $modal.open({
-             templateUrl: "athena/views/account/author_region_add.html",
+             templateUrl: "../../athena/account/author_region_add.html",
              controller: function($scope, $modalInstance) {
                  $scope.__proto__ = scope;
                  $scope.$modalInstance = $modalInstance;
 
-                 // 过路分组; 得到;未添加过的组 , 初始化 au ;  
+                 // 过路分组; 得到;未添加过的组 , 初始化 au ;
                  $scope.done = function( ) {
                     $scope.validForm();
                      var permission = $(".modal-content")
@@ -459,9 +459,9 @@
                          permission,
                          function(resp) {
                              if (!resp.err) {
-                                // 添加组; , 添加id引用; 
+                                // 添加组; , 添加id引用;
                                 var g = angular.copy( $scope.au.group);
-                                    g.privilege = permission ; 
+                                    g.privilege = permission ;
                                 scope.groups.push(g);
                                 scope.groupids.push( $scope.au.group.id );
                                 $scope.cancel();
@@ -482,7 +482,7 @@
          })
     }
 
-    // 删除  权限组; , 删除本地id引用; 
+    // 删除  权限组; , 删除本地id引用;
     $scope.delGroup = function(scope, r, arr, g, i) {
 
          $scope.confirmInvoke({
@@ -497,7 +497,7 @@
                     // 删除数据;
                     arr.splice(i, 1);
                     // 删除 id 引用;
-                    scope.groupids.splice( scope.groupids.indexOf( g.id ), 1 ); 
+                    scope.groupids.splice( scope.groupids.indexOf( g.id ), 1 );
 
                     next();
                  }
@@ -505,13 +505,13 @@
          })
     }
 
-    // 更新权限; 
+    // 更新权限;
     $scope.updateProm = function(scope, r,g ,dom){
         var permission =  $(dom).parent()
                                 .find("form")
                                 .serializeArray()
                                 .map( function(v){return v.name});
- 
+
         $source.$permission.save({
                              source: "region",
                              source_id: r.id,
@@ -520,17 +520,17 @@
                          permission,
                          function( resp ){
                              if(!resp.err){
-                                scope.op.edit = false ; 
+                                scope.op.edit = false ;
                              }
-                         });  
-        
+                         });
+
     }
 
  })
 
  .controller("author_account", function($scope, $state, $source, $sys, $modal) {
 
-     // 加载 组中的account 权限 ; 
+     // 加载 组中的account 权限 ;
      $scope.loadPermission = function(scope, group) {
          if (!group.promise) {
              $source.$permission.get({

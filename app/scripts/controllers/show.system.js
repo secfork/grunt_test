@@ -1,7 +1,7 @@
 angular.module('app.show.system', [])
 
 .controller("show_alarm" , function( $scope , $source ,$sys, $q ){
-	
+
 
 	$scope.openCalendar = function(e, exp) {
 		e.preventDefault();
@@ -9,17 +9,17 @@ angular.module('app.show.system', [])
 
 		this.$eval(exp);
 	};
- 
+
 	$source.$region.query( { currentPage:1} , function( resp){
-		$scope.projs = resp.ret ; 
+		$scope.projs = resp.ret ;
 	})
 
 	$scope.op = {} ;
-	$scope.od = { class:0 , severity :'0' , 
+	$scope.od = { class:0 , severity :'0' ,
 	    end: new Date(),
 		start: new Date( new Date() - 86400000)
-	} ; 
- 
+	} ;
+
 
 })
 
@@ -30,37 +30,37 @@ angular.module('app.show.system', [])
 	$scope.system = $scope.$$cache[0];
 
 	var sysModel = $scope.system.model,
-		//td = $filter("date")(new Date(), "yyyy-MM-dd"), 
-		arr, d  ; 
- 
+		//td = $filter("date")(new Date(), "yyyy-MM-dd"),
+		arr, d  ;
+
 	$source.$sysModel.getByPk({pk: sysModel} , function( resp ){
-		$scope.systemModel = resp.ret ; 
+		$scope.systemModel = resp.ret ;
 		//$scope.system.network = angular.fromJson( $scope.system.network);
-	})	
+	})
 
 
 	$scope.op = {
 		start: "",
-		num: 50, 
+		num: 50,
 		end: new Date(),
 		start: new Date( new Date() - 86400000),
-		ala: "b", // a: 实时报警; b: 历史报警; 
-		pointSize: 60, // 曲线上的点数; 
-		c_int: 10000, // 实时数据 interval 时间; 
-		a_int: 10000 // 实时报警; interva 时间; 
+		ala: "b", // a: 实时报警; b: 历史报警;
+		pointSize: 60, // 曲线上的点数;
+		c_int: 10000, // 实时数据 interval 时间;
+		a_int: 10000 // 实时报警; interva 时间;
 	};
- 
-	// 得到 sysmodel 下的 log tags ;  
+
+	// 得到 sysmodel 下的 log tags ;
     $scope.loadTagPromiseA = $source.$sysTag.get({  system_model: sysModel }).$promise ;
 
-	$scope.loadTagPromise = $source.$sysLogTag.get({  profile: $scope.system.profile  }).$promise ; 
+	$scope.loadTagPromise = $source.$sysLogTag.get({  profile: $scope.system.profile  }).$promise ;
 
 
 	$scope.loadTagPromise.then( function( resp){
 		$scope.tags = resp.ret;
 	});
 
- 	 
+
 
 	$scope.openCalendar = function(e, exp) {
 		e.preventDefault();
@@ -68,10 +68,10 @@ angular.module('app.show.system', [])
 
 		this.$eval(exp);
 	};
- 
- 	
- 	$scope.goHis = function( t ){ 
- 		$scope.op.his_tag = t.name ; 
+
+
+ 	$scope.goHis = function( t ){
+ 		$scope.op.his_tag = t.name ;
  		$state.go('app.show.system_prop.history');
  	}
 
@@ -85,32 +85,32 @@ angular.module('app.show.system', [])
 
 .controller('show_system_current', function($scope, $show, $interval, $sys,$state , $filter) {
 
-	var interval; 
+	var interval;
 
 	//$scope.$popNav($scope.system.name + "()", $state);
 
 	$scope.$on("$destroy", function() {
-		$interval.cancel(interval); 
+		$interval.cancel(interval);
 	})
 
-	var   names=[] , doms_v , doms_t; 
- 
+	var   names=[] , doms_v , doms_t;
+
 
  	$scope.loadTagPromise.then( function( resp){
  		angular.forEach(resp.ret, function(v, i){
- 			names.push(v.name);	
+ 			names.push(v.name);
  		});
- 		console._log(names); 
+ 		console._log(names);
  	})
- 
- 
 
-	// 订阅数据;   
+
+
+	// 订阅数据;
     $scope.liveData =  function ( need ) {
-    	if(!need) return ; 
+    	if(!need) return ;
 
-    	if( !names.length ){  
-    	 	return ; 
+    	if( !names.length ){
+    	 	return ;
     	} ;
 
     	doms_t =  doms_t || $(".current_time"),
@@ -120,9 +120,9 @@ angular.module('app.show.system', [])
 
 
 
-		$interval.cancel(interval); 
+		$interval.cancel(interval);
 		getCurrent();
-		interval = $interval(function() { 
+		interval = $interval(function() {
 			getCurrent();
 		}, $scope.op.c_int );
 	}
@@ -131,15 +131,15 @@ angular.module('app.show.system', [])
 		$show.live.get({
 				uuid: $scope.system.uuid,
 				tag:  names
-			}, function(resp) { 
+			}, function(resp) {
 				console._log( names);
-		 		$.each( resp.ret , function(i,d){ 
+		 		$.each( resp.ret , function(i,d){
 		 			if(!d) {
 		 				d = {src:null , pv:null};
-		 			} ; 
-		 			t = $filter("date")( d.src , 'MM-dd HH:mm:ss');  
+		 			} ;
+		 			t = $filter("date")( d.src , 'MM-dd HH:mm:ss');
 		 			doms_v.eq(i).text(d.pv);
-		 			doms_t.eq(i).text(t); 
+		 			doms_t.eq(i).text(t);
 		 		})
 
 			});
@@ -149,14 +149,14 @@ angular.module('app.show.system', [])
 
 	$scope.liveWrite= function(t,v){
 		//console.log(arguments);  // String system_id , String name ,String value
-		if(!t) return ; 
+		if(!t) return ;
 		var d = {	system_id : $scope.system.uuid ,
 					tagname: t ,//.name ,
 					value: v
 				}
 		$show.liveWrite.save( d , function( resp){
 			console._log( resp );
-		}) 
+		})
 	}
 
 })
@@ -169,30 +169,30 @@ angular.module('app.show.system', [])
 	// };
 
 	$scope.$on("$destroy" , function(){
-		$scope.op.his_tag = null ; 
+		$scope.op.his_tag = null ;
 	})
 
 
-	var  polt , plot_config = angular.copy($sys.plotChartConfig) ; 
+	var  polt , plot_config = angular.copy($sys.plotChartConfig) ;
 
 	$scope.initFlotChart = function(_plot_data) {
-		console._log(_plot_data); 
+		console._log(_plot_data);
   		if($scope.op.his_tag){
-  			$scope.op.start = new Date( new Date() - 86400000) ; 
-  			$scope.op.end = new Date()  ; 
+  			$scope.op.start = new Date( new Date() - 86400000) ;
+  			$scope.op.end = new Date()  ;
   			$scope.queryHistory();
   		}else{
   			plot = $.plot("#show_live_data", [{data:[], label:"未选择点"}], plot_config);
   		}
-		
-		 
+
+
 	}
- 
+
 
 	$scope.queryHistory = function() {
 		$scope.validForm();
 
-		if(!$scope.op.his_tag) return ; 
+		if(!$scope.op.his_tag) return ;
 
 		var d = {},
 			op = $scope.op,
@@ -209,18 +209,18 @@ angular.module('app.show.system', [])
 		$show.his.get( d, function(resp) {
 			var data = resp.ret[0],
 				d = [];
-			 
+
 
 			$.each(data, function(i, v, t) {
 				d.push([v.ts, v.pv]);
-			}) 
+			})
 
 			plot = $.plot("#show_live_data", [{data:d, label:op.his_tag}], plot_config);
 
 		});
 
-	} 
- 
+	}
+
 
 })
 
@@ -233,14 +233,14 @@ angular.module('app.show.system', [])
 	});
 
 	$scope.$watch("op.ala", function(n) {
-		$scope.alarms = []; 
-		$interval.cancel(interval); 
-		interval ; 
+		$scope.alarms = [];
+		$interval.cancel(interval);
+		interval ;
 		 console._log(n);
-		if(n =='a'){ 
+		if(n =='a'){
 			$scope.liveAlarm();
 		}
- 
+
 	})
 
 	function getAlarm (){
@@ -250,15 +250,15 @@ angular.module('app.show.system', [])
 	}
 
 
-	$scope.liveAlarm = function() { 
+	$scope.liveAlarm = function() {
 		getAlarm();
-		interval = $interval(function() { 
+		interval = $interval(function() {
 			getAlarm();
 		}, $scope.op.a_int );
 	}
 
 
-	//$scope.liveAlarm(); 
+	//$scope.liveAlarm();
 	$scope.queryAlarm = function() {
 		var d = {},
 			op = $scope.op,
@@ -274,17 +274,17 @@ angular.module('app.show.system', [])
 			$scope.alarms = resp.ret;
 		})
 	}
- 
- 	// alarm 详细信息; 
+
+ 	// alarm 详细信息;
 	var S = $scope ;
 	$scope.alarmMsg = function(a){
 		$modal.open({
-			templateUrl:"athena/views/show/alarm_msg.html" ,
+			templateUrl:"../../athena/show/alarm_msg.html" ,
 			controller:function( $scope ,$modalInstance ){
-				$scope.__proto__ = S ; 
+				$scope.__proto__ = S ;
 				$scope.$modalInstance = $modalInstance;
 				// $scope.done = $scope.cancel;
-				$scope.alarm = a ; 
+				$scope.alarm = a ;
 			}
 		})
 	}
@@ -300,4 +300,4 @@ angular.module('app.show.system', [])
 
 		}
 
-}) 
+})

@@ -73,7 +73,7 @@ angular.module('app.basecontroller', [])
     //=========form 验证=====  默认 验证 form[ name = "form"] ;
     $scope.validForm = function(formName) {
       formName = formName || "form";
-      var valids = this[formName] ||    // 递归去找 ? 不了; 
+      var valids = this[formName] ||    // 递归去找 ? 不了;
                    this.$$childTail[formName] ||
                    this.$$childTail.$$childTail[formName];
 
@@ -274,7 +274,7 @@ angular.module('app.basecontroller', [])
     $scope.chaStation = function(scope, station, index) {
 
       $modal.open({
-        templateUrl: 'athena/views/dastation/station_change.html',
+        templateUrl: '../../athena/dastation/station_change.html',
         size: "md", //size  lg md  sm
         resolve: {
           station: function() {
@@ -360,7 +360,7 @@ angular.module('app.basecontroller', [])
     $scope.editStation = function(scope, s, index) {
       console._log("editStation");
       $modal.open({
-        templateUrl: "athena/views/dastation/station_edit.html",
+        templateUrl: "../../athena/dastation/station_edit.html",
         controller: function($scope, $source, $modalInstance) {
           $scope.__proto__ = scope;
           console._log(s, $scope);
@@ -370,10 +370,10 @@ angular.module('app.basecontroller', [])
             desc: s.desc
           }; //angular.copy(s) ;
 
-          $scope.op = {}; 
+          $scope.op = {};
 
           $source.$region.query({ currentPage:1} , function( resp){
-              $scope.projs = resp.data ; 
+              $scope.projs = resp.data ;
               if(s.region_id){
                 $.each($scope.projs, function(i, n) {
                   if (s.region_id == n.id) {
@@ -384,7 +384,7 @@ angular.module('app.basecontroller', [])
               }
 
           })
- 
+
 
           $scope.cancel = function() {
             $modalInstance.dismiss('cancel')
@@ -393,8 +393,8 @@ angular.module('app.basecontroller', [])
             // $scope.checkModalForm(btn, $scope);
             $scope.validForm();
             var region = $scope.op._proj;
-            $scope.das.region_id = region.id, 
-            
+            $scope.das.region_id = region.id,
+
             $source.$system.put($scope.das, function(resp) {
               console._log(resp);
               $scope.das.region_name = region.name;
@@ -459,7 +459,7 @@ angular.module('app.basecontroller', [])
      */
     $scope.confirmInvoke = function(msg, handler) {
       $modal.open({
-        templateUrl: 'athena/views/debris/confirm_invoke.html',
+        templateUrl: '../../athena/debris/confirm_invoke.html',
         //resolve:{ msg: function (){ return  msg } ,  handler: function (){ return handler} } ,
         //  controller: function( $scope ,$modalInstance , $q ,  msg , handler  ){
         controller: function($scope, $modalInstance) {
@@ -551,14 +551,14 @@ angular.module('app.basecontroller', [])
 
 .controller("access_signup", function($scope, $state, $source, $localStorage) {
 
- 
- 
+
+
 
   // signup ;
-  $scope.comp = {}; 
+  $scope.comp = {};
 
   $scope.signup = function() {
-     //delete $scope.comp.admin ; 
+     //delete $scope.comp.admin ;
     $source.$account.save( $scope.comp , function( resp ){
         if( resp.ret){
            // 注册成功;
@@ -568,7 +568,7 @@ angular.module('app.basecontroller', [])
           alert("注册成功!");
           $state.go('access.signin');
         }
-    }) 
+    })
 
   };
 })

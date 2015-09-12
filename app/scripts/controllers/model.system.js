@@ -16,7 +16,7 @@ angular.module("app.model.system", [])
 
             $scope.createSM = function() {
                 $modal.open({
-                    templateUrl: 'athena/views/sysmodel/add_sysmodel.html',
+                    templateUrl: '../../athena/sysmodel/add_sysmodel.html',
                     controller: function($scope, $modalInstance) {
                         $scope.__proto__ = t,
                             $scope.$modalInstance = $modalInstance,
@@ -58,7 +58,7 @@ angular.module("app.model.system", [])
 
             $scope.updateSM = function(scope, index, sm) {
                 $modal.open({
-                    templateUrl: 'athena/views/sysmodel/add_sysmodel.html',
+                    templateUrl: '../../athena/sysmodel/add_sysmodel.html',
                     controller: function($scope, $modalInstance) {
                         $scope.__proto__ = scope;
                         $scope.$modalInstance = $modalInstance;
@@ -111,7 +111,7 @@ angular.module("app.model.system", [])
 
         var defer = $q.defer();
 
-        // tags , triggers,  message 对应的 prifile ; 
+        // tags , triggers,  message 对应的 prifile ;
         $scope.odp = {};
 
         $scope.loadProfilePromise = defer.promise;
@@ -167,7 +167,7 @@ angular.module("app.model.system", [])
 
         $scope.addOrEditDevice = function(devices, index, dev) {
             $modal.open({
-                templateUrl: "athena/views/sysmodel/add_sysdevice.html",
+                templateUrl: "../../athena/sysmodel/add_sysdevice.html",
                 resolve: {
                     data: function() {
                         return devModelPromise;
@@ -267,8 +267,8 @@ angular.module("app.model.system", [])
             t = $scope;
         t.isManageMode = sysmodel.mode == $sys.manageMode;
 
-        // 拆分 connect 字段; 
-        // connect 回显 ;  device id ( 整合成 kv形式)--> 得到 demodel( ) --> 再去加载point数据;  
+        // 拆分 connect 字段;
+        // connect 回显 ;  device id ( 整合成 kv形式)--> 得到 demodel( ) --> 再去加载point数据;
         var cc;
         $scope.splictC = function(tag, $last) {
             cc = tag.connect.split('.');
@@ -346,7 +346,7 @@ angular.module("app.model.system", [])
             }
 
             $modal.open({
-                templateUrl: "athena/views/sysmodel/add_systag.html",
+                templateUrl: "../../athena/sysmodel/add_systag.html",
                 controller: function($scope, $modalInstance) {
 
                     if (t.isManageMode) {
@@ -406,7 +406,7 @@ angular.module("app.model.system", [])
 
         $scope.updateTag = function(index, tag) {
             $modal.open({
-                templateUrl: "athena/views/sysmodel/add_systag.html",
+                templateUrl: "../../athena/sysmodel/add_systag.html",
                 controller: function($scope, $modalInstance) {
                     var a, b, c;
                     if (t.isManageMode) {
@@ -463,7 +463,7 @@ angular.module("app.model.system", [])
             }
 
             $modal.open({
-                templateUrl: "athena/views/sysmodel/add_log_tag.html",
+                templateUrl: "../../athena/sysmodel/add_log_tag.html",
                 controller: function($scope, $modalInstance) {
 
                     var a, b, c, d;
@@ -528,7 +528,7 @@ angular.module("app.model.system", [])
 
         $scope.addSysProfile = function() {
             $modal.open({
-                templateUrl: "athena/views/sysmodel/add_sysprofile.html",
+                templateUrl: "../../athena/sysmodel/add_sysprofile.html",
                 controller: function($scope, $modalInstance) {
                     $scope.$modalInstance = $modalInstance,
                         $scope.__proto__ = t,
@@ -542,8 +542,8 @@ angular.module("app.model.system", [])
 
                         $source.$sysProfile.save($scope.P, function(resp) {
                             $scope.P.uuid = resp.ret;
-                            //$scope.p.create_time = $filter("date")( new Date() , '2015-07-07T00:33:54.000Z' )  ; 
-                            // $scope.p.create_time =  $filter("date")( new Date() , 'yyyy-MM-07T00:33:54.000Z' )  ; 
+                            //$scope.p.create_time = $filter("date")( new Date() , '2015-07-07T00:33:54.000Z' )  ;
+                            // $scope.p.create_time =  $filter("date")( new Date() , 'yyyy-MM-07T00:33:54.000Z' )  ;
                             $scope.profiles.push($scope.P);
                             $scope.cancel();
                         })
@@ -554,7 +554,7 @@ angular.module("app.model.system", [])
 
         $scope.updateSysProfile = function(s, i, p) {
             $modal.open({
-                templateUrl: "athena/views/sysmodel/add_sysprofile.html",
+                templateUrl: "../../athena/sysmodel/add_sysprofile.html",
                 controller: function($scope, $modalInstance) {
                     $scope.__proto__ = t,
                         $scope.$modalInstance = $modalInstance,
@@ -644,7 +644,7 @@ angular.module("app.model.system", [])
             }
 
             $modal.open({
-                templateUrl: "athena/views/sysmodel/add_proftrigger.html",
+                templateUrl: "../../athena/sysmodel/add_proftrigger.html",
                 size: "lg",
                 controller: function($scope, $modalInstance, $source, $sys, $webWorker) {
                     var a, b, c, i;
@@ -690,7 +690,7 @@ angular.module("app.model.system", [])
 
 
                     // 验证 左右参数是否合法; ,
-                    // 收集 tags ; 
+                    // 收集 tags ;
 
 
                     $scope.done = function() {
@@ -698,7 +698,7 @@ angular.module("app.model.system", [])
                             l, r,
                             tags = {};
 
-                        // 收集 tags ; 
+                        // 收集 tags ;
                         angular.forEach(x.conditions, function(v, k) {
                             l = v.exp.left,
                                 r = v.exp.right;
@@ -719,7 +719,7 @@ angular.module("app.model.system", [])
 
 
 
-                        if (i) { // 新建; 
+                        if (i) { // 新建;
                             $source.$sysProfTrigger.save(x, function(resp) {
                                 x.id = resp.ret;
                                 $scope.triggers.push(x);
@@ -752,7 +752,7 @@ angular.module("app.model.system", [])
 
         $scope.showCondi = function(trigger) {
             $modal.open({
-                templateUrl: "athena/views/sysmodel/add_proftrigger.html",
+                templateUrl: "../../athena/sysmodel/add_proftrigger.html",
                 size: "lg",
                 controller: function($scope, $modalInstance) {
                     $scope.__proto__ = S,
@@ -825,9 +825,9 @@ angular.module("app.model.system", [])
                 // $state.go('app.model.sysprofile');
                 return;
             }
-            // 无触发器 不能创建; 
+            // 无触发器 不能创建;
             $modal.open({
-                templateUrl: "athena/views/sysmodel/add_message.html",
+                templateUrl: "../../athena/sysmodel/add_message.html",
                 resolve: {},
                 controller: function($scope, $modalInstance, $sys) {
                     $scope.__proto__ = S,
@@ -951,7 +951,7 @@ angular.module("app.model.system", [])
 
         S.c_u_Gateway = function(T, t, data) {
             $modal.open({
-                templateUrl: "athena/views/sysmodel/add_gateway.html",
+                templateUrl: "../../athena/sysmodel/add_gateway.html",
                 controller: function($scope, $modalInstance) {
 
                     $scope.__proto__ = S,

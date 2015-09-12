@@ -273,6 +273,7 @@ module.exports = function (grunt) {
     //     }
     //   }
     // },
+
     // concat: {
     //   dist: {}
     // },
@@ -326,17 +327,41 @@ module.exports = function (grunt) {
           htmlmin: {
             collapseBooleanAttributes: true,
             collapseWhitespace: true,
-            removeAttributeQuotes: true,
+             removeAttributeQuotes: true,
             removeComments: true,
             removeEmptyAttributes: true,
             removeRedundantAttributes: true,
             removeScriptTypeAttributes: true,
             removeStyleLinkTypeAttributes: true
-          } 
+          }
         },
         cwd: '<%= yeoman.app %>',
-        src: 'athena/views/{,**/}*.html',
-       // src: 'athena/views/debris/{,**/}*.html',
+        
+        src: 'athena/**/*.html',
+
+
+
+
+        //src: 'athena/views/account/*.html',
+        //src: 'athena/views/dastation/*.html',
+        //src: 'athena/views/debris/*.html',
+        // src: 'athena/views/device/*.html',
+        // src: 'athena/views/manage/*.html',
+        // src: 'athena/views/show/*.html',
+        // src: 'athena/views/support/*.html',
+        // src: 'athena/views/sysmodel/*.html',
+        // src: 'athena/views/tag/*.html',
+        // src: 'athena/views/template/*.html',
+        // src: 'athena/views/user/*.html',
+
+         // src: 'athena/views/*.html',
+         // src: 'athena/*.html',
+
+
+
+        //src: 'athena/views/account/*.html',
+
+
         dest: '.tmp/templateCache.js'
       }
     },
@@ -364,17 +389,6 @@ module.exports = function (grunt) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
     // ng-annotate tries to make the code safe for minification automatically
     // by using the Angular long form for dependency injection.
     ngAnnotate: {
@@ -398,10 +412,10 @@ module.exports = function (grunt) {
     // Copies remaining files to places other tasks can use
     copy: {
       dist: {
-        files: [{ 
+        files: [{
           expand: true,
           dot: false, //  是否包含与点 开头的文件  ( .svn )
-          cwd: '<%= yeoman.app %>', 
+          cwd: '<%= yeoman.app %>',
           dest: '<%= yeoman.dist %>',
           src: [
             '*.{ico,png,txt}',
@@ -409,11 +423,11 @@ module.exports = function (grunt) {
             '*.html',
             'images/{,*/}*.{webp}',
             'styles/fonts/{,*/}*.*'
-              
+
              // athena 下的文件做成 tempalteCache ;   {athena,fonts,img}
             ,'{fonts,img}/**'
-            ,'lib/*/**'  //  jquery 插件拷贝; 
-            
+            ,'lib/*/**'  //  jquery 插件拷贝;
+
           ]
         }, {
           expand: true,
@@ -490,7 +504,7 @@ module.exports = function (grunt) {
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
-    'ngtemplates', 
+    'ngtemplates',
 
     'concat',
     'ngAnnotate',
@@ -513,7 +527,15 @@ module.exports = function (grunt) {
     'useminPrepare',
     'concurrent:dist'
   ]);
- 
- 
+
+
+  grunt.registerTask('temp', [
+    // 'newer:jshint',
+    // 'test',
+    // 'build'
+
+    'clean',
+    'ngtemplates'
+  ]);
 
 };
