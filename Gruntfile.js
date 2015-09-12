@@ -312,7 +312,7 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '<%= yeoman.dist %>',
           src: ['*.html' , 'athena/{,**/}*.html'],
-         // src: [  'athena/views/dastation/*.html'],
+         // src: [  'athena/dastation/*.html'],
           dest: '<%= yeoman.dist %>'
         }]
       }
@@ -336,30 +336,30 @@ module.exports = function (grunt) {
           }
         },
         cwd: '<%= yeoman.app %>',
-        
+
         src: 'athena/**/*.html',
 
 
 
 
-        //src: 'athena/views/account/*.html',
-        //src: 'athena/views/dastation/*.html',
-        //src: 'athena/views/debris/*.html',
-        // src: 'athena/views/device/*.html',
-        // src: 'athena/views/manage/*.html',
-        // src: 'athena/views/show/*.html',
-        // src: 'athena/views/support/*.html',
-        // src: 'athena/views/sysmodel/*.html',
-        // src: 'athena/views/tag/*.html',
-        // src: 'athena/views/template/*.html',
-        // src: 'athena/views/user/*.html',
+        //src: 'athena/account/*.html',
+        //src: 'athena/dastation/*.html',
+        //src: 'athena/debris/*.html',
+        // src: 'athena/device/*.html',
+        // src: 'athena/manage/*.html',
+        // src: 'athena/show/*.html',
+        // src: 'athena/support/*.html',
+        // src: 'athena/sysmodel/*.html',
+        // src: 'athena/tag/*.html',
+        // src: 'athena/template/*.html',
+        // src: 'athena/user/*.html',
 
-         // src: 'athena/views/*.html',
+         // src: 'athena/*.html',
          // src: 'athena/*.html',
 
 
 
-        //src: 'athena/views/account/*.html',
+        //src: 'athena/account/*.html',
 
 
         dest: '.tmp/templateCache.js'

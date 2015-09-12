@@ -27,14 +27,14 @@
             </div>
         </div>
 
-        <ng-include  src=" 'athena/views/device/_device_base.html' "></ng-include>
+        <ng-include  src=" 'athena/device/_device_base.html' "></ng-include>
 
       <div ng-if="$debug">
           根据driverId 加载 driver Ui ;<br>
-      path = {{'athena/views/device/_dev_type_'+ op.type +'.html'}}
+      path = {{'athena/device/_dev_type_'+ op.type +'.html'}}
       </div>
 
-        <ng-include  src=" 'athena/views/device/_dev_type_'+ op.type +'.html' "></ng-include>
+        <ng-include  src=" 'athena/device/_dev_type_'+ op.type +'.html' "></ng-include>
 
         <div  class="text-muted">
            <!-- Remember to configure the gateway settings.-->

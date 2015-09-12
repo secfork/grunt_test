@@ -11,14 +11,14 @@
              form.$valid = {{form.$valid}}<br>
              das = {{das}}
          </div>
-  
+
          <input  tl-wrap  label="采集站名称" required ng-model="das.name "
                  ng-change=" ch( 'name' , das.name )"  >
 
- 
 
-        <select tl-wrap  label="区域"  ng-model= "op._proj"   
-                
+
+        <select tl-wrap  label="区域"  ng-model= "op._proj"
+
                 ng-options = "p as p.name  for p in projs "
              >
 
@@ -32,7 +32,7 @@
 </div>
 
 
-<ng-include  src=" 'athena/views/debris/_modal_footer.html' "></ng-include>
+<ng-include  src=" 'athena/debris/_modal_footer.html' "></ng-include>
 
 
 

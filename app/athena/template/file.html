@@ -16,11 +16,11 @@
                label="点名称"
                ng-model="point.name"
                required>
- 
-        <ng-include src=" './athena/views/template/_point_'+ dm.driver_id+'_'+ dm.driver_ver+'.html' "></ng-include>  
+
+        <ng-include src=" './athena/views/template/_point_'+ dm.driver_id+'_'+ dm.driver_ver+'.html' "></ng-include>
 
        <!-- <pre ng-bind-template=" {{ ui_temp_point }} "></pre> -->
-         
+
         <!-- 以下的待开发 -->
       <textarea tl-wrap  ng-model="point.desc" label="text.desc" ></textarea>
 
@@ -30,7 +30,7 @@
 </div>
 
 
-<ng-include src=" 'athena/views/debris/_modal_footer.html' "></ng-include>
+<ng-include src=" 'athena/debris/_modal_footer.html' "></ng-include>
 
 
 
@@ -49,7 +49,7 @@
                required
                type="number"
                tl-default="1"
-                > 
+                >
 
               -->
 
@@ -59,13 +59,13 @@
                ng-model="point.params.deviation"
                type="number"
                tl-default="0"
-                > 
+                >
    -->
-<!-- 
+<!--
         <input tl-wrap
-               label="单位" 
+               label="单位"
                ng-model="point.params.unit"
                 > -->
 
-                
-        <!--   0 = modbus ;  -->  
+
+        <!--   0 = modbus ;  -->

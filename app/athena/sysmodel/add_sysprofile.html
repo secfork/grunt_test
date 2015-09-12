@@ -10,20 +10,20 @@
 
     <form name="form" class=" form-validation form-horizontal   ">
 
-        <input type="submit" class="hidden"> 
+        <input type="submit" class="hidden">
 
-        <input tl-wrap required ng-model="P.name" name="input" 
-               label="系统配置名称"  
-               > 
+        <input tl-wrap required ng-model="P.name" name="input"
+               label="系统配置名称"
+               >
 
 
         <textarea tl-wrap  ng-model="P.desc" label="备注" >  </textarea>
- 
-       
+
+
     </form>
 </div>
 
-<ng-include src=" 'athena/views/debris/_modal_footer.html' "></ng-include>
+<ng-include src=" 'athena/debris/_modal_footer.html' "></ng-include>
 
 
 <div ng-if="$debug">

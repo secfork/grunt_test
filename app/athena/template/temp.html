@@ -14,23 +14,23 @@
         <select tl-wrap
                 label="模型类型"
                 required
-                ng-model=" d " 
+                ng-model=" d "
 
-                ng-if="isAdd" 
+                ng-if="isAdd"
                 ng-options=" o  as o.driver_id +' -- '+ o.version  for o in drivers "
                 ></select>
-       
-        <input tl-wrap required ng-model="T.name" label="模型名称">  
+
+        <input tl-wrap required ng-model="T.name" label="模型名称">
 
         <textarea tl-wrap  ng-model="T.desc"  label="text.desc">
         </textarea>
 
-        
+
 
     </form>
 </div>
 
-<ng-include src=" 'athena/views/debris/_modal_footer.html' "></ng-include>
+<ng-include src=" 'athena/debris/_modal_footer.html' "></ng-include>
 
 
 <div ng-if="$debug">

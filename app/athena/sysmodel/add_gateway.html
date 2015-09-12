@@ -8,34 +8,34 @@
 
 <div class="modal-body  ">
 
-    <form name="form" class=" form-validation form-horizontal " 
+    <form name="form" class=" form-validation form-horizontal "
     ng-init=" _config = $sys.gateway ;
-               filterType() 
+               filterType()
             "
-         >   
+         >
 
-<!-- 
+<!--
  ng-init=" _config = $sys.gateway ;
-                    types = filterType() ;  
-                    isAdd && ( G.name = types[0] ) ; 
-                    " 
+                    types = filterType() ;
+                    isAdd && ( G.name = types[0] ) ;
+                    "
 
                 -->
- 
 
-        <select  tl-wrap  
+
+        <select  tl-wrap
             ng-if = "isAdd"
             ng-model="G.t"
             ng-options = " t as t group by T for (t,T) in _$types   "
             label="串口"
             required
-        > 
+        >
            <!--  <option value=""> --请选择网关--</option> -->
         </select>
 
 
-        <!-- D.baud_rate = null ;  --> 
-            <select tl-wrap 
+        <!-- D.baud_rate = null ;  -->
+            <select tl-wrap
                 ng-model= " D.baud_rate "
                 ng-options= "  k for k in _config.baud_rate"
                 label="波特率"
@@ -71,19 +71,19 @@
                     required
             >
                <!--   <option value=""> --请选择校验--</option> -->
-            </select>    
+            </select>
 
             <input type="number"  tl-wrap ng-model = "D.delay"  label="延迟(毫秒)" >
- 
-    </form>  
+
+    </form>
 </div>
 
-<ng-include src=" 'athena/views/debris/_modal_footer.html' "></ng-include>
+<ng-include src=" 'athena/debris/_modal_footer.html' "></ng-include>
 
 
 
 
-<div ng-if="$debug">  
+<div ng-if="$debug">
 
  G={{G}} <br>
  isadd={{ isAdd}} <br>
