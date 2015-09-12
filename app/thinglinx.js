@@ -389,7 +389,7 @@ var app = angular.module('thinglinx', [
             controller: function($scope, $state) {
               $scope.$rootNav("管理");
             },
-            
+
           })
           .state("app.proj.manage", {
             url: "/manage",
