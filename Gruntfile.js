@@ -73,11 +73,32 @@ module.exports = function (grunt) {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: 'localhost',
+        // hostname: '0.0.0.0',
         livereload: 35729
       },
+        // 当为 0.0.0.0 时  proxies 有效; 
+
+      proxies: [
+                  {
+                      context: '/mayapplication',
+                      host: 'localhost',
+                      port: '8080',
+                      https: false,
+                      changeOrigin: false
+                  }
+      ],
+
+
+
       livereload: {
         options: {
           open: true,
+          // open: 'http://myapp.dev:9000',
+          // base: [
+          //     '.tmp',
+          //     '<%= yeoman.app %>'
+          // ],
+
           middleware: function (connect) {
             return [
               connect.static('.tmp'),
@@ -407,12 +428,23 @@ module.exports = function (grunt) {
             ,'lib/*/**'  //  jquery 插件拷贝;
 
           ]
-        }, {
-          expand: true,
-          cwd: '.tmp/images',
-          dest: '<%= yeoman.dist %>/images',
-          src: ['generated/*']
-        }]
+        }, 
+        { // thinglinx_boot.js  拷贝到 .tmp 目录 ; 
+          //expand:true ,
+          dest:".tmp",
+           // cwd: '<%= yeoman.app %>',
+          cwd:"app",
+          src:["app/thinglinx_boot.js"]
+
+        }
+        // {
+        //   expand: true,
+        //   cwd: '.tmp/images',
+        //   dest: '<%= yeoman.dist %>/images',
+        //   src: ['generated/*']
+        // }
+
+        ]
       },
       styles: {
         expand: true,
@@ -486,7 +518,8 @@ module.exports = function (grunt) {
 
     'concat',
     'ngAnnotate',
-    'copy:dist',
+    'copy:dist', // 拷贝  thinglinx_boot.js 到 .tmp 目录 ; 
+
     //'cdnify',
     'cssmin',
     'uglify',
