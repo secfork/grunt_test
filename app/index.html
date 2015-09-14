@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <title></title>
     <meta name="description" content="thinglinx 工业云 云 工控 力控 力控元通 三维力控 ">
+
     <meta name="viewport" content="width=device-width , initial-scale=1, maximum-scale=1">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -31,8 +32,6 @@
 
     <!--    cdn   -->
 
-   
-  
 
     <!--   cdn   -->
 
@@ -44,15 +43,15 @@
 -->
 
     <!--build:js({.tmp,app})  scripts/vendor-lib.js -->
-    
+
     <script src="lib/jquery.min.js"></script>
     <script src="lib/angular.min.1.3.js"></script>
     <script src="lib/angular-resource.min.js"></script>
     <script src="lib/angular-cookies.min.js"></script>
-   
+
     <script src="lib/angular-animate.min.js"></script>
     <script src="lib/angular-ui-router.min.js"></script>
-    
+
     <script src="lib/ui-bootstrap-tpls.min.js"></script>
     <script src="lib/angular-translate.js"></script>
     <script src="lib/datetime_picker/datetimepicker.js"></script>
@@ -61,7 +60,10 @@
     <script src="lib/ui-load.js"></script>
     <script src="lib/ui-validate.js"></script>
     <!-- endbuild -->
-    <!-- build:js({.tmp,app}) scripts/thinglinx.js -->
+
+
+
+    <!-- build:js({.tmp,app}) scripts/thing.js -->
     <script src="scripts/controllers/account.js"></script>
     <script src="scripts/controllers/basecontroller.js"></script>
     <script src="scripts/controllers/model.device.js"></script>
@@ -76,13 +78,29 @@
     <script src="scripts/filter/filters.js"></script>
     <script src="scripts/service/services.js"></script>
     <script src="scripts/service/sysconfig.js"></script>
-    <script src="scripts/thinglinx.js"></script>
+
+    <script src="templateCache.js"></script>
+    <script src="thinglinx_boot.js"></script>
     <!-- endbuild -->
+
+
+    <!--  该文件 build时 移除 , 换成 thing_dist.js  文件 ; -->
+    <!--build:remove -->
+    <script src="thinglinx.js"></script>
+    <!--build-->
+
+
+
     <!-- 百度 地图  -->
-        
+
+
+
+
+
+
   <script  src="http://api.map.baidu.com/api?v=1.5&ak=M9b53slaoqAKQj8jX0CRz6xA" type="text/javascript"></script>
 
-  
+
 </body>
 
 </html>

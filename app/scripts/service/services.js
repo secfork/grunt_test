@@ -7,11 +7,8 @@
 // ajax  响应 ,不会被拦截的响应 ;
 
 /**
-
  修改 angualr-resource.js  源码 133 行, 增加put 方式;
 增加   getByPk:{method:"GET"} , 方法;
-
-
 */
 
 angular.module('app.services', ["ngResource"], function() {

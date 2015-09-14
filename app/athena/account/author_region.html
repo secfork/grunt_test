@@ -1,0 +1,48 @@
+<!-- <div class="panel-body bg-light   table-responsive no-padder no-border gap-5"> -->
+<div class="panel-body table-responsive   padding-5">
+    <div ng-repeat='r in page.data ' ng-init=" op ={} ">
+
+        <div class=' b-b temp-row  my-bg-info ' ng-click='op.show = !op.show '>
+            <i class="m-l-xs  fa"
+                ng-class="{ 'fa-plus-square-o': !op.show , 'fa-minus-square-o':op.show  }"></i>
+            {{r.name }}
+        </div>
+
+
+        <div ng-if=" op.show " class="well m-b-none"
+                ng-init=" loadPermission( this.$parent , r ); " >
+
+            <div ng-repeat= " g in groups"  class="b-b" ng-init="op ={}">
+
+                {{g.name}}
+                 <!-- <i class="fa  fa-toggle-up  fa-toggle-down" ui-toggle-class= '' target="" ></i>  -->
+                 <a class="fa fa-minus-circle text-danger m-l-xs"
+                    ng-click=" delGroup( this , r, groups , g, $index )"   ></a>
+
+                  <a class="fa fa-save text-danger " ng-show="op.edit"
+                     ng-click="updateProm(this,r , g , $event.target )"></a>
+
+                <br/>
+                <form>
+                    <label class="checkbox i-checks  inline m-r w-sl m-l" ng-repeat=' a in $sys.regionP'>
+                        <input type="checkbox"
+                         name ={{a}}
+                          ng-checked=" g.privilege.indexOf(a) +1 "
+                          ng-click="op.edit=true"
+                          >
+                        <i></i> <span translate={{a}}></span>
+                    </label>
+                </form>
+            </div>
+
+            <a  class="btn btn-sm btn-info m-t-xs"
+                ng-click="addAuthor( this , page.data , r ) " > 添加权限</a>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="panel-footer">
+    <ng-include src=" 'athena/debris/_pager.html'  "></ng-include>
+</div>

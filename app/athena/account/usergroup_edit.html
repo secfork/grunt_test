@@ -1,0 +1,10 @@
+<div class="modal-header ">
+    <h4 ng-if="!isAdd">编辑用户组</h4>
+</div>
+<div class="modal-body" style="padding: 0 12%;">
+    <form name="form" class="form-horizontal form-validation  ">
+        <input tl-wrap-l label="组名" required ng-model=" ug.name ">
+        <textarea tl-wrap-l label="备注" ng-model=" ug.desc " ng-maxlength="100" placeholder=" 不应超过100字符"></textarea>
+    </form>
+</div>
+<ng-include src=" 'athena/debris/_modal_footer.html' "></ng-include>

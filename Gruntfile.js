@@ -73,11 +73,32 @@ module.exports = function (grunt) {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: 'localhost',
+        // hostname: '0.0.0.0',
         livereload: 35729
       },
+        // 当为 0.0.0.0 时  proxies 有效; 
+
+      proxies: [
+                  {
+                      context: '/mayapplication',
+                      host: 'localhost',
+                      port: '8080',
+                      https: false,
+                      changeOrigin: false
+                  }
+      ],
+
+
+
       livereload: {
         options: {
           open: true,
+          // open: 'http://myapp.dev:9000',
+          // base: [
+          //     '.tmp',
+          //     '<%= yeoman.app %>'
+          // ],
+
           middleware: function (connect) {
             return [
               connect.static('.tmp'),
@@ -267,12 +288,14 @@ module.exports = function (grunt) {
     // uglify: {
     //   dist: {
     //     files: {
-    //       '<%= yeoman.dist %>/scripts/scripts.js': [
-    //         '<%= yeoman.dist %>/scripts/scripts.js'
+    //       '<%= yeoman.dist %>/scripts/scripts_temp.js': [
+    //         //'<%= yeoman.dist %>/scripts/scripts.js'
+    //         '.tmp/templateCache.js'
     //       ]
     //     }
     //   }
     // },
+
     // concat: {
     //   dist: {}
     // },
@@ -310,7 +333,8 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.dist %>',
-          src: ['*.html'],
+          src: ['*.html' , 'athena/{,**/}*.html'],
+         // src: [  'athena/dastation/*.html'],
           dest: '<%= yeoman.dist %>'
         }]
       }
@@ -327,17 +351,17 @@ module.exports = function (grunt) {
           htmlmin: {
             collapseBooleanAttributes: true,
             collapseWhitespace: true,
-            removeAttributeQuotes: true,
+             removeAttributeQuotes: true,
             removeComments: true,
             removeEmptyAttributes: true,
             removeRedundantAttributes: true,
             removeScriptTypeAttributes: true,
             removeStyleLinkTypeAttributes: true
-          } 
+          }
         },
-        cwd: '<%= yeoman.app %>',
-        src: 'athena/views/account/**.html',
-        //src: 'athena/views/debris/{,**/}*.html',
+        cwd: '<%= yeoman.app %>', 
+
+        src: 'athena/{**/,}*.html', 
         dest: '.tmp/templateCache.js'
       }
     },
@@ -365,17 +389,6 @@ module.exports = function (grunt) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
     // ng-annotate tries to make the code safe for minification automatically
     // by using the Angular long form for dependency injection.
     ngAnnotate: {
@@ -399,10 +412,10 @@ module.exports = function (grunt) {
     // Copies remaining files to places other tasks can use
     copy: {
       dist: {
-        files: [{ 
+        files: [{
           expand: true,
           dot: false, //  是否包含与点 开头的文件  ( .svn )
-          cwd: '<%= yeoman.app %>', 
+          cwd: '<%= yeoman.app %>',
           dest: '<%= yeoman.dist %>',
           src: [
             '*.{ico,png,txt}',
@@ -410,18 +423,29 @@ module.exports = function (grunt) {
             '*.html',
             'images/{,*/}*.{webp}',
             'styles/fonts/{,*/}*.*'
-              
+
              // athena 下的文件做成 tempalteCache ;   {athena,fonts,img}
             ,'{fonts,img}/**'
-            ,'lib/*/**'  //  jquery 插件拷贝; 
-            
+            ,'lib/*/**'  //  jquery 插件拷贝;
+
           ]
-        }, {
-          expand: true,
-          cwd: '.tmp/images',
-          dest: '<%= yeoman.dist %>/images',
-          src: ['generated/*']
-        }]
+        }, 
+        { // thinglinx_boot.js  拷贝到 .tmp 目录 ; 
+          //expand:true ,
+          dest:".tmp",
+           // cwd: '<%= yeoman.app %>',
+          cwd:"app",
+          src:["app/thinglinx_boot.js"]
+
+        }
+        // {
+        //   expand: true,
+        //   cwd: '.tmp/images',
+        //   dest: '<%= yeoman.dist %>/images',
+        //   src: ['generated/*']
+        // }
+
+        ]
       },
       styles: {
         expand: true,
@@ -491,11 +515,12 @@ module.exports = function (grunt) {
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
-    'ngtemplates', 
+    'ngtemplates',
 
     'concat',
     'ngAnnotate',
-    'copy:dist',
+    'copy:dist', // 拷贝  thinglinx_boot.js 到 .tmp 目录 ; 
+
     //'cdnify',
     'cssmin',
     'uglify',
@@ -514,7 +539,15 @@ module.exports = function (grunt) {
     'useminPrepare',
     'concurrent:dist'
   ]);
- 
- 
+
+
+  grunt.registerTask('temp', [
+    // 'newer:jshint',
+    // 'test',
+    // 'build'
+
+    'clean',
+    'ngtemplates'
+  ]);
 
 };

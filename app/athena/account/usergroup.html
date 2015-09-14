@@ -1,0 +1,31 @@
+
+<!--
+修改  bootstrp-tpl.js   "  directive("tab", " 处 的 controller 增加   完善 select 属性不支持 {{}} "bia
+ -->
+
+
+<tabset class="tab-container">
+
+
+      <tab  select="tabToGroup()">
+    	<tab-heading>
+			 <i  class="fa fa-group" ></i> <span translate=" 所有组 "></span>
+	    </tab-heading>
+
+	    <ng-include src=" 'athena/account/usergroup_all.html' "></ng-include>
+
+    </tab>
+    <tab >
+    	<tab-heading>
+			 <i  class="icon icon-user-follow" ></i> <span translate=" 添加组 "></span>
+	    </tab-heading>
+
+	    <ng-include src=" 'athena/account/usergroup_add.html' "></ng-include>
+
+    </tab>
+
+
+
+
+</tabset>
+

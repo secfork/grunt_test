@@ -1,0 +1,24 @@
+
+<!--  配备编辑 模版;
+采集站苏醒,  配置,  设备配置用到 ( 各个种类的 设备通用这个模版;   )
+-->
+
+
+<div class="modal-header  text-center ">
+   <h4>参数编辑</h4>
+</div>
+
+
+<div  class="modal-body " >
+     <form class="form-horizontal  form-validation  "  name="form"   >
+
+         <input type="submit"  class="hidden">
+        <!-- <ng-include  src=" 'athena/device/_device_base.html' " ></ng-include>-->
+         <input tl-wrap  label="设备名称" ng-model="device.name" required  >
+
+
+     </form>
+</div>
+
+<ng-include   src = " 'athena/debris/_modal_footer.html' " ></ng-include>
+

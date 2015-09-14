@@ -200,7 +200,7 @@ angular.module('app.system.prop', [])
 
         $scope.c_u_dev = function(gateway_devs, index, dev) {
             $modal.open({
-                templateUrl: "athena/views/dastation/add_gateway_device.html",
+                templateUrl: "../../athena/dastation/add_gateway_device.html",
                 controller: function($scope, $modalInstance) {
                     $scope.__proto__ = S,
                         $scope.$modalInstance = $modalInstance,
@@ -274,7 +274,7 @@ angular.module('app.system.prop', [])
 
         $scope.c_u_way = function(T, t, way) {
             $modal.open({
-                templateUrl: "athena/views/dastation/_prop_gateway_addgateway.html",
+                templateUrl: "../../athena/dastation/_prop_gateway_addgateway.html",
                 controller: function($scope, $modalInstance) {
 
                     $scope.__proto__ = S,
@@ -467,8 +467,8 @@ angular.module('app.system.prop', [])
 
 .controller('das_contact', ['$scope', '$source', '$state', function($scope, $source, $state) {
 
-    // 加载 system 的 contact ; 
-    // pk ~=   system_uuid ; 
+    // 加载 system 的 contact ;
+    // pk ~=   system_uuid ;
     $scope.$popNav($scope.station.name + "(联系人)", $state);
 
     $source.$contact.get({
@@ -484,7 +484,7 @@ angular.module('app.system.prop', [])
 
 
 
-        // 更新 system 的 contact ; 
+        // 更新 system 的 contact ;
         $scope.commit = function() {
             $scope.validForm();
             ($scope.isAdd ? createContact : updateContact)();

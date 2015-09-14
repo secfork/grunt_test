@@ -1,0 +1,60 @@
+
+
+<div  class=" panel-body bg-light  bg      ">
+
+
+    <div class="col-xs-12  text-left  ">
+
+        <div  class="m-b m-t" ><strong> 采集站编号:{{station.sn}}</strong>  </div>
+    </div>
+
+
+    <div class="col-xs-4  text-left">
+        <span>采集站类型 </span>
+    </div>
+    <div class="col-xs-8">
+        <span>  DTU Server  -{{ station.comm_type}}   </span>
+    </div>
+    <div class="line  line-dashed b-b  line-chart    "></div>
+
+    <div class="col-xs-4  text-left"><span>版本</span></div>
+    <div class="col-xs-8"><span>1.0</span></div>
+    <div class="line  line-dashed  b-b  line-chart   "></div>
+        <div class="col-xs-4    text-left">
+            时区
+        </div>
+        <div class="col-xs-8">
+            Asia/Beijing
+        </div>
+
+    <div class="line    b-b  line-chart   "></div>
+
+
+
+    <div class="  col-xs-12 ">
+        <p>采集站配置同步状态</p>
+    </div>
+
+
+    <div class="col-xs-4  text-left">
+        <span>上次配置更新 </span>
+    </div>
+
+    <div class="col-xs-8">
+       {{station.last_modify_time | date:"yyyy-MM-dd HH:mm:ss Z"}}
+    </div>
+
+
+    <div class="line  line-dashed b-b  line-chart m-l-n-sm  "></div>
+
+    <div class="col-xs-4  text-left">
+        <span>上次同步</span>
+    </div>
+    <div class="col-xs-8">
+        {{ station.last_sync_time | date:"yyyy-MM-dd HH:mm:ss"}}
+    </div>
+
+    <div class="line    b-b  line-chart    " style=" margin-bottom:-1px;"></div>
+
+
+</div>

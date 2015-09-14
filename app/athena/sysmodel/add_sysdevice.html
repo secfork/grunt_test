@@ -1,0 +1,88 @@
+ <!-- 添加  sysmodel  -->
+
+<div class="modal-header ">
+    <h4 ng-if="isAdd">添加系统设备</h4>
+    <h4 ng-if="!isAdd">编辑系统设备</h4>
+
+</div>
+
+<div class="modal-body  ">
+
+    <form name="form" class=" form-validation form-horizontal   ">
+
+        <input tl-wrap  required ng-model="D.name"
+               label="系统设备名称"
+            >
+
+
+        <select  tl-wrap
+            ng-model="D.device_model"
+            ng-options="  k  as v.name for (k,v) in devModelKV"
+
+            label="设备模型"
+        >
+        </select>
+
+        <hr>
+
+        <!-- 根据 选择的 设备模型  类型 加载 相应的配置  /_dev_[params , networdk]_{driver_type}.html   -->
+
+        <ng-include src=" './athena/views/device/_dev_params_'+ devModel.driver_id +'_'
+                                            + devModel.driver_ver +'.html' " ></ng-include>
+
+        <hr>
+
+        <ng-include  src=" 'athena/device/_dev_network_'+ devModel.driver_id +'_'
+                                            + devModel.driver_ver+'.html' "  ></ng-include>
+
+
+
+        <hr>
+
+        <input  tl-wrap
+                ng-model="D.dev_cycle"
+                type="number"
+                label="采样周期(秒)"
+                tl-default="60"
+                min='1'
+
+            >
+
+        <input  tl-wrap
+                ng-model= "D.dev_retry"
+                type = "number"
+                label = "连接重试次数"
+                tl-default="1"
+                min="1"
+                max = "3"
+            >
+
+
+        <input  tl-wrap
+                ng-model = "D.dev_timeout"
+                type="number"
+                label="连接超时时间(秒)"
+                tl-default="8"
+                max = '30'
+                min = '3'
+            >
+
+
+
+        <textarea tl-wrap  ng-model="D.desc" label="备注" >  </textarea>
+
+
+    </form>
+</div>
+
+<ng-include src=" 'athena/debris/_modal_footer.html' "></ng-include>
+
+
+<!-- <div ng-if="$debug">
+    op={{op}}<br>
+    D = {{D}} <br>
+    isAdd = {{isAdd}}<br>
+    sysmodel = {{sysmodel}}
+</div>
+
+-->

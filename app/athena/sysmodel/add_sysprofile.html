@@ -1,0 +1,32 @@
+<!--  添加  sysmodel  -->
+
+<div class="modal-header ">
+    <h4 ng-if="isAdd">添加系统配置</h4>
+    <h4 ng-if="!isAdd">编辑系统配置</h4>
+
+</div>
+
+<div class="modal-body  ">
+
+    <form name="form" class=" form-validation form-horizontal   ">
+
+        <input type="submit" class="hidden">
+
+        <input tl-wrap required ng-model="P.name" name="input"
+               label="系统配置名称"
+               >
+
+
+        <textarea tl-wrap  ng-model="P.desc" label="备注" >  </textarea>
+
+
+    </form>
+</div>
+
+<ng-include src=" 'athena/debris/_modal_footer.html' "></ng-include>
+
+
+<div ng-if="$debug">
+   p = {{P}} <br>
+    isAdd = {{isAdd}}
+</div>
