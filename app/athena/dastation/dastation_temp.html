@@ -17,15 +17,16 @@
     <table ng-switch-when="list" class=" table   table-bordered   ">
         <thead class="flip-content">
             <tr>
-                <th width="10%" translate="th.th6">状态</th>
-                <th width="20%" translate="th.th7">系统名称</th>
+                <th width="5%" translate="th.th6">状态</th>
+                <th width="10%" translate="th.th7">系统名称</th>
                 <!--<th   translate="dastation_grid.deviceno"   >设备号</th>-->
-                <th width="20%" translate="th.th8">区域</th>
+                <th width="10%" translate="th.th8">区域</th>
                 <!--    <th   translate="dastation_grid.level"  >级别</th>-->
-                <th width="15%" ttranslate="th.th9">GPS</th>
-                <th width="15%" translate="th.th11" ng-if=" !isShowModul  ">同步配置 </th>
-                <th width="10%">备注</th>
-                <th ng-if=" !isShowModul"></th>
+                <th width="10%" ttranslate="th.th9"> 定位</th>
+                <th width="15%" translate="th.th11"
+                    ng-if=" !isShowModul  ">同步配置 </th>
+                <th width="30%">备注</th>
+                <th width="15%" ng-if=" !isShowModul"></th>
             </tr>
         </thead>
         <tbody class="text-center">
@@ -76,12 +77,16 @@
                 </td>
                 <!--      <td ng-if = " !isShowModul "> {{ das.needsync?'是':'否'}}</td> -->
                 <!--同步-->
-                <td ng-if=" !isShowModul ">
+                <td ng-if=" !isShowModul   ">
                     <!--{{ das.needsync }}-->
                     <!-- <span >已同步 </span>-->
-                    <button class="btn btn-xs btn-primary  m-t-n-xs" ng-click="syncSystem( das )" ng-if=" das.needsync ">同步</button>
-                    <span ng-show=" !sync_start && sync_err_msg " class=" m-t-xs text-danger">  {{ sync_err_msg }} </span>
-                    <span ng-show=" !sync_start && sync_ret_msg " class=" m-t-xs text-info">
+                    <button class="btn btn-xs btn-primary  m-t-n-xs" 
+                    ng-click="syncSystem( das )"
+                     ng-if=" das.needsync ">同步</button>
+                    <span ng-show=" !sync_start && sync_err_msg " 
+                    class=" m-t-xs text-danger">  {{ sync_err_msg }} </span>
+                    <span ng-show=" !sync_start && sync_ret_msg "
+                       class=" m-t-xs text-info">
                              {{ sync_ret_msg }}
                         </span>
                     <i ng-show=" sync_start " class="fa fa-spin fa-spinner "></i>
@@ -102,16 +107,24 @@
                      translate="bu.bu1" ng-click=" chaStation( this, das  ,$index ) ">替
                         </a>
  -->
-                    <a class="text-info-dk m-r-xs" ng-if="das.state ==1 " translate="bu.bu2" ng-click=" effStation(page.data , das  ,$index ) ">失
+                    <a class="text-info-dk m-r-xs"
+                     ng-if="das.state ==1 " translate="bu.bu2" 
+                     ng-click=" effStation(page.data , das  ,$index ) ">失
                         </a>
-                    <a class="text-info-dk m-r-xs" ng-if=" das.state ==0 " ng-click=" activateStation( this, page.data , das , $index  , updataORdel ) ">
+                    <a class="text-info-dk m-r-xs"
+                     ng-if=" das.state ==0 " 
+                     ng-click=" activateStation( this, page.data , das , $index  , updataORdel ) ">
                            激活
                         </a>
-                    <a class="text-info-dk m-r-xs" ng-if="das.state ==2 " ng-click=" startSystem( das , page.data , $index ) ">启动
+                    <a class="text-info-dk m-r-xs" ng-if="das.state ==2 " 
+                    ng-click=" startSystem( das , page.data , $index ) ">启动
                         </a>
-                    <a class="text-info-dk m-r-xs" ranslate="bu.bu3" ng-click=" editStation( this , das , $index  ) ">编辑
+                    <a class="text-info-dk m-r-xs" ranslate="bu.bu3"
+                     ng-click=" editStation( this , das , $index  ) ">编辑
                         </a>
-                    <a class="text-info-dk m-r-xs" translate="bu.bu4" ng-click=" delStation( page.data  ,das , $index  ) ">移
+                    <a class="text-info-dk m-r-xs" translate="bu.bu4" 
+                        ng-if=" das.state ==0 "
+                    ng-click=" delStation( page.data  ,das , $index  ) ">移
                         </a>
                 </td>
             </tr>

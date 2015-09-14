@@ -7,6 +7,8 @@
 </div>
  
 
+ <hr>
+
 <select  tl-wrap   
 	ng-options = " t for t in _$types"
 	ng-model=" D.network.type"
@@ -56,7 +58,8 @@
 	<select tl-wrap   
 			ng-model = "D.network.params.channel"
 			ng-options = " k as k  for (k,v) in  _$channel " 
-			label="串口" 
+			label="串口"
+			 
 	></select>
 
 </div>

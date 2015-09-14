@@ -14,8 +14,15 @@
 
         <input tl-wrap
                label="点名称"
-               ng-model="point.name"
+               ng-model="point.Name"
                required>
+
+        <select tl-wrap label="轮询方式"
+            ng-model="point.Poll" 
+            type="number"
+            ng-options = " v as k  for (k,v) in $sys.point[dm.driver_id][dm.driver_ver].pointPoll  "
+        ></select>       
+
 
         <ng-include src=" './athena/template/_point_'+ dm.driver_id+'_'+ dm.driver_ver+'.html' "></ng-include>
 

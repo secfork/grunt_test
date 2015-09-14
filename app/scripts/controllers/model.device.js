@@ -311,7 +311,7 @@ angular.module('app.model.device', [])
                     $scope.$modalInstance = $modalInstance;
                     $scope.point = {};
 
-                    if (p) {
+                    if (p) { //编辑; 
                         $scope.point = angular.copy(p);
                         $scope.point.params = angular.fromJson($scope.point.params);
                     } else {

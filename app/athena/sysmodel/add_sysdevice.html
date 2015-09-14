@@ -30,42 +30,85 @@
         <ng-include src=" 'athena/device/_dev_params_'+ devModel.driver_id +'_'
                                             + devModel.driver_ver +'.html' " ></ng-include>
 
-        <hr>
+       
 
-        <ng-include  src=" 'athena/device/_dev_network_'+ devModel.driver_id +'_'
-                                            + devModel.driver_ver+'.html' "  ></ng-include>
+        <!-- ( comm_type = 2 ) gateway 时 才用 配置 newwork;  -->
+        <ng-include ng-if="sysmodel.comm_type==2"  
+             src=" 'athena/device/_dev_network_'+ devModel.driver_id +'_'
+                                            + devModel.driver_ver+'.html' "  >
+        </ng-include>
 
 
 
-        <hr>
-
+        <hr   > 
+ 
         <input  tl-wrap
-                ng-model="D.dev_cycle"
+                ng-model="D.Cycle"
                 type="number"
-                label="采样周期(秒)"
-                tl-default="60"
+                label="采样周期" 
+            
                 min='1'
+                max = "59"
 
             >
 
+         <select  tl-wrap 
+                ng-model="D.CycleUnit"
+                label="采样周期单位"  
+                ng-options = "v as k for (k,v) in $sys.timeUnit "
+
+
+         >     
+         </select>   
+
         <input  tl-wrap
-                ng-model= "D.dev_retry"
+                ng-model="D.SlowCycle"
+                type="number"
+                label="慢速周期"
+                tl-default="59"
+                min='1'
+                max = "59"
+
+            >
+
+         <select  tl-wrap 
+                ng-model="D.SlowCycleUnit"
+                label="慢速周期单位" 
+                tl-default="2"
+                ng-options = " v as k for (k,v) in $sys.timeUnit  "
+
+
+         >     
+         </select>   
+
+         <input  tl-wrap
+                ng-model = "D.Timeout"
+                type="number"
+                label="连接超时时间(秒)"
+                tl-default="15"
+                max = '60'
+                min = '3'
+            >
+
+        <input  tl-wrap
+                ng-model= "D.Retry"
                 type = "number"
                 label = "连接重试次数"
                 tl-default="1"
-                min="1"
+                min="0"
                 max = "3"
             >
 
 
         <input  tl-wrap
-                ng-model = "D.dev_timeout"
-                type="number"
-                label="连接超时时间(秒)"
-                tl-default="8"
-                max = '30'
-                min = '3'
+                ng-model= "D.Delay"
+                type = "number"
+                label = "命令延时(毫秒)"
+                tl-default="1"
+                min="0"
+                max = "1000"
             >
+
 
 
 
@@ -78,11 +121,7 @@
 <ng-include src=" 'athena/debris/_modal_footer.html' "></ng-include>
 
 
-<!-- <div ng-if="$debug">
-    op={{op}}<br>
-    D = {{D}} <br>
-    isAdd = {{isAdd}}<br>
-    sysmodel = {{sysmodel}}
-</div>
+ <!--@if debug -->
+D ={{D}}
 
--->
+ <!--@endif  -->

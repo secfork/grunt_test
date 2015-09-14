@@ -1,7 +1,9 @@
 angular.module("app.model.system", [])
     .controller("sysmodel", ["$scope", '$modal', '$source', '$utils',
         function($scope, $modal, $source, $utils) { // $source.$sysModel
-
+             //@if debug 
+                console.log(" sysmodel controller ");
+             //@endif    
 
             var t = $scope,
                 page;
@@ -11,8 +13,7 @@ angular.module("app.model.system", [])
                 $scope.page = page = {
                         data: resp.ret
                     } // $utils.page(resp);
-            });
-
+            }); 
 
             $scope.createSM = function() {
                 $modal.open({
@@ -46,12 +47,12 @@ angular.module("app.model.system", [])
                 }, function(next) {
                     $source.$sysModel.delete({
                         uuid: sm.uuid
-                    }, function( resp ) {
-                      if(!resp.err){
-                        page.data.splice(index, 1);
-                        page.total-- ;
-                      }
-                      next();
+                    }, function(resp) {
+                        if (!resp.err) {
+                            page.data.splice(index, 1);
+                            page.total--;
+                        }
+                        next();
                     })
                 })
             }
@@ -97,10 +98,11 @@ angular.module("app.model.system", [])
 .controller('sysmodelProp', ['$scope', '$source', '$q',
     function($scope, $source, $q) {
 
-
-        var d = $scope.$$cache[0]
-
-
+        //@if debug 
+            console.log(" sysmodelProp controller ");
+        //@endif 
+ 
+        var d = $scope.$$cache[0] 
         try {
             d.gateway_default = angular.fromJson(d.gateway_default || {});
         } catch (e) {
@@ -108,6 +110,36 @@ angular.module("app.model.system", [])
         }
 
         $scope.sysmodel = d;
+
+
+        // 属性 tabs 配置;  
+        $scope.tabs = [] ; 
+        $scope.tabs.push(  { title:"tab.t12" , icon:"fa fa-wrench" ,
+                             state:"app.model.sysmodel_p.sysprofile" 
+                            });
+
+        if( $scope.sysmodel.mode == 1 ){
+            $scope.tabs.push(  { title:"tab.t10" , icon:"fa fa-gear",
+                                state:"app.model.sysmodel_p.sysdevice" } ) 
+        }
+
+        $scope.tabs = $scope.tabs.concat([
+                { title:"tab.t11" , icon:"fa fa-tag",  
+                 state:"app.model.sysmodel_p.systag" },
+
+                { title:"tab.t13" , icon:"fa fa-fire",  
+                  state:"app.model.sysmodel_p.trigger" },
+
+                { title:"tab.t14" , icon:"fa fa-envelope",  
+                  state:"app.model.sysmodel_p.message" }
+            ]);
+        if($scope.sysmodel.mode == 1 && $scope.sysmodel.comm_type == 2){
+            $scope.tabs.push( {  title:"tab.t15" , icon:"glyphicon glyphicon-random", 
+                                     state:"app.model.sysmodel_p.gateway" }) ; 
+        }
+
+ 
+
 
         var defer = $q.defer();
 
@@ -132,13 +164,9 @@ angular.module("app.model.system", [])
     }
 ])
 
-
-.controller("sysmodel_basic", function($scope, $source) {
-    console.log("sysmodel_basic");
-})
-
-.controller("sysmodel_device", ['$scope', '$sessionStorage', '$source', '$modal',
-    function($scope, $sessionStorage, $source, $modal) {
+ 
+.controller("sysmodel_device", ['$scope', '$sessionStorage', '$source', '$modal',"$sys",
+    function($scope, $sessionStorage, $source, $modal , $sys) {
         console._log(" sysmodel_device");
 
         var sysmodel = $scope.sysmodel,
@@ -181,17 +209,37 @@ angular.module("app.model.system", [])
                         $scope.isAdd = !dev,
                         $scope.devModels = data.ret;
 
-                    if ($scope.isAdd) {
+                    $scope.filterChannel = function(type, bool) {
+                        $scope._$channel = t.sysmodel.gateway_default[type];
+                        if (bool) {
+                            var d = type == 'ETHERNET' ? 'LAN_1' : Object.keys($scope._$channel)[0];
+                            $scope.D.network.params = {
+                                channel: d
+                            };
+                        }
+                    }
+
+
+                    if ($scope.isAdd) {  // 新建; 
                         var d = Object.keys($scope.devModelKV)[0];
-                        $scope.D = {
-                            device_model: d,
-                            network: {
-                                type: "RS232",
-                                params: {
-                                    channel: "RS232_1"
-                                }
-                            }
-                        };
+                        // 初始化D; 
+                        $scope.D = { device_model: d };
+
+                        // 托管; gateway模式; 
+                        if($scope.sysmodel.mode == 1 && $scope.sysmodel.comm_type == 2){
+                            $scope.D.network = { type:"RS232"};    
+                        }
+                       
+ 
+                        $scope.$watch( "D.device_model" , function( d ){
+                            var driver_id  = $scope.devModelKV[d].driver_id ,
+                                driver_ver = $scope.devModelKV[d].driver_ver ,
+                                entity = $sys.device[ driver_id][driver_ver].entity ; 
+                            angular.extend( $scope.D , entity);     
+
+                        })  
+ 
+
                     } else {
                         dev.network = angular.fromJson(dev.network || {});
                         dev.params = angular.fromJson(dev.params || {});
@@ -228,15 +276,7 @@ angular.module("app.model.system", [])
                         };
                     };
 
-                    $scope.filterChannel = function(type, bool) {
-                        $scope._$channel = t.sysmodel.gateway_default[type];
-                        if (bool) {
-                            var d = type == 'ETHERNET' ? 'LAN_1' : Object.keys($scope._$channel)[0];
-                            $scope.D.network.params = {
-                                channel: d
-                            };
-                        }
-                    }
+                   
                 }
             })
         }

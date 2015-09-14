@@ -11,6 +11,14 @@ angular.module('app.sysconfig', [], function() {})
 
         itemsPerPage: 5,
 
+        // 时间单位; 
+        timeUnit:{
+            "second":0,
+            "minute":1,
+            "hour":2
+        },
+      
+
         // 账户权限; 
         accountP:[
                       "REGION_MANAGE", // 区域管理
@@ -273,6 +281,17 @@ angular.module('app.sysconfig', [], function() {})
             "FCS_MODBUS": {
                 // device model 驱动 版本号 ; 
                 "1.0.0.0": {
+                    // 公共部分默认值 ; 
+                    entity:{
+                       Cycle:2 , 
+                       CycleUnit:1,
+                       SlowCycle:59,
+                       SlowCycleUnit:1,
+                       Timeout:15,
+                       Retry:1 ,
+                       Delay:0 
+                    },
+
                     protocol_default: 0,
                     protocol: {
                         0: 'ModbusRtu',
@@ -335,20 +354,33 @@ angular.module('app.sysconfig', [], function() {})
         // tip 分类;  profPoint-tip ;
 
         // template 点创建;  template point type ;  0 = modbus ;
+
+
+
         "point": {
             // devicemodel  驱动 Id ;   
             "FCS_MODBUS": {
                 //device model 驱动 版本 ;  
                 "1.0.0.0": {
+                    // 公共部分默认值; 
                     entity: {
+                        Poll:  0 ,
+                        IsPacket: false,
                         params: {
-                            "area": '0',
+                            "Area": '0',
                             "data_type": '0',
                             "access_right": '0',
                             "address": 1
                         }
-                    },
+                    }, 
 
+                    // 点轮询 ; 
+                    pointPoll:{
+                        "Normal":0 ,
+                        "Slow":1,
+                        "Call":2
+                    },
+                    
                     data_type: {
                         0: "布尔",
                         1: "有符号字节",

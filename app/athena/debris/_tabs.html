@@ -1,17 +1,13 @@
- <tabset class="tab-container">
-    <tab  ng-repeat = " tab in tabs ">
-		<tab-heading >
-			<i ng-class=" tab.icon " ></i>
-		 	<span  translate= "{{ tab.title}}"></span>
-		 </tab-heading>
- 		<ng-include src=" tab.url"  ></ng-include>
-    </tab>
 
 
-  
-</tabset>
+<ul class="nav  nav-tabs   m-t-xxs    ">
 
-<div ng-if="$debug">
-	page = {{ page }}
+    <li ui-sref-active="active"  ng-repeat= "t in tabs "   >
+        <a class="inline" ui-sref="{{t.state}}">
+            <i class=" {{t.icon }}"></i>
+            <span translate="{{t.title}}"> 系统配置 </span>
+        </a>
+    </li>
+</ul>
 
-</div>
+<div ui-view> </div>

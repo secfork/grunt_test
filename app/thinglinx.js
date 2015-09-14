@@ -12,17 +12,14 @@ var app = angular.module('thinglinx', [
   'ui.load',
   'ui.jq',
   'ui.validate',
-  'pascalprecht.translate',
-  // "ngResource"
-  // 'ngMessages',
+  'pascalprecht.translate', 
 
   'app.basecontroller',  'app.account',  'app.model.device', 'app.model.system', 'app.project',
       'app.show.proj', 'app.show.system', 'app.system', 'app.system.prop','app.support' ,
   'app.directives',
   'app.filters',
-  'app.services', 'app.sysconfig'
-
-
+  'app.services', 'app.sysconfig',
+ 
 ])
 
 .run(
@@ -225,7 +222,7 @@ var app = angular.module('thinglinx', [
             // url: "/{projid}/{projname}/prop",
             url: "/proj_prop",
             controller: "proj_prop",
-            templateUrl: "athena/manage/pro_man_prop.html"
+            templateUrl: "athena/region/pro_man_prop.html"
 
           })
           // 得到项目所在的系统 属性;   // app.proj_prop 被忽略掉; 才可;
@@ -319,22 +316,7 @@ var app = angular.module('thinglinx', [
         .state("app.model.sysmodel_p", {
             url: "/sysmodel_p",
             // template:'<div ui-view class=" wrapper-xs"></div>' ,
-            templateUrl: 'athena/sysmodel/sys_.html',
-            resolve: {
-              prof_data: function() {
-                console.log('-----------------------------------');
-
-                // $scope.sysmodel = $scope.$$cache[0],
-
-                // $sysProfile.get({  system_model: $scope.sysmodel.uuid }, function(resp) {
-                //     $scope.profiles = resp.ret ,
-                //     $scope.profile = resp.ret[0] , //&& array[0].uuid ;
-
-                //     $scope.hasProfile = !!resp.ret.length ;
-                // })
-
-              }
-            },
+            templateUrl: 'athena/debris/_tabs.html', 
             controller: "sysmodelProp"
           })
           .state("app.model.sysmodel_p.basic", {
@@ -405,7 +387,7 @@ var app = angular.module('thinglinx', [
         .state("app.proj.prop", {
             // url: "/prop",
             controller: "proj_prop",
-            templateUrl: "athena/manage/pro_man_prop.html"
+            templateUrl: "athena/region/pro_man_prop.html"
           })
           // 得到项目所在的系统 属性;
           // app.proj_prop 被忽略掉; 才可;
