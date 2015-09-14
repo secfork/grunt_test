@@ -16,7 +16,7 @@ angular.module("app.model.system", [])
 
             $scope.createSM = function() {
                 $modal.open({
-                    templateUrl: '../../athena/sysmodel/add_sysmodel.html',
+                    templateUrl: 'athena/sysmodel/add_sysmodel.html',
                     controller: function($scope, $modalInstance) {
                         $scope.__proto__ = t,
                             $scope.$modalInstance = $modalInstance,
@@ -58,7 +58,7 @@ angular.module("app.model.system", [])
 
             $scope.updateSM = function(scope, index, sm) {
                 $modal.open({
-                    templateUrl: '../../athena/sysmodel/add_sysmodel.html',
+                    templateUrl: 'athena/sysmodel/add_sysmodel.html',
                     controller: function($scope, $modalInstance) {
                         $scope.__proto__ = scope;
                         $scope.$modalInstance = $modalInstance;
@@ -167,7 +167,7 @@ angular.module("app.model.system", [])
 
         $scope.addOrEditDevice = function(devices, index, dev) {
             $modal.open({
-                templateUrl: "../../athena/sysmodel/add_sysdevice.html",
+                templateUrl: "athena/sysmodel/add_sysdevice.html",
                 resolve: {
                     data: function() {
                         return devModelPromise;
@@ -346,7 +346,7 @@ angular.module("app.model.system", [])
             }
 
             $modal.open({
-                templateUrl: "../../athena/sysmodel/add_systag.html",
+                templateUrl: "athena/sysmodel/add_systag.html",
                 controller: function($scope, $modalInstance) {
 
                     if (t.isManageMode) {
@@ -406,7 +406,7 @@ angular.module("app.model.system", [])
 
         $scope.updateTag = function(index, tag) {
             $modal.open({
-                templateUrl: "../../athena/sysmodel/add_systag.html",
+                templateUrl: "athena/sysmodel/add_systag.html",
                 controller: function($scope, $modalInstance) {
                     var a, b, c;
                     if (t.isManageMode) {
@@ -463,7 +463,7 @@ angular.module("app.model.system", [])
             }
 
             $modal.open({
-                templateUrl: "../../athena/sysmodel/add_log_tag.html",
+                templateUrl: "athena/sysmodel/add_log_tag.html",
                 controller: function($scope, $modalInstance) {
 
                     var a, b, c, d;
@@ -528,7 +528,7 @@ angular.module("app.model.system", [])
 
         $scope.addSysProfile = function() {
             $modal.open({
-                templateUrl: "../../athena/sysmodel/add_sysprofile.html",
+                templateUrl: "athena/sysmodel/add_sysprofile.html",
                 controller: function($scope, $modalInstance) {
                     $scope.$modalInstance = $modalInstance,
                         $scope.__proto__ = t,
@@ -554,7 +554,7 @@ angular.module("app.model.system", [])
 
         $scope.updateSysProfile = function(s, i, p) {
             $modal.open({
-                templateUrl: "../../athena/sysmodel/add_sysprofile.html",
+                templateUrl: "athena/sysmodel/add_sysprofile.html",
                 controller: function($scope, $modalInstance) {
                     $scope.__proto__ = t,
                         $scope.$modalInstance = $modalInstance,
@@ -644,7 +644,7 @@ angular.module("app.model.system", [])
             }
 
             $modal.open({
-                templateUrl: "../../athena/sysmodel/add_proftrigger.html",
+                templateUrl: "athena/sysmodel/add_proftrigger.html",
                 size: "lg",
                 controller: function($scope, $modalInstance, $source, $sys, $webWorker) {
                     var a, b, c, i;
@@ -752,7 +752,7 @@ angular.module("app.model.system", [])
 
         $scope.showCondi = function(trigger) {
             $modal.open({
-                templateUrl: "../../athena/sysmodel/add_proftrigger.html",
+                templateUrl: "athena/sysmodel/add_proftrigger.html",
                 size: "lg",
                 controller: function($scope, $modalInstance) {
                     $scope.__proto__ = S,
@@ -827,7 +827,7 @@ angular.module("app.model.system", [])
             }
             // 无触发器 不能创建;
             $modal.open({
-                templateUrl: "../../athena/sysmodel/add_message.html",
+                templateUrl: "athena/sysmodel/add_message.html",
                 resolve: {},
                 controller: function($scope, $modalInstance, $sys) {
                     $scope.__proto__ = S,
@@ -951,7 +951,7 @@ angular.module("app.model.system", [])
 
         S.c_u_Gateway = function(T, t, data) {
             $modal.open({
-                templateUrl: "../../athena/sysmodel/add_gateway.html",
+                templateUrl: "athena/sysmodel/add_gateway.html",
                 controller: function($scope, $modalInstance) {
 
                     $scope.__proto__ = S,

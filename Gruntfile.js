@@ -16,8 +16,11 @@ module.exports = function (grunt) {
   require('jit-grunt')(grunt, {
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
-    cdnify: 'grunt-google-cdn'
+    cdnify: 'grunt-google-cdn',
+    // processhtml:"grunt-processhtml"
   });
+
+  grunt.loadNpmTasks('grunt-processhtml');
 
   // Configurable paths for the application
   var appConfig = {
@@ -25,11 +28,36 @@ module.exports = function (grunt) {
     dist: 'dist'
   };
 
+
   // Define the configuration for all the tasks
   grunt.initConfig({
 
     // Project settings
     yeoman: appConfig,
+
+
+    processhtml: {
+        options: {
+            // process:true,
+            commentMarker: 'process'
+        },
+        sourceHtml:{
+            expand:true,
+            dot:false,
+            cwd: '<%= yeoman.app %>', 
+            src: 'athena/{**/,}*.html', 
+            dest:".tmp/html" 
+        } ,
+
+        dist:{ '<%= yeoman.dist %>/index.html':'<%= yeoman.dist %>/index.html'  }
+
+        // dist: {
+        //     files: [{
+        //         '<%= yeoman.dist %>/index.html': 
+        //         '<%= yeoman.dist %>/index.html'
+        //     }]
+        // }
+    },
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
@@ -329,6 +357,14 @@ module.exports = function (grunt) {
          // conservativeCollapse: true,
          // collapseBooleanAttributes: true,
          // removeCommentsFromCDATA: true
+            collapseBooleanAttributes: true,
+            collapseWhitespace: true,
+            removeAttributeQuotes: true,
+            removeComments: true,
+            removeEmptyAttributes: true,
+            removeRedundantAttributes: true,
+            removeScriptTypeAttributes: true,
+            removeStyleLinkTypeAttributes: true
         },
         files: [{
           expand: true,
@@ -346,18 +382,8 @@ module.exports = function (grunt) {
           dot: false,
 
           module: 'thinglinxTemp',
-         // htmlmin: '<%= htmlmin.dist.options %>',
-         // usemin: 'scripts/scripts.js' ,
-          htmlmin: {
-            collapseBooleanAttributes: true,
-            collapseWhitespace: true,
-             removeAttributeQuotes: true,
-            removeComments: true,
-            removeEmptyAttributes: true,
-            removeRedundantAttributes: true,
-            removeScriptTypeAttributes: true,
-            removeStyleLinkTypeAttributes: true
-          }
+          htmlmin: '<%= htmlmin.dist.options %>',
+         // usemin: 'scripts/scripts.js' , 
         },
         cwd: '<%= yeoman.app %>', 
 
@@ -365,29 +391,8 @@ module.exports = function (grunt) {
         dest: '.tmp/templateCache.js'
       }
     },
-
-    // ngtemplates: {
-    //   'ntd.directives': {
-    //     cwd: '<%= yeoman.app%>',
-    //     src: 'templates/**.html',
-    //     dest: '.tmp/concat/scripts/angular-adminui-tpl.js',
-    //     options: {
-    //       htmlmin: {
-    //         collapseBooleanAttributes: true,
-    //         collapseWhitespace: true,
-    //         removeAttributeQuotes: true,
-    //         removeComments: true,
-    //         removeEmptyAttributes: true,
-    //         removeRedundantAttributes: true,
-    //         removeScriptTypeAttributes: true,
-    //         removeStyleLinkTypeAttributes: true
-    //       }
-    //     }
-    //   }
-    // }
-
-
-
+ 
+ 
 
     // ng-annotate tries to make the code safe for minification automatically
     // by using the Angular long form for dependency injection.
@@ -432,10 +437,11 @@ module.exports = function (grunt) {
         }, 
         { // thinglinx_boot.js  拷贝到 .tmp 目录 ; 
           //expand:true ,
-          dest:".tmp",
+          // dest:".tmp/boot",
            // cwd: '<%= yeoman.app %>',
-          cwd:"app",
-          src:["app/thinglinx_boot.js"]
+          // cwd:"app",
+          // src:["thinglinx_boot.js"]
+          ".tmp/boot/thinglinx_boot.js":"app/thinglinx_boot.js"
 
         }
         // {
@@ -519,14 +525,15 @@ module.exports = function (grunt) {
 
     'concat',
     'ngAnnotate',
-    'copy:dist', // 拷贝  thinglinx_boot.js 到 .tmp 目录 ; 
+    'copy:dist', // 拷贝  thinglinx_boot.js 到 .tmp/boot 目录 ; 
 
     //'cdnify',
     'cssmin',
     'uglify',
     //'filerev',
     'usemin',
-   //'htmlmin'
+   //'htmlmin',
+   "processhtml:dist"
   ]);
 
   grunt.registerTask('default', [
@@ -541,13 +548,15 @@ module.exports = function (grunt) {
   ]);
 
 
-  grunt.registerTask('temp', [
-    // 'newer:jshint',
-    // 'test',
-    // 'build'
-
+  grunt.registerTask('temp', [ 
     'clean',
     'ngtemplates'
   ]);
+  grunt.registerTask('process', [ 
+    'clean',
+    'processhtml:sourceHtml'
+  ]);
+
+
 
 };

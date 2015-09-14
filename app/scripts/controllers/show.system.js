@@ -279,7 +279,7 @@ angular.module('app.show.system', [])
 	var S = $scope ;
 	$scope.alarmMsg = function(a){
 		$modal.open({
-			templateUrl:"../../athena/show/alarm_msg.html" ,
+			templateUrl:"athena/show/alarm_msg.html" ,
 			controller:function( $scope ,$modalInstance ){
 				$scope.__proto__ = S ;
 				$scope.$modalInstance = $modalInstance;

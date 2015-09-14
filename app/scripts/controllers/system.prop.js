@@ -200,7 +200,7 @@ angular.module('app.system.prop', [])
 
         $scope.c_u_dev = function(gateway_devs, index, dev) {
             $modal.open({
-                templateUrl: "../../athena/dastation/add_gateway_device.html",
+                templateUrl: "athena/dastation/add_gateway_device.html",
                 controller: function($scope, $modalInstance) {
                     $scope.__proto__ = S,
                         $scope.$modalInstance = $modalInstance,
@@ -274,7 +274,7 @@ angular.module('app.system.prop', [])
 
         $scope.c_u_way = function(T, t, way) {
             $modal.open({
-                templateUrl: "../../athena/dastation/_prop_gateway_addgateway.html",
+                templateUrl: "athena/dastation/_prop_gateway_addgateway.html",
                 controller: function($scope, $modalInstance) {
 
                     $scope.__proto__ = S,

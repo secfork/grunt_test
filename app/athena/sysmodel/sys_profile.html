@@ -20,8 +20,8 @@
                 <td> {{ prof.tag_count || 0 }} </td>
                 <td> {{ prof.trigger_count || 0 }} </td>
                 <!--  | date:"yyyy-MM-dd HH:mm" -->
-                <td class="numeric "> {{ prof.create_time | date:"yyyy-MM-dd HH:mm Z }} </td>
-                <td class="numeric "> {{ prof.last_modify_time| date:"yyyy-MM-dd HH:mm Z" }} </td>
+                <td class="numeric "> {{ prof.create_time | date:"yyyy-MM-dd HH:mm  Z"}} </td>
+                <td class="numeric "> {{ prof.last_modify_time| date:"yyyy-MM-dd HH:mm  Z" }} </td>
                 <td class="numeric "> {{ prof.desc }} </td>
                 <td>
                     <a class="text-link" translate="bu.bu3" ng-click="updateSysProfile( this, $index, prof )">编辑</a>

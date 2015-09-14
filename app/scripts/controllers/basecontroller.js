@@ -274,7 +274,7 @@ angular.module('app.basecontroller', [])
     $scope.chaStation = function(scope, station, index) {
 
       $modal.open({
-        templateUrl: '../../athena/dastation/station_change.html',
+        templateUrl: 'athena/dastation/station_change.html',
         size: "md", //size  lg md  sm
         resolve: {
           station: function() {
@@ -360,7 +360,7 @@ angular.module('app.basecontroller', [])
     $scope.editStation = function(scope, s, index) {
       console._log("editStation");
       $modal.open({
-        templateUrl: "../../athena/dastation/station_edit.html",
+        templateUrl: "athena/dastation/station_edit.html",
         controller: function($scope, $source, $modalInstance) {
           $scope.__proto__ = scope;
           console._log(s, $scope);
@@ -459,7 +459,7 @@ angular.module('app.basecontroller', [])
      */
     $scope.confirmInvoke = function(msg, handler) {
       $modal.open({
-        templateUrl: '../../athena/debris/confirm_invoke.html',
+        templateUrl: 'athena/debris/confirm_invoke.html',
         //resolve:{ msg: function (){ return  msg } ,  handler: function (){ return handler} } ,
         //  controller: function( $scope ,$modalInstance , $q ,  msg , handler  ){
         controller: function($scope, $modalInstance) {

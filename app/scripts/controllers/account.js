@@ -64,7 +64,7 @@
      // $scope.op = {idAdd:true }  ;
      $scope.editUser = function(arr, user, index) {
          $modal.open({
-             templateUrl: "../../athena/account/users_edit.html",
+             templateUrl: "athena/account/users_edit.html",
              controller: function($scope, $modalInstance) {
                  $scope.__proto__ = S;
                  $scope.$modalInstance = $modalInstance;
@@ -191,7 +191,7 @@
 
      $scope.editGroup = function(arr, g, i) {
          $modal.open({
-             templateUrl: "../../athena/account/usergroup_edit.html",
+             templateUrl: "athena/account/usergroup_edit.html",
              controller: function($scope, $modalInstance) {
                  $scope.__proto__ = S;
                  $scope.$modalInstance = $modalInstance;
@@ -304,7 +304,7 @@
 
      $scope.addRole = function() {
          $modal.open({
-             templateUrl: "../../athena/account/role_add.html",
+             templateUrl: "athena/account/role_add.html",
              controller: function($scope, $modalInstance) {
                  $scope.__proto__ = thatScope;
                  $scope.$modalInstance = $modalInstance;
@@ -436,7 +436,7 @@
     $scope.addAuthor = function(scope, arr, r) {
 
          $modal.open({
-             templateUrl: "../../athena/account/author_region_add.html",
+             templateUrl: "athena/account/author_region_add.html",
              controller: function($scope, $modalInstance) {
                  $scope.__proto__ = scope;
                  $scope.$modalInstance = $modalInstance;

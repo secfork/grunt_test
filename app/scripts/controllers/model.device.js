@@ -80,7 +80,7 @@ angular.module('app.model.device', [])
         // 添加 || 编辑  模版; 弹出框 ;=================================================
         $scope.add_edit_t = function(scope, t) { //  temp-scope , 或者; super-scope ;
             $modal.open({
-                templateUrl: '../../athena/template/temp.html',
+                templateUrl: 'athena/template/temp.html',
                 controller: function($scope, $modalInstance,  $source) {
                     console._log("edit or new  temp ", t);
                     $scope.__proto__ = scope;
@@ -141,7 +141,7 @@ angular.module('app.model.device', [])
         // 上传模版;==================================================================================
         $scope.upload_t = function() {
             $modal.open({
-                templateUrl: '../../athena/template/temp_upload.html',
+                templateUrl: 'athena/template/temp_upload.html',
                 controller: temp_upload,
                 size: "m", //size
                 resolve: {
@@ -305,7 +305,7 @@ angular.module('app.model.device', [])
             console._log(" add_f or edit_f  ");
 
             $modal.open({
-                templateUrl: '../../athena/template/file.html',
+                templateUrl: 'athena/template/file.html',
                 controller: function($scope, $modalInstance, $sys) {
                     $scope.__proto__ = scope;
                     $scope.$modalInstance = $modalInstance;
