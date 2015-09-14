@@ -319,6 +319,8 @@ module.exports = function (grunt) {
     ngtemplates: {
       dist: {
         options: {
+          dot: false,
+
           module: 'thinglinxTemp',
          // htmlmin: '<%= htmlmin.dist.options %>',
          // usemin: 'scripts/scripts.js' ,
@@ -334,8 +336,8 @@ module.exports = function (grunt) {
           } 
         },
         cwd: '<%= yeoman.app %>',
-        src: 'athena/views/{,**/}*.html',
-       // src: 'athena/views/debris/{,**/}*.html',
+        src: 'athena/views/account/**.html',
+        //src: 'athena/views/debris/{,**/}*.html',
         dest: '.tmp/templateCache.js'
       }
     },
