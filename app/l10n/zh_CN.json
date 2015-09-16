@@ -51,7 +51,7 @@
 
     "area": "区域",
     "offset": "偏差",
-    "type": "类型",
+    "Type": "类型",
 
     "int_order": "Int字节排序",
     "float_order": "Float字节排序",

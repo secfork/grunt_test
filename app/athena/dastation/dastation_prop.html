@@ -1,25 +1,6 @@
 <!--  station 属性 导航 tab
  状态     配置     信息版    地图   历史数据   固件    手机网络    属性  -->
-<!--  show   实时 历史 , 报警  -->
-<!-- id="sataion_prop_tabs"  用于 window resize 调节 map 高度;  -->
-<!--   ng-if = "  isShowModul || station.state =='1' || station.state =='2' "  -->
-
  
-    <!--  展示  -->
-    <ul class=" nav  nav-tabs  m-t-xxs" ng-if=" isShowModul ">
-        <li ui-sref-active="active">
-            <a ui-sref=" app.show.station_prop.current">
-                <i class="fa fa-wrench "></i> 实时
-            </a>
-        </li>
-        <li ui-sref-active="active">
-            <a ui-sref="app.show.station_prop.history">   历史     </a>
-        </li>
-        <li ui-sref-active="active">
-            <a ui-sref="app.show.station_prop.alarm">   报警     </a>
-        </li>
-    </ul>
-
 
     
     <ul class=" nav  nav-tabs m-t-xxs" ng-if=" !isShowModul ">

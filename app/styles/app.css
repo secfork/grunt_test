@@ -19,7 +19,9 @@ input, select {
   border: 1px solid #ccc;
 
 }
-
+.min-h-l {
+  min-height: 300px ;
+}
 
 
 thead {

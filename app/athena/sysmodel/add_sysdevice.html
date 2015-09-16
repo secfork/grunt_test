@@ -6,56 +6,37 @@
 
 </div>
 
-<div class="modal-body  ">
 
-    <form name="form" class=" form-validation form-horizontal   ">
+<!--  isG 是否为 gateway 模式 -->
+
+<div class="modal-body  m-t-n "  
+     ng-init="stepx={  step: 0 } ; isG = sysmodel.comm_type==2 ; "  >
+
+    <progressbar value="(stepx.step +1 )* ( isG?34:50) " class="progress-xs  m-b-xs " type="success"></progressbar>
+  
+
+
+    <form name="step0"  ng-show="stepx.step == 0" class=" form-validation form-horizontal   ">
 
         <input tl-wrap  required ng-model="D.name"
                label="系统设备名称"
             >
 
-
-        <select  tl-wrap
-            ng-model="D.device_model"
-            ng-options="  k  as v.name for (k,v) in devModelKV"
-
-            label="设备模型"
-        >
-        </select>
-
-        <hr>
-
-        <!-- 根据 选择的 设备模型  类型 加载 相应的配置  /_dev_[params , networdk]_{driver_type}.html   -->
-
-        <ng-include src=" 'athena/device/_dev_params_'+ devModel.driver_id +'_'
-                                            + devModel.driver_ver +'.html' " ></ng-include>
-
-       
-
-        <!-- ( comm_type = 2 ) gateway 时 才用 配置 newwork;  -->
-        <ng-include ng-if="sysmodel.comm_type==2"  
-             src=" 'athena/device/_dev_network_'+ devModel.driver_id +'_'
-                                            + devModel.driver_ver+'.html' "  >
-        </ng-include>
-
-
-
-        <hr   > 
- 
-        <input  tl-wrap
+            <input  tl-wrap
                 ng-model="D.Cycle"
                 type="number"
                 label="采样周期" 
             
                 min='1'
                 max = "59"
+                required
 
             >
 
          <select  tl-wrap 
                 ng-model="D.CycleUnit"
                 label="采样周期单位"  
-                ng-options = "v as k for (k,v) in $sys.timeUnit "
+                ng-options = "o.v as o.k for o in $sys.device.timeUnit "
 
 
          >     
@@ -64,18 +45,17 @@
         <input  tl-wrap
                 ng-model="D.SlowCycle"
                 type="number"
-                label="慢速周期"
-                tl-default="59"
+                label="慢速周期" 
                 min='1'
                 max = "59"
+                required
 
             >
 
          <select  tl-wrap 
                 ng-model="D.SlowCycleUnit"
-                label="慢速周期单位" 
-                tl-default="2"
-                ng-options = " v as k for (k,v) in $sys.timeUnit  "
+                label="慢速周期单位"  
+                ng-options = "o.v as o.k for o in $sys.device.timeUnit "
 
 
          >     
@@ -88,6 +68,7 @@
                 tl-default="15"
                 max = '60'
                 min = '3'
+                required
             >
 
         <input  tl-wrap
@@ -97,6 +78,7 @@
                 tl-default="1"
                 min="0"
                 max = "3"
+                required
             >
 
 
@@ -107,21 +89,143 @@
                 tl-default="1"
                 min="0"
                 max = "1000"
-            >
-
-
-
-
-        <textarea tl-wrap  ng-model="D.desc" label="备注" >  </textarea>
-
-
+                required
+            > 
+        <textarea tl-wrap  ng-model="D.desc" label="备注" >  </textarea>    
     </form>
+  
+    <form name="step1"   ng-show="stepx.step == 1" 
+          class=" form-validation form-horizontal   ">
+
+ 
+        <select  tl-wrap
+            ng-model="D.device_model"
+            ng-options="  k  as v.name for (k,v) in devModelKV"
+            ng-change = "changeModel()"
+
+            label="设备模型"
+        >
+        </select>
+ 
+
+        <!-- 根据 选择的 设备模型  类型 加载 相应的配置  /_dev_[params , networdk]_{driver_type}.html   -->
+
+        <ng-include src=" 'athena/device/_dev_params_'+ devModel.driver_id +'.html' " ></ng-include>
+
+        
+        
+    </form>
+
+
+    <form name="step2"   ng-show = " isG && stepx.step == 2 " 
+         class=" form-validation form-horizontal   ">
+             <!-- ( comm_type = 2 ) gateway 时 才用 配置 newwork;  -->
+        <ng-include    src=" 'athena/device/_dev_network.html' "  >  </ng-include>
+     
+        
+    </form>
+
+
 </div>
 
-<ng-include src=" 'athena/debris/_modal_footer.html' "></ng-include>
+<!--
+   <ng-include src=" 'athena/debris/_modal_footer.html' "></ng-include>  
+-->
+
+<div class="modal-footer  text-center">
+
+   <!--  step 0 -->
+    <div   ng-show="stepx.step == 0" >
+          <button  ng-disabled="step0.$invalid"
+                  class="btn btn-default btn-sm btn-primary w-xs"
+                  ng-click="validForm('step0') ;stepx.step = 1 ; ">下一步</button>
+
+          <button  
+              class="btn btn-default btn-sm btn-primary w-xs"
+              ng-click="cancel()">取消</button>
+
+    </div>
+
+
+    <!--  gateway 第二步 -->
+    <div  ng-show="stepx.step == 1 && isG " >
+                <button  class="btn btn-primary btn-sm   w-xs"
+                        ng-click="stepx.step = 0 ;   "
+                >上一步</button>
+
+                <button   ng-disabled="step1.$invalid"
+                        class="btn btn-primary btn-sm   w-xs" 
+                        ng-click=" validForm('step1') ; stepx.step = 2   ; "
+                >下一步</button>
+                <button  class="btn btn-default btn-sm btn-primary w-xs"
+                      ng-click="cancel()">取消</button>
+ 
+    </div>
+
+ <!--  gateway 第三步 -->
+    <div  ng-show="stepx.step == 2 && isG "  >
+                <button   
+                        class="btn btn-primary btn-sm   w-xs"
+                        ng-click="stepx.step = 1 ;   "
+                >上一步</button>
+
+                <button ng-disabled="step2.$invalid"
+                        class="btn btn-primary btn-sm   w-xs"
+                        ng-click=" validForm('step2');done();"
+                        ng-show="isAdd"
+                >创建</button>
+
+                <button ng-disabled="step2.$invalid"
+                        ng-show="!isAdd"
+                        class="btn btn-primary btn-sm   w-xs"
+                        ng-click=" validForm('step2');done();"
+                >更新</button> 
+
+                 <button
+                      class="btn btn-default btn-sm btn-primary w-xs"
+                      ng-click="cancel()">取消</button>
+    </div>
+
+    <!--  非 gate way  第二步  -->
+    <div  ng-show="stepx.step == 1 && !isG "  >
+                <button   
+                        class="btn btn-primary btn-sm   w-xs"
+                        ng-click="stepx.step = 0 ;   "
+                >上一步</button>
+
+                <button ng-disabled="step1.$invalid"
+                        class="btn btn-primary btn-sm   w-xs"
+                        ng-click=" validForm('step1');done();"
+                        ng-show="isAdd"
+                >创建</button>
+
+                <button ng-disabled="step1.$invalid"
+                        ng-show="!isAdd"
+                        class="btn btn-primary btn-sm   w-xs"
+                        ng-click=" validForm('step1');done();"
+                >更新</button> 
+
+                 <button
+                      class="btn btn-default btn-sm btn-primary w-xs"
+                      ng-click="cancel()">取消</button>
+    </div>
+
+
+
+
+</div>
+
 
 
  <!--@if debug -->
 D ={{D}}
+
+<br/>
+form0.$invalid ={{step0.$invalid}}
+<br/>
+form1.$invalid ={{step1.$invalid}}
+<br/>
+form2.$invalid ={{step2.$invalid}}
+<br/>
 
  <!--@endif  -->

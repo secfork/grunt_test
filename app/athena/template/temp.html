@@ -14,10 +14,10 @@
         <select tl-wrap
                 label="模型类型"
                 required
-                ng-model=" d "
+                ng-model=" T.driver_id "
 
                 ng-if="isAdd"
-                ng-options=" o  as o.driver_id +' -- '+ o.version  for o in drivers "
+                ng-options=" o.driver_id  as o.driver_id   for o in drivers "
                 ></select>
 
         <input tl-wrap required ng-model="T.name" label="模型名称">
@@ -32,8 +32,9 @@
 
 <ng-include src=" 'athena/debris/_modal_footer.html' "></ng-include>
 
-
-<div ng-if="$debug">
-   T= {{T}} <br>
-    isAdd = {{isAdd}}
-</div>
+<!-- @if append -->
+  T= {{T}} <br>
+  isAdd = {{isAdd}}
+<!-- @endif -->
+ 
+ 

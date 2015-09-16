@@ -8,6 +8,7 @@
 
 
      // 账户信息; 项目, user ,station 数量
+     
 
      return ;
      $source.$account.getByPk({
@@ -16,6 +17,7 @@
          console._log(resp);
          $scope.accMsg = resp.ret;
      })
+    
 
  })
 
@@ -432,6 +434,7 @@
      }
 
 
+
     // 想区域中添加组; 附带权限;
     $scope.addAuthor = function(scope, arr, r) {
 
@@ -505,7 +508,8 @@
          })
     }
 
-    // 更新权限;
+    // 更新权限;    
+    
     $scope.updateProm = function(scope, r,g ,dom){
         var permission =  $(dom).parent()
                                 .find("form")
@@ -524,7 +528,7 @@
                              }
                          });
 
-    }
+    } 
 
  })
 

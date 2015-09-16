@@ -15,6 +15,7 @@ angular.module("app.model.system", [])
                     } // $utils.page(resp);
             }); 
 
+            
             $scope.createSM = function() {
                 $modal.open({
                     templateUrl: 'athena/sysmodel/add_sysmodel.html',
@@ -209,6 +210,7 @@ angular.module("app.model.system", [])
                         $scope.isAdd = !dev,
                         $scope.devModels = data.ret;
 
+                    // gateway 网络参数 过滤; 
                     $scope.filterChannel = function(type, bool) {
                         $scope._$channel = t.sysmodel.gateway_default[type];
                         if (bool) {
@@ -217,40 +219,56 @@ angular.module("app.model.system", [])
                                 channel: d
                             };
                         }
-                    }
+                    } 
 
 
+
+                     
                     if ($scope.isAdd) {  // 新建; 
-                        var d = Object.keys($scope.devModelKV)[0];
-                        // 初始化D; 
-                        $scope.D = { device_model: d };
+                        
+                        $scope.devModel =  $scope.devModelKV[ Object.keys($scope.devModelKV)[0] ] ;
+                         // 初始化D; 
+                        $scope.D =   angular.extend( { device_model: $scope.devModel.uuid } ,
+                                                     $sys.device.entity,
+                                                     $sys.device[ $scope.devModel.driver_id ].entity 
+                                                    );
 
                         // 托管; gateway模式; 
                         if($scope.sysmodel.mode == 1 && $scope.sysmodel.comm_type == 2){
                             $scope.D.network = { type:"RS232"};    
-                        }
-                       
- 
-                        $scope.$watch( "D.device_model" , function( d ){
-                            var driver_id  = $scope.devModelKV[d].driver_id ,
-                                driver_ver = $scope.devModelKV[d].driver_ver ,
-                                entity = $sys.device[ driver_id][driver_ver].entity ; 
-                            angular.extend( $scope.D , entity);     
-
-                        })  
- 
+                        } 
 
                     } else {
                         dev.network = angular.fromJson(dev.network || {});
                         dev.params = angular.fromJson(dev.params || {});
 
                         $scope.D = angular.copy(dev);
+                        $scope.devModel = $scope.devModelKV[ $scope.D.device_model ] ; 
+
                     }
 
-                    $scope.$watch('D.device_model', function(n, o) {
-                        $scope.devModel = $scope.devModelKV[n];
+                    // 缓存 操作; 的配置; 
+                    var  cache = {} ; 
+                    $scope.$watch( "D.device_model" , function (n, o ){
+                         //@if append 
+                            console.log( n , o );
+                         //@endif 
+
+                        var a , b;  
+                            a = $scope.devModelKV[n].driver_id ; 
+                            b = $scope.devModelKV[o].driver_id ;  
+                        if(a !=  b){
+                            // 缓存驱动 params ;    
+                            //cache[a] =  angular.copy( $scope.D.params );  
+                            
+                            // 驱动参数赋值;
+                            angular.extend( $scope.D , $sys.device[a].entity ); 
+                            $scope.devModel = $scope.devModelKV[n];
+                        }
+
                     })
 
+                   
 
                     // 添加 sysmodel device ;
                     $scope.done = function(btn) {
@@ -790,6 +808,7 @@ angular.module("app.model.system", [])
             })
         }
 
+        // 显示 触发器的 condition ; 
         $scope.showCondi = function(trigger) {
             $modal.open({
                 templateUrl: "athena/sysmodel/add_proftrigger.html",
@@ -804,6 +823,23 @@ angular.module("app.model.system", [])
             })
 
         }
+
+        // trigger 步骤控制; 
+        // $scope.SS=[
+        
+        //     [ {text:"下一步" , handler:"" } ,{ text:"取消", handler:"cancel()"}] ,
+           
+        //     [ {text:"上一步" , handler:"" } ,{ text:"下一步", handler:""} , 
+        //       { text:"取消", handler:"cancel()"}
+        //     ] ,
+           
+        //     [ {text:"上一步" , handler:"" },
+        //         {text:"创建" , handler:"" } ,
+        //         {text:"更新" , handler:"" },
+        //       { text:"取消", handler:"cancel()"}
+        //     ] 
+        // ] ; 
+
 
 
         // prof alarm  params  为报警时! 验证十六进制 数;

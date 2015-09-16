@@ -609,22 +609,23 @@ angular.module('app.directives', ['pascalprecht.translate'])
         if ($scope.dm) {
             e = $scope.dm,
                 p = $sys.point,
-                b = p[e.driver_id] && p[e.driver_id][e.driver_ver];
+                b = p[e.driver_id] // && p[e.driver_id][e.driver_ver];
 
 
             if (!b) {
                 console._log("无匹配的驱动数据: 驱动 id =  ", e.driver_id, " 驱动版本 = ", e.driver_ver);
                 $ele.text(x);
             } else {
+                console.log( params );
                 angular.forEach(params, function(v, k) {
                     // a.push( $translate.instant("params."+k)  +'='+  b[k][v] );
                     //  非 select 的字段 匹配成原始值 ;
-                    c = b[k];
+                    c = b[k]; 
                     //console._log(c , k);
                     if (k == "data_type_ex") {
                         a.push("额外配置值:" + v)
                     } else {
-                        f = $translate.instant("params." + k) + ":" + (c ? c[v] : v);
+                        f = $translate.instant("params." + k) + ":" + (c ? c[v].k : v);
                         a.push(f);
                     }
                 });

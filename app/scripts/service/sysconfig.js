@@ -2,22 +2,13 @@ angular.module('app.sysconfig', [], function() {})
 
 .service("$sys", function($translate) {
     return {
-        $debug: true,
-
-
-
+        $debug: true, 
+        
         // systemo 模式: manage , unmanage ,unknown ; 
         manageMode: 1,
 
         itemsPerPage: 5,
-
-        // 时间单位; 
-        timeUnit:{
-            "second":0,
-            "minute":1,
-            "hour":2
-        },
-      
+ 
 
         // 账户权限; 
         accountP:[
@@ -277,78 +268,94 @@ angular.module('app.sysconfig', [], function() {})
         //"device_modbus_" : {  // 根据version 配置; 
 
         "device": {
-            // device emodel 驱动Id ;  
+            entity:{
+                Cycle:2 , 
+                CycleUnit:1,
+                SlowCycle:59,
+                SlowCycleUnit:1,
+                Timeout:15,
+                Retry:1 ,
+                Delay:0 ,
+            },
+
+             // 时间单位; 
+            timeUnit:[
+                {k:"Second" , v: 0} ,
+                {k:"Minute" , v: 1} ,
+                {k:"Hour" , v: 2 } 
+            ], 
+
+            // device emodel 的 驱动Id ;  
             "FCS_MODBUS": {
-                // device model 驱动 版本号 ; 
-                "1.0.0.0": {
-                    // 公共部分默认值 ; 
-                    entity:{
-                       Cycle:2 , 
-                       CycleUnit:1,
-                       SlowCycle:59,
-                       SlowCycleUnit:1,
-                       Timeout:15,
-                       Retry:1 ,
-                       Delay:0 
-                    },
-
-                    protocol_default: 0,
-                    protocol: {
-                        0: 'ModbusRtu',
-                        1: 'ModbusTcp'
-                    },
-
-                    data_order_default: 0,
-                    data_order: {
-                        0: 'FFH4_FFH3_FFH2_FFH1',
-                        1: 'FFH3_FFH4_FFH1_FFH2',
-                        2: 'FFH1_FFH2_FFH3_FFH4',
-                        3: 'FFH2_FFH1_FFH4_FFH3'
-                    },
-
-                    double_order_default: 0,
-                    double_order: {
-                        0: '正序',
-                        1: '反序'
-                    },
-
-                    crc_order_default: 0,
-                    crc_order: {
-                        0: '高前低后',
-                        1: '低前高后'
-                    }
+                // 公共部分默认值 ; 
+                entity:{ 
+                    params:{ // 驱动部分默认值; 
+                        Address : 1 ,
+                        ProtocolType: 0 ,
+                        OffsetFormat : 0 ,
+                        RegisterLength :1 ,
+                        MaxPacketLength: 64 ,
+                        PacketOffset : 4 ,
+                        IntOrder: 0 ,
+                        Int64Order: 0 ,
+                        FloatOrder: 0 ,
+                        DoubleOrder:0 ,
+                        RegisterOrder : 0 ,
+                        CRCOrder: 0 
+                    }  
                 },
 
-                "1.0.0.1": {
-                    protocol_default: 0,
-                    protocol: {
-                        0: 'ModbusRtu',
-                        1: 'ModbusTcp'
-                    },
+                // device model 驱动 版本号 ;  // {k:"" , v: } ,
+ 
+                protocol: [
+                    {k:"ModbusRtu" , v:0},
+                    {k:"ModbusTcp" , v:1} 
+                ], 
 
-                    data_order_default: 0,
-                    data_order: {
-                        0: 'FFH4_FFH3_FFH2_FFH1',
-                        1: 'FFH3_FFH4_FFH1_FFH2',
-                        2: 'FFH1_FFH2_FFH3_FFH4',
-                        3: 'FFH2_FFH1_FFH4_FFH3'
-                    },
+                offsetformat :[
+                     {k:"10进制" , v: 0} ,
+                     {k:"Modbus格式" , v:1 } 
+                ],
 
-                    double_order_default: 0,
-                    double_order: {
-                        0: '正序',
-                        1: '反序'
-                    },
+                reglength :[
+                     {k:"1 字节" , v:0 } ,
+                     {k:"2 字节" , v:1 } ,
+                     {k:"4 字节" , v:2 } 
+                ] ,
 
-                    crc_order_default: 0,
-                    crc_order: {
-                        0: '高前低后',
-                        1: '低前高后'
+                order_a:  [
+                    {k:"FFH4_FFH3_FFH2_FFH1" , v:0},
+                    {k:"FFH3_FFH4_FFH1_FFH2" , v:1},
+                    {k:"FFH1_FFH2_FFH3_FFH4" , v:2},
+                    {k:"FFH2_FFH1_FFH4_FFH3" , v:3}
+                ],
+
+                order_b: [
+                    {k:"正序", v:0},
+                    {k:"逆序", v:1}
+                ],
+
+                order_c: [
+                    {k:"高前低后" , v:0},
+                    {k:"低前高后" , v:1}
+                ]
+                
+            },
+
+            "PLC_SIEMENS_PPI":{
+                entity:{
+                    params:{
+                        Address : 1,
+                        MaxPacketLength : 150 ,
+                        PacketOffset  : 10 
                     }
                 }
-
-
             }
+
+            
+
+
+
         },
 
         // tip 分类;  profPoint-tip ;
@@ -358,115 +365,215 @@ angular.module('app.sysconfig', [], function() {})
 
 
         "point": {
+            // 公共部分默认值; 
+            entity: {
+                Poll:  0 ,
+                IsPacket: false,
+                
+            },
+
+            // 点轮询 ; 
+            pointPoll:[
+                {k:"Normal" , v:0},
+                {k:"Slow", v:1},
+                {k:"Call", v:2},
+            ], 
+
             // devicemodel  驱动 Id ;   
-            "FCS_MODBUS": {
-                //device model 驱动 版本 ;  
-                "1.0.0.0": {
-                    // 公共部分默认值; 
-                    entity: {
-                        Poll:  0 ,
-                        IsPacket: false,
-                        params: {
-                            "Area": '0',
-                            "data_type": '0',
-                            "access_right": '0',
-                            "address": 1
-                        }
-                    }, 
-
-                    // 点轮询 ; 
-                    pointPoll:{
-                        "Normal":0 ,
-                        "Slow":1,
-                        "Call":2
-                    },
+            "FCS_MODBUS": { 
+                // 驱动相对应的默认参数; 
+                entity:{ 
+                    params: {
+                        "Area": 0,
+                        "Offset":0,
+                        "Type": 0, //  可选项遂区域在变; 
+                        // "TypeEx": 0,// 遂区域在变; 
+                        "Access": 0  // 遂区域变; 
+                    } 
+                },
+                // 级联属性 start ;  
+                // Area 变化是数据变化; 
+                
+                AreaCC : function( point  ){
+                    // k :area , v: access ;  
                     
-                    data_type: {
-                        0: "布尔",
-                        1: "有符号字节",
-                        2: "无符号字节",
-                        3: "16位有符号整数",
-                        4: "16位无符号整数",
-                        5: "32有符号整数",
-                        6: "32位无符号整数",
-                        7: "单精度浮点数",
-                        8: "双精度浮点数",
-                        9: "16位BCD码",
-                        10: "32位BCD码",
-                        11: "\\0 结束ASCII字符串",
-                        12: "固定长度ASCII字符串",
+                    //@if  append
+                        console.log("AreaCC"); 
+                    //@endif         
 
-                    },
-                    // 数据区 
-                    area: {
-                        0: "CO区",
-                        1: "DI区",
-                        2: "HR区",
-                        3: "AI区"
-                    },
-
-                    // 高低位 字节; 
-                    hlbyte: {
-                        0: "高字节",
-                        1: "低字节"
-                    },
-                    // 读写属性; 
-                    access_right: {
-                        0: "只读",
-                        1: "只写",
-                        2: "读写"
+                    var cc = {1:0 , 3:0 , 0:2 , 2:2};
+                    if( point.params.Area < 2){
+                        point.params.Type = 0 ; 
+                        point.params.TypeEx = undefined ;  
+                    }else{
+                        point.params.Type = 3 ; 
+                        point.params.TypeEx = undefined ; 
                     }
+                    point.params.Access = cc[ point.params.Area];  
+                } ,
+                // Type 变化时 数据变化; 
+                TypeCC : function(point){
+                    //@if  append
+                        console.log("TypeCC"); 
+                    //@endif   
+                    if( point.params.Area  > 1 ){
+                        //  // k: 数据类型 , v: typeEx 值;   
+                        var cc = { 0:0 , 1:0 , 2:0 , 13:1 , 14:1}; 
+
+                        point.params.TypeEx = cc[ point.params.Type ];
+                    }
+
+                } , 
+
+                // 级联属性 end ;
+                type:[
+                    {k:"Bool" , v:0 },
+                    {k:"Char" , v:1 },
+                    {k:"Byte" , v:2 },
+                    {k:"Short" , v:3 },
+                    {k:"Word" , v: 4},
+                    {k:"Int" , v: 5},
+                    {k:"DWord" , v:6 },
+                    {k:"Float" , v: 7},
+                    {k:"BCD16" , v: 8},
+                    {k:"BCD32" , v: 9},
+                    {k:"Int64" , v: 10},
+                    {k:"UInt64" , v:11 },
+                    {k:"Double" , v:12 },
+                    {k:"String" , v:13 },
+                    {k:"Buffer" , v:14 },
+                ], 
+                // 数据区 
+                area: [
+                    {k:"CO区" , v:0 },
+                    {k:"DI区" , v:1 },
+                    {k:"HR区" , v:2 },
+                    {k:"AI区" , v:3 },
+                ] ,
+
+                // 高低位 字节; 
+                hlbyte: [
+                    {k:"HightByte" , v:0},
+                    {k:"LowByte" , v:1 }
+                ],
+                // 读写属性; 
+                access: [
+                    {k:"Read" ,v:0 },
+                    {k:"Write" ,v:1 },
+                    {k:"ReadWrite" ,v:2 }
+                ] 
+            },
+
+            "PLC_SIEMENS_PPI":{
+                // 驱动默认参数; 
+                entity:{
+                    params:{
+                        Area:0,
+                        Offset: 0,
+                        Type: 0 ,
+                        TypeEx : 0 
+                    }
+                } ,
+
+                areaCC : function ( scope , point  , bool ){ 
+                    var  t   , 
+                         tt = this.type ,
+
+                        area = point.params.Area ;
+
+                    function cc ( data){
+                        if(bool){
+                            scope._dataType = data ; 
+                        }else{
+                            scope.$parent._dataType = data ; 
+                        } 
+                    } ;
+
+
+                    if(  0<= area <= 3 ){ 
+                        t = angular.copy( this.type) ;
+                        t.splice(9,1);
+                        cc( t ) ;
+                        point.params.Type = 0 ;
+                        
+                    }
+                    if( area == 4 ){
+                        cc(tt);
+                        point.params.Type = 0 ;
+                        // point.params.typeEx = 1 ;
+                        
+                    }
+
+                    if( area == 5 || area == 9){
+                        cc( [ tt[6] , tt[7] , tt[8] ] ) ; 
+                        point.params.Type = 6 ; 
+                         
+                    }
+
+                    if( area == 6 || area == 8 ){
+                        point.params.Type = undefined ; 
+                        point.params.typeEx = undefined ; 
+ 
+                    }
+
+                    if (area ==7 || area == 10 || area == 11) {
+                        cc (  [ tt[3] , tt[4] , tt[5] ] ) ; 
+                        point.params.Type = 3 ; 
+                        
+                    }; 
+
+                   // scope.$digest();
+                     //@if  append 
+                        console.log("areaCC", arguments )
+                    //@endif 
+
                 },
 
-                "1.0.0.1": {
-                    entity: {
-                        params: {
-                            "area": '0',
-                            "data_type": '0',
-                            "access_right": '0',
-                            "address": 1
-                        }
-                    },
-
-                    data_type: {
-                        0: "布尔",
-                        1: "有符号字节",
-                        2: "无符号字节",
-                        3: "16位有符号整数",
-                        4: "16位无符号整数",
-                        5: "32有符号整数",
-                        6: "32位无符号整数",
-                        7: "单精度浮点数",
-                        8: "双精度浮点数",
-                        9: "16位BCD码",
-                        10: "32位BCD码",
-                        11: "\\0 结束ASCII字符串",
-                        12: "固定长度ASCII字符串"
-                    },
-                    // 数据区 
-                    area: {
-                        0: "CO区",
-                        1: "DI区",
-                        2: "HR区",
-                        3: "AI区"
-                    },
-
-                    // 高低位 字节; 
-                    hlbyte: {
-                        0: "高字节",
-                        1: "低字节"
-                    },
-                    // 读写属性; 
-                    access_right: {
-                        0: "只读",
-                        1: "只写",
-                        2: "读写"
+                typeCC : function ( point ){
+                    var area = point.params.Area,
+                        type = point.params.Type ; 
+                    if( type == 0 ){
+                        point.params.TypeEx = 0;
+                        return ;
+                    }    
+                    if( type == 9){
+                        point.params.TypeEx =1 ;
+                        return ;
                     }
-                },
+                    point.params.TypeEx = undefined ;
+                } ,
 
 
-
+                area :[
+                    {k:"I 离散输入" , v:0},
+                    {k:"Q 离散输出" , v:1},
+                    {k:"M 内部内存位" , v:2},
+                    {k:"SM 特殊内存位" , v:3},
+                    {k:"V 内存变量" , v:4},
+                    {k:"T 定时器当前值" , v:5},
+                    {k:"T 定时器位" , v:6},
+                    {k:"C 计数器当前值" , v:7},
+                    {k:"C 计数器位" , v:8},
+                    {k:"HC 高速计数器当前值" , v:9},
+                    {k:"AI 模拟输入" , v:10},
+                    {k:"AO 模拟输出" , v:11}
+                ],
+                   
+                type:[
+                    {k:"BIT(位 0~7)" , v:0},
+                    {k:"BY (8位无符号整型,0~255)" , v:1},
+                    {k:"CH (8位有符号整型,-128~127)" , v:2},
+                    {k:"US (16位无符号整型, 0~65535)" , v:3},
+                    {k:"SS (16位有符号整型, -32768~32767)" , v:4},
+                    {k:"SB (16位 BCD 整型, 0~9999)" , v:5},
+                    {k:"LG (32位长整型, -2147483648~2147483647)" , v:6},
+                    {k:"LB (32位 BCD 格式整型 , 0~99999999)" , v:7},
+                    {k:"FL (32位IEEE格式单精度浮点型)" , v:8},
+                    {k:"STR(ASCII 字符串型,1~127个字符)" , v:9}
+                ]
             }
+ 
+
         },
 
         "tag": {

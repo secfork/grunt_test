@@ -1,38 +1,56 @@
 <div class="panel-body  bg-light   ">
-	<div class="col-md-4  m-b ">
- 		<div class="b-b m-b"> 系统 : {{system.name}}</div>
- 		<div class="b-b m-b">系统描述 : {{system.desc}}</div>
- 		<div class="b-b m-b">区域: {{system.group_id}} </div>
- 		<div class="b-b m-b">创建时间: {{system.create_time | date:"yyyy-MM-dd HH:mm Z" }} </div>
-
-
- 		<div class="b-b m-b"> 系统类型 : {{ $sys.sysModelMode.values[systemModel.mode]  }} </div>
-
- 		<div class="b-b m-b"> 通信类型 : {{ systemModel.comm_type  }}</div>
-
- 		<div class="b-b m-b"> 网络类型 : {{ system.network.daserver.network.type}} </div>
-
- 		<div class="b-b m-b"> 系统模型 : {{ systemModel.name}}</div>
-
-
- 		<div class="b-b m-b"> 位置 : {{ system.longitude  +' , '+ system.latitude}}</div>
- 		<div class="b-b m-b"> 活跃状态 : {{ system.state?'激活':'未激活'  }} </div>
- 		<div class="b-b m-b"> 在线状态: {{ system.}}</div>
- 		<div class="b-b m-b"> 数据最后更新时间 :
- 			 {{ system.last_modify_time | date:"yyyy-MM-dd HH:mm Z"}}</div>
- 		<div class="b-b m-b">
- 		 数据最后同步时间 : {{ system.last_sync_time | date:"yyyy-MM-dd HH:mm Z"}}</div>
- 		<div class="b-b m-b"> 最近报警:</div>
-
-
-
-	</div>
-
-	<div class="col-md-5  b-a m-l "  >
-		<img src="../../img/generator_left_0.png">
-	</div>
-
-
-
-
+    <div class="col-md-5  m-b ">
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 系统Id </div>
+            <div class="col  r"> {{system.uuid }} </div>
+        </div>
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 系统名称 </div>
+            <div class="col "> {{system.name }} </div>
+        </div>
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 活跃状态 </div>
+            <div class="col "> {{ system.state == 1 ? "激活":"未激活" }} </div>
+        </div>
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 在线状态 </div>
+            <div class="col "> {{ }} </div>
+        </div>
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 时区 </div>
+            <div class="col "> {{ }} </div>
+        </div>
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 系统类型 </div>
+            <div class="col "> {{$sys.sysModelMode.values[systemModel.mode] }} </div>
+        </div>
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 通讯类型 </div>
+            <div class="col "> {{ systemModel.comm_type == 1 ? 'DaServer':'GateWay' }} </div>
+        </div>
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 数据最后更新时间 </div>
+            <div class="col "> {{ system.last_modify_time | date:"yyyy-MM-dd HH:mm Z"}} </div>
+        </div>
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 位置 </div>
+            <div class="col "> {{ system.longitude +' , '+ system.latitude}} </div>
+        </div>
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 最后活跃报警 </div>
+            <div class="col "> {{ system.longitude +' , '+ system.latitude}} </div>
+        </div>
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 系统描述 </div>
+            <div class="col "> {{system.desc }} </div>
+        </div>
+    </div>
+    <div class="col-md-5  b-a m-l ">
+        <img src="img/generator_left_0.png">
+    </div>
 </div>
+<!--@if append-->
+system = {{ system }}
+<hr/> systemModel = {{systemModel}}
+<hr/>
+<!--@endif -->

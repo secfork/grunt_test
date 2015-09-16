@@ -80,6 +80,10 @@ angular.module('app.show.system', [])
 })
 
 .controller('show_system_basic' , function( $scope , $sys , $show){
+	// 获取是否在线; 
+	
+
+
 
 })
 

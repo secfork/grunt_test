@@ -92,7 +92,7 @@ angular.module('app.model.device', [])
                         //$scope.drivers =
                         $source.$driver.get( {type:"device"} ,function(resp) {
                             $scope.drivers =  resp.ret ;
-                            $scope.d = $scope.drivers[0];
+                            $scope.T.driver_id = $scope.drivers[0].driver_id;
                         });
                     }
 
@@ -109,10 +109,7 @@ angular.module('app.model.device', [])
                         $scope.validForm();
 
                         if (!t) {
-                            // 新建;
-                            $scope.T.driver_id = $scope.d.driver_id;
-                            $scope.T.driver_ver = $scope.d.version;
-                            console._log($scope.T);
+                            // 新建;   
                             $source.$deviceModel.save($scope.T, function(resp) {
 
                                 $scope.T.uuid = resp.ret;
@@ -265,7 +262,7 @@ angular.module('app.model.device', [])
         $scope.delTemp = function(index, obj) {
 
             var msg = {
-                title: "删除模版!" + obj.name + " ?"
+                title: "删除模版: " + obj.name + " ?"
             };
             if (obj.ref)
                 msg.warn = "该模版被" + obj.ref + "个设备使用! 不可删除!";
@@ -315,8 +312,17 @@ angular.module('app.model.device', [])
                         $scope.point = angular.copy(p);
                         $scope.point.params = angular.fromJson($scope.point.params);
                     } else {
-                        var dm = scope.dm;
-                        $scope.point = angular.copy($sys.point[dm.driver_id][dm.driver_ver].entity)
+                        var dm = scope.dm , // repeat 中的 属性;
+                            driver = $sys.point[ dm.driver_id];
+
+                        var basic = $sys.point.entity ; 
+                        var  par = driver.entity ;     
+
+                        $scope.point =  angular.extend( {} ,
+                                                         basic, 
+                                                         par
+                                                    );
+
                     };
 
                     console._log(p, $scope.point);
@@ -331,18 +337,22 @@ angular.module('app.model.device', [])
                         if (p) {
                             // 编辑;
                             $source.$dmPoint.put($scope.point, function(resp) {
-                                $scope.points[index] = angular.copy($scope.point);
-                                $scope.cancel();
+                                if(!resp.err){
+                                    $scope.points[index] = angular.copy($scope.point);
+                                    $scope.cancel();
+                                }
                             });
                         } else {
                             // 创建
                             $source.$dmPoint.save($scope.point, function(resp) {
-                                $scope.point.id = resp.ret;
-                                $scope.points.push($scope.point);
-                                $scope.cancel();
+                                if( resp.ret){
+                                    $scope.point.id = resp.ret;
+                                    $scope.points.push($scope.point);
+                                    $scope.cancel(); 
+                                }
                             });
                         }
-
+                       // $scope.cancel(); 
                     };
                 }
             });

@@ -8,10 +8,15 @@
 
 </div>
 
-<div class="modal-body  m-t-n "  ng-init="stepx={percent:33, step:1}"    >
-    <progressbar value="stepx.percent" class="progress-xs  m-b-xs " type="success"></progressbar>
+<div class="modal-body  m-t-n "  ng-init="stepx={  step:0}"    >
 
-    <form name="step1"  ng-show="stepx.step == 1"
+
+    <progressbar value="(stepx.step+1)*34" class="progress-xs  m-b-xs " type="success">
+        
+    </progressbar>
+
+    <form name="step0"  
+        ng-show="stepx.step == 0"
         class=" form-validation form-horizontal "
         ng-init="_config = $sys.trigger "   >
         <!--  <input  name="xxx" ng-model="xxx1" required >
@@ -51,8 +56,8 @@
 
 
 
-    <form   name='step2'
-            ng-show="stepx.step == 2"
+    <form   name='step1'
+            ng-show="stepx.step == 1"
             ng-init="_config = $sys.trigger "
             class=" form-validation   "    >
 
@@ -92,7 +97,7 @@
 
                             <td>
                                 <!--  不能用 ng-change ,  只能用 when-change ;
-tl-default="_config.fn_default"
+                                tl-default="_config.fn_default"
                                   -->
                                 <select ng-options = " v as k for (k,v) in _config.fn"
                                         ng-model = " l.fn "
@@ -203,20 +208,11 @@ tl-default="_config.fn_default"
              </table>
     </form>
 
+ 
 
 
-
-
-
-
-
-
-
-
-
-
-    <form  name='step3'
-           ng-show="stepx.step == 3"
+    <form  name='step2'
+           ng-show="stepx.step == 2"
            ng-init="_config = $sys.trigger "
            class=" form-validation form-horizontal" >
 
@@ -238,15 +234,15 @@ tl-default="_config.fn_default"
             ></select>
 
             <select tl-wrap
-                ng-options = " k as v for (k,v) in $sys.trigger.class_id "
-                ng-model="T.params.class_id"
-                tl-default="_config.class_id_default"
-                label="类别"
-            ></select>
+                    ng-options = " k as v for (k,v) in $sys.trigger.class_id "
+                    ng-model="T.params.class_id"
+                    tl-default="_config.class_id_default"
+                    label="类别"
+                ></select>
 
             <textarea  tl-wrap  ng-model="T.params.desc" ng-max=50
-                   ng-maxlength='50'
-                   label="报警描述" ></textarea>
+                       ng-maxlength='50'
+                       label="报警描述" ></textarea>
         </div>
 
         <div  ng-if="T.action == _config.action_event">
@@ -254,12 +250,7 @@ tl-default="_config.fn_default"
         </div>
         <div  ng-if="T.action == _config.action_task">
                 Task Task Task Task Task  Input  .....
-        </div>
-
-
-
-
-
+        </div> 
 
     </form>
 
@@ -275,11 +266,23 @@ tl-default="_config.fn_default"
 
 <div class="modal-footer  text-center">
 
+
+    <!-- 
+    <div ng-repeat= " s in SS "  ng-show = " $index == stepx.step"  >
+       
+        <button class="btn btn-primary btn-sm   w-xs"
+             ng-repeat = " b in s">{{b.text}}  
+        </button>
+         
+    </div>
+    -->
+
+
     <!--  step 1 -->
-    <div   ng-show="stepx.step == 1" >
+    <div   ng-show="stepx.step == 0" >
           <button type="submit"
                   class="btn btn-default btn-sm btn-primary w-xs"
-                  ng-click="validForm('step1') ;stepx.step = 2 ;  stepx.percent=66">下一步</button>
+                  ng-click="validForm('step0') ;stepx.step = 1 ; ">下一步</button>
 
           <button type="submit"
               class="btn btn-default btn-sm btn-primary w-xs"
@@ -289,16 +292,16 @@ tl-default="_config.fn_default"
 
     <!--  step 2 -->
 
-    <div  ng-show="stepx.step == 2" >
-                <button   ng-disabled="step1.$invalid"
+    <div  ng-show="stepx.step == 1" >
+                <button    
                         class="btn btn-primary btn-sm   w-xs"
-                        ng-click="stepx.step = 1 ;  stepx.percent=33"
+                        ng-click="stepx.step = 0 ;   "
                 >上一步</button>
 
                 <button   ng-disabled="step1.$invalid"
                         class="btn btn-primary btn-sm   w-xs"
                         ng-disabled= "form.$invalid"
-                        ng-click=" validForm('step2') ; stepx.step = 3 ;  stepx.percent=100 ; "
+                        ng-click=" validForm('step1') ; stepx.step = 2   ; "
                 >下一步</button>
                 <button
                       class="btn btn-default btn-sm btn-primary w-xs"
@@ -307,25 +310,23 @@ tl-default="_config.fn_default"
     </div>
 
     <!--  step 3 -->
-    <div  ng-show="stepx.step == 3"  >
-                <button   ng-disabled="step1.$invalid"
+    <div  ng-show="stepx.step == 2"  >
+                <button   
                         class="btn btn-primary btn-sm   w-xs"
-                        ng-click="stepx.step = 2 ;  stepx.percent=66"
+                        ng-click="stepx.step = 1 ;   "
                 >上一步</button>
 
                 <button ng-disabled="step1.$invalid"
                         class="btn btn-primary btn-sm   w-xs"
-                        ng-click=" validForm('step3');done();"
+                        ng-click=" validForm('step2');done();"
                         ng-show="isAdd"
                 >创建</button>
 
                 <button ng-disabled="step1.$invalid"
                         ng-show="!isAdd"
                         class="btn btn-primary btn-sm   w-xs"
-                        ng-click=" validForm('step3');done();"
-                >更新</button>
-
-
+                        ng-click=" validForm('step2');done();"
+                >更新</button> 
 
                  <button
                       class="btn btn-default btn-sm btn-primary w-xs"
@@ -334,10 +335,10 @@ tl-default="_config.fn_default"
 
 </div>
 
-
-<div ng-if="$debug">
-    T  = {{T}} <br>
-</div>
+<!--@if append -->
+ T = {{T}}
+<!--@endif -->
+ 
 
 
 
