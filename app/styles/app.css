@@ -2435,6 +2435,11 @@ fieldset[disabled] .i-checks input + i:before {
 .form-validation .form-control.ng-dirty.ng-invalid {
   border-color: #f05050;
 }
+.form-validation .ng-dirty.ng-invalid {
+  border-color: #f05050;
+}
+
+
 
 /*
 .form-validation .form-control.ng-valid {
@@ -4062,7 +4067,7 @@ a.text-black:hover {
   width: 90px;
 }
 .w-xsl {
-  width: 120px;
+  width: 130px;
 }
 .w-sm {
   width: 152px;

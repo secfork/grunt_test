@@ -23,7 +23,7 @@
             >
 
             <input  tl-wrap
-                ng-model="D.Cycle"
+                ng-model="D.dev_cycle"
                 type="number"
                 label="采样周期" 
             
@@ -34,7 +34,7 @@
             >
 
          <select  tl-wrap 
-                ng-model="D.CycleUnit"
+                ng-model="D.cycle_unit"
                 label="采样周期单位"  
                 ng-options = "o.v as o.k for o in $sys.device.timeUnit "
 
@@ -43,7 +43,7 @@
          </select>   
 
         <input  tl-wrap
-                ng-model="D.SlowCycle"
+                ng-model="D.slow_cycle"
                 type="number"
                 label="慢速周期" 
                 min='1'
@@ -53,7 +53,7 @@
             >
 
          <select  tl-wrap 
-                ng-model="D.SlowCycleUnit"
+                ng-model="D.slow_cycle_unit"
                 label="慢速周期单位"  
                 ng-options = "o.v as o.k for o in $sys.device.timeUnit "
 
@@ -62,7 +62,7 @@
          </select>   
 
          <input  tl-wrap
-                ng-model = "D.Timeout"
+                ng-model = "D.dev_timeout"
                 type="number"
                 label="连接超时时间(秒)"
                 tl-default="15"
@@ -72,7 +72,7 @@
             >
 
         <input  tl-wrap
-                ng-model= "D.Retry"
+                ng-model= "D.dev_retry"
                 type = "number"
                 label = "连接重试次数"
                 tl-default="1"
@@ -83,7 +83,7 @@
 
 
         <input  tl-wrap
-                ng-model= "D.Delay"
+                ng-model= "D.delay"
                 type = "number"
                 label = "命令延时(毫秒)"
                 tl-default="1"
@@ -102,6 +102,8 @@
             ng-model="D.device_model"
             ng-options="  k  as v.name for (k,v) in devModelKV"
             ng-change = "changeModel()"
+            ng-disabled =" !isAdd"
+
 
             label="设备模型"
         >

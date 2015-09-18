@@ -4,6 +4,13 @@
 <head>
     <meta charset="utf-8"  >
     <title></title>
+
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+
+    
     <meta name="description" content="thinglinx 工业云 云 工控 力控 力控元通 三维力控 ">
 
     <meta name="viewport" content="width=device-width , initial-scale=1, maximum-scale=1">
@@ -43,7 +50,7 @@
     <script src="lib/angular-messages.min.js"></script>
 -->
 
-    <!--build:js({.tmp,app})  scripts/vendor-lib.js -->
+    <!--build:js({.tmp,app})  scripts/vendor.js -->
 
     <script src="lib/jquery.min.js"></script>
     <script src="lib/angular.min.1.3.js"></script>
@@ -65,6 +72,8 @@
 
 
     <!-- build:js({.tmp,app}) scripts/thing.js -->
+    
+
     <script src="scripts/controllers/account.js"></script>
     <script src="scripts/controllers/basecontroller.js"></script>
     <script src="scripts/controllers/model.device.js"></script>
@@ -80,15 +89,14 @@
     <script src="scripts/service/services.js"></script>
     <script src="scripts/service/sysconfig.js"></script>
 
+    
+    <script src="thinglinx.js"></script>  
+
     <script src="templateCache.js"></script> 
 
     <!-- endbuild -->
+ 
 
-
-    <!--  该文件 build时 移除 , 换成 thing_dist.js  文件 ; -->
-    <!-- @if  append -->
-    <script src="thinglinx.js"></script>
-    <!-- @endif -->
  
 
 

@@ -98,10 +98,7 @@ angular.module("app.model.system", [])
 
 .controller('sysmodelProp', ['$scope', '$source', '$q',
     function($scope, $source, $q) {
-
-        //@if debug 
-            console.log(" sysmodelProp controller ");
-        //@endif 
+ 
  
         var d = $scope.$$cache[0] 
         try {
@@ -114,7 +111,9 @@ angular.module("app.model.system", [])
 
 
         // 属性 tabs 配置;  
-        $scope.tabs = [] ; 
+        $scope.tabs = [{title:"tab.t16" , icon:"fa fa-info" , 
+                        state:"app.model.sysmodel_p.basic"}
+                    ] ; 
         $scope.tabs.push(  { title:"tab.t12" , icon:"fa fa-wrench" ,
                              state:"app.model.sysmodel_p.sysprofile" 
                             });
@@ -165,6 +164,10 @@ angular.module("app.model.system", [])
     }
 ])
 
+.controller("sysmodel_basic" , function( $scope , $source){
+
+    
+})
  
 .controller("sysmodel_device", ['$scope', '$sessionStorage', '$source', '$modal',"$sys",
     function($scope, $sessionStorage, $source, $modal , $sys) {
@@ -282,14 +285,18 @@ angular.module("app.model.system", [])
 
                         if ($scope.isAdd) {
                             $source.$sysDevice.save(d, function(resp) {
-                                d.id = resp.ret;
-                                $scope.sysdevices.push(d);
-                                $scope.cancel();
+                                if( resp.ret){
+                                    d.id = resp.ret;
+                                    $scope.sysdevices.push(d);
+                                    $scope.cancel();
+                                }
                             })
                         } else {
-                            $source.$sysDevice.put(d, function() {
-                                devices[index] = d;
-                                $scope.cancel();
+                            $source.$sysDevice.put(d, function( resp ) {
+                                if(!resp.err){
+                                    devices[index] = d;
+                                    $scope.cancel();
+                                }
                             })
                         };
                     };

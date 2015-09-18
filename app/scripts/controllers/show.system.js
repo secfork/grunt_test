@@ -1,24 +1,90 @@
 angular.module('app.show.system', [])
 
-.controller("show_alarm" , function( $scope , $source ,$sys, $q ){
+.controller("show_alarm" , function( $scope , $source,$show ,$sys, $q  , $filter ){
 
 
 	$scope.openCalendar = function(e, exp) {
 		e.preventDefault();
-		e.stopPropagation();
-
+		e.stopPropagation(); 
 		this.$eval(exp);
 	};
 
+	// 先加载 regions ; 
 	$source.$region.query( { currentPage:1} , function( resp){
-		$scope.projs = resp.ret ;
+		$scope.regions = resp.data ;
 	})
 
-	$scope.op = {} ;
-	$scope.od = { class:0 , severity :'0' ,
+	// 按需加载  system ; 
+	$scope.loadSys = function(){ 
+		if(!$scope.op.region) {
+			$scope.systems = [];
+			$scope.od.system = undefined ; 
+			return ; 
+		} ;
+		$source.$system.query( {currentPage:1 , 
+								options: "of_proj",
+			  					proj_id:  $scope.op.region} , function( resp ){
+			$scope.systems = resp.data ; 
+
+		})
+	}
+
+ 	$scope.op = { active: false , region: undefined } ;
+	$scope.od = { class_id:0 , severity :'0' ,
 	    end: new Date(),
 		start: new Date( new Date() - 86400000)
 	} ;
+
+
+
+
+// // 查询全部报警; 
+// 	//$scope.liveAlarm();
+// 	$scope.queryAlarm = function() {
+// 		var d = {},
+// 			op = $scope.op,
+// 			d1 = op.start.getTime(),
+// 			d2 = op.end.getTime();
+
+// 		d.uuid = $scope.system.uuid,
+// 			d.start = d1 < d2 ? d1 : d2,
+// 			d.end = d1 < d2 ? d2 : d1;
+
+// 		console._log(d);
+// 		$show.alarm.save(d, null, function(resp) {
+// 			$scope.alarms = resp.ret;
+// 		})
+// 	}
+ 
+
+	$scope.queryAlarm = function(){
+		$scope.validForm();
+		var  od = angular.copy( $scope.od ), 
+			 d1 = od.start.getTime(),
+			 d2 = od.end.getTime()  ; 
+			
+			od.start = d1 < d2 ? d1 : d2 ;
+			od.end = d1 < d2 ? d2 : d1;
+   
+		var promise ; 
+		// 活跃报警; 
+ 		if( $scope.op.active){
+ 			$show.alarm.get(od, function( resp ){
+ 				$scope.alarms = resp.ret ; 
+ 			});
+ 		}else{	 // 全部报警; 
+ 			$show.alarm.save( od, undefined ,function (resp ){
+ 				 $scope.alarms = resp.ret ; 
+ 			});
+ 		}
+
+	
+
+
+
+	}
+
+
 
 
 })
@@ -155,7 +221,7 @@ angular.module('app.show.system', [])
 		//console.log(arguments);  // String system_id , String name ,String value
 		if(!t) return ;
 		var d = {	system_id : $scope.system.uuid ,
-					tagname: t ,//.name ,
+					tagname: t.name ,
 					value: v
 				}
 		$show.liveWrite.save( d , function( resp){
@@ -247,6 +313,7 @@ angular.module('app.show.system', [])
 
 	})
 
+	// 查询活跃 报警;  未确认的; 
 	function getAlarm (){
 		$show.alarm.get({ uuid: $scope.system.uuid }, function(resp) {
 			$scope.alarms = resp.ret;
@@ -261,7 +328,7 @@ angular.module('app.show.system', [])
 		}, $scope.op.a_int );
 	}
 
-
+	// 查询全部报警; 
 	//$scope.liveAlarm();
 	$scope.queryAlarm = function() {
 		var d = {},

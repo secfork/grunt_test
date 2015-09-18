@@ -269,13 +269,13 @@ angular.module('app.sysconfig', [], function() {})
 
         "device": {
             entity:{
-                Cycle:2 , 
-                CycleUnit:1,
-                SlowCycle:59,
-                SlowCycleUnit:1,
-                Timeout:15,
-                Retry:1 ,
-                Delay:0 ,
+                dev_cycle:2 , 
+                cycle_unit:1,
+                slow_cycle:59,
+                slow_cycle_unit:1,
+                dev_timeout:15,
+                dev_retry:1 ,
+                delay:0 ,
             },
 
              // 时间单位; 
@@ -290,18 +290,18 @@ angular.module('app.sysconfig', [], function() {})
                 // 公共部分默认值 ; 
                 entity:{ 
                     params:{ // 驱动部分默认值; 
-                        Address : 1 ,
-                        ProtocolType: 0 ,
-                        OffsetFormat : 0 ,
-                        RegisterLength :1 ,
-                        MaxPacketLength: 64 ,
-                        PacketOffset : 4 ,
-                        IntOrder: 0 ,
-                        Int64Order: 0 ,
-                        FloatOrder: 0 ,
-                        DoubleOrder:0 ,
-                        RegisterOrder : 0 ,
-                        CRCOrder: 0 
+                        address : 1 ,
+                        protocol_type: 0 ,
+                        offset_format : 0 ,
+                        register_length :1 ,
+                        max_packet_length: 64 ,
+                        packet_offset : 4 ,
+                        int_order: 0 ,
+                        int64_order: 0 ,
+                        float_order: 0 ,
+                        double_order:0 ,
+                        register_order : 0 ,
+                        crc_order: 0 
                     }  
                 },
 
@@ -345,9 +345,9 @@ angular.module('app.sysconfig', [], function() {})
             "PLC_SIEMENS_PPI":{
                 entity:{
                     params:{
-                        Address : 1,
-                        MaxPacketLength : 150 ,
-                        PacketOffset  : 10 
+                        address : 1,
+                        max_packet_length : 150 ,
+                        packet_offset  : 10 
                     }
                 }
             }
@@ -367,8 +367,8 @@ angular.module('app.sysconfig', [], function() {})
         "point": {
             // 公共部分默认值; 
             entity: {
-                Poll:  0 ,
-                IsPacket: false,
+                poll:  0 ,
+                is_packet: 0,
                 
             },
 
@@ -378,23 +378,27 @@ angular.module('app.sysconfig', [], function() {})
                 {k:"Slow", v:1},
                 {k:"Call", v:2},
             ], 
+            packet: [
+                {k:"False", v:0},
+                {k:"True", v:1}
+            ],
 
             // devicemodel  驱动 Id ;   
             "FCS_MODBUS": { 
                 // 驱动相对应的默认参数; 
                 entity:{ 
                     params: {
-                        "Area": 0,
-                        "Offset":0,
-                        "Type": 0, //  可选项遂区域在变; 
+                        "area": 0,
+                        "offset":0,
+                        "type": 0, //  可选项遂区域在变; 
                         // "TypeEx": 0,// 遂区域在变; 
-                        "Access": 0  // 遂区域变; 
+                        "access": 0  // 遂区域变; 
                     } 
                 },
                 // 级联属性 start ;  
                 // Area 变化是数据变化; 
-                
-                AreaCC : function( point  ){
+                 
+                AreaCC : function( point   ){
                     // k :area , v: access ;  
                     
                     //@if  append
@@ -402,25 +406,25 @@ angular.module('app.sysconfig', [], function() {})
                     //@endif         
 
                     var cc = {1:0 , 3:0 , 0:2 , 2:2};
-                    if( point.params.Area < 2){
-                        point.params.Type = 0 ; 
-                        point.params.TypeEx = undefined ;  
+                    if( point.params.area < 2){
+                        point.params.type = 0 ; 
+                        point.params.type_ex = undefined ;  
                     }else{
-                        point.params.Type = 3 ; 
-                        point.params.TypeEx = undefined ; 
+                        point.params.type = 3 ; 
+                        point.params.type_ex = undefined ; 
                     }
-                    point.params.Access = cc[ point.params.Area];  
+                    point.params.access = cc[ point.params.area];  
                 } ,
                 // Type 变化时 数据变化; 
                 TypeCC : function(point){
                     //@if  append
                         console.log("TypeCC"); 
                     //@endif   
-                    if( point.params.Area  > 1 ){
+                    if( point.params.area  > 1 ){
                         //  // k: 数据类型 , v: typeEx 值;   
                         var cc = { 0:0 , 1:0 , 2:0 , 13:1 , 14:1}; 
 
-                        point.params.TypeEx = cc[ point.params.Type ];
+                        point.params.type_ex = cc[ point.params.type ];
                     }
 
                 } , 
@@ -468,18 +472,19 @@ angular.module('app.sysconfig', [], function() {})
                 // 驱动默认参数; 
                 entity:{
                     params:{
-                        Area:0,
-                        Offset: 0,
-                        Type: 0 ,
-                        TypeEx : 0 
+                        area:0,
+                        offset: 0,
+                        type: 0 ,
+                        type_ex : 0 
                     }
                 } ,
 
+                // bool 是否在初始化;     
                 areaCC : function ( scope , point  , bool ){ 
                     var  t   , 
                          tt = this.type ,
 
-                        area = point.params.Area ;
+                        area = point.params.area ;
 
                     function cc ( data){
                         if(bool){
@@ -494,31 +499,33 @@ angular.module('app.sysconfig', [], function() {})
                         t = angular.copy( this.type) ;
                         t.splice(9,1);
                         cc( t ) ;
-                        point.params.Type = 0 ;
+                        !bool && ( point.params.type = 0 ) ;
                         
                     }
                     if( area == 4 ){
                         cc(tt);
-                        point.params.Type = 0 ;
+                       !bool && ( point.params.type = 0 );
                         // point.params.typeEx = 1 ;
                         
                     }
 
                     if( area == 5 || area == 9){
                         cc( [ tt[6] , tt[7] , tt[8] ] ) ; 
-                        point.params.Type = 6 ; 
+                        !bool && (  point.params.type = 6  ); 
                          
                     }
 
                     if( area == 6 || area == 8 ){
-                        point.params.Type = undefined ; 
-                        point.params.typeEx = undefined ; 
+                        !bool && ( 
+                            point.params.type = undefined , 
+                            point.params.type_ex = undefined 
+                        )
  
                     }
 
                     if (area ==7 || area == 10 || area == 11) {
                         cc (  [ tt[3] , tt[4] , tt[5] ] ) ; 
-                        point.params.Type = 3 ; 
+                        !bool && ( point.params.type = 3 ) ; 
                         
                     }; 
 
@@ -530,17 +537,17 @@ angular.module('app.sysconfig', [], function() {})
                 },
 
                 typeCC : function ( point ){
-                    var area = point.params.Area,
-                        type = point.params.Type ; 
+                    var area = point.params.area,
+                        type = point.params.type ; 
                     if( type == 0 ){
-                        point.params.TypeEx = 0;
+                        point.params.type_ex = 0;
                         return ;
                     }    
                     if( type == 9){
-                        point.params.TypeEx =1 ;
+                        point.params.type_ex =1 ;
                         return ;
                     }
-                    point.params.TypeEx = undefined ;
+                    point.params.type_ex = undefined ;
                 } ,
 
 

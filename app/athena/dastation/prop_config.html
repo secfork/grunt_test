@@ -45,7 +45,8 @@
     <!--  <div class="panel-body table-responsive no-padder">
     托管模式: ==>  daserver 类型;
 -->
-    <div   class=" table-responsive m-t" ng-if=" sysmodel.mode ==1 && sysmodel.comm_type ==2   ">
+    <div   class=" table-responsive m-t"
+          ng-if=" sysmodel.mode ==1 && sysmodel.comm_type ==2   ">
 
         <h5 class="m-l"> 网关配置</h5>
         <ng-include  src="  'athena/dastation/_prop_gateway_gateway.html'  "></ng-include>
@@ -55,7 +56,8 @@
 <!--
     <div class="line b-b " ng-if="sysmodel.comm_type ==2   "></div>
  -->
-    <div class=" table-responsive  m-t " ng-if=" sysmodel.devices.length && sysmodel.mode ==1 && sysmodel.comm_type ==2 ">
+    <div class=" table-responsive  m-t "
+        ng-if=" sysmodel.devices.length && sysmodel.mode ==1 && sysmodel.comm_type ==2 ">
         <h5 class="m-l" > 设备网络参数   </h5>
         <ng-include    src="  'athena/dastation/_prop_gateway_device.html'  "></ng-include>
     </div>

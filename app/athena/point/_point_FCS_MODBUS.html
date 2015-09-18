@@ -25,7 +25,7 @@ mgModel 的权重为100 ; 该指令
 
 <select tl-wrap
         label="数据区"
-        ng-model="point.params.Area"
+        ng-model="point.params.area"
 
         ng-change ="   _config.AreaCC( point ) "
         ng-options="  o.v as o.k for  o in  _config.area  "
@@ -42,7 +42,7 @@ mgModel 的权重为100 ; 该指令
         type="Number" 
         max="65535"
         min="0" 
-        ng-model= "point.params.Offset"    ></input>
+        ng-model= "point.params.offset"    ></input>
 
 
 
@@ -54,11 +54,11 @@ mgModel 的权重为100 ; 该指令
   <select tl-wrap
         label="数据类型"
          
-        ng-model="point.params.Type"
+        ng-model="point.params.type"
 
         ng-change ="  _config.TypeCC( point ) "
         
-        ng-options=" o.v as o.k for o  in  point.params.Area == 0 || point.params.Area == 1 ?
+        ng-options=" o.v as o.k for o  in  point.params.area == 0 || point.params.area == 1 ?
 
                                              [{k:'Bool',v:0}]  :  _config.type "
         >
@@ -69,7 +69,7 @@ mgModel 的权重为100 ; 该指令
 
   <!--  类型 扩展  字段 ;   -->
         <!-- 布尔（text） -->
-        <div  ng-if="  point.params.Area  >1  && point.params.Type == 0    ">
+        <div  ng-if="  point.params.area  >1  && point.params.type == 0    ">
               <input  tl-wrap
                       required
                       label="位偏移"
@@ -77,24 +77,24 @@ mgModel 的权重为100 ; 该指令
                       max="15" min="0" 
                       placeholder=" 0 - 15 "
                       tl-default="0"
-                      ng-model="point.params.TypeEx"
+                      ng-model="point.params.type_ex"
               />
           </div>
 
 
         <!-- 有/无 符号字节(droplist) -->
-        <div  ng-if="  point.params.Area  >1 && (point.params.Type == 1 || point.params.Type == 2)  ">
+        <div  ng-if="  point.params.area  >1 && (point.params.type == 1 || point.params.type == 2)  ">
             <select  tl-wrap
                      
                     label="字节偏移" 
-                    ng-model="point.params.TypeEx"
+                    ng-model="point.params.type_ex"
                     ng-options=" o.v as o.k for o  in  _config.hlbyte "
                     >
             </select>
         </div>
 
         <!-- \0结束ASCII字符串 -->
-        <div  ng-if="  point.params.Area  >1  && (point.params.Type == 13 || point.params.Type == 14 ) ">
+        <div  ng-if="  point.params.area  >1  && (point.params.type == 13 || point.params.type == 14 ) ">
             <input  tl-wrap
                     required
                     label="字节长度" 
@@ -102,7 +102,7 @@ mgModel 的权重为100 ; 该指令
                     max="128"
                     min="2" 
                     placeholder="2 - 128 "
-                    ng-model="point.params.TypeEx"
+                    ng-model="point.params.type_ex"
                 >
             </input>
         </div>
@@ -126,8 +126,8 @@ mgModel 的权重为100 ; 该指令
 <select tl-wrap
         label="访问方式"
          
-        ng-model = "point.params.Access" 
-        ng-options=" o.v as o.k for o in  (point.params.Area ==0||point.params.Area ==2)?
+        ng-model = "point.params.access" 
+        ng-options=" o.v as o.k for o in  (point.params.area ==0||point.params.area ==2)?
                                           _config.access :[{v:0, k:'Read'}] "
 
         >

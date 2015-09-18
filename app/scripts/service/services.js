@@ -99,13 +99,13 @@ angular.module('app.services', ["ngResource"], function() {
 
     var live = angular.rootUrl + "show/live/:uuid",
         liveWrite = angular.rootUrl + 'show/livewrite'
-    his = angular.rootUrl + "show/history/:uuid",
-        alarm = angular.rootUrl + "show/alarm/:uuid";
+        his = angular.rootUrl + "show/history/:uuid",   // uuid = system uid ;
+        alarm = angular.rootUrl + "show/alarm/:uuid";   // uuid = system uid ;
 
     this.live = $resource(live);
     this.his = $resource(his);
     this.alarm = $resource(alarm);
-    this.liveWrite = $resource(liveWrite);
+    this.liveWrite = $resource(liveWrite); // 下置; 
 
 
 

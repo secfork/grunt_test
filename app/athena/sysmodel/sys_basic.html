@@ -1,32 +1,60 @@
-<div class="panel-body  bg-light   ">
-	<div class="col-md-4  m-b ">
- 		<div class="b-b m-b"> 系统 : {{system.name}}</div>
- 		<div class="b-b m-b">系统描述 : {{system.desc}}</div>
- 		<div class="b-b m-b">区域: {{system.group_id}} </div>
- 		<div class="b-b m-b"> 系统类型 : {{ $sys.sysModelMode.values[systemModel.mode]  }} </div>
 
- 		<div class="b-b m-b"> 通信类型 : {{ systemModel.comm_type  }}</div>
+<div class=" panel-body bg-light  bg      ">
+    <div class="col-md-5  m-b ">
 
- 		<div class="b-b m-b"> 网络类型 : {{ system.network.daserver.network.type}} </div>
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 模型名称 </div>
+            <div class="col "> {{ sysmodel.name }} </div>
+        </div>
+       
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 通信类型 </div>
+            <div class="col "> {{ sysmodel.mode == 1 ? "DAServer":"Gateway"  }} </div>
+        </div>
 
- 		<div class="b-b m-b"> 系统模型 : {{ systemModel.name}}</div>
+   		<div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 创建时间 </div>
+            <div class="col "> {{ sysmodel.create_time | date:"yyyy-MM-dd HH:mm Z" }} </div>
+        </div>
 
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 配置项数量 </div>
+            <div class="col "> {{s }} </div>
+        </div>
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  ">  Tag 数量 </div>
+            <div class="col "> </div>
+        </div>
+     
+      
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 触发器数量 </div>
+            <div class="col "> {{station.needsync }} </div>
+        </div>
 
- 		<div class="b-b m-b"> 位置 : {{ system.longitude  +' , '+ system.latitude}}</div>
- 		<div class="b-b m-b"> 活跃状态 : {{ system.state?'激活':'未激活'  }} </div>
- 		<div class="b-b m-b"> 在线状态: {{ system.}}</div>
- 		<div class="b-b m-b"> 数据最后更新时间 : {{ system.last_sync_time | date:"yyyy-MM-dd HH:mm"}}</div>
- 		<div class="b-b m-b"> 最近报警:</div>
-
-
-
-	</div>
-
-	<div class="col-md-5  b-a m-l "  >
-		<img src="img/generator_left_0.png">
-	</div>
-
-
-
-
+         
+   
+    </div>
+    <div class="col-md-5  b-a m-l ">
+        <img src="img/generator_left_0.png">
+    </div>
 </div>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

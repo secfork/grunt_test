@@ -15,14 +15,13 @@
                required>
 
         <select tl-wrap label="轮询方式"
-            ng-model="point.Poll"  
+            ng-model="point.poll"  
             ng-options = " o.v as o.k  for  o in $sys.point.pointPoll  "
         ></select>       
  
         <select tl-wrap  label="独立分包"
-            ng-model="point.IsPacket"
-            ng-options = "  o for o in [ true , false]"
-
+            ng-model="point.is_packet"
+            ng-options = "  o.v as o.k for o in  $sys.point.packet" 
           > 
         </select>  
 

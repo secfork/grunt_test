@@ -60,12 +60,33 @@ module.exports = function(grunt) {
                     append: false
                 }
             },
-            dist: {
+            dist_index: {
                 src: 'dist/index.html',
                 dest: 'dist/index.html'
             },
 
             html: {
+                expand: true,
+                cwd: 'app',
+                dest: '.tmp/html',
+                src:  "athena/{*/,}*.html"
+
+                //[
+                 //  {**/,}*.html
+                // '*.html',
+                // "account/*.html",
+                // "dastation/*.html",
+                //  "debris/*.html",
+                //  "device/*html",
+                //  "point/*html",
+                //  "region/*html",
+                //  "show/*html",
+                //  "support/*html",
+                //  "sysmodel/*html",
+                //  "template/*html",
+                //  "user/*html"
+
+               // ]
 
             },
 
@@ -306,8 +327,8 @@ module.exports = function(grunt) {
                 src: [
                     '<%= yeoman.dist %>/scripts/{,*/}*.js',
                     '<%= yeoman.dist %>/styles/{,*/}*.css',
-                    '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-                    '<%= yeoman.dist %>/styles/fonts/*'
+                   //'<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+                   // '<%= yeoman.dist %>/styles/fonts/*'
                 ]
             }
         },
@@ -431,13 +452,16 @@ module.exports = function(grunt) {
                 options: {
                     dot: false,
 
-                    module: 'thinglinxTemp',
+                    module: 'thinglinx',
                     htmlmin: '<%= htmlmin.dist.options %>',
                     // usemin: 'scripts/scripts.js' , 
                 },
-                cwd: '<%= yeoman.app %>',
+                // cwd: '<%= yeoman.app %>',
+                // src: 'athena/{**/,}*.html',
+                
+                cwd:".tmp/html",
+                src:"{**/,}*.html",
 
-                src: 'athena/{**/,}*.html',
                 dest: '.tmp/templateCache.js'
             }
         },
@@ -480,7 +504,8 @@ module.exports = function(grunt) {
                             'styles/fonts/{,*/}*.*'
 
                             // athena 下的文件做成 tempalteCache ;   {athena,fonts,img}
-                            , '{fonts,img}/**', 'lib/*/**' //  jquery 插件拷贝;
+                            ,'{fonts,img,l10n}/**', 
+                            'lib/*/**' //  jquery 插件拷贝;
 
                         ]
                     }, { // thinglinx_boot.js  拷贝到 .tmp 目录 ; 
@@ -572,19 +597,23 @@ module.exports = function(grunt) {
         'useminPrepare',
         'concurrent:dist',
         'autoprefixer',
+ 
+        "preprocess:html",
         'ngtemplates',
+        
+        'copy:dist', // 拷贝  thinglinx_boot.js 到 .tmp/boot 目录 ; 
 
         'concat',
         'ngAnnotate',
-        'copy:dist', // 拷贝  thinglinx_boot.js 到 .tmp/boot 目录 ; 
 
         //'cdnify',
         'cssmin',
-        'uglify',
-        //'filerev',
+        'uglify', 
+
+        'filerev',
         'usemin',
-        "preprocess:dist",
-        'htmlmin',
+        "preprocess:dist_index",
+        //'htmlmin',
     ]);
 
     grunt.registerTask('default', [

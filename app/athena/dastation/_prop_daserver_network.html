@@ -4,10 +4,12 @@
 
  -->
 <form name="form" panelclass class="form-horizontal form-validation " ng-init="  initDaServer() ; loadSupportDtus() ;  ">
-    <div ng-if="    $debug ">
-        system.network.daserver ={{daserver}}
-        <br/>
-    </div>
+    
+<!-- @if append -->
+    system.network.daserver ={{daserver}}
+<!-- @endif  -->
+
+
     <div ng-if=" daserver.type =='DTU' ">
         <select tl-wrap-l label="DTU驱动" required ng-model="daserver.params.driverid" ng-change=" applyDtuData(daserver.params ) ;  " ng-options=" o.driver_id as o.driver_id  for o  in dtuList">
             <option value="">--请选择DTU驱动--</option>

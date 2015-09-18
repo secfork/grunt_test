@@ -156,9 +156,9 @@ var app = angular.module('thinglinx', [
               console.log("appxxxxxxxxx");
               // jsorder go2long 要清除sessionstorage 的user ;
               var user = $sessionStorage.user;
-              if( $scope.$debug ){
-                 user = $sessionStorage.user || {};
-              }
+              // if( $scope.$debug ){
+              //    user = $sessionStorage.user || {};
+              // }
 
               if (user) {
                 $scope.user = user;
