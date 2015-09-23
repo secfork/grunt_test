@@ -1,5 +1,7 @@
 
 
+
+
 <input tl-wrap-l label="用户名" ng-model=" user.username  " required>
 <!-- 是否更改密码 -->
 <div class="form-group " ng-if="op.isEdit">
@@ -52,12 +54,25 @@
     <label class="col-sm-3 control-label">组
         <mark/>
     </label>
+    
     <div class="col-sm-9">
         <select ui-jq="chosen" multiple required ng-model="od.groups" class="w-md">
             <option ng-repeat=" g in  groups " value="{{g.id}}">{{g.name}}</option>
         </select>
     </div>
 </div>
+
+
+
+
+
+ <select  tl-wrap-l  label="接收邮件通知"  ng-model="user.mail_notice"
+    ng-options =" o.v as o.k  for o in $sys.yesOrNo"   
+  ></select>
+ <select  tl-wrap-l  label="接收短信通知"  ng-model="user.sms_notice" 
+  ng-options =" o.v as o.k  for o in $sys.yesOrNo"    
+  ></select>
+
 <input tl-wrap-l label="电子邮件" ng-model=" user.email " type="email">
 <input tl-wrap-l label="手机" ng-model="user.mobile_phone">
 <input tl-wrap-l label="地址" ng-model="user.address">

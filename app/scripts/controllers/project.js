@@ -49,7 +49,9 @@ angular.module('app.project', [])
             function(next) {
 
             	$source.$region.delete( {pk:proj.id} , function(resp){
-            		$scope.page.data.splice(index, 1);
+                    if(!resp.err){
+            		  $scope.page.data.splice(index, 1);
+                    }
                         next();
             	}) 
             }

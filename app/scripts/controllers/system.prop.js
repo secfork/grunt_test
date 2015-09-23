@@ -39,6 +39,116 @@ angular.module('app.system.prop', [])
             console._log($scope.sysmodel);
 
         });
+ 
+
+        // 获得文件路径;
+        $scope.op = {rightfile:true};
+        $scope.setFiles = function(element) { 
+            $scope.canupload = true;
+            $scope.$apply(function($scope) {
+
+                console._log(element.files);
+                // Turn the FileList object into an Array   form 中家 multiple  就是多文件上传;
+                $scope.files = [];
+ 
+                var file = element.files[0];
+
+ 
+
+                // 值上传 第一个; 单位 B ;  // 1G
+                // $scope.rightfile = (element.files[0].size < 10240000);
+                //   /.[png,jpg]$/.test( file.name ) &&
+                $scope.op.rightfile =   ( file.size < 1024*500); //2M ; 
+
+
+
+                // $scope.showmsg = !$scope.rightfile;
+                if ($scope.op.rightfile) {
+                    $scope.files.push(element.files[0]) //  文件路径;
+                }
+            });
+        };
+
+
+        $scope.uploadFile = function() {
+
+            $scope.progress = 1;
+ 
+
+            var fd = new FormData();
+            // for (var i in $scope.files) {
+            fd.append("uploadedFile", $scope.files[0])
+                // } ;
+                // 添加参数;
+           // fd.append("filename", $scope.files[0].name );
+            fd.append("system_id", $scope.station.uuid );
+
+            var xhr = new XMLHttpRequest();
+
+
+            xhr.upload.addEventListener("progress", uploadProgress, false);
+            xhr.addEventListener("load", uploadComplete, false);
+
+            //  xhr.addEventListener("error", uploadFailed, false) ;
+            //  xhr.addEventListener("abort", uploadCanceled, false) ;
+
+            xhr.open("POST",  angular.rootUrl  + "picture/system");
+            xhr.setRequestHeader("Accept" , 'application/json');
+
+            $scope.progressVisible = true;
+            xhr.send(fd);
+        };
+
+
+        // 上传完成;  刷新 fileregion 视图;
+        function uploadComplete(evt) {
+            try { 
+                $scope.$apply( function(){
+                    $scope.progressVisible = false ; 
+                    $scope.station.pic_url =  angular.fromJson( evt.target.response ).ret;
+                })
+                
+
+            } catch (e) {} 
+        }
+
+        // 进程条滚动;
+        function uploadProgress(evt) {
+            $scope.$apply(function() {
+                if (evt.lengthComputable) {
+                    $scope.progress = Math.round(evt.loaded * 100 / evt.total)
+                } else {
+                    $scope.progress = 'unable to compute'
+                }
+            })
+        }
+
+
+
+ 
+        var temp_upload = function($scope, $$scope, $modalInstance) {
+ 
+            $scope.file = {};
+            $scope.progress = 1;
+            $scope.showmsg = false; 
+
+
+
+          
+
+
+        };
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -69,6 +179,28 @@ angular.module('app.system.prop', [])
 
         S.needUpdate = needUpdate = {},
             S.hasSave = hasSave = {};
+
+        $scope.t = {} ;     
+
+        // 生成 ticket ; 
+        $scope.ticket = function(){
+            // 先 写死 ticket 的 选前; 
+            $scope.t.privilege = ['SYSTEM_MANAGE' , 'SYSTEM_CONTROL'];    
+
+            $source.$ticket.save( { system_id: $scope.station.uuid  } ,
+                                   $scope.t , function( resp ){
+                if(resp.ret){
+                    $scope.t.ticket = resp.ret ; 
+                }                    
+            })
+        }
+
+        $source.$ticket.get(  { system_id: $scope.station.uuid  } , function ( resp ){
+            if( resp.ret){
+                $scope.t =  resp.ret ;  
+            }
+        });
+
 
         // 控制 编辑按钮 显隐 ;
         function toUpdate(field) {
@@ -452,7 +584,7 @@ angular.module('app.system.prop', [])
 
 }])
 
-.controller('das_message', ['$scope', '$source', '$state', function($scope, $source, $state) {
+.controller('das_message',   function($scope, $source, $state) {
 
     var station = $scope.station;
     $scope.$popNav($scope.station.name + "(通知)", $state);
@@ -462,14 +594,54 @@ angular.module('app.system.prop', [])
     }, function(resp) {
         $scope.messages = resp.ret;
     })
+})
 
-}])
-
-.controller('das_contact', ['$scope', '$source', '$state', function($scope, $source, $state) {
+.controller('das_contact',   function($scope, $source, $state , $http , $interval , $timeout) {
 
     // 加载 system 的 contact ;
     // pk ~=   system_uuid ;
     $scope.$popNav($scope.station.name + "(联系人)", $state);
+
+
+    $scope.op = {} ;  
+ 
+    var interval  , timeout; 
+ 
+    // 获取 短信验证码; 
+    $scope.sendVer = function(){
+        $source.$note.get( {op:"send_connnect" , mobile_phone: $scope.C.mobile_phone } ,  function( resp ){
+            $scope.op.second = 10 ; 
+            $scope.op.send = true ; 
+            interval  = $interval(function() {
+                $scope.op.second -- ; 
+                if( $scope.op.second <= 0 ){
+                     $interval.cancel(  interval  );
+                     $scope.op.send = false ; 
+                }  
+            }, 1000);
+
+        })
+    }
+    
+
+    //验证 短信吗;  
+    $scope.validVer = function( code ){
+        $timeout.cancel( timeout);
+
+        timeout = $timeout( function (){
+                
+
+
+        }, 1000);
+
+        console.log(11111);
+        return ; 
+        $source.$note.get( {op:"verify_connect"} , function( resp ){
+
+        })
+    }
+
+
 
     $source.$contact.get({
         pk: $scope.station.uuid
@@ -482,6 +654,8 @@ angular.module('app.system.prop', [])
         $scope.C.mail_notice = $scope.C.mail_notice + '';
         $scope.C.sms_notice = $scope.C.sms_notice + '';
 
+
+         $scope.C.mobile_phone =  11111111111 ;
 
 
         // 更新 system 的 contact ;
@@ -512,7 +686,7 @@ angular.module('app.system.prop', [])
 
     });
 
-}])
+})
 
 .controller("das_map",
     function($scope, $state, $stateParams, $map, $localStorage, $timeout, $document, $window, $source) {

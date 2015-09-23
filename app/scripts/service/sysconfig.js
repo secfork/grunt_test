@@ -7,7 +7,12 @@ angular.module('app.sysconfig', [], function() {})
         // systemo 模式: manage , unmanage ,unknown ; 
         manageMode: 1,
 
-        itemsPerPage: 5,
+        itemsPerPage: 2,
+
+        yesOrNo:[
+            {k:"是",v:1},
+            {k:"否",v:0}
+        ],
  
 
         // 账户权限; 

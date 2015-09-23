@@ -27,29 +27,63 @@
         </div>
         <input tl-wrap-l label="邮箱" ng-model=" C.email " type="email" required>
         <input tl-wrap-l label="电话" ng-model=" C.tel " ng-pattern="/^\d{4}-\d{7,8}$/" placeholder="xxxx-xxxxxxxx">
+        <!-- 
         <input tl-wrap-l label="手机号码" ng-model=" C.mobile_phone " ng-pattern="/^\d{11}$/" required>
+
+        <input tl-wrap-l  label="验证码" ng-model="xxx"  class="w" >
+
+ -->
+        <div class="form-group  ">
+            <label class="col-sm-3 control-label  ">
+                <span translate="手机号码" class="ng-scope">手机号码</span>
+                <mark/>
+            </label>
+            <div class=" col-sm-9">
+                <div class="input-group">
+                    <input name="mobile_phone" ng-model=" C.mobile_phone " class=" form-control" ng-pattern="/^1\d{10}$/" required>
+                    <span class="input-group-btn" ng-show="!op.send">
+                    <button class="btn btn-default w-xsl" type="button"
+                        ng-disabled = "!form.mobile_phone.$valid"
+                        ng-click="sendVer()"
+                     >发送验证码</button>
+                  </span>
+                    <span class="input-group-btn" ng-show="op.send">
+                    <button class="btn btn-default w-xsl" type="button"
+                        ng-disabled = "true"
+                     >{{op.second}}秒后重新发送...</button>
+                  </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group  ">
+            <label class="col-sm-3 control-label  ">
+                <span translate="验证码" class="ng-scope">验证码</span>
+                <mark/>
+            </label>
+            <div class=" col-sm-9">
+                <input ng-model=" C.code " class=" form-control w inline" ui-validate=" 'validVer($value)' ">
+                <i class="fa  fa-check-circle text-success "></i>
+            </div>
+        </div>
+        <!--   
+            C.varify_code ; 
+         ui-validate = "{bar : 'validVer($value)' } }"
+         ng-pattern="/^\d{6}$/" 
+        -->
         <input tl-wrap-l label="国家" ng-model=" C.country ">
         <input tl-wrap-l label="省" ng-model=" C.province ">
         <input tl-wrap-l label="城市" ng-model=" C.city ">
         <input tl-wrap-l label="详细地址" ng-model=" C.address ">
         <input tl-wrap-l label="政编码" ng-model=" C.zip_code ">
         <li class="line b-b"></li>
-
-       
     </form>
-
-
-  <!--   <div class="form-group  " ng-if=" !isShowModul ">
+    <!--   <div class="form-group  " ng-if=" !isShowModul ">
             <label class="col-sm-3 control-label">
                 <span type="submit" class="btn  btn-info  btn-block-middle  w-xs "
                  ng-click=" commit()">     保存     </span>
             </label>
     </div> -->
-
-    <div panelclass class="text-center"   ng-if=" !isShowModul " >
-        <button type="submit" class="btn  btn-info  btn-block-middle w-xs m-b " 
-          ng-click=" commit()" token> 保存 </button>
+    <div panelclass class="text-center" ng-if=" !isShowModul ">
+        <button type="submit" class="btn  btn-info  btn-block-middle w-xs m-b " ng-click=" commit()" token> 保存 </button>
     </div>
-
-
 </div>

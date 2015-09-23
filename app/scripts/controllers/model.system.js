@@ -111,26 +111,26 @@ angular.module("app.model.system", [])
 
 
         // 属性 tabs 配置;  
-        $scope.tabs = [{title:"tab.t16" , icon:"fa fa-info" , 
+        $scope.tabs = [{title:"tab.t16" , icon:"icon icon-info" , 
                         state:"app.model.sysmodel_p.basic"}
                     ] ; 
-        $scope.tabs.push(  { title:"tab.t12" , icon:"fa fa-wrench" ,
+        $scope.tabs.push(  { title:"tab.t12" , icon:"icon icon-wrench" ,
                              state:"app.model.sysmodel_p.sysprofile" 
                             });
 
         if( $scope.sysmodel.mode == 1 ){
-            $scope.tabs.push(  { title:"tab.t10" , icon:"fa fa-gear",
+            $scope.tabs.push(  { title:"tab.t10" , icon:"icon icon-screen-desktop",
                                 state:"app.model.sysmodel_p.sysdevice" } ) 
         }
 
         $scope.tabs = $scope.tabs.concat([
-                { title:"tab.t11" , icon:"fa fa-tag",  
+                { title:"tab.t11" , icon:"icon icon-tag",  
                  state:"app.model.sysmodel_p.systag" },
 
-                { title:"tab.t13" , icon:"fa fa-fire",  
+                { title:"tab.t13" , icon:"icon icon-rocket",  
                   state:"app.model.sysmodel_p.trigger" },
 
-                { title:"tab.t14" , icon:"fa fa-envelope",  
+                { title:"tab.t14" , icon:"icon icon-flag",  
                   state:"app.model.sysmodel_p.message" }
             ]);
         if($scope.sysmodel.mode == 1 && $scope.sysmodel.comm_type == 2){

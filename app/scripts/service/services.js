@@ -47,7 +47,11 @@ angular.module('app.services', ["ngResource"], function() {
     this.$account = $createSource( "account/:pk" );
     this.$role = $createSource("role/:pk");
     this.$driver = $createSource("driver/:type");
-
+    
+    // op: send (发送) , verify( 验证) ;   sou: connent( sys联系人) , user( 用户) , 
+    //  ? send : cell_phone , verify: code ;  
+    this.$note = $createSource("note/:op/:sou"); 
+    
     this.$common = $createSource("common", {}, {
         cc_passWord: {
             url: angular.rootUrl + "common/ccpassword",
@@ -69,6 +73,8 @@ angular.module('app.services', ["ngResource"], function() {
           queryUser :{ url: angular.rootUrl + "usergroup/:pk/users" },
 
     });
+
+    this.$ticket = $createSource( "ticket/:system_id");
 
     this.$system = $createSource("system/:pk/:options/:proj_id", {}, {
         sync: {
@@ -221,7 +227,12 @@ angular.module('app.services', ["ngResource"], function() {
 
             if (response.data.err && !ingorErr[response.data.err]) {
                 //alert( $err[response.data.err+'']|| response.data.err );
-                alert(response.data.err);
+                 
+                function tt (){
+                    alert(response.data.err);
+                } 
+                setTimeout( tt , 200)
+
                 console.error("_ERR_:" + response.data.err);
                 // throw error("_ERR_:"+ response.data.err )
             }
@@ -251,7 +262,7 @@ angular.module('app.services', ["ngResource"], function() {
                 }*/ 
 
             if( response.config.console ){
-                alert( "responseStatus:" +  response.status);
+               // alert( "responseStatus:" +  response.status);
                 throw (response.status + "--" + response);
             }
             console.log(response.status + "--" + response);

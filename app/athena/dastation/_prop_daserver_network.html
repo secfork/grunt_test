@@ -4,12 +4,9 @@
 
  -->
 <form name="form" panelclass class="form-horizontal form-validation " ng-init="  initDaServer() ; loadSupportDtus() ;  ">
-    
-<!-- @if append -->
+    <!-- @if append -->
     system.network.daserver ={{daserver}}
-<!-- @endif  -->
-
-
+    <!-- @endif  -->
     <div ng-if=" daserver.type =='DTU' ">
         <select tl-wrap-l label="DTU驱动" required ng-model="daserver.params.driverid" ng-change=" applyDtuData(daserver.params ) ;  " ng-options=" o.driver_id as o.driver_id  for o  in dtuList">
             <option value="">--请选择DTU驱动--</option>
@@ -48,7 +45,7 @@
             <input tl-wrap-l label="密码" ng-model="a" required type="password">
         </div>
     </div>
-   <!--  <div class="line   line-dashed b-b line-chart m-l-n-sm   "></div> -->
+    <!--  <div class="line   line-dashed b-b line-chart m-l-n-sm   "></div> -->
     <div class="row m-t-xs">
         <div class="col-xs-12">
             <span class="text-danger" ng-show=" needUpdate.daserver ">

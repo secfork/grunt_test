@@ -16,13 +16,16 @@
                 <tr ng-repeat=" u in page.data" class="hover">
                     <td>
 
-                           {{ u.username }}
+                       {{ u.username }}
 
                     </td>
                     <td>
+                        {{u.mobile_phone}}
                         <i class="fa {{ u.emailEffective?'fa-check text-success':'fa-times  text-danger' }}"></i>
+                         
                     </td>
                     <td>
+                        {{u.email}}
                         <i class="fa {{ u.emailEffective?'fa-check text-success':'fa-times  text-danger' }}"></i>
                     </td>
                     <td> {{u.last_login_ip }}</td>

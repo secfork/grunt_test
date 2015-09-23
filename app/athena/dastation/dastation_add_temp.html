@@ -2,8 +2,7 @@
     <h4 class="text-center">添加系统</h4>
     <form name="form" panelclass class="form-horizontal form-validation   ">
         <input tl-wrap-l label="系统名称" required ng-model="system.name">
-        <select tl-wrap-l label="所属区域" ng-model="system.region_id" required
-                ng-options="  proj.id  as  proj.name  for  proj   in projects "></select>
+        <select tl-wrap-l label="所属区域" ng-model="system.region_id" required ng-options="  proj.id  as  proj.name  for  proj   in projects "></select>
         <select tl-wrap-l ng-model="systemModel" ng-options=" s  as s.name for s in sysmodels" label="系统模型" required></select>
         <select tl-wrap-l ng-model="system.profile" ng-options="  p.uuid as p.name for  p  in  profiles " label="系统配置项" required>
             <option value="">--请选择配置项--</option>
@@ -43,15 +42,7 @@
         <button type="submit" class="btn  btn-info  btn-block-middle w-xs m-b " ng-click=" commit()" token> 保存 </button>
     </div>
 </div>
-
 <!--@if append  -->
 system = {{system}}
-
-<hr/>
-
-systemModel = {{systemModel}}
-
-
+<hr/> systemModel = {{systemModel}}
 <!--@endif  -->
-
-

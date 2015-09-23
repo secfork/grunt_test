@@ -10,7 +10,7 @@
         </div>
         <div class=" b-b  m-b  hbox ">
             <div class="col w-sm  "> 活跃状态 </div>
-            <div class="col "> {{ station.state == 1 ? "激活":"未激活"  }} </div>
+            <div class="col "> {{ station.state == 1 ? "激活":"未激活" }} </div>
         </div>
         <div class=" b-b  m-b  hbox ">
             <div class="col w-sm  "> 在线状态 </div>
@@ -76,14 +76,28 @@
                 <div class="b-b m-b"> 最近报警:</div>
  -->
     </div>
-    <div class="col-md-5  b-a m-l ">
-        <img src="img/generator_left_0.png">
+    <div class="col-md-6  m-l gap-5 ">
+        <img ng-src="{{ 'img/'+ station.pic_url || 'img/system_null.png'  }}" class="pag-5" style="width:500px; height:400px ">
+        <form class="hbox m-t" style="width:500px;">
+            <label class="col m-t-xs w-xm p-t-5">上传系统图片</label>
+            <div class="col">
+                <!--  
+                    <input ui-jq="filestyle" type="file"  multiple     ng-model= " file.file "
+                       data-icon="false" data-classButton="btn btn-default"
+                       data-classInput="form-control inline v-middle input-s">
+                  -->
+                <input ui-jq="filestyle" type="file" ng-model-instant class="input-sm" onchange="angular.element(this).scope().setFiles(this)" />
+                <div style="height:10px;">
+                    <progressbar class="progress-xs active m-b-sm m-t-xxs" ng-show="progressVisible" value="progress" type="success"> {{progress}}%
+                    </progressbar>
+                </div>
+                <div class="text-muted">仅支持不超过500K的jpeg,png,jpg格式图片!</div>
+                <div ng-show="!op.rightfile" class="text-danger "> 文件过大! </div>
+                <button class="btn btn-primary btn-sm  w-xs    " ng-click="uploadFile()" ng-disabled=" ! op.rightfile "> 上传 </button>
+            </div>
+        </form>
     </div>
 </div>
-
-
-
-
 <!--@if append -->
 station = {{station}}
 <hr/> sysmodel =={{ sysmodel }}

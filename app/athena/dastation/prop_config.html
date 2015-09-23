@@ -1,16 +1,16 @@
 <div class=" bg-light  bg  panel-body     no-padder ">
-    <div class="col-md-6 col-xs-8   text-left   m-b m-t">
+    <div class="col-md-8 col-xs-12   text-left   m-b m-t">
         <!--     <div class="form-group">      </div>   -->
-        <label class="col-lg-3 control-label m-t-xs">配置项</label>
-        <div class="col-lg-9">
+        <label class="col-md-3 col-md-offet-1 control-label m-t-xs">配置项</label>
+        <div class="col-md-8">
             <select ng-model="profile" class=" form-control    " ng-options="   p as p.name for p in profiles  " ng-change="toUpdate('profile')" required>
             </select>
             <span class="help-block m-b-none  m-b-xs" ng-show=" profile.desc">
                         <i class="fa  fa-warning  text-success pos-rlt"></i>
-                         {{profile.desc}}
-                    </span>
+                         {{profile.desc}} 
+            </span>
         </div>
-        <div class="col-lg-9 col-lg-offset-3 m-t-xs">
+        <div class="col-md-9 col-md-offset-3 m-t-xs">
             <span class="text-danger" ng-show=" needUpdate.profile ">
                             <button  class=" btn btn-sm   w-xs btn-primary "
                                      ng-click = "  updateSystem( 'profile' );  "
@@ -25,48 +25,51 @@
                            <i class="fa  fa-thumbs-o-up "></i> <span>保存成功!</span> </strong>
             </span>
         </div>
+        <!--  就 托管的 daServer 不用  box ticket-->
+        <div ng-if=" !(sysmodel.mode ==1  && sysmodel.comm_type ==1 ) ">
+            <label class="col-md-3 col-lg-offet-1 control-label m-t-xs">SN</label>
+            <div class="col-md-8  ">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="t.sn" ng-disabled="t.ticket">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button"
+                            ng-disabled=" t.ticket"
+                            ng-click="ticket()">生成Ticket</button>
+                        </span>
+                </div>
+            </div>
+            <label class="col-md-3 col-lg-offet-1 control-label m-t-xs">Ticket</label>
+            <div class="col-md-8 m-t-xs">
+                {{ t.ticket || "无Ticket !" }}
+                <!--  <a class = "fa fa-copy text-success"></a> -->
+            </div>
+        </div>
     </div>
     <div class="line b-b"></div>
-
-
     <!--   托管  daserver  模式 -->
-    <div class="  text-left m-t-xs m-b   "
-         ng-if=" sysmodel.mode ==1 &&  sysmodel.comm_type == 1 " >
+    <div class="  text-left m-t-xs m-b   " ng-if=" sysmodel.mode ==1 &&  sysmodel.comm_type == 1 ">
         <h5 class="m-l-xs"> 网络参数 </h5>
-        <ng-include     src="  'athena/dastation/_prop_daserver_network.html'  "></ng-include>
+        <ng-include src="  'athena/dastation/_prop_daserver_network.html'  "></ng-include>
     </div>
-
-<!--
+    <!--
     <div class="line b-b " ng-if=" sysmodel.comm_type == 1   "></div>
     
  -->
-
-
     <!--  <div class="panel-body table-responsive no-padder">
     托管模式: ==>  daserver 类型;
 -->
-    <div   class=" table-responsive m-t"
-          ng-if=" sysmodel.mode ==1 && sysmodel.comm_type ==2   ">
-
+    <div class=" table-responsive m-t" ng-if=" sysmodel.mode ==1 && sysmodel.comm_type ==2   ">
         <h5 class="m-l"> 网关配置</h5>
-        <ng-include  src="  'athena/dastation/_prop_gateway_gateway.html'  "></ng-include>
+        <ng-include src="  'athena/dastation/_prop_gateway_gateway.html'  "></ng-include>
     </div>
-
-
-<!--
+    <!--
     <div class="line b-b " ng-if="sysmodel.comm_type ==2   "></div>
  -->
-    <div class=" table-responsive  m-t "
-        ng-if=" sysmodel.devices.length && sysmodel.mode ==1 && sysmodel.comm_type ==2 ">
-        <h5 class="m-l" > 设备网络参数   </h5>
-        <ng-include    src="  'athena/dastation/_prop_gateway_device.html'  "></ng-include>
+    <div class=" table-responsive  m-t " ng-if=" sysmodel.devices.length && sysmodel.mode ==1 && sysmodel.comm_type ==2 ">
+        <h5 class="m-l"> 设备网络参数   </h5>
+        <ng-include src="  'athena/dastation/_prop_gateway_device.html'  "></ng-include>
     </div>
-
-
-
-
-    <div class="line b-b" ></div>
-
+    <div class="line b-b"></div>
     <div class="col-md-2  col-xs-6   text-left  ">
         <span>上次配置更新</span>
     </div>
@@ -96,6 +99,4 @@
         <button class="btn btn-sm btn-info" ng-click="d_stop()"> 停止 </button>
         <button class="btn btn-sm btn-info" ng-click="d_call()"> 召唤实时 </button>
     </div>
-
-
 </div>

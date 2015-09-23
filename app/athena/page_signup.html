@@ -35,7 +35,7 @@
                 </div> -->
 
                 <div class="list-group-item ">
-                    <input name="password"  ng-model="comp.invite_code"    placeholder="激活码"
+                    <input name="password"  ng-model="comp.invitation_code"    placeholder="激活码"
                            class="form-control no-border "    required
                             >
                     <!--ng-minlength="6"   ng-maxlength="20" -->
@@ -52,6 +52,7 @@
                     <input name="password"  ng-model="comp.admin.password"
                            placeholder="管理员密码,至少六位"
                            ng-minlength="6"
+                           ng-maxlength = '16'
                            onfocus="this.type='password'"
                            class="form-control no-border "    required
                             >

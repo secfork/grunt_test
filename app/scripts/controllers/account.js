@@ -47,7 +47,8 @@
 
      $scope.tabToUsers = function() {
          //if( !$scope.page.data){
-         $scope.loadPageData(1);
+        $scope.user = { mail_notice :1,sms_notice:1};
+        $scope.loadPageData(1);
          //}
      }
 
@@ -81,15 +82,14 @@
              }
          })
      }
-
-
+ 
 
      $scope.createUser = function() {
 
          $scope.validForm();
          $source.$user.save($scope.user, function(resp) {
              if (resp.ret) {
-                 // 添加到组;
+                 // 添加到组; 分配几个组 调用几次; 
                  var p = [];
                  angular.forEach($scope.od.groups, function(v) {
                      p.push($source.$userGroup.put({

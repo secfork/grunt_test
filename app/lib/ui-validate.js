@@ -10,8 +10,8 @@
  * @example <input ui-validate=" 'myValidatorFunction($value)' ">
  * @example <input ui-validate="{ foo : '$value > anotherModel', bar : 'validateFoo($value)' }">
  * @example <input ui-validate="{ foo : '$value > anotherModel' }" ui-validate-watch=" 'anotherModel' ">
- * @example <input ui-validate="{ foo : '$value > anotherModel', bar :
-               'validateFoo($value)' }" ui-validate-watch=" { foo : 'anotherModel' } ">
+ * @example <input ui-validate="{ foo : '$value > anotherModel', 
+ *              bar : 'validateFoo($value)' }" ui-validate-watch=" { foo : 'anotherModel' } ">
  *
  * @param ui-validate {string|object literal} If strings is passed it should be a scope's function to be used as a validator.
  * If an object literal is passed a key denotes a validation error key while a value should be a validator function.

@@ -1,13 +1,14 @@
 <ul class="nav  nav-tabs m-t-xxs   ">
     <li ui-sref-active="active">
         <a ui-sref="{{  (isShowModul ? 'app.show.proj_prop.station':'app.proj.prop.station') +'($stateParams)' }}  ">
-            <i class=" glyphicon glyphicon-tower"></i> 系统
+            <i class=" icon icon-screen-desktop"></i> 系统
         </a>
     </li>
     <li ui-sref-active="active">
         <a ui-sref=" {{ ( isShowModul ? 'app.show.proj_prop.attr': 'app.proj.prop.attr') +'($stateParams)' }} ">
-          <i class="fa  fa-th-list"></i>
-            区域属性</a>
+          <i class="icon icon-grid"></i>
+            区域属性
+            </a>
     </li>
     <li ui-sref-active="active" ng-if=" !isShowModul ">
         <a ui-sref="app.proj.prop.addstation( $stateParams)">

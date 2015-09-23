@@ -20,35 +20,26 @@ angular.module('app.system', [])
         } else {
             $scope.$moduleNav($stateParams.isactive == '1' ? "已激活系统" : "未激活系统", $state);
         }
-
-
-        console._log("dastation_ignore_active");
-        console._log($scope, $stateParams);
+ 
 
 
         $scope.updataORdel = "del";
-
-        $scope.go2Map = function(das, index) {
-            index = index;
-            $state.go('app.station.prop._map', das);
-        };
-
-        $scope.go2AddDas = function() {
-            $state.go("app.station.add");
-        }
+ 
 
         $scope.page = {};
 
 
-        $scope.loadPageData = function(pageNo, total) {
+        $scope.loadPageData = function(pageNo ) {
 
-            $scope.page.currentPage = pageNo;
+            $scope.page.currentPage = pageNo; 
             // 分页加载 系统数据;
             var d = angular.extend({
-                currentPage: pageNo,
-                total: total,
-                itemsPerPage: $sys.itemsPerPage
+                currentPage: pageNo, 
+                itemsPerPage: $sys.itemsPerPage ,
+                f_dasname : $scope.f_dasname
             }, $stateParams);
+            
+           
 
             $source.$system.query(d).$promise.then(function(resp) {
 
