@@ -7,22 +7,37 @@
 
 
 angular.module('app.system.prop', [])
-    .controller("dastation_prop", function($scope, $state, $source,
-        $stateParams) {
+    .controller("dastation_prop", function($scope, $state, $source,$stateParams) {
 
         console._log("dastation_prop");
 
         // $stateParams.state =="unactive"  时  需要激活 station ;
-
-        // 改变 station 会自动存到 sessionstorage ; AppScope.$watch("$$cache", fun... ,  true)
-        $scope.station = $scope.$$cache[0];
-
-
+ 
         // 未激活的采集站 处理 ;
         $scope.setActive = function() {
             $scope.activateStation($scope, null, $scope.station, null, "updata");
         };
 
+
+        
+
+        // 改变 station 会自动存到 sessionstorage ; AppScope.$watch("$$cache", fun... ,  true)
+        $scope.station = $scope.$$cache[0] ;
+        $scope.Sta_Data = $scope.$$cache[1];
+
+        $scope.loadSystemData = function(){
+             $source.$system.get( { system_id : $scope.station.uuid } , function ( resp){
+                if( resp.ret ){
+                    $scope.Sta_Data =   resp.ret.profile ; 
+                    $scope.$$cache[1] =  resp.ret.profile;
+                }  
+            })   
+        }
+
+        if( $scope.station ){
+           $scope.loadSystemData();
+        }
+ 
         // 得到systemModel 数据 ; 便于配置 gateway , network ;
         $source.$sysModel.getByPk({
             pk: $scope.station.model
@@ -39,26 +54,29 @@ angular.module('app.system.prop', [])
             console._log($scope.sysmodel);
 
         });
+
  
 
         // 获得文件路径;
-        $scope.op = {rightfile:true};
-        $scope.setFiles = function(element) { 
+        $scope.op = {
+            rightfile: true
+        };
+        $scope.setFiles = function(element) {
             $scope.canupload = true;
             $scope.$apply(function($scope) {
 
                 console._log(element.files);
                 // Turn the FileList object into an Array   form 中家 multiple  就是多文件上传;
                 $scope.files = [];
- 
+
                 var file = element.files[0];
 
- 
+
 
                 // 值上传 第一个; 单位 B ;  // 1G
                 // $scope.rightfile = (element.files[0].size < 10240000);
                 //   /.[png,jpg]$/.test( file.name ) &&
-                $scope.op.rightfile =   ( file.size < 1024*500); //2M ; 
+                $scope.op.rightfile = (file.size < 1024 * 500); //2M ; 
 
 
 
@@ -73,15 +91,15 @@ angular.module('app.system.prop', [])
         $scope.uploadFile = function() {
 
             $scope.progress = 1;
- 
+
 
             var fd = new FormData();
             // for (var i in $scope.files) {
             fd.append("uploadedFile", $scope.files[0])
                 // } ;
                 // 添加参数;
-           // fd.append("filename", $scope.files[0].name );
-            fd.append("system_id", $scope.station.uuid );
+                // fd.append("filename", $scope.files[0].name );
+            fd.append("system_id", $scope.station.uuid);
 
             var xhr = new XMLHttpRequest();
 
@@ -92,8 +110,8 @@ angular.module('app.system.prop', [])
             //  xhr.addEventListener("error", uploadFailed, false) ;
             //  xhr.addEventListener("abort", uploadCanceled, false) ;
 
-            xhr.open("POST",  angular.rootUrl  + "picture/system");
-            xhr.setRequestHeader("Accept" , 'application/json');
+            xhr.open("POST", angular.rootUrl + "picture/system");
+            xhr.setRequestHeader("Accept", 'application/json');
 
             $scope.progressVisible = true;
             xhr.send(fd);
@@ -102,14 +120,14 @@ angular.module('app.system.prop', [])
 
         // 上传完成;  刷新 fileregion 视图;
         function uploadComplete(evt) {
-            try { 
-                $scope.$apply( function(){
-                    $scope.progressVisible = false ; 
-                    $scope.station.pic_url =  angular.fromJson( evt.target.response ).ret;
+            try {
+                $scope.$apply(function() {
+                    $scope.progressVisible = false;
+                    $scope.station.pic_url = angular.fromJson(evt.target.response).ret;
                 })
-                
 
-            } catch (e) {} 
+
+            } catch (e) {}
         }
 
         // 进程条滚动;
@@ -125,30 +143,14 @@ angular.module('app.system.prop', [])
 
 
 
- 
+
         var temp_upload = function($scope, $$scope, $modalInstance) {
- 
+
             $scope.file = {};
             $scope.progress = 1;
             $scope.showmsg = false; 
 
-
-
-          
-
-
         };
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -169,7 +171,7 @@ angular.module('app.system.prop', [])
 
 
 .controller("das_config", ['$scope', '$state', '$stateParams', '$source', "$modal",
-    function($scope, $state, $stateParams, $source,   $modal) {
+    function($scope, $state, $stateParams, $source, $modal) {
 
         console._log("das_config");
         console._log($stateParams);
@@ -180,24 +182,29 @@ angular.module('app.system.prop', [])
         S.needUpdate = needUpdate = {},
             S.hasSave = hasSave = {};
 
-        $scope.t = {} ;     
+        $scope.t = {};
 
         // 生成 ticket ; 
-        $scope.ticket = function(){
+        $scope.createTicket = function() {
             // 先 写死 ticket 的 选前; 
-            $scope.t.privilege = ['SYSTEM_MANAGE' , 'SYSTEM_CONTROL'];    
+            $scope.t.privilege = ['SYSTEM_MANAGE', 'SYSTEM_CONTROL'];
 
-            $source.$ticket.save( { system_id: $scope.station.uuid  } ,
-                                   $scope.t , function( resp ){
-                if(resp.ret){
-                    $scope.t.ticket = resp.ret ; 
-                }                    
-            })
+            $source.$ticket.save({
+                    system_id: $scope.station.uuid
+                },
+                $scope.t,
+                function(resp) {
+                    if (resp.ret) {
+                        $scope.t.ticket = resp.ret;
+                    }
+                })
         }
 
-        $source.$ticket.get(  { system_id: $scope.station.uuid  } , function ( resp ){
-            if( resp.ret){
-                $scope.t =  resp.ret ;  
+        $source.$ticket.get({
+            system_id: $scope.station.uuid
+        }, function(resp) {
+            if (resp.ret) {
+                $scope.t = resp.ret;
             }
         });
 
@@ -271,9 +278,11 @@ angular.module('app.system.prop', [])
         // 加载支持的 dtu 驱动;
         $scope.loadSupportDtus = function() {
             if ($scope.dutList) return;
-            $source.$driver.get( {type:"dtu"},function(resp) {
+            $source.$driver.get({
+                type: "dtu"
+            }, function(resp) {
 
-                $scope.dtuList =  resp.ret;
+                $scope.dtuList = resp.ret;
             });
         }
 
@@ -516,10 +525,11 @@ angular.module('app.system.prop', [])
                 update(d).then(function() {
                     toSave("profile");
                     $scope.station.profile = d.profile;
+                }).then( function(){
+                    //  重新 获取下  sys_data ; 
+                    $scope.loadSystemData ();
                 })
             }
-
-
 
         }
 
@@ -553,20 +563,25 @@ angular.module('app.system.prop', [])
 
     $scope.$popNav($scope.station.name + "(变量)", $state);
 
-    if (station.profile) {
-        $source.$sysLogTag.get({
-            profile: station.profile
-        }, function(resp) {
-            $scope.systags = resp.ret;
-        })
-    } else {
-        // query ;
-        $source.$sysTag.get({
-            system_model: station.model
-        }, function(argument) {
-            $scope.systags = argument.ret;
-        })
-    }
+     $scope.systags = $scope.Sta_Data.tags ;
+    
+
+    // if (station.profile) {
+    //     $source.$sysLogTag.get({
+    //         profile: station.profile
+    //     }, function(resp) {
+    //         $scope.systags = resp.ret;
+    //     })
+    // } else {
+    //     // query ;
+    //     $source.$sysTag.get({
+    //         system_model: station.model
+    //     }, function(argument) {
+    //         $scope.systags = argument.ret;
+    //     })
+    // }
+
+
 }])
 
 
@@ -575,68 +590,78 @@ angular.module('app.system.prop', [])
     var station = $scope.station;
     $scope.$popNav($scope.station.name + "(触发器)", $state);
 
-    $source.$sysProfTrigger.get({
-        profile: station.profile
-    }, function(resp) {
-        $scope.triggers = resp.ret;
-    })
+    $scope.triggers =  $scope.Sta_Data.triggers ; 
+
+    // $source.$sysProfTrigger.get({
+    //     profile: station.profile
+    // }, function(resp) {
+    //     $scope.triggers = resp.ret;
+    // })
 
 
 }])
 
-.controller('das_message',   function($scope, $source, $state) {
+.controller('das_message', function($scope, $source, $state) {
 
     var station = $scope.station;
     $scope.$popNav($scope.station.name + "(通知)", $state);
 
-    $source.$message.get({
-        profile_id: station.profile
-    }, function(resp) {
-        $scope.messages = resp.ret;
-    })
+    $scope.message =  $scope.Sta_Data.messages;
+
+    // $source.$message.get({
+    //     profile_id: station.profile
+    // }, function(resp) {
+    //     $scope.messages = resp.ret;
+    // })
+
 })
 
-.controller('das_contact',   function($scope, $source, $state , $http , $interval , $timeout) {
+.controller('das_contact', function($scope, $source, $state, $http, $interval, $timeout) {
 
     // 加载 system 的 contact ;
     // pk ~=   system_uuid ;
     $scope.$popNav($scope.station.name + "(联系人)", $state);
 
 
-    $scope.op = {} ;  
- 
-    var interval  , timeout; 
- 
+    $scope.op = {};
+
+    var interval, timeout;
+
     // 获取 短信验证码; 
-    $scope.sendVer = function(){
-        $source.$note.get( {op:"send_connnect" , mobile_phone: $scope.C.mobile_phone } ,  function( resp ){
-            $scope.op.second = 10 ; 
-            $scope.op.send = true ; 
-            interval  = $interval(function() {
-                $scope.op.second -- ; 
-                if( $scope.op.second <= 0 ){
-                     $interval.cancel(  interval  );
-                     $scope.op.send = false ; 
-                }  
+    $scope.sendVer = function() {
+        $source.$note.get({
+            op: "send_connnect",
+            mobile_phone: $scope.C.mobile_phone
+        }, function(resp) {
+            $scope.op.second = 10;
+            $scope.op.send = true;
+            interval = $interval(function() {
+                $scope.op.second--;
+                if ($scope.op.second <= 0) {
+                    $interval.cancel(interval);
+                    $scope.op.send = false;
+                }
             }, 1000);
 
         })
     }
-    
+
 
     //验证 短信吗;  
-    $scope.validVer = function( code ){
-        $timeout.cancel( timeout);
+    $scope.validVer = function(code) {
+        $timeout.cancel(timeout);
 
-        timeout = $timeout( function (){
-                
+        timeout = $timeout(function() {
+
 
 
         }, 1000);
 
         console.log(11111);
-        return ; 
-        $source.$note.get( {op:"verify_connect"} , function( resp ){
+        return;
+        $source.$note.get({
+            op: "verify_connect"
+        }, function(resp) {
 
         })
     }
@@ -655,7 +680,7 @@ angular.module('app.system.prop', [])
         $scope.C.sms_notice = $scope.C.sms_notice + '';
 
 
-         $scope.C.mobile_phone =  11111111111 ;
+        $scope.C.mobile_phone = 11111111111;
 
 
         // 更新 system 的 contact ;
@@ -882,3 +907,11 @@ angular.module('app.system.prop', [])
         }
 
     })
+
+
+
+
+
+
+
+ 

@@ -8,23 +8,24 @@
 
 
      // 账户信息; 项目, user ,station 数量
-     
 
-     return ;
+
+     return;
      $source.$account.getByPk({
          pk: 1234
      }, function(resp) {
          console._log(resp);
          $scope.accMsg = resp.ret;
      })
-    
+
 
  })
 
  .controller("account_users", function($scope, $state, $source, $sys, $q, $modal) {
 
-     $scope.$moduleNav("用户pop", "_user");
-
+     //$scope.$moduleNav("用户pop", "_user");
+     // $scope.$moduleNav("账户信息", $state);
+     $scope.$moduleNav("管理用户", $state);
 
      // 分页 加载 users ;
 
@@ -47,10 +48,17 @@
 
      $scope.tabToUsers = function() {
          //if( !$scope.page.data){
-        $scope.user = { mail_notice :1,sms_notice:1};
-        $scope.loadPageData(1);
+         $scope.user = {
+             mail_notice: 1,
+             sms_notice: 1
+         };
+         $scope.loadPageData(1);
+        
+
          //}
      }
+ 
+
 
      // 加载所有 角色 信息;
      $source.$userGroup.query({
@@ -82,7 +90,7 @@
              }
          })
      }
- 
+
 
      $scope.createUser = function() {
 
@@ -129,7 +137,7 @@
 
  .controller("usergroup", function($scope, $state, $source, $sys, $sessionStorage, $modal) {
 
-     console.log($sessionStorage);
+     $scope.$moduleNav("用户组", $state);
 
      var S = $scope;
 
@@ -156,10 +164,13 @@
 
 
      $scope.tabToGroup = function() {
-         //if (!$scope.page.data ) {
-         $scope.loadPageData(1);
-         //}
+        //if (!$scope.page.data ) {
+        $scope.loadPageData(1);
+        //} 
      }
+
+    
+
      $scope.ug = {};
 
      // 创建用户组;
@@ -217,8 +228,11 @@
 
  .controller("usergroup_users", function($scope, $state, $source, $sys, $localStorage) {
 
+ 
      $scope.usergroup = $scope.$$cache[0];
-     console.log($scope.usergroup);
+
+     $scope.$popNav($scope.usergroup.name + "(用户)", $state);
+
      var d = {
          itemsPerPage: $sys.itemsPerPage,
          pk: $scope.usergroup.id
@@ -263,7 +277,9 @@
 
  .controller('acco_role', function($scope, $state, $stateParams, $sys, $source, $modal) {
 
-     console._log("acco_author");
+
+    $scope.$moduleNav("角色", $state);  
+
      var thatScope = $scope;
 
 
@@ -368,6 +384,8 @@
 
  .controller('acco_author', function($scope, $state, $source) {
      // 预先加载 所有组;
+    $scope.$moduleNav("权限", $state);  
+
 
      $scope.gp = $source.$userGroup.query({
          currentPage: 1
@@ -435,8 +453,8 @@
 
 
 
-    // 想区域中添加组; 附带权限;
-    $scope.addAuthor = function(scope, arr, r) {
+     // 想区域中添加组; 附带权限;
+     $scope.addAuthor = function(scope, arr, r) {
 
          $modal.open({
              templateUrl: "athena/account/author_region_add.html",
@@ -445,8 +463,8 @@
                  $scope.$modalInstance = $modalInstance;
 
                  // 过路分组; 得到;未添加过的组 , 初始化 au ;
-                 $scope.done = function( ) {
-                    $scope.validForm();
+                 $scope.done = function() {
+                     $scope.validForm();
                      var permission = $(".modal-content")
                          .find("input[type=checkbox]")
                          .serializeArray()
@@ -462,12 +480,12 @@
                          permission,
                          function(resp) {
                              if (!resp.err) {
-                                // 添加组; , 添加id引用;
-                                var g = angular.copy( $scope.au.group);
-                                    g.privilege = permission ;
-                                scope.groups.push(g);
-                                scope.groupids.push( $scope.au.group.id );
-                                $scope.cancel();
+                                 // 添加组; , 添加id引用;
+                                 var g = angular.copy($scope.au.group);
+                                 g.privilege = permission;
+                                 scope.groups.push(g);
+                                 scope.groupids.push($scope.au.group.id);
+                                 $scope.cancel();
                              }
                          }
                      )
@@ -483,10 +501,10 @@
                  };
              }
          })
-    }
+     }
 
-    // 删除  权限组; , 删除本地id引用;
-    $scope.delGroup = function(scope, r, arr, g, i) {
+     // 删除  权限组; , 删除本地id引用;
+     $scope.delGroup = function(scope, r, arr, g, i) {
 
          $scope.confirmInvoke({
              title: "移除权限组:" + g.name + "?"
@@ -497,38 +515,40 @@
                  group_id: g.id
              }, function(resp) {
                  if (!resp.err) {
-                    // 删除数据;
-                    arr.splice(i, 1);
-                    // 删除 id 引用;
-                    scope.groupids.splice( scope.groupids.indexOf( g.id ), 1 );
+                     // 删除数据;
+                     arr.splice(i, 1);
+                     // 删除 id 引用;
+                     scope.groupids.splice(scope.groupids.indexOf(g.id), 1);
 
-                    next();
+                     next();
                  }
              })
          })
-    }
+     }
 
-    // 更新权限;    
-    
-    $scope.updateProm = function(scope, r,g ,dom){
-        var permission =  $(dom).parent()
-                                .find("form")
-                                .serializeArray()
-                                .map( function(v){return v.name});
+     // 更新权限;    
 
-        $source.$permission.save({
-                             source: "region",
-                             source_id: r.id,
-                             group_id: g.id
-                         },
-                         permission,
-                         function( resp ){
-                             if(!resp.err){
-                                scope.op.edit = false ;
-                             }
-                         });
+     $scope.updateProm = function(scope, r, g, dom) {
+         var permission = $(dom).parent()
+             .find("form")
+             .serializeArray()
+             .map(function(v) {
+                 return v.name
+             });
 
-    } 
+         $source.$permission.save({
+                 source: "region",
+                 source_id: r.id,
+                 group_id: g.id
+             },
+             permission,
+             function(resp) {
+                 if (!resp.err) {
+                     scope.op.edit = false;
+                 }
+             });
+
+     }
 
  })
 

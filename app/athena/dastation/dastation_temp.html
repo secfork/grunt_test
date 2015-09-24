@@ -12,7 +12,7 @@
         </span>
     </div>
 </div>
-<div class="panel-body  table-responsive  no-padder no-border b-t " ng-switch on="list_map">
+<div class="panel-body  table-responsive  no-padder   b-t " ng-switch on="list_map">
     <!-- <table class=" table    table-bordered table-striped
                                          table-bordered table-striped table-condensed flip-content  ">-->
     <table ng-switch-when="list" class=" table   table-bordered   ">
@@ -120,12 +120,17 @@
     </div>
 </div>
 <div class="panel-footer ">
+ 
+    
+     <button ng-if=" !isShowModul " 
+        class="btn btn-success btn-sm   m-l  pos-abt " 
+         ng-click=" goto('app.station.add') ">
+        添加系统
+    </button>  
+ 
     <!--  <span   style="top:10px">
         {{page.currentPage}}/{{page.numPages}}
     </span> -->
-    <ng-include src=" 'athena/debris/_pager.html'  "></ng-include>
+    <div  class=" text-center "  ng-include src=" 'athena/debris/_pager.html'  "></div>
     <!-- 只有 app.proj.prop 路由  才显示   -->
-    <button ng-if=" !isShowModul " class="btn btn-success btn-sm  m-l" ng-click=" goto('app.station.add') ">
-        添加系统
-    </button>
 </div>

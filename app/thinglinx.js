@@ -35,6 +35,10 @@ var app = angular.module('thinglinx', [
         $rootScope.$sceHtml = $sce.trustAsHtml ;
         $rootScope.$session = $sessionStorage ;
 
+
+        $rootScope.ossRoot = "http://thinglinx-net.oss-cn-beijing.aliyuncs.com/";
+
+
         // $rootScope.$err = $err ;
 
         $rootScope.$debug =   $sys.$debug;

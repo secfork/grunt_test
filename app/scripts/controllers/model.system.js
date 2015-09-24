@@ -1,106 +1,105 @@
 angular.module("app.model.system", [])
-    .controller("sysmodel", ["$scope", '$modal', '$source', '$utils',
-        function($scope, $modal, $source, $utils) { // $source.$sysModel
-             //@if debug 
-                console.log(" sysmodel controller ");
-             //@endif    
+    .controller("sysmodel", function($scope, $state, $modal, $source, $utils) { // $source.$sysModel
 
-            var t = $scope,
-                page;
 
-            // 加载所有 sysmodel ;
-            $source.$sysModel.get($scope.$sys.fristPage, function(resp) {
-                $scope.page = page = {
-                        data: resp.ret
-                    } // $utils.page(resp);
-            }); 
+        $scope.$moduleNav("系统模型", $state);
 
-            
-            $scope.createSM = function() {
-                $modal.open({
-                    templateUrl: 'athena/sysmodel/add_sysmodel.html',
-                    controller: function($scope, $modalInstance) {
-                        $scope.__proto__ = t,
-                            $scope.$modalInstance = $modalInstance,
-                            $scope.sm = {
-                                mode: '1',
-                                comm_type: '1'
-                            },
-                            $scope.isAdd = true;
-                        $scope.done = function() {
-                            // 验证表格;
-                            $scope.validForm();
-                            // 新建 sysmodel ;
-                            $source.$sysModel.save($scope.sm, function(resp) {
-                                $scope.sm.uuid = resp.ret;
-                                page.data.push($scope.sm);
-                                page.total++;
-                                $scope.cancel();
-                            });
-                        }
+
+        var t = $scope,
+            page;
+
+        // 加载所有 sysmodel ;
+        $source.$sysModel.get($scope.$sys.fristPage, function(resp) {
+            $scope.page = page = {
+                    data: resp.ret
+                } // $utils.page(resp);
+        });
+
+
+        $scope.createSM = function() {
+            $modal.open({
+                templateUrl: 'athena/sysmodel/add_sysmodel.html',
+                controller: function($scope, $modalInstance) {
+                    $scope.__proto__ = t,
+                        $scope.$modalInstance = $modalInstance,
+                        $scope.sm = {
+                            mode: '1',
+                            comm_type: '1'
+                        },
+                        $scope.isAdd = true;
+                    $scope.done = function() {
+                        // 验证表格;
+                        $scope.validForm();
+                        // 新建 sysmodel ;
+                        $source.$sysModel.save($scope.sm, function(resp) {
+                            $scope.sm.uuid = resp.ret;
+                            page.data.push($scope.sm);
+                            page.total++;
+                            $scope.cancel();
+                        });
                     }
-                })
-            }
-
-            $scope.deleteSM = function(index, sm) {
-                $scope.confirmInvoke({
-                    title: "删除系统模版" + sm.name + "?"
-                }, function(next) {
-                    $source.$sysModel.delete({
-                        uuid: sm.uuid
-                    }, function(resp) {
-                        if (!resp.err) {
-                            page.data.splice(index, 1);
-                            page.total--;
-                        }
-                        next();
-                    })
-                })
-            }
-
-            $scope.updateSM = function(scope, index, sm) {
-                $modal.open({
-                    templateUrl: 'athena/sysmodel/add_sysmodel.html',
-                    controller: function($scope, $modalInstance) {
-                        $scope.__proto__ = scope;
-                        $scope.$modalInstance = $modalInstance;
-                        $scope.sm = angular.copy(sm);
-                        $scope.done = function() {
-                            $scope.validForm();
-                            var n = $scope.sm.name,
-                                m = $scope.sm.mode,
-                                d = $scope.sm.desc,
-                                c = $scope.sm.comm_type,
-                                da = {
-                                    uuid: sm.uuid,
-                                    name: n,
-                                    desc: d,
-                                    comm_type: c,
-                                    mode: m
-                                };
-                            $source.$sysModel.put(da, function(resp) {
-                                sm.name = n,
-                                    sm.desc = d,
-                                    sm.mode = m,
-                                    sm.comm_type = c;
-                                $scope.cancel();
-                            })
-                        }
-
-                    }
-                })
-            }
-
-
-
+                }
+            })
         }
-    ])
+
+        $scope.deleteSM = function(index, sm) {
+            $scope.confirmInvoke({
+                title: "删除系统模版" + sm.name + "?"
+            }, function(next) {
+                $source.$sysModel.delete({
+                    uuid: sm.uuid
+                }, function(resp) {
+                    if (!resp.err) {
+                        page.data.splice(index, 1);
+                        page.total--;
+                    }
+                    next();
+                })
+            })
+        }
+
+        $scope.updateSM = function(scope, index, sm) {
+            $modal.open({
+                templateUrl: 'athena/sysmodel/add_sysmodel.html',
+                controller: function($scope, $modalInstance) {
+                    $scope.__proto__ = scope;
+                    $scope.$modalInstance = $modalInstance;
+                    $scope.sm = angular.copy(sm);
+                    $scope.done = function() {
+                        $scope.validForm();
+                        var n = $scope.sm.name,
+                            m = $scope.sm.mode,
+                            d = $scope.sm.desc,
+                            c = $scope.sm.comm_type,
+                            da = {
+                                uuid: sm.uuid,
+                                name: n,
+                                desc: d,
+                                comm_type: c,
+                                mode: m
+                            };
+                        $source.$sysModel.put(da, function(resp) {
+                            sm.name = n,
+                                sm.desc = d,
+                                sm.mode = m,
+                                sm.comm_type = c;
+                            $scope.cancel();
+                        })
+                    }
+
+                }
+            })
+        }
+
+
+
+    })
 
 .controller('sysmodelProp', ['$scope', '$source', '$q',
     function($scope, $source, $q) {
- 
- 
-        var d = $scope.$$cache[0] 
+
+
+        var d = $scope.$$cache[0]
         try {
             d.gateway_default = angular.fromJson(d.gateway_default || {});
         } catch (e) {
@@ -111,34 +110,52 @@ angular.module("app.model.system", [])
 
 
         // 属性 tabs 配置;  
-        $scope.tabs = [{title:"tab.t16" , icon:"icon icon-info" , 
-                        state:"app.model.sysmodel_p.basic"}
-                    ] ; 
-        $scope.tabs.push(  { title:"tab.t12" , icon:"icon icon-wrench" ,
-                             state:"app.model.sysmodel_p.sysprofile" 
-                            });
+        $scope.tabs = [{
+            title: "tab.t16",
+            icon: "icon icon-info",
+            state: "app.model.sysmodel_p.basic"
+        }];
+        $scope.tabs.push({
+            title: "tab.t12",
+            icon: "icon icon-wrench",
+            state: "app.model.sysmodel_p.sysprofile"
+        });
 
-        if( $scope.sysmodel.mode == 1 ){
-            $scope.tabs.push(  { title:"tab.t10" , icon:"icon icon-screen-desktop",
-                                state:"app.model.sysmodel_p.sysdevice" } ) 
+        if ($scope.sysmodel.mode == 1) {
+            $scope.tabs.push({
+                title: "tab.t10",
+                icon: "icon icon-screen-desktop",
+                state: "app.model.sysmodel_p.sysdevice"
+            })
         }
 
-        $scope.tabs = $scope.tabs.concat([
-                { title:"tab.t11" , icon:"icon icon-tag",  
-                 state:"app.model.sysmodel_p.systag" },
+        $scope.tabs = $scope.tabs.concat([{
+                title: "tab.t11",
+                icon: "icon icon-tag",
+                state: "app.model.sysmodel_p.systag"
+            },
 
-                { title:"tab.t13" , icon:"icon icon-rocket",  
-                  state:"app.model.sysmodel_p.trigger" },
+            {
+                title: "tab.t13",
+                icon: "icon icon-rocket",
+                state: "app.model.sysmodel_p.trigger"
+            },
 
-                { title:"tab.t14" , icon:"icon icon-flag",  
-                  state:"app.model.sysmodel_p.message" }
-            ]);
-        if($scope.sysmodel.mode == 1 && $scope.sysmodel.comm_type == 2){
-            $scope.tabs.push( {  title:"tab.t15" , icon:"glyphicon glyphicon-random", 
-                                     state:"app.model.sysmodel_p.gateway" }) ; 
+            {
+                title: "tab.t14",
+                icon: "icon icon-flag",
+                state: "app.model.sysmodel_p.message"
+            }
+        ]);
+        if ($scope.sysmodel.mode == 1 && $scope.sysmodel.comm_type == 2) {
+            $scope.tabs.push({
+                title: "tab.t15",
+                icon: "glyphicon glyphicon-random",
+                state: "app.model.sysmodel_p.gateway"
+            });
         }
 
- 
+
 
 
         var defer = $q.defer();
@@ -164,14 +181,18 @@ angular.module("app.model.system", [])
     }
 ])
 
-.controller("sysmodel_basic" , function( $scope , $source){
+.controller("sysmodel_basic", function($scope, $source , $state) {
 
-    
+
+    $scope.$popNav($scope.sysmodel.name + "(信息)", $state);
+
+
 })
- 
-.controller("sysmodel_device", ['$scope', '$sessionStorage', '$source', '$modal',"$sys",
-    function($scope, $sessionStorage, $source, $modal , $sys) {
-        console._log(" sysmodel_device");
+
+.controller("sysmodel_device",  
+    function($scope, $sessionStorage, $source, $modal, $sys ,$state) {
+        
+         $scope.$popNav($scope.sysmodel.name + "(设备)", $state);
 
         var sysmodel = $scope.sysmodel,
             t = $scope;
@@ -222,56 +243,57 @@ angular.module("app.model.system", [])
                                 channel: d
                             };
                         }
-                    } 
+                    }
 
 
 
-                     
-                    if ($scope.isAdd) {  // 新建; 
-                        
-                        $scope.devModel =  $scope.devModelKV[ Object.keys($scope.devModelKV)[0] ] ;
-                         // 初始化D; 
-                        $scope.D =   angular.extend( { device_model: $scope.devModel.uuid } ,
-                                                     $sys.device.entity,
-                                                     $sys.device[ $scope.devModel.driver_id ].entity 
-                                                    );
+
+                    if ($scope.isAdd) { // 新建; 
+
+                        $scope.devModel = $scope.devModelKV[Object.keys($scope.devModelKV)[0]];
+                        // 初始化D; 
+                        $scope.D = angular.extend({
+                                device_model: $scope.devModel.uuid
+                            },
+                            $sys.device.entity,
+                            $sys.device[$scope.devModel.driver_id].entity
+                        );
 
                         // 托管; gateway模式; 
-                        if($scope.sysmodel.mode == 1 && $scope.sysmodel.comm_type == 2){
-                            $scope.D.network = { type:"RS232"};    
-                        } 
+                        if ($scope.sysmodel.mode == 1 && $scope.sysmodel.comm_type == 2) {
+                            $scope.D.network = {
+                                type: "RS232"
+                            };
+                        }
 
                     } else {
                         dev.network = angular.fromJson(dev.network || {});
                         dev.params = angular.fromJson(dev.params || {});
 
                         $scope.D = angular.copy(dev);
-                        $scope.devModel = $scope.devModelKV[ $scope.D.device_model ] ; 
+                        $scope.devModel = $scope.devModelKV[$scope.D.device_model];
 
                     }
 
                     // 缓存 操作; 的配置; 
-                    var  cache = {} ; 
-                    $scope.$watch( "D.device_model" , function (n, o ){
-                         //@if append 
-                            console.log( n , o );
-                         //@endif 
+                    var cache = {};
+                    $scope.$watch("D.device_model", function(n, o) {
 
-                        var a , b;  
-                            a = $scope.devModelKV[n].driver_id ; 
-                            b = $scope.devModelKV[o].driver_id ;  
-                        if(a !=  b){
+                        var a, b;
+                        a = $scope.devModelKV[n].driver_id;
+                        b = $scope.devModelKV[o].driver_id;
+                        if (a != b) {
                             // 缓存驱动 params ;    
                             //cache[a] =  angular.copy( $scope.D.params );  
-                            
+
                             // 驱动参数赋值;
-                            angular.extend( $scope.D , $sys.device[a].entity ); 
+                            angular.extend($scope.D, $sys.device[a].entity);
                             $scope.devModel = $scope.devModelKV[n];
                         }
 
                     })
 
-                   
+
 
                     // 添加 sysmodel device ;
                     $scope.done = function(btn) {
@@ -285,15 +307,15 @@ angular.module("app.model.system", [])
 
                         if ($scope.isAdd) {
                             $source.$sysDevice.save(d, function(resp) {
-                                if( resp.ret){
+                                if (resp.ret) {
                                     d.id = resp.ret;
                                     $scope.sysdevices.push(d);
                                     $scope.cancel();
                                 }
                             })
                         } else {
-                            $source.$sysDevice.put(d, function( resp ) {
-                                if(!resp.err){
+                            $source.$sysDevice.put(d, function(resp) {
+                                if (!resp.err) {
                                     devices[index] = d;
                                     $scope.cancel();
                                 }
@@ -301,7 +323,7 @@ angular.module("app.model.system", [])
                         };
                     };
 
-                   
+
                 }
             })
         }
@@ -321,11 +343,13 @@ angular.module("app.model.system", [])
             })
         }
     }
-])
+)
 
 
-.controller("sysmodel_tag", ['$scope', '$source', "$modal", "$q", "$utils", "$sys", '$state',
+.controller("sysmodel_tag",  
     function($scope, $source, $modal, $q, $utils, $sys, $state) {
+
+        $scope.$popNav($scope.sysmodel.name + "(Tags)", $state);
 
         console._log(" sysmodel_tag");
         var sysmodel = $scope.sysmodel, // $scope.$$cache[0],
@@ -448,7 +472,6 @@ angular.module("app.model.system", [])
                                         id: resp.ret
                                     })
                                 }
-                                console.log(d);
                                 $scope.systags.push(d);
                                 $scope.cancel();
                             }
@@ -581,11 +604,12 @@ angular.module("app.model.system", [])
 
 
     }
-])
+)
 
 
-.controller("sysmodel_profile", ['$scope', '$source', '$modal', '$filter',
-    function($scope, $source, $modal, $filter) {
+.controller("sysmodel_profile",  
+    function($scope, $source, $modal, $filter , $state ) {
+        $scope.$popNav($scope.sysmodel.name + "(Profile)", $state);
 
         console._log(" sysmodel_profile");
         var sysmodel = $scope.sysmodel,
@@ -654,13 +678,14 @@ angular.module("app.model.system", [])
             })
         }
     }
-])
+)
 
 
-.controller("sysmodel_prof_trigger", ['$scope', '$source', '$modal', '$state',
+.controller("sysmodel_prof_trigger",  
     function($scope, $source, $modal, $state) {
 
-        console._log(" sysmodel_prof_trigger ");
+        $scope.$popNav($scope.sysmodel.name + "(触发器)", $state);
+ 
         var sysmodel = $scope.sysmodel,
             S = $scope,
             tags_nv,
@@ -727,7 +752,7 @@ angular.module("app.model.system", [])
                         a = angular.copy(trigger),
                             a.conditions = angular.fromJson(a.conditions),
                             a.params = angular.fromJson(a.params);
-                        console.log(a)
+
 
                         $scope.T = a;
                     }
@@ -833,13 +858,13 @@ angular.module("app.model.system", [])
 
         // trigger 步骤控制; 
         // $scope.SS=[
-        
+
         //     [ {text:"下一步" , handler:"" } ,{ text:"取消", handler:"cancel()"}] ,
-           
+
         //     [ {text:"上一步" , handler:"" } ,{ text:"下一步", handler:""} , 
         //       { text:"取消", handler:"cancel()"}
         //     ] ,
-           
+
         //     [ {text:"上一步" , handler:"" },
         //         {text:"创建" , handler:"" } ,
         //         {text:"更新" , handler:"" },
@@ -872,11 +897,12 @@ angular.module("app.model.system", [])
         }
 
     }
-])
+)
 
 
-.controller('sysmodel_message', ['$scope', '$source', '$modal', "$sys",
-    function($scope, $source, $modal, $sys) { // $source
+.controller('sysmodel_message',  
+    function($scope, $source, $modal, $sys , $state) { // $source
+        $scope.$popNav($scope.sysmodel.name + "(通知)", $state);
 
         var sysmodel = $scope.sysmodel,
             S = $scope,
@@ -985,14 +1011,14 @@ angular.module("app.model.system", [])
         }
 
     }
-])
+)
 
 
-.controller('sysmodel_gateway', ['$scope', '$modal', '$source',
-    function($scope, $modal, $source) { // $source   $source.$sysModel
+.controller('sysmodel_gateway',  
+    function($scope, $modal, $source ,$state) { // $source   $source.$sysModel
 
-        console._log($scope.sysmodel);
 
+        $scope.$popNav($scope.sysmodel.name + "(网关)", $state);
 
         var g = {
                 distance: 100,
@@ -1106,4 +1132,4 @@ angular.module("app.model.system", [])
 
 
     }
-])
+)

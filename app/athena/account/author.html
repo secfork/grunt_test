@@ -1,66 +1,32 @@
 <!-- <tabset class="tab-container">
     <tab  ng-repeat = " tab in tabs ">
-		<tab-heading >
-			<i ng-class=" tab.icon " ></i>
-		 	<span  translate= "{{ tab.title}}"></span>
-		 </tab-heading>
- 		<ng-include src=" tab.url"  ></ng-include>
+    <tab-heading >
+      <i ng-class=" tab.icon " ></i>
+      <span  translate= "{{ tab.title}}"></span>
+     </tab-heading>
+    <ng-include src=" tab.url"  ></ng-include>
     </tab>
   
 </tabset>
  -->
- 
-
- <!--  station 属性 导航 tab
+<!--  station 属性 导航 tab
  状态     配置     信息版    地图   历史数据   固件    手机网络    属性  -->
-
-
-
- <!--  show   实时 历史 , 报警  -->
-
-
-
+<!--  show   实时 历史 , 报警  -->
 <!-- id="sataion_prop_tabs"  用于 window resize 调节 map 高度;  -->
-
 <!--   ng-if = "  isShowModul || station.state =='1' || station.state =='2' "  -->
-
-<div > 
-
-  <!--  展示  -->
-
-    <ul class=" nav  nav-tabs"> 
-        <li  ui-sref-active="active"     >
-            <a   ui-sref="app.account.author.region"    >  
-             <i class="icon icon-screen-desktop "></i>
-              <span translate="区域"></span>
-              
-            </a>
-       </li>
-
-       <li  ui-sref-active="active"     >
-            <a  ui-sref="app.account.author.account"    >  
-              <i class=" icon icon-user"></i>
-
-              <span translate="账户"></span>
-            </a>
-       </li> 
-    </ul> 
-
-   <div ui-view  class="panel panel-default b-t-none  "  > </div>
-
-</div>
-
-
- 
-
-
-
-
-
-
-
-
- 
-
-
-
+<!--  展示  -->
+<ul class=" nav  nav-tabs m-t-xxs  ">
+    <li ui-sref-active="active">
+        <a ui-sref="app.account.author.region">
+            <i class="icon icon-screen-desktop "></i>
+            <span translate="区域"></span>
+        </a>
+    </li>
+    <li ui-sref-active="active">
+        <a ui-sref="app.account.author.account">
+            <i class=" icon icon-user"></i>
+            <span translate="账户"></span>
+        </a>
+    </li>
+</ul>
+<div ui-view class="panel panel-default b-t-none  "> </div>

@@ -1,6 +1,11 @@
 angular.module('app.show.system', [])
 
-.controller("show_alarm" , function( $scope , $source,$show ,$sys, $q  , $filter ){
+.controller("show_alarm" , function( $scope , $state,$source,$show ,$sys, $q  , $filter ){
+
+
+ 	$scope.$moduleNav("报警", $state);
+
+
 
 
 	$scope.openCalendar = function(e, exp) {

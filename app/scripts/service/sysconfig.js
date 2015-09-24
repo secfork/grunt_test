@@ -19,10 +19,11 @@ angular.module('app.sysconfig', [], function() {})
         accountP:[
                       "REGION_MANAGE", // 区域管理
                       "MODEL_MANAGE", //模型管理
-                      "GROUP_MANAGE", //用户组管理
+                     // "GROUP_MANAGE", //用户组管理
                       "USER_MANAGE", //用户管理
                       "ROLE_MANAGE", //角色管理
-                    ],
+                ],
+                
         // 区域权限; 
         regionP: [
 
