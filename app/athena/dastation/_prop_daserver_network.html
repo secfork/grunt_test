@@ -3,21 +3,35 @@
 托管模式: ==>  daserver 类型;  
 
  -->
-<form name="form" panelclass class="form-horizontal form-validation " ng-init="  initDaServer() ; loadSupportDtus() ;  ">
+
+ 
+
+<form name="form" panelclass class="form-horizontal form-validation "
+ ng-init="  initDaServer() ; loadSupportDtus() ;  ">
     <!-- @if append -->
     system.network.daserver ={{daserver}}
     <!-- @endif  -->
+
+
     <div ng-if=" daserver.type =='DTU' ">
-        <select tl-wrap-l label="DTU驱动" required ng-model="daserver.params.driverid" ng-change=" applyDtuData(daserver.params ) ;  " ng-options=" o.driver_id as o.driver_id  for o  in dtuList">
+        <select tl-wrap-l label="DTU驱动" required 
+           ng-model="daserver.params.driverid"
+            ng-change=" applyDtuData(daserver.params ) ;
+              " ng-options=" o.driver_id as o.name  for o  in dtuList ">
             <option value="">--请选择DTU驱动--</option>
         </select>
-        <!--
+        <!--     根据  dtu id 加载相应的配置界面; 
                   <input  tl-wrap-l label="终端iD" required ng-model="network[type].simid"    > 
                   readonly
                 -->
-        <input tl-wrap-l label="终端ID" required ng-model="daserver.params.simid" ng-change=" toUpdate('daserver') ">
-        <input readonly tl-wrap-l label="cmway" ng-model="daserver.params.cmway">
-        <input readonly tl-wrap-l label="端口" ng-model="daserver.params.port">
+        <div  ng-include = "  'athena/_dtu/' +daserver.params.driverid + '.html' "> 
+        </div>
+
+       
+
+
+        <input readonly tl-wrap-l label="中心域名" ng-model="cmway_port.inet_ipv4">
+        <input readonly tl-wrap-l label="端口" ng-model="cmway_port.inet_port">
         <div class="text-muted">
             <i class="fa  fa-warning   text-warning pos-rlt"></i> DSC地址和端口需要设置到指定的DTU设备中
         </div>
@@ -29,10 +43,12 @@
         <input tl-wrap-l label="APN用户名" ng-model="a">
         <input tl-wrap-l label="APN密码" ng-model="a">
     </div>
-    <!-- dtu -->
+    <!-- dtu --> 
+
     <!--vpn-->
     <div ng-if="daserver.type =='TcpServer' ">
-        <div class=" col-sm-12    m-t-xs  m-b-sm   text-left" style="padding-left: 0px">
+        <div class=" col-sm-12    m-t-xs  m-b-sm   text-left" 
+            style="padding-left: 0px">
             <div class="checkbox">
                 <label class="i-checks">
                     <input type="checkbox" ng-checked="true" ng-model="isvpn"><i></i> 是否使用VPN
@@ -45,6 +61,9 @@
             <input tl-wrap-l label="密码" ng-model="a" required type="password">
         </div>
     </div>
+
+
+
     <!--  <div class="line   line-dashed b-b line-chart m-l-n-sm   "></div> -->
     <div class="row m-t-xs">
         <div class="col-xs-12">

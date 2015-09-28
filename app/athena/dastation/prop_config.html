@@ -26,15 +26,16 @@
             </span>
         </div>
         <!--  就 托管的 daServer 不用  box ticket-->
-        <div ng-if=" !(sysmodel.mode ==1  && sysmodel.comm_type ==1 ) ">
+        <div ng-if="  nT ">
             <label class="col-md-3 col-lg-offet-1 control-label m-t-xs">SN</label>
             <div class="col-md-8  ">
                 <div class="input-group">
-                    <input type="text" class="form-control" ng-model="t.sn" ng-disabled="t.ticket">
+                    <input type="text" class="form-control" ng-model="t.sn"
+                        ng-disabled="t.ticket">
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="button"
+                        <button class="btn btn-default w-xs" type="button"
                             ng-disabled=" t.ticket  "
-                            ng-click="createTicket()">生成Ticket</button>
+                            ng-click="createTicket()">注册</button>
                         </span>
                 </div>
             </div>
@@ -46,11 +47,15 @@
         </div>
     </div>
     <div class="line b-b"></div>
-    <!--   托管  daserver  模式 -->
-    <div class="  text-left m-t-xs m-b   " ng-if=" sysmodel.mode ==1 &&  sysmodel.comm_type == 1 ">
+
+    <!--   托管  daserver  模式   sysmodel.mode ==1 &&  sysmodel.comm_type == 1  -->
+    <div class="  text-left m-t-xs m-b   "
+         ng-if=" !nT ">
         <h5 class="m-l-xs"> 网络参数 </h5>
         <ng-include src="  'athena/dastation/_prop_daserver_network.html'  "></ng-include>
     </div>
+
+    
     <!--
     <div class="line b-b " ng-if=" sysmodel.comm_type == 1   "></div>
     
@@ -70,33 +75,55 @@
         <ng-include src="  'athena/dastation/_prop_gateway_device.html'  "></ng-include>
     </div>
     <div class="line b-b"></div>
-    <div class="col-md-2  col-xs-6   text-left  ">
+
+
+    <div class="col-md-4  col-xs-6   text-left  ">
         <span>上次配置更新</span>
     </div>
-    <div class="col-md-10 col-xs-6   ">
+    <div class="col-md-8 col-xs-6   ">
         {{ station.last_modify_time| date:"yyyy-MM-dd HH:mm" }}
     </div>
-    <div class="col-md-2  col-xs-6 text-left m-t-xs ">
+
+
+    <div class="col-md-4  col-xs-6 text-left m-t-xs ">
         上次同步
     </div>
-    <div class="col-md-10 col-xs-6 m-t-xs ">
+    <div class="col-md-8 col-xs-6 m-t-xs ">
         <span class=" ">  {{station.last_sync_time | date:"yyyy-MM-dd HH:mm" }} </span>
     </div>
-    <div class="col-xs-2 m-t-sm ">
+
+
+    <div class="col-xs-4 m-t-sm ">
         <button class="btn  btn-sm btn-success" ng-click="syncSystem( station ) ; " ng-disabled=" sync_start"> 同步配置</button>
-    </div>
-    <div class=" col-xs-10    m-t-xs ">
-        <div ng-show=" !sync_start && sync_err_msg " class="    text-danger  ">
-            <span class=" m-t-xs ">  {{ sync_err_msg }} </span>
-        </div>
-        <div ng-show=" !sync_start && sync_ret_msg " class="   text-info  ">
-            <span class=" m-t-xs ">  {{ sync_ret_msg }} </span>
-        </div>
-        <div ng-show=" sync_start " class=" col-xs-6    m-t-xs">
+   
+         <span ng-show=" !sync_start && sync_err_msg " 
+              class=" m-t-xs  text-danger"> {{ sync_err_msg }} </span>
+
+        
+
+        <span  ng-show=" !sync_start && sync_ret_msg " 
+              class=" m-t-xs  text-info  ">  {{ sync_ret_msg }} </span>
+
+        <span ng-show=" sync_start ">
+            <i  class="fa fa-spin fa-spinner   inline" id="spin" ></i>
+                  
+        </span>
+
+      <!--  
+        <div  class="  m-t-xs">
             <i class="fa fa-spin fa-spinner hide show inline" id="spin"></i>
-        </div>
+        </div> 
+        -->
+
+    </div>
+
+
+    <div class=" col-xs-8    m-t-xs ">
+        
         <button class="btn btn-sm btn-info" ng-click="startSystem(  station )"> 启动 </button>
         <button class="btn btn-sm btn-info" ng-click="d_stop()"> 停止 </button>
-        <button class="btn btn-sm btn-info" ng-click="d_call()"> 召唤实时 </button>
+       <!--  <button class="btn btn-sm btn-info" ng-click="d_call( station )"> 召唤实时 </button> -->
     </div>
+
+
 </div>

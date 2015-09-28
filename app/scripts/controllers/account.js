@@ -7,9 +7,7 @@
      $scope.$moduleNav("账户信息", $state);
 
 
-     // 账户信息; 项目, user ,station 数量
-
-
+     // 账户信息; 项目, user ,station 数量 
      return;
      $source.$account.getByPk({
          pk: 1234
@@ -53,24 +51,25 @@
              sms_notice: 1
          };
          $scope.loadPageData(1);
-        
+
 
          //}
      }
- 
+
 
 
      // 加载所有 角色 信息;
      $source.$userGroup.query({
          currentPage: 1
-     }, function(resp) {
-         if (resp.data) {
-             $scope.groups = resp.data;
-         }
+     }, function(resp) { 
+         $scope.groups = resp.data;
+
+
+
      })
 
 
-     // 更改密码;
+     // 更改user ;
      var S = $scope;
      // $scope.op = {idAdd:true }  ;
      $scope.editUser = function(arr, user, index) {
@@ -78,13 +77,21 @@
              templateUrl: "athena/account/users_edit.html",
              controller: function($scope, $modalInstance) {
                  $scope.__proto__ = S;
+                 $scope.isEdit = true;
                  $scope.$modalInstance = $modalInstance;
                  $scope.op = {
                      isEdit: true,
                      ccpass: false
                  };
                  $scope.user = angular.copy(user);
+                 delete $scope.user.password;
+
                  $scope.done = function() {
+                    $source.$user.put( {} , $scope.user , function(){
+                        angular.extend( user , $scope.user );
+                        $scope.cancel();
+                    }, $scope.cancel )
+
 
                  }
              }
@@ -95,8 +102,8 @@
      $scope.createUser = function() {
 
          $scope.validForm();
-         $source.$user.save($scope.user, function(resp) {
-             if (resp.ret) {
+         $source.$user.save($scope.user,
+             function(resp) {
                  // 添加到组; 分配几个组 调用几次; 
                  var p = [];
                  angular.forEach($scope.od.groups, function(v) {
@@ -109,10 +116,10 @@
                  $q.all(p).then(function() {
                      alert("创建成功!")
                  })
-
              }
 
-         });
+
+         );
      }
 
 
@@ -121,13 +128,14 @@
              title: "删除用户:" + u.username + " ?"
          }, function(next) {
              $source.$user.delByPk({
-                 pk: u.id
-             }, function(resp) {
-                 if (!resp.err) {
+                     pk: u.id
+                 },
+                 function(resp) {
                      arr.splice(i, 1);
                      next();
-                 }
-             })
+                 },
+                 next
+             )
          })
      }
 
@@ -164,21 +172,20 @@
 
 
      $scope.tabToGroup = function() {
-        //if (!$scope.page.data ) {
-        $scope.loadPageData(1);
-        //} 
+         //if (!$scope.page.data ) {
+         $scope.loadPageData(1);
+         //} 
      }
 
-    
+
 
      $scope.ug = {};
 
      // 创建用户组;
      $scope.commit = function() {
          $source.$userGroup.save($scope.ug, function(resp) {
-             if (resp.ret) {
-                 alert("创建成功!")
-             }
+             alert("创建成功!")
+
          })
      }
 
@@ -191,11 +198,11 @@
              $source.$userGroup.delByPk({
                  pk: g.id
              }, function(resp) {
-                 if (!resp.err) {
-                     arr.splice(i, 1);
-                     next();
-                 }
-             })
+
+                 arr.splice(i, 1);
+                 next();
+
+             }, next)
          })
 
      }
@@ -213,11 +220,11 @@
                  $scope.done = function() {
                      $scope.validForm();
                      $source.$userGroup.put($scope.ug, function(resp) {
-                         if (!resp.err) {
-                             angular.extend(g, $scope.ug);
-                             $scope.cancel();
-                         }
-                     })
+
+                         angular.extend(g, $scope.ug);
+                         $scope.cancel();
+
+                     }, $scope.cancel);
                  }
              }
          })
@@ -228,7 +235,7 @@
 
  .controller("usergroup_users", function($scope, $state, $source, $sys, $localStorage) {
 
- 
+
      $scope.usergroup = $scope.$$cache[0];
 
      $scope.$popNav($scope.usergroup.name + "(用户)", $state);
@@ -266,11 +273,11 @@
                  pk: $scope.usergroup.id,
                  userid: u.id
              }, {}, function(resp) {
-                 if (!resp.err) {
-                     arr.splice(i, 1);
-                     next();
-                 }
-             })
+
+                 arr.splice(i, 1);
+                 next();
+
+             }, next)
          })
      }
  })
@@ -278,7 +285,7 @@
  .controller('acco_role', function($scope, $state, $stateParams, $sys, $source, $modal) {
 
 
-    $scope.$moduleNav("角色", $state);  
+     $scope.$moduleNav("角色", $state);
 
      var thatScope = $scope;
 
@@ -315,7 +322,7 @@
              privilege: d
          }, function(resp) {
              s.op.edit = false;
-         }, function() {
+         }, function() { // 恢复更改之钱的值;  闪回!
              arr[i] = angular.copy(r);
          });
      }
@@ -348,17 +355,20 @@
                      delete $scope.r.authors;
                      $scope.r.privilege = privilege;
 
-                     $source.$role.save($scope.r, function(resp) {
-                         if (resp.ret) {
+                     $source.$role.save(
+                         $scope.r,
+                         function(resp) {
                              $scope.r.id = resp.ret;
                              if ($scope.r.role_category) {
                                  $scope.regionRoles.push(angular.copy($scope.r));
                              } else {
                                  $scope.accountRoles.push(angular.copy($scope.r));
                              }
-                         }
-                         $scope.cancel();
-                     })
+
+                             $scope.cancel();
+                         },
+                         $scope.cancel
+                     )
                  }
              }
          })
@@ -372,11 +382,11 @@
              $source.$role.delByPk({
                  pk: r.id
              }, function(resp) {
-                 if (resp.ret) {
-                     arr.splice(index, 1)
-                 }
+
+                 arr.splice(index, 1)
+
                  next();
-             })
+             }, next)
          })
      }
 
@@ -384,7 +394,7 @@
 
  .controller('acco_author', function($scope, $state, $source) {
      // 预先加载 所有组;
-    $scope.$moduleNav("权限", $state);  
+     $scope.$moduleNav("权限", $state);
 
 
      $scope.gp = $source.$userGroup.query({
@@ -479,15 +489,15 @@
                          },
                          permission,
                          function(resp) {
-                             if (!resp.err) {
-                                 // 添加组; , 添加id引用;
-                                 var g = angular.copy($scope.au.group);
-                                 g.privilege = permission;
-                                 scope.groups.push(g);
-                                 scope.groupids.push($scope.au.group.id);
-                                 $scope.cancel();
-                             }
-                         }
+                             // 添加组; , 添加id引用;
+                             var g = angular.copy($scope.au.group);
+                             g.privilege = permission;
+                             scope.groups.push(g);
+                             scope.groupids.push($scope.au.group.id);
+                             $scope.cancel();
+
+                         },
+                         $scope.cancel
                      )
                  }
 
@@ -514,15 +524,14 @@
                  source_id: r.id,
                  group_id: g.id
              }, function(resp) {
-                 if (!resp.err) {
-                     // 删除数据;
-                     arr.splice(i, 1);
-                     // 删除 id 引用;
-                     scope.groupids.splice(scope.groupids.indexOf(g.id), 1);
+                 // 删除数据;
+                 arr.splice(i, 1);
+                 // 删除 id 引用;
+                 scope.groupids.splice(scope.groupids.indexOf(g.id), 1);
 
-                     next();
-                 }
-             })
+                 next();
+
+             }, next)
          })
      }
 
@@ -543,10 +552,10 @@
              },
              permission,
              function(resp) {
-                 if (!resp.err) {
-                     scope.op.edit = false;
-                 }
-             });
+                 scope.op.edit = false;
+
+             }
+         );
 
      }
 

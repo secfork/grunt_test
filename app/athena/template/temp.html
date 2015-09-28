@@ -17,7 +17,7 @@
                 ng-model=" T.driver_id "
 
                 ng-if="isAdd"
-                ng-options=" o.driver_id  as o.driver_id   for o in drivers "
+                ng-options=" o.driver_id  as o.name   for o in drivers  "
                 ></select>
 
         <input tl-wrap required ng-model="T.name" label="模型名称">

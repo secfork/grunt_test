@@ -121,17 +121,21 @@ angular.module('app.system', [])
         }
 
 
+         //var  proj_id =  $scope.$$cache[0];  // 确保 cache 是 project ?? ;
 
+        
+
+ 
         $scope.system = {};
 
-        var a = $stateParams.projid;
+        var a =  $scope.$$cache && $scope.$$cache[0] && $scope.$$cache[0].id ; 
         // 加载可操作的 project ;
         $source.$region.query({
             currentPage: 1,
             itemsPerPage: 5000
         }, function(resp) {
             $scope.projects = resp.data;
-            $scope.system.region_id = a ? a : resp.data[0] && resp.data[0].id;
+            $scope.system.region_id = a ? a :(resp.data[0] && resp.data[0].id);
         })
 
 
@@ -173,13 +177,12 @@ angular.module('app.system', [])
         $scope.commit = function() {
             $scope.validForm();
 
-            $scope.system.network = angular.toJson($scope.system.network);
+           // $scope.system.network = angular.toJson($scope.system.network);
 
             $source.$system.save(angular.extend({
                 model: $scope.systemModel.uuid
-            }, $scope.system), function(resp) {
-                alert("创建成功!");
-
+            }, $scope.system), function(resp) { 
+                    alert("创建成功!"); 
             })
 
         }

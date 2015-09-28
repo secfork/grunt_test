@@ -32,8 +32,27 @@
 
         <input tl-wrap-l  label="验证码" ng-model="xxx"  class="w" >
 
- -->
-        <div class="form-group  ">
+        -->
+
+        <!--  更改手机号码?-->
+
+         <div class="form-group "  ng-if="!isAdd">
+            <label class="col-sm-3 control-label  ">
+                <span> 更改联系人号码 </span>
+            </label>
+            <div class=" col-sm-9">
+                <div class="checkbox inline">
+                    <label class="i-checks">
+                        <input type="checkbox" ng-model="op.cc_phone "
+                             checked=""  ><i></i>
+                         
+                    </label>
+                </div> 
+            </div>
+        </div>
+
+
+        <div class="form-group  "  ng-if=" isAdd ||  op.cc_phone " >
             <label class="col-sm-3 control-label  ">
                 <span translate="手机号码" class="ng-scope">手机号码</span>
                 <mark/>
@@ -55,16 +74,24 @@
                 </div>
             </div>
         </div>
-        <div class="form-group  ">
+
+
+
+        <div class="form-group  "  ng-if=" isAdd || op.cc_phone " >
             <label class="col-sm-3 control-label  ">
                 <span translate="验证码" class="ng-scope">验证码</span>
                 <mark/>
             </label>
             <div class=" col-sm-9">
-                <input ng-model=" C.code " class=" form-control w inline" ui-validate=" 'validVer($value)' ">
-                <i class="fa  fa-check-circle text-success "></i>
+                <input ng-model=" C.code " 
+                class=" form-control w inline" 
+                ui-validate=" 'validVer($value)' ">
+              <!--   <i class="fa  fa-check-circle text-success "></i> -->
             </div>
         </div>
+
+
+
         <!--   
             C.varify_code ; 
          ui-validate = "{bar : 'validVer($value)' } }"
@@ -84,12 +111,12 @@
             </label>
     </div> -->
     <div panelclass class="text-center" ng-if=" !isShowModul ">
-        <button type="submit" class="btn  btn-info  btn-block-middle w-xs m-b " ng-click=" commit()" token> 保存 </button>
+        <button   class="btn  btn-info  btn-block-middle w-xs m-b " 
+            ng-click="commit()" token> 保存 </button>
     </div>
 </div>
-
-
- <!--@if append -->
-
-  C = {{C}}
- <!--@endif -->
+<!--@if append -->
+C = {{C}}
+<br/>
+op={{op}}
+<!--@endif -->

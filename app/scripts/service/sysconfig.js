@@ -7,7 +7,7 @@ angular.module('app.sysconfig', [], function() {})
         // systemo 模式: manage , unmanage ,unknown ; 
         manageMode: 1,
 
-        itemsPerPage: 2,
+        itemsPerPage: 20,
 
         yesOrNo:[
             {k:"是",v:1},
@@ -397,7 +397,7 @@ angular.module('app.sysconfig', [], function() {})
                         "area": 0,
                         "offset":0,
                         "type": 0, //  可选项遂区域在变; 
-                        // "TypeEx": 0,// 遂区域在变; 
+                         "type_ex": 0,// 遂区域在变; 
                         "access": 0  // 遂区域变; 
                     } 
                 },
@@ -406,26 +406,22 @@ angular.module('app.sysconfig', [], function() {})
                  
                 AreaCC : function( point   ){
                     // k :area , v: access ;  
-                    
-                    //@if  append
-                        console.log("AreaCC"); 
-                    //@endif         
+                         
 
                     var cc = {1:0 , 3:0 , 0:2 , 2:2};
                     if( point.params.area < 2){
                         point.params.type = 0 ; 
-                        point.params.type_ex = undefined ;  
+                        // point.params.type_ex = undefined ;  
+                        point.params.type_ex = 0 ;  
                     }else{
                         point.params.type = 3 ; 
-                        point.params.type_ex = undefined ; 
+                        // point.params.type_ex = undefined ; 
+                        point.params.type_ex = 0 ; 
                     }
                     point.params.access = cc[ point.params.area];  
                 } ,
                 // Type 变化时 数据变化; 
-                TypeCC : function(point){
-                    //@if  append
-                        console.log("TypeCC"); 
-                    //@endif   
+                TypeCC : function(point){  
                     if( point.params.area  > 1 ){
                         //  // k: 数据类型 , v: typeEx 值;   
                         var cc = { 0:0 , 1:0 , 2:0 , 13:1 , 14:1}; 
@@ -510,8 +506,7 @@ angular.module('app.sysconfig', [], function() {})
                     }
                     if( area == 4 ){
                         cc(tt);
-                       !bool && ( point.params.type = 0 );
-                        // point.params.typeEx = 1 ;
+                       !bool && ( point.params.type = 0 ); 
                         
                     }
 
@@ -523,8 +518,10 @@ angular.module('app.sysconfig', [], function() {})
 
                     if( area == 6 || area == 8 ){
                         !bool && ( 
-                            point.params.type = undefined , 
-                            point.params.type_ex = undefined 
+                            // point.params.type = undefined ; 
+                            // point.params.type_ex = undefined ;
+                            point.params.type = 0 ,
+                            point.params.type_ex = 0 
                         )
  
                     }
@@ -534,12 +531,7 @@ angular.module('app.sysconfig', [], function() {})
                         !bool && ( point.params.type = 3 ) ; 
                         
                     }; 
-
-                   // scope.$digest();
-                     //@if  append 
-                        console.log("areaCC", arguments )
-                    //@endif 
-
+ 
                 },
 
                 typeCC : function ( point ){
@@ -553,7 +545,8 @@ angular.module('app.sysconfig', [], function() {})
                         point.params.type_ex =1 ;
                         return ;
                     }
-                    point.params.type_ex = undefined ;
+                    // point.params.type_ex = undefined ;
+                    point.params.type_ex = 0 ;
                 } ,
 
 

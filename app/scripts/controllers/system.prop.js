@@ -4,44 +4,47 @@
 
 // controller  分的太细了 ! 完全可以合并 部分 controller ;
 
-
-
 angular.module('app.system.prop', [])
-    .controller("dastation_prop", function($scope, $state, $source,$stateParams) {
+    .controller("dastation_prop", function($scope, $state, $source, $stateParams) {
 
         console._log("dastation_prop");
 
         // $stateParams.state =="unactive"  时  需要激活 station ;
- 
+
         // 未激活的采集站 处理 ;
         $scope.setActive = function() {
             $scope.activateStation($scope, null, $scope.station, null, "updata");
         };
 
 
-        
+
 
         // 改变 station 会自动存到 sessionstorage ; AppScope.$watch("$$cache", fun... ,  true)
-        $scope.station = $scope.$$cache[0] ;
+        $scope.station = $scope.$$cache[0];
         $scope.Sta_Data = $scope.$$cache[1];
 
-        $scope.loadSystemData = function(){
-             $source.$system.get( { system_id : $scope.station.uuid } , function ( resp){
-                if( resp.ret ){
-                    $scope.Sta_Data =   resp.ret.profile ; 
-                    $scope.$$cache[1] =  resp.ret.profile;
-                }  
-            })   
+        $scope.loadSystemData = function() {
+            $source.$system.get({
+                system_id: $scope.station.uuid
+            }, function(resp) {
+
+                $scope.Sta_Data = resp.ret.profile;
+                $scope.$$cache[1] = resp.ret.profile;
+
+            })
         }
 
-        if( $scope.station ){
-           $scope.loadSystemData();
+        if ($scope.station) {
+            $scope.loadSystemData();
         }
- 
+
         // 得到systemModel 数据 ; 便于配置 gateway , network ;
-        $source.$sysModel.getByPk({
+
+        $scope.l_m_P = $source.$sysModel.getByPk({
             pk: $scope.station.model
-        }, function(resp) {
+        }).$promise;
+
+        $scope.l_m_P.then(function(resp) {
             // sysmodel ;
             $scope.sysmodel = resp.ret;
 
@@ -51,11 +54,14 @@ angular.module('app.system.prop', [])
                 this[v.id] = v.name;
             }, $scope.deviceKV);
 
-            console._log($scope.sysmodel);
-
         });
 
- 
+
+        // ticket ;
+        $scope.t = {
+            sn: undefined,
+            ticket: undefined
+        };
 
         // 获得文件路径;
         $scope.op = {
@@ -148,7 +154,7 @@ angular.module('app.system.prop', [])
 
             $scope.file = {};
             $scope.progress = 1;
-            $scope.showmsg = false; 
+            $scope.showmsg = false;
 
         };
 
@@ -170,8 +176,8 @@ angular.module('app.system.prop', [])
 
 
 
-.controller("das_config", ['$scope', '$state', '$stateParams', '$source', "$modal",
-    function($scope, $state, $stateParams, $source, $modal) {
+.controller("das_config",
+    function($scope, $state, $stateParams, $source, $modal, $filter) {
 
         console._log("das_config");
         console._log($stateParams);
@@ -182,31 +188,41 @@ angular.module('app.system.prop', [])
         S.needUpdate = needUpdate = {},
             S.hasSave = hasSave = {};
 
-        $scope.t = {};
 
         // 生成 ticket ; 
         $scope.createTicket = function() {
-            // 先 写死 ticket 的 选前; 
-            $scope.t.privilege = ['SYSTEM_MANAGE', 'SYSTEM_CONTROL'];
+                // 先 写死 ticket 的 选前; 
+                $scope.t.privilege = ['SYSTEM_MANAGE', 'SYSTEM_CONTROL'];
 
-            $source.$ticket.save({
-                    system_id: $scope.station.uuid
-                },
-                $scope.t,
-                function(resp) {
-                    if (resp.ret) {
+                $source.$ticket.save({
+                        system_id: $scope.station.uuid
+                    },
+                    $scope.t,
+                    function(resp) {
                         $scope.t.ticket = resp.ret;
-                    }
-                })
-        }
-
-        $source.$ticket.get({
-            system_id: $scope.station.uuid
-        }, function(resp) {
-            if (resp.ret) {
-                $scope.t = resp.ret;
+                    })
             }
-        });
+            //  就 托管的 daServer 不用  box ticket 
+            // <div ng-if=" !(sysmodel.mode ==1  && sysmodel.comm_type ==1 ) ">
+
+        $scope.l_m_P.then(function(resp) {
+            var model = resp.ret;
+            $scope.nT =  !(model.mode == 1 && model.comm_type == 1);
+
+            if ($scope.nT) {
+                $source.$ticket.get({
+                    system_id: $scope.station.uuid
+                }, function(resp) {
+                    $scope.$parent.t = resp.ret;
+
+                }, function() { // 无 ticket 时; 
+
+                });
+            }
+        })
+
+
+
 
 
         // 控制 编辑按钮 显隐 ;
@@ -250,10 +266,33 @@ angular.module('app.system.prop', [])
         //========================================================================================
         // 托管 Daserver 类型; Dtu模式;
         $scope.initDaServer = function() {
-            $scope.daserver = angular.copy(S.network.daserver || (S.network.daserver = {}))
+            $scope.daserver = angular.copy(S.network.daserver || (S.network.daserver = {}));
 
+            // 加载  assign 的   dtu server  信息;  
+            $scope.l_m_P.then( function(){
+                if(
+                    $scope.sysmodel.mode ==1 &&  $scope.sysmodel.comm_type == 1 
+                    &&  $scope.daserver.network
+                  ){
+                    var d = {options:"getassign" ,proj_id : $scope.station.uuid }
+                    $source.$system.getDtuServer( d , function ( resp){
+                        $scope.cmway_port = resp.ret ; 
+                    })
+                }  
+            })
         }
 
+        // 加载支持的 dtu 驱动;
+        $scope.loadSupportDtus = function() {
+            if ($scope.dutList) return;
+            $source.$driver.get({
+                type: "dtu"
+            }, function(resp) {
+
+                $scope.dtuList = $filter("filter")( resp.ret, {category: "CHANNEL"} );
+  
+            });
+        }
 
         // 托管 -- DaSErver类型 --Dtu 模式;  ;
         //  dtu驱动ng-change时 ;  dut_name  字段待定; v.name 待定;
@@ -274,17 +313,11 @@ angular.module('app.system.prop', [])
             })
         }
 
+     
+         
+       
+        
 
-        // 加载支持的 dtu 驱动;
-        $scope.loadSupportDtus = function() {
-            if ($scope.dutList) return;
-            $source.$driver.get({
-                type: "dtu"
-            }, function(resp) {
-
-                $scope.dtuList = resp.ret;
-            });
-        }
 
         //========================================================================================
         //======================================  profile =======================================
@@ -332,7 +365,7 @@ angular.module('app.system.prop', [])
                 // update_+   $scope.gateweayDevs ;不要乱起名;
                 toUpdate("gatewayDevs");
                 next();
-            });
+            }, next);
         }
 
         // 托管  -- gatwway类型;
@@ -461,15 +494,13 @@ angular.module('app.system.prop', [])
                 delete $scope.gateway[T][t]
                 toUpdate('gateway');
                 next();
-            })
+            }, next)
         }
 
 
 
         // c_u_dev
-
-
-
+ 
         //======================================================================
         //================================   保存 配置 ======================================
         //======================================================================
@@ -495,21 +526,58 @@ angular.module('app.system.prop', [])
                 d.network = angular.toJson({
                     devices: $scope.gatewayDevs
                 });
-                update(d).then(function() {
+                update(d).then(function(resp) {
                     toSave("gatewayDevs");
                     $scope.station.network = d.network;
-
                 });
             }
 
             if (field == 'daserver') {
-                d.network = angular.toJson({
-                    daserver: $scope.daserver
-                });
-                update(d).then(function() {
-                    toSave("daserver");
-                    $scope.station.network = d.network;
-                })
+                // 未激活的话 提示激活; 
+                if( !$scope.station.state ){
+                    $scope.confirmInvoke(  { title:"该系统处于未激活状态, 是否现在激活!"} , function( next ){
+                        var d = {
+                          uuid: $scope.station.uuid,
+                          state: 1
+                        }; 
+                        // 激活系统; 
+                        $source.$system.put(d).$promise.then( function(){
+                            // assign system ;    
+                           return  assignSystem();  
+
+                        }, next ).then( function( resp ){
+                            // 保存网络参数;   
+                            saveDaServer( resp ).then( next );    
+                        }, next )  
+                    }) 
+                }else{
+                    assignSystem().then( saveDaServer ) ;
+                }
+
+                function  assignSystem (){
+                    var d = { options:"assign" , proj_id: $scope.station.uuid ,
+                                driver_id:  $scope.daserver.params.driverid
+                            }; 
+                    return  $source.$system.assign( d ).$promise;
+                }
+
+
+                function  saveDaServer ( resp ){
+                    $scope.cmway_port = resp.ret ; // 数据中心 , 端口数据 ; 
+                            
+                    d.network = angular.toJson({
+                        daserver: $scope.daserver
+                    }); 
+                  return  update(d).then(function(resp) {
+                        
+                        toSave("daserver"); 
+                        $scope.station.network = d.network;  
+                    })
+
+                }
+
+             
+
             }
 
             if (field == 'gateway') {
@@ -525,9 +593,9 @@ angular.module('app.system.prop', [])
                 update(d).then(function() {
                     toSave("profile");
                     $scope.station.profile = d.profile;
-                }).then( function(){
+                }).then(function() {
                     //  重新 获取下  sys_data ; 
-                    $scope.loadSystemData ();
+                    $scope.loadSystemData();
                 })
             }
 
@@ -545,16 +613,10 @@ angular.module('app.system.prop', [])
                 alert(angular.toJson(resp));
             });
         }
-        $scope.d_call = function() {
-            $source.$system.call({
-                pk: $scope.station.uuid
-            }, {}, function(resp) {
-                alert(angular.toJson(resp));
-            });
-        }
+
 
     }
-])
+)
 
 
 .controller('das_tag', ['$scope', '$source', '$state', function($scope, $source, $state) {
@@ -563,8 +625,8 @@ angular.module('app.system.prop', [])
 
     $scope.$popNav($scope.station.name + "(变量)", $state);
 
-     $scope.systags = $scope.Sta_Data.tags ;
-    
+    $scope.systags = $scope.Sta_Data.tags;
+
 
     // if (station.profile) {
     //     $source.$sysLogTag.get({
@@ -590,7 +652,7 @@ angular.module('app.system.prop', [])
     var station = $scope.station;
     $scope.$popNav($scope.station.name + "(触发器)", $state);
 
-    $scope.triggers =  $scope.Sta_Data.triggers ; 
+    $scope.triggers = $scope.Sta_Data.triggers;
 
     // $source.$sysProfTrigger.get({
     //     profile: station.profile
@@ -606,7 +668,7 @@ angular.module('app.system.prop', [])
     var station = $scope.station;
     $scope.$popNav($scope.station.name + "(通知)", $state);
 
-    $scope.message =  $scope.Sta_Data.messages;
+    $scope.message = $scope.Sta_Data.messages;
 
     // $source.$message.get({
     //     profile_id: station.profile
@@ -617,6 +679,7 @@ angular.module('app.system.prop', [])
 })
 
 .controller('das_contact', function($scope, $source, $state, $http, $interval, $timeout) {
+
 
     // 加载 system 的 contact ;
     // pk ~=   system_uuid ;
@@ -630,10 +693,10 @@ angular.module('app.system.prop', [])
     // 获取 短信验证码; 
     $scope.sendVer = function() {
         $source.$note.get({
-            op: "send_connnect",
+            op: "connnect",
             mobile_phone: $scope.C.mobile_phone
         }, function(resp) {
-            $scope.op.second = 10;
+            $scope.op.second = 120;
             $scope.op.send = true;
             interval = $interval(function() {
                 $scope.op.second--;
@@ -647,13 +710,12 @@ angular.module('app.system.prop', [])
     }
 
 
-    //验证 短信吗;  
+    //验证 短信吗;   ui-validate 当前版本不支持 异步验证; 
     $scope.validVer = function(code) {
+        return true;
         $timeout.cancel(timeout);
 
         timeout = $timeout(function() {
-
-
 
         }, 1000);
 
@@ -671,6 +733,10 @@ angular.module('app.system.prop', [])
     $source.$contact.get({
         pk: $scope.station.uuid
     }).$promise.then(function(resp) {
+        resp.ret = {
+            first_name: 123,
+            mobile_phone: 123333
+        };
 
         $scope.isAdd = !resp.ret;
 
@@ -685,27 +751,31 @@ angular.module('app.system.prop', [])
 
         // 更新 system 的 contact ;
         $scope.commit = function() {
+            alert(11);
             $scope.validForm();
             ($scope.isAdd ? createContact : updateContact)();
         }
 
+        // 更新联系人; 
         function updateContact() {
 
             $source.$contact.put({
                 pk: $scope.station.uuid
             }, $scope.C, function(resp) {
-                !resp.err && (alert("修改成功!"));
+                (alert("修改成功!"));
             })
         }
-
+        // 创建联系人; 
         function createContact() {
             $scope.C.system_id = $scope.station.uuid;
             $source.$contact.save({
                 pk: $scope.station.uuid
             }, $scope.C, function(resp) {
+
                 $scope.C.contact_id = resp.ret || $scope.C.contact_id;
                 $scope.isAdd = false;
                 alert('添加成功!');
+
             })
         }
 
@@ -780,6 +850,9 @@ angular.module('app.system.prop', [])
                 addMoveMenu.apply(marker);
                 addMarkMouseUpHandler.apply(marker);
                 map.addOverlay(marker);
+
+
+
             });
         }
 
@@ -830,7 +903,7 @@ angular.module('app.system.prop', [])
                 latitude: $scope.station.latitude
             }
 
-            $source.$system.put(d, function() {
+            $source.$system.put(d, function(resp) {
 
                 map.clearOverlays();
                 marker = $map.mapMarker($scope.station.latitude, $scope.station.longitude,
@@ -839,6 +912,8 @@ angular.module('app.system.prop', [])
                 addMarkMouseUpHandler.apply(marker);
                 map.addOverlay(marker);
                 map.centerAndZoom(marker.point);
+
+
 
             });
         };
@@ -853,11 +928,14 @@ angular.module('app.system.prop', [])
                 latitude: p.lat
             }
 
-            $source.$system.put(d, function() {
+            $source.$system.put(d, function(resp) {
+
                 that.setAnimation(0);
                 that.disableDragging();
                 that.removeContextMenu();
                 addMoveMenu.apply(that);
+
+
             });
         }
 
@@ -907,11 +985,3 @@ angular.module('app.system.prop', [])
         }
 
     })
-
-
-
-
-
-
-
- 

@@ -112,7 +112,7 @@
 
         <!-- 根据 选择的 设备模型  类型 加载 相应的配置  /_dev_[params , networdk]_{driver_type}.html   -->
 
-        <ng-include src=" 'athena/device/_dev_params_'+ devModel.driver_id +'.html' " ></ng-include>
+        <ng-include src=" 'athena/_device/'+ devModel.driver_id +'.html' " ></ng-include>
 
         
         
@@ -122,7 +122,7 @@
     <form name="step2"   ng-show = " isG && stepx.step == 2 " 
          class=" form-validation form-horizontal   ">
              <!-- ( comm_type = 2 ) gateway 时 才用 配置 newwork;  -->
-        <ng-include    src=" 'athena/device/_dev_network.html' "  >  </ng-include>
+        <ng-include    src=" 'athena/_device/dev_network.html' "  >  </ng-include>
      
         
     </form>

@@ -15,10 +15,10 @@
                 <a ng-click=' delTemp(   $index , dm )' class='text-link'>移除</a>
             </div>
         </div>
-        <div ng-show=" showp ">
+        <div ng-show="showp ">
             <div class=' row b-b  temp-row hover-bg-info' ng-repeat=' p in points ' acroll-limit point>
                 <div class='  col-xs-2 col-sm-3    ' style="padding-left:40px;">
-                    <i class='fa  icon-doc   '></i>{{p.name }}
+                    <i class='icon  icon-tag  '></i> {{p.name }}
                 </div>
                 <div class=' col-xs-8   col-sm-7   ' params="p.params">
                     <!--   {{p.params    }}  -->
@@ -33,7 +33,7 @@
             <div class='row   temp-row '>
                 <div class='col-xs-12 '>
                     <button class='      no-border btn-sm m-l-md ' ng-click='addOrEditPoint( this )'>
-                        <i class='fa  icon-tag '></i> 添加参数 </button>
+                          添加点 </button>
                 </div>
             </div>
         </div>

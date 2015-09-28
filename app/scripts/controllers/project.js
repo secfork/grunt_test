@@ -49,11 +49,11 @@ angular.module('app.project', [])
             function(next) {
 
             	$source.$region.delete( {pk:proj.id} , function(resp){
-                    if(!resp.err){
-            		  $scope.page.data.splice(index, 1);
-                    }
-                        next();
-            	}) 
+                    
+            		$scope.page.data.splice(index, 1);
+                    
+                    next();
+            	}, next ) 
             }
         )
     }
@@ -73,13 +73,9 @@ angular.module('app.project', [])
 
     $scope.commit = function() {
         $scope.validForm(); 
-        $source.$region.save($scope.proj,
-            function(resp) {
-                //resp.ret && $state.go("app.proj.manage");
-                if (resp.ret) {
-                    alert("添加成功!")
-                }
-
+        $source.$region.save($scope.proj, function(resp) {
+                //resp.ret && $state.go("app.proj.manage"); 
+                    alert("添加成功!") 
             }
         )
 

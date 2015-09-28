@@ -21,7 +21,8 @@
     <input  tl-wrap-l  label="新密码" name="password"
        ng-minlength="6"
        ng-maxlength="20"
-     ng-model=" user.password " required>
+       onfocus="this.type='password'" 
+       ng-model=" user.password " required>
 </div>
 
 
@@ -50,7 +51,7 @@
         ng-options="g.id as g.name  for g in groups"
         ></select>
  -->
-<div class="form-group">
+<div class="form-group"  ng-if="!isEdit">
     <label class="col-sm-3 control-label">组
         <mark/>
     </label>

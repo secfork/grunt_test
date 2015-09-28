@@ -21,12 +21,12 @@
                     </td>
                     <td>
                         {{u.mobile_phone}}
-                        <i class="fa {{ u.emailEffective?'fa-check text-success':'fa-times  text-danger' }}"></i>
+                        <i class=" pull-right fa {{ u.emailEffective?'fa-check text-success':'fa-times  text-danger' }}"></i>
                          
                     </td>
                     <td>
                         {{u.email}}
-                        <i class="fa {{ u.emailEffective?'fa-check text-success':'fa-times  text-danger' }}"></i>
+                        <i class=" pull-right fa {{ u.emailEffective?'fa-check text-success':'fa-times  text-danger' }}"></i>
                     </td>
                     <td> {{u.last_login_ip }}</td>
                     <td> {{u.last_login_time| date:'yyyy-MM-dd HH:mm:ss'}} </td>

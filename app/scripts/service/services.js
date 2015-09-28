@@ -89,6 +89,13 @@ angular.module('app.services', ["ngResource"], function() {
         call: {
             method: "POST"
         },
+        assign:{
+              method:"GET"   
+        },
+        getDtuServer: {
+            method:"GET"
+        },
+
         needSync: {
             url: angular.rootUrl + "system/needsync/uuids"
         }
@@ -227,14 +234,11 @@ angular.module('app.services', ["ngResource"], function() {
 
             if (response.data.err && !ingorErr[response.data.err]) {
                 //alert( $err[response.data.err+'']|| response.data.err );
-                 
-                function tt (){
-                    alert(response.data.err);
-                } 
-                setTimeout( tt , 200)
+                  
+                alert(response.data.err); 
 
                 console.error("_ERR_:" + response.data.err);
-                // throw error("_ERR_:"+ response.data.err )
+                throw  new Error ("_ERR_:"+ response.data.err )
             }
             //return response || $q.when(response); 
             if (response.data.order) {

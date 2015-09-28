@@ -103,14 +103,15 @@
  -->
                     <a class="text-info-dk m-r-xs" ng-if="das.state ==1 " translate="bu.bu2" ng-click=" effStation(page.data , das  ,$index ) ">失
                         </a>
-                    <a class="text-info-dk m-r-xs" ng-if=" das.state ==0 " ng-click=" activateStation( this, page.data , das , $index  , updataORdel ) ">
+                    <a class="text-info-dk m-r-xs" ng-if=" das.state ==0 " 
+                    ng-click=" activateStation( this, page.data , das , $index  , true ) ">
                            激活
                         </a>
                     <a class="text-info-dk m-r-xs" ng-if="das.state ==2 " ng-click=" startSystem( das , page.data , $index ) ">启动
                         </a>
                     <a class="text-info-dk m-r-xs" ranslate="bu.bu3" ng-click=" editStation( this , das , $index  ) ">编辑
                         </a>
-                    <a class="text-info-dk m-r-xs" translate="bu.bu4" ng-if=" das.state ==0 " ng-click=" delStation( page.data  ,das , $index  ) ">移
+                    <a class="text-info-dk m-r-xs" translate="bu.bu4"  ng-click=" delStation( page.data  ,das , $index  ) ">移
                         </a>
                 </td>
             </tr>
@@ -124,7 +125,7 @@
     
      <button ng-if=" !isShowModul " 
         class="btn btn-success btn-sm   m-l  pos-abt " 
-         ng-click=" goto('app.station.add') ">
+         ng-click=" goto('app.station.add' , null , project ) ">
         添加系统
     </button>  
  

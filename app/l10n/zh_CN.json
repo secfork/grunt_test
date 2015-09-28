@@ -49,9 +49,12 @@
       "t2": "TCP Client"
     },
 
+    "desc":"point 参数名称",
     "area": "区域",
     "offset": "偏差",
-    "Type": "类型",
+    "type": "类型",
+     "access": "读写属性",
+
 
     "int_order": "Int字节排序",
     "float_order": "Float字节排序",
@@ -66,7 +69,7 @@
       "1": "x"
     },
 
-    "access_right": "读写属性",
+   
     "desc": "备注",
     "deviation": "偏差",
     "log_cycle": "日志保存间隔",

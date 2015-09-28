@@ -48,13 +48,12 @@ angular.module("app.model.system", [])
             }, function(next) {
                 $source.$sysModel.delete({
                     uuid: sm.uuid
-                }, function(resp) {
-                    if (!resp.err) {
+                }, function(resp) { 
                         page.data.splice(index, 1);
                         page.total--;
-                    }
+                     
                     next();
-                })
+                }, next)
             })
         }
 
@@ -256,7 +255,7 @@ angular.module("app.model.system", [])
                                 device_model: $scope.devModel.uuid
                             },
                             $sys.device.entity,
-                            $sys.device[$scope.devModel.driver_id].entity
+                            angular.copy( $sys.device[$scope.devModel.driver_id].entity ) 
                         );
 
                         // 托管; gateway模式; 
@@ -307,18 +306,19 @@ angular.module("app.model.system", [])
 
                         if ($scope.isAdd) {
                             $source.$sysDevice.save(d, function(resp) {
-                                if (resp.ret) {
+                                
                                     d.id = resp.ret;
                                     $scope.sysdevices.push(d);
                                     $scope.cancel();
-                                }
+                                 
                             })
+
                         } else {
                             $source.$sysDevice.put(d, function(resp) {
-                                if (!resp.err) {
+                                 
                                     devices[index] = d;
                                     $scope.cancel();
-                                }
+                                
                             })
                         };
                     };
@@ -339,7 +339,7 @@ angular.module("app.model.system", [])
                 }, function() {
                     $scope.sysdevices.splice(index, 1);
                     next();
-                })
+                }, next )
             })
         }
     }
@@ -477,7 +477,7 @@ angular.module("app.model.system", [])
                             }
 
 
-                            if (t.hasProfile) {
+                            if (t.hasProfile) {  // 日志参数; 
                                 $scope.L.id = resp.ret,
                                     $scope.L.profile = t.odp.puuid,
                                     $scope.L.save_log = $scope.L.log_cycle ? 1 : 0;
@@ -535,7 +535,7 @@ angular.module("app.model.system", [])
                 }, function(resp) {
                     $scope.systags.splice(index, 1);
                     next();
-                })
+                } , next )
             })
         }
 
@@ -674,7 +674,7 @@ angular.module("app.model.system", [])
                 }, function() {
                     $scope.profiles.splice(i, 1);
                     n();
-                })
+                },n)
             })
         }
     }
@@ -722,7 +722,7 @@ angular.module("app.model.system", [])
                 }, function(resp) {
                     $scope.triggers.splice(i, 1);
                     n();
-                })
+                },n)
             })
         }
 
@@ -1006,7 +1006,7 @@ angular.module("app.model.system", [])
                 }, function() {
                     $scope.messages.splice(index, 1);
                     next();
-                })
+                } , next )
             })
         }
 
@@ -1115,7 +1115,7 @@ angular.module("app.model.system", [])
                 //S.sysmodel.gateway_default = S.GateWay ;
                 S.needUpdate = true;
                 next();
-            })
+            } , next )
         }
 
         S.saveGateWay = function() {

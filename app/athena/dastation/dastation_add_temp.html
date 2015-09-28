@@ -14,14 +14,15 @@
             <div class=" col-sm-9">
                 <div class="radio inline ">
                     <label class="i-checks">
-                        <input type="radio" value="DTU" ng-model="system.network.daserver.type">
+                        <input type="radio" value="DTU" 
+                               ng-model="system.network.daserver.type">
                         <i></i>
                         <span>DTU</span>
                     </label>
                 </div>
                 <div class="radio inline m-l ">
                     <label class="i-checks">
-                        <input type="radio" value="TcpClient" disabled ng-model="system.network.daserver.type">
+                        <input type="radio" value="TcpClient"   ng-model="system.network.daserver.type">
                         <i></i>
                         <span>TCP Client</span>
                     </label>
@@ -43,6 +44,6 @@
     </div>
 </div>
 <!--@if append  -->
-system = {{system}}
+system = {{ system }}
 <hr/> systemModel = {{systemModel}}
 <!--@endif  -->

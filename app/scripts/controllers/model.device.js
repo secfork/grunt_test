@@ -81,7 +81,7 @@ angular.module('app.model.device', [])
         $scope.add_edit_t = function(scope, t) { //  temp-scope , 或者; super-scope ;
             $modal.open({
                 templateUrl: 'athena/template/temp.html',
-                controller: function($scope, $modalInstance,  $source) {
+                controller: function($scope, $modalInstance,  $source , $filter) {
                     console._log("edit or new  temp ", t);
                     $scope.__proto__ = scope;
                     $scope.$modalInstance = $modalInstance;
@@ -91,7 +91,8 @@ angular.module('app.model.device', [])
                     if (!t) { // 新建;
                         //$scope.drivers =
                         $source.$driver.get( {type:"device"} ,function(resp) {
-                            $scope.drivers =  resp.ret ;
+
+                            $scope.drivers = $filter('filter')( resp.ret  , { category:'DEVICE'}) ;
                             $scope.T.driver_id = $scope.drivers[0].driver_id;
                         });
                     }
@@ -195,11 +196,11 @@ angular.module('app.model.device', [])
                 $source.$deviceModel.delete({
                     uuid: obj.uuid
                 }, function(resp) {
-                    if (!resp.err) {
+                    
                         $scope.deviceModels.splice(index, 1);
-                    }
+                    
                     next();
-                })
+                }, next )
             });
         };
 
@@ -214,7 +215,7 @@ angular.module('app.model.device', [])
                 }, function(resp) {
                     scope.points.splice(index, 1);
                     next();
-                });
+                } , next );
             })
         };
 
@@ -239,12 +240,13 @@ angular.module('app.model.device', [])
                         var dm = scope.dm , // repeat 中的 属性;
                             driver = $sys.point[ dm.driver_id];
 
-                        var basic = $sys.point.entity ; 
-                        var  par = driver.entity ;     
+                       var basic = $sys.point.entity ; 
+                        // var  par =   driver.entity   ;     
+                       var  par = angular.copy ( driver.entity ) ;     
 
                         $scope.point =  angular.extend( {} ,
-                                                         basic, 
-                                                         par
+                                                        basic, 
+                                                        par  
                                                     );
 
                     };
@@ -269,11 +271,11 @@ angular.module('app.model.device', [])
                         } else {
                             // 创建
                             $source.$dmPoint.save($scope.point, function(resp) {
-                                if( resp.ret){
+                                 
                                     $scope.point.id = resp.ret;
                                     $scope.points.push($scope.point);
                                     $scope.cancel(); 
-                                }
+                                
                             });
                         }
                        // $scope.cancel(); 

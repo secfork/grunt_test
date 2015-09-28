@@ -51,20 +51,15 @@ angular.module('app.basecontroller', [])
         params = arguments[1], //
         value = arguments[2];
 
-      if (value) {
-        var v = angular.isArray(value) ? value : Array.prototype.splice.call(arguments, 2)
-        $sessionStorage.cache = v;
-        $scope.$$cache = v;
-      }
+      // if (value) {
+            var v = angular.isArray(value) ? value : Array.prototype.splice.call(arguments, 2)
+            $sessionStorage.cache = v;
+            $scope.$$cache = v;
+      // }
       $state.go(state, params);
     }
 
-
-    // 自动存入 sessionStorage  ;
-    $scope.$watch("$$cache", function(n, o) {
-      console._log("放入 sessionStorage 数据", n);
-      $sessionStorage.cache = n;
-    }, true)
+ 
 
     // 赋初始值 ;
     $scope.$$cache = $sessionStorage.cache
@@ -314,9 +309,11 @@ angular.module('app.basecontroller', [])
           state: 0
         };
         $source.$system.put(d, function(resp) {
-          dastations.splice(index, 1);
-          next();
-        })
+          
+            dastations.splice(index, 1);
+           
+            next();
+        } , next )
       })
     };
 
@@ -328,16 +325,19 @@ angular.module('app.basecontroller', [])
       }, function(next) {
         $source.$system.delete({
           system_id: station.uuid
-        }, function(res) {
-          dastations.splice(index, 1);
-          next();
-        });
+        }, function(resp) {
+          
+            dastations.splice(index, 1);
+          
+            next();
+        } , next );
       })
     };
 
     //激活采集站;
-    $scope.activateStation = function(scope, dastations, station, index, updataOrDel) {
-      console._log("opt=", updataOrDel);
+    //  jump 是否 跳转; 
+    $scope.activateStation = function(scope, dastations, station, index, jump ) {
+      
 
       $scope.confirmInvoke({
         title: "激活采集站 " + station.name + " ?"
@@ -348,10 +348,14 @@ angular.module('app.basecontroller', [])
           state: 1
         };
         $source.$system.put(d, function(resp) {
-          station.state = 1;
-          dastations && (dastations.splice(index, 1));
-          next();
-        })
+          
+            station.state = 1;
+            dastations && (dastations.splice(index, 1));
+           
+            next();
+
+            jump && $scope.goto('app.station.prop._basic' , station,station);
+        }, next )
       })
     };
 
@@ -389,19 +393,21 @@ angular.module('app.basecontroller', [])
           $scope.cancel = function() {
             $modalInstance.dismiss('cancel')
           };
-          $scope.done = function(btn) {
+          $scope.done = function( ) {
             // $scope.checkModalForm(btn, $scope);
             $scope.validForm();
             var region = $scope.op._proj;
             $scope.das.region_id = region.id,
 
             $source.$system.put($scope.das, function(resp) {
-              console._log(resp);
-              $scope.das.region_name = region.name;
-              angular.extend(s, $scope.das);
-              $scope.cancel();
+               
+                console._log(resp);
+                $scope.das.region_name = region.name;
+                angular.extend(s, $scope.das);
+                $scope.cancel(); 
+               
 
-            });
+            } ,$scope.cancel );
           }
 
         }
@@ -421,6 +427,10 @@ angular.module('app.basecontroller', [])
         das.needsync = false;
         that.sync_err_msg = resp.err;
         that.sync_ret_msg = resp.err ? undefined : "同步完成";
+      }, function(){
+         das.needsync = true;
+         that.sync_start = false;
+
       });
     };
 
@@ -449,6 +459,17 @@ angular.module('app.basecontroller', [])
           alert(angular.toJson(resp))
         });
       }
+    }
+
+    // type => 召唤实时 : undefined ,  超换参数: 1  召唤 所有: 3   , 
+    $scope.d_call = function( system  , type ) { 
+          $source.$system.call({
+              pk: system.uuid ,
+              type:  type
+          }, {}, function(resp) {
+              alert(angular.toJson(resp));
+          });
+
     }
 
     /**
@@ -517,7 +538,8 @@ angular.module('app.basecontroller', [])
 
     $localStorage.comp_name = $scope.user.company_name;
 
-    $source.$user.login($scope.user,
+    $source.$user.login(
+      $scope.user,
       function(resp) {
         console._log(resp.ret);
         //alert(1);
@@ -533,7 +555,11 @@ angular.module('app.basecontroller', [])
           $scope.applyImg();
           $scope.resp = resp;
         }
+      },
+      function(){
+         $scope.op.b = false;
       }
+
     );
   };
 

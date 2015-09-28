@@ -613,7 +613,8 @@ angular.module('app.directives', ['pascalprecht.translate'])
 
 
             if (!b) {
-                console._log("无匹配的驱动数据: 驱动 id =  ", e.driver_id, " 驱动版本 = ", e.driver_ver);
+                console._log("无匹配的驱动数据: 驱动 id =  ", e.driver_id, " 驱动版本 = ",
+                               e.driver_ver);
                 $ele.text(x);
             } else {
                 console.log( params );
@@ -622,15 +623,14 @@ angular.module('app.directives', ['pascalprecht.translate'])
                     //  非 select 的字段 匹配成原始值 ;
                     c = b[k]; 
                     //console._log(c , k);
-                    if (k == "data_type_ex") {
+                    if (k == "type_ex") {
                         a.push("额外配置值:" + v)
                     } else {
                         f = $translate.instant("params." + k) + ":" + (c ? c[v].k : v);
                         a.push(f);
                     }
-                });
-                console._log(a.join(", "));
-                $ele.text(a.join(",  "));
+                }); 
+                $ele.text(a.join(" , "));
             }
         }
 
