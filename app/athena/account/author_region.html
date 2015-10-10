@@ -14,9 +14,14 @@
 
             <div ng-repeat= " g in groups"  class="b-b" ng-init="op ={}">
 
-                {{g.name}}
+                  {{g.name}}  
                  <!-- <i class="fa  fa-toggle-up  fa-toggle-down" ui-toggle-class= '' target="" ></i>  -->
-                 <a class="fa fa-minus-circle text-danger m-l-xs"
+                 <!--
+                   fa-times-circle-o 
+                    fa-minus-circle 
+                  -->
+
+                 <a class="fa fa-times-circle  text-danger m-l-xs"
                     ng-click=" delGroup( this , r, groups , g, $index )"   ></a>
 
                   <a class="fa fa-save text-danger " ng-show="op.edit"

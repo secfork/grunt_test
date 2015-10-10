@@ -1,8 +1,7 @@
 angular.module('app.sysconfig', [], function() {})
 
 .service("$sys", function($translate) {
-    return {
-        $debug: true, 
+    return { 
         
         // systemo 模式: manage , unmanage ,unknown ; 
         manageMode: 1,
@@ -34,6 +33,7 @@ angular.module('app.sysconfig', [], function() {})
                       "SYSTEM_MANAGE", //系统管理
                       "TICKET_MANAGE", //ticket管理
                       "REGION_USER_MANAGE", //区域用户管理
+                      "SYN_CONFIG",    //系统配置 
                       "SYSTEM_CONTROL" //系统控制
                     ] ,      
 
@@ -183,11 +183,11 @@ angular.module('app.sysconfig', [], function() {})
 
             severity_default: "0",
             severity: {
-                '0': 'Indeterminate',
-                '1': 'Critical ',
-                '2': 'Major ',
-                '3': 'Minor ',
-                '4': 'Warning',
+                '0': '不确定的', //'Indeterminate',
+                '1': '紧急的', //'Critical ',
+                '2': '重要的', //'Major ',
+                '3': '一般的', //'Minor ',
+                '4': '警告', //'Warning',
                 // '5':'Cleared'
             },
 
@@ -216,8 +216,11 @@ angular.module('app.sysconfig', [], function() {})
         sysModelMode: {
             default: "1",
             values: {
-                "2": "UnManaged",
-                "1": "Managed"
+                // "1": "Managed",
+                // "2": "UnManaged"
+                // 
+                "1": "托管模式",
+                "2": "非托管模式"
             }
         },
 
@@ -299,14 +302,14 @@ angular.module('app.sysconfig', [], function() {})
                         address : 1 ,
                         protocol_type: 0 ,
                         offset_format : 0 ,
-                        register_length :1 ,
+                       // register_length :1 ,
                         max_packet_length: 64 ,
                         packet_offset : 4 ,
                         int_order: 0 ,
                         int64_order: 0 ,
                         float_order: 0 ,
                         double_order:0 ,
-                        register_order : 0 ,
+                       // register_order : 0 ,
                         crc_order: 0 
                     }  
                 },

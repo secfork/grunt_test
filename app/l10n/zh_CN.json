@@ -22,6 +22,7 @@
     "TICKET_MANAGE":"ticket管理",
     "REGION_USER_MANAGE":"区域用户管理",
     "SYSTEM_CONTROL":"系统控制",
+    "SYN_CONFIG":"系统配置",
 
 
 
@@ -230,7 +231,7 @@
 
 
     "t10": "系统设备",
-    "t11": "TAGS",
+    "t11": "变量",
     "t12": "系统配置",
     "t13": "触发器",
     "t14":"通知",

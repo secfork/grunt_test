@@ -50,7 +50,7 @@
         </div>
         <div class=" b-b  m-b  hbox ">
             <div class="col w-sm  "> 位置 </div>
-            <div class="col "> {{ station.longitude +' , '+ station.latitude}} </div>
+            <div class="col "> {{  (station.longitude ||'')  +' '+ (station.latitude || '') }} </div>
         </div>
         <!-- 
 
@@ -86,7 +86,14 @@
                        data-icon="false" data-classButton="btn btn-default"
                        data-classInput="form-control inline v-middle input-s">
                   -->
-                <input ui-jq="filestyle" type="file" ng-model-instant class="input-sm" onchange="angular.element(this).scope().setFiles(this)" />
+                <input ui-jq="filestyle" type="file"
+                 ng-model-instant class="input-sm" 
+                 onchange="angular.element(this).scope().setFiles(this)"
+
+                  />
+               
+
+
                 <div style="height:10px;">
                     <progressbar class="progress-xs active m-b-sm m-t-xxs" ng-show="progressVisible" value="progress" type="success"> {{progress}}%
                     </progressbar>

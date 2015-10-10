@@ -1,60 +1,102 @@
 <div class="  panel-heading   " ng-init=" list_map = 'list' ; a = 1 ;  ">
-    <div class="btn-group  col-xs-4">
-        <button type="button" class="btn btn-default btn-sm" ng-click="list_map ='list'">列表</button>
-        <button type="button" class="btn btn-default btn-sm" ng-click="list_map ='map'">地图</button>
+    <div class="row b-b " style="padding-bottom:5px;">
+        <div class="col-md-4 col-xs-6 m-t-xs">
+            <input tl-wrap-l class="input-sm" label="名称" ng-model="od.name"> </input>
+        </div>
+        <div class="   col-md-4 col-xs-6  m-t-xs">
+            <input tl-wrap-l class="input-sm" label="ID" ng-model="od.uuid">
+            </input>
+        </div>
+        <div class="col-md-4 col-xs-6 m-t-xs" ng-if=" $state.includes('app.station') || $state.includes('app.show.system') ">
+            <select tl-wrap-l class="input-sm" label="区域" ng-model="od.region_id" ng-options="  r.id as r.name for r in  regions">
+                <option value="">-所有区域-</option>
+            </select>
+        </div>
+        <div class="col-md-4 col-xs-6 m-t-xs">
+            <select tl-wrap-l class="input-sm" label="模型" ng-model="od.model" ng-options=" s.uuid as s.name for s in  sysModels">
+                <option value="">-所有模型-</option>
+            </select>
+        </div>
+        <div class="col-md-4 col-xs-6 m-t-xs">
+            <input tl-wrap-l class="input-sm" label="备注" ng-model="od.desc"></input>
+        </div>
+        <div class="col-xs-12 m-t-xs">
+            <button class="btn btn-sm btn-info m-l w-xs" ng-click=" loadPageData(1)"> 搜索</button>
+            <button class="btn btn-sm btn-info m-l w-xs" ng-click="  reset() "> 复位 </button>
+        </div>
+        <!--
+          <div class="col-md-4 col-xs-6 m-t-xs">
+            <select tl-wrap-l  class="input-sm" label="状态" ng-model="od.state">
+                <option value="">-所有状态-</option>
+            </select>
+
+        </div>
+         -->
     </div>
-    <div class="input-group col-sm-4 col-sm-push-4 col-xs-8 ">
-        <input class="form-control input-sm" type="text" ng-model="f_dasname" ng-disabled="  list_map!='list' ">
-        <span class="input-group-btn">
-               <button class="btn btn-default btn-sm"
-                ng-click="loadPageData(1)"
-                translate="common.search">sss!</span>
-        </span>
+    <div class="row  ">
+        <div class="radio     float-right  w-xxm     ">
+            <label class="i-checks">
+                <input type="radio" name="a" value="map" checked="" ng-model=" list_map">
+                <i></i>
+                <span>地图</span>
+            </label>
+        </div>
+        <div class="radio      float-right  w-xxm    ">
+            <label class="i-checks">
+                <input type="radio" name="a" value="list" checked="" ng-model=" list_map">
+                <i></i>
+                <span>列表</span>
+            </label>
+        </div>
     </div>
 </div>
 <div class="panel-body  table-responsive  no-padder   b-t " ng-switch on="list_map">
     <!-- <table class=" table    table-bordered table-striped
-                                         table-bordered table-striped table-condensed flip-content  ">-->
-    <table ng-switch-when="list" class=" table   table-bordered   ">
+                                         table-bordered table-striped table-condensed
+                                         flip-content  ">
+
+
+                                         -->
+    <table ng-switch-when="list" class=" table  table-hover  table-bordered ">
         <thead class="flip-content">
             <tr>
                 <th width="5%" translate="th.th6">状态</th>
+                <th width="10%">ID</th>
                 <th width="10%" translate="th.th7">系统名称</th>
                 <!--<th   translate="dastation_grid.deviceno"   >设备号</th>-->
                 <th width="10%" translate="th.th8">区域</th>
                 <!--    <th   translate="dastation_grid.level"  >级别</th>-->
                 <th width="10%" ttranslate="th.th9"> 定位</th>
-                <th width="15%" translate="th.th11" ng-if=" !isShowModul  ">同步配置 </th>
+                <th width="15%" translate="th.th11" ng-if=" !isShowModul  ">
+                    同步配置 </th>
                 <th width="30%">备注</th>
                 <th width="15%" ng-if=" !isShowModul"></th>
             </tr>
         </thead>
         <tbody class="text-center">
-            <tr ng-repeat="  das  in page.data " class="hover">
-                <td class="text-left">
-                    <i class="glyphicon glyphicon-signal   text-success
-                          {{   $stateParams.isactive =='0'? ' text-danger':'text-success'  }}
-                        "> </i>
+            <tr ng-repeat="  das  in page.data " class=" ">
+                <td class="">
+                    <i class="fa fa-circle     text-info" 
+                    ng-class="{ 'text-danger': !das.online , 
+                    'text-success':das.online==1,
+                     'text-warning': das.online==2 }"  > </i>
                     <!-- 在线  ng-class = "{'alert-danger':  das.state == 0 }" -->
-                    {{ $stateParams.isactive =='0' ? " 离线 ":"在线" }}
                 </td>
+                <td>{{ das.uuid }}</td>
                 <td>
                     <!-- app.show.station_prop.current
   ui-sref=" {{  (isShowModul? 'app.show.station_prop.current':'app.station.prop._basic' ) +'( das )'  }}  "
 
                       -->
-                    <a class="text-info-dk" ng-click="goto( _$stationState , das , das     )">
+                    <a class="text-info-dk" ng-click="goto( _$stationState , das , das )">
 
                             {{ das.name }}
 
                         </a>
                 </td>
                 <td>
-                    <a class="text-info-dk" ng-disabled="true" ui-sref=" {{ ( isShowModul ?'app.show.system_prop.station':'app.proj.prop.station'   ) +
-                          '({ projid :   das.project_id  || pathProj.p_id  ,   projname: das.proj_name || pathProj.projname  })'
-                                  }} ">
-                        <!-- {{    das.p_name  || pathProj.projname  }}-->
-                        {{ das.region_name }}
+                    <a class="text-info-dk" ng-disabled="true" ng-click=" goto( _$projState  , rg_k_v[ das.region_id] , rg_k_v[ das.region_id] ) ">
+                        {{ rg_k_v[ das.region_id].name }}
                     </a>
                 </td>
                 <!-- 级别-->
@@ -69,7 +111,7 @@
                         <span ng-if="das.latitude" class="fa fa-location-arrow text-success">
 
                              </span>
-                        <span ng-if=" !das.latitude && !isShowModul  " class="label bg-success m-l-sm  ng-scope">
+                        <span ng-if=" !das.latitude && !isShowModul  " class="label bg-info m-l-sm  ng-scope">
                                    去定位
                              </span>
                     </a>
@@ -79,7 +121,9 @@
                 <td ng-if=" !isShowModul   ">
                     <!--{{ das.needsync }}-->
                     <!-- <span >已同步 </span>-->
-                    <button class="btn btn-xs btn-primary  m-t-n-xs" ng-click="syncSystem( das )" ng-if=" das.needsync ">同步</button>
+                    <button class="btn btn-xs btn-primary  m-t-n-xs" ng-click="syncSystem( das )" ng-if=" das.needsync ">
+                        同步
+                    </button>
                     <span ng-show=" !sync_start && sync_err_msg " class=" m-t-xs text-danger">  {{ sync_err_msg }} </span>
                     <span ng-show=" !sync_start && sync_ret_msg " class=" m-t-xs text-info">
                              {{ sync_ret_msg }}
@@ -97,21 +141,16 @@
                 </td>
                 <!--替换 失效 移除-->
                 <td ng-if=" !isShowModul ">
-                    <!--  <a class="text-info-dk m-r-xs" ng-if="das.state ==1 "
-                     translate="bu.bu1" ng-click=" chaStation( this, das  ,$index ) ">替
-                        </a>
- -->
                     <a class="text-info-dk m-r-xs" ng-if="das.state ==1 " translate="bu.bu2" ng-click=" effStation(page.data , das  ,$index ) ">失
                         </a>
-                    <a class="text-info-dk m-r-xs" ng-if=" das.state ==0 " 
-                    ng-click=" activateStation( this, page.data , das , $index  , true ) ">
+                    <a class="text-info-dk m-r-xs" ng-if=" das.state ==0 " ng-click=" activateStation( this, page.data , das , $index  , true ) ">
                            激活
                         </a>
                     <a class="text-info-dk m-r-xs" ng-if="das.state ==2 " ng-click=" startSystem( das , page.data , $index ) ">启动
                         </a>
                     <a class="text-info-dk m-r-xs" ranslate="bu.bu3" ng-click=" editStation( this , das , $index  ) ">编辑
                         </a>
-                    <a class="text-info-dk m-r-xs" translate="bu.bu4"  ng-click=" delStation( page.data  ,das , $index  ) ">移
+                    <a class="text-info-dk m-r-xs" translate="bu.bu4" ng-click=" delStation( page.data  ,das , $index  ) ">移
                         </a>
                 </td>
             </tr>
@@ -121,17 +160,12 @@
     </div>
 </div>
 <div class="panel-footer ">
- 
-    
-     <button ng-if=" !isShowModul " 
-        class="btn btn-success btn-sm   m-l  pos-abt " 
-         ng-click=" goto('app.station.add' , null , project ) ">
+    <button ng-if=" !isShowModul " class="btn btn-info  dker btn-sm   m-l  pos-abt " ng-click=" goto('app.station.add' , null , project ) ">
         添加系统
-    </button>  
- 
+    </button>
     <!--  <span   style="top:10px">
         {{page.currentPage}}/{{page.numPages}}
     </span> -->
-    <div  class=" text-center "  ng-include src=" 'athena/debris/_pager.html'  "></div>
+    <div class=" text-center " ng-include src=" 'athena/debris/_pager.html'  "></div>
     <!-- 只有 app.proj.prop 路由  才显示   -->
 </div>

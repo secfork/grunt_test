@@ -209,7 +209,9 @@ angular.module("app.model.system", [])
         var devModelPromise = $source.$deviceModel.get().$promise;
 
         // 转换 devModel 为 kv 格式;
+        
         $scope.devModelKV = {};
+
         devModelPromise.then(function(resp) {
             $.each(resp.ret, function(i, v, t) {
                 $scope.devModelKV[v.uuid] = v;
@@ -243,13 +245,18 @@ angular.module("app.model.system", [])
                             };
                         }
                     }
-
-
-
+ 
 
                     if ($scope.isAdd) { // 新建; 
 
                         $scope.devModel = $scope.devModelKV[Object.keys($scope.devModelKV)[0]];
+                        if( !$scope.devModel  ){
+                            $scope.alert( {  type:"info" , title:"请先创建设备模型!"  })
+                             
+                            throw("_Error: No Device Model !");
+                             
+                        }
+
                         // 初始化D; 
                         $scope.D = angular.extend({
                                 device_model: $scope.devModel.uuid
@@ -350,8 +357,10 @@ angular.module("app.model.system", [])
     function($scope, $source, $modal, $q, $utils, $sys, $state) {
 
         $scope.$popNav($scope.sysmodel.name + "(Tags)", $state);
-
-        console._log(" sysmodel_tag");
+         //@if  append
+         
+        console.log(" sysmodel_tag");
+         //@endif 
         var sysmodel = $scope.sysmodel, // $scope.$$cache[0],
             t = $scope;
         t.isManageMode = sysmodel.mode == $sys.manageMode;
@@ -373,13 +382,23 @@ angular.module("app.model.system", [])
 
             scope.op = {};
 
-            $source.$sysDevice.get({
-                system_model: sysmodel.uuid
-            }, function(resp) {
+            var promise ; 
+
+            promise =   $source.$sysDevice.get({
+                            system_model: sysmodel.uuid
+                        }).$promise  ;
+            promise.then( function(resp){
                 scope.devices = resp.ret;
-            });
+            })
+
+            // $source.$sysDevice.get({
+            //     system_model: sysmodel.uuid
+            // }, function(resp) {
+            //     scope.devices = resp.ret;
+            // });
 
             scope.loadPoint = function a1(dev) {
+                if (!dev)  return ;
                 if (dev.device_model == oldDevModel) return;
                 oldDevModel = dev.device_model;
                 $source.$dmPoint.get({
@@ -391,10 +410,11 @@ angular.module("app.model.system", [])
 
             // 拼接  connnet  字段;
             scope.addConnect = function(tag) {
-                tag.connect = scope.op.dev.id + "." + scope.op.point.id;
+                tag.connect = scope.op.dev.id + "." + scope.op.point_id;
 
             };
 
+            return promise ; 
         }
 
         // $scope.prof_uuid = 111
@@ -496,23 +516,38 @@ angular.module("app.model.system", [])
             $modal.open({
                 templateUrl: "athena/sysmodel/add_systag.html",
                 controller: function($scope, $modalInstance) {
-                    var a, b, c;
-                    if (t.isManageMode) {
-                        ApplyDevPoint($scope);
-                    }
+                    var a, b, c  , d ,dd,dt;
+                   
+
+                  
+                    $scope.$modalInstance = $modalInstance,
+                    $scope.__proto__ = t,
+                    $scope.T = a = angular.copy(tag);
 
                     // dev , point 回显 待定;  conncet 是 id 还是那么;
-                    $scope.op = {
-                        dev: 1
-                    };
+                    d =  a.connect.split("."),
+                    dd = d[0],
+                    dt = d[1];
 
-                    $scope.$modalInstance = $modalInstance,
-                        $scope.__proto__ = t,
-                        $scope.T = a = angular.copy(tag);
+                    if (t.isManageMode) {
+                        ApplyDevPoint($scope).then( function( resp){
+                            $scope.op = {
+                                dev:  resp.ret.filter( function(v,i){
+                                            return v.id == dd
+                                        })[0] || undefined,
+                                point_id: parseInt( dt ) 
+                            };
+                            $scope.loadPoint( $scope.op.dev ); 
+                        })
+                    }
+
+                   
+    
                     $scope.done = function() {
                         // 验证表格;
                         $scope.validForm();
                         var d = $utils.copyProp(a, 'system_model', 'id', 'name', 'type', 'desc');
+                        
                         $scope.addConnect && $scope.addConnect(d);
                         $source.$sysTag.put(d, function(resp) {
                             angular.extend(tag, d);
@@ -524,7 +559,10 @@ angular.module("app.model.system", [])
         }
 
         $scope.deleteTag = function(index, tag) {
-            console._log("deleteTag");
+             //@if  append
+             
+            console.log("deleteTag");
+             //@endif 
             $scope.confirmInvoke({
                 title: "删除系统模版点" + tag.name + " ?",
                 warn: "其他系统配置项对该点的控制也将被删除!"
@@ -610,8 +648,10 @@ angular.module("app.model.system", [])
 .controller("sysmodel_profile",  
     function($scope, $source, $modal, $filter , $state ) {
         $scope.$popNav($scope.sysmodel.name + "(Profile)", $state);
-
-        console._log(" sysmodel_profile");
+         //@if  append
+         
+        console.log(" sysmodel_profile");
+         //@endif 
         var sysmodel = $scope.sysmodel,
             t = $scope;
 
@@ -1084,7 +1124,10 @@ angular.module("app.model.system", [])
                                     obj[k] = v;
                                 }
                             });
-                            console._log("filterType", obj);
+                             //@if  append
+                             
+                            console.log("filterType", obj);
+                             //@endif 
                             $scope.G.t = Object.keys(obj)[0];
 
                             $scope._$types = obj;
@@ -1099,8 +1142,7 @@ angular.module("app.model.system", [])
                         $scope.cancel();
                     }
                 }
-            })
-
+            }) 
         }
 
         S.cc = function() {

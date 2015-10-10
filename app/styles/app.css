@@ -58,7 +58,7 @@ tbody {
  
  
 tr.hover:hover td {
-  border-color:  #BACACD ;
+  /*border-color:  #BACACD ;*/
   background-color: #BACACD
 }
 .hover-bg-info:hover {

@@ -30,13 +30,13 @@
     > 
 </select>
 
-<select tl-wrap 
+<!-- <select tl-wrap 
       ng-model=" D.params.register_length"
       label="寄存器长度"
       ng-options = " o.v as o.k for o in _config.reglength"
     > 
 </select>
-
+ -->
 <input  tl-wrap 
     ng-model = " D.params.max_packet_length"
     label="最大包长度"
@@ -92,12 +92,15 @@
          ng-options=" o.v as o.k for  o in _config.order_c "
   ></select>
 
-<select tl-wrap
+
+
+<!-- 
+  <select tl-wrap
          label="寄存器字节排序"
          ng-model="D.params.register_order"
          ng-options=" o.v as o.k for  o in _config.order_c"
   ></select>
 
-
+ -->
 
 

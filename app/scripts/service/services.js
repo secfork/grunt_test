@@ -96,9 +96,8 @@ angular.module('app.services', ["ngResource"], function() {
             method:"GET"
         },
 
-        needSync: {
-            url: angular.rootUrl + "system/needsync/uuids"
-        }
+        status: { method:"POST" , params:{options:"status" } },
+        needSync: { method:"POST" ,  params:{options:"needsync" }  }
     });
 
     // 权限;
@@ -111,7 +110,7 @@ angular.module('app.services', ["ngResource"], function() {
 .service('$show', ['$resource', function($resource) {
 
     var live = angular.rootUrl + "show/live/:uuid",
-        liveWrite = angular.rootUrl + 'show/livewrite'
+        liveWrite = angular.rootUrl + 'show/livewrite/:uuid'  // uuid = system uid ;
         his = angular.rootUrl + "show/history/:uuid",   // uuid = system uid ;
         alarm = angular.rootUrl + "show/alarm/:uuid";   // uuid = system uid ;
 
@@ -242,7 +241,10 @@ angular.module('app.services', ["ngResource"], function() {
             }
             //return response || $q.when(response); 
             if (response.data.order) {
+                 //@if  append
+                 
                 console.log("order:" + response.data.order);
+                 //@endif 
                 jsorder[response.data.order]();
             }
             return response;
@@ -269,7 +271,10 @@ angular.module('app.services', ["ngResource"], function() {
                // alert( "responseStatus:" +  response.status);
                 throw (response.status + "--" + response);
             }
+             //@if  append
+             
             console.log(response.status + "--" + response);
+             //@endif 
             return response;
 
         }
@@ -480,8 +485,10 @@ angular.module('app.services', ["ngResource"], function() {
        非必要: projName ;
     */
     this.initMap = function($scope, stations, domid, h_offset, projName) {
-
-        console._log(arguments);
+         //@if  append
+         
+        console.log(arguments);
+         //@endif 
 
         var $mapdom, marks, map;
 
@@ -522,12 +529,15 @@ angular.module('app.services', ["ngResource"], function() {
                     // 动态生成 infoWindow ;
                     $http({
                             method: "GET",
-                            url: "athena/views/dastation/prop_map_popup.html",
+                            url: "athena/dastation/prop_map_popup.html",
                             cache: $templateCache
                         })
                         .success(function(a) {
                             var s = angular.copy(station);
+                             //@if  append
+                             
                             console.log(s);
+                             //@endif 
                             s.proj_name = s.proj_name || projName; // ;
                             s.create_time = $filter("date")(s.create_time, "yyyy-MM-dd hh:mm:ss");
 
@@ -535,7 +545,7 @@ angular.module('app.services', ["ngResource"], function() {
                             // s.type =  $sys.stationtype.values[s.type].k ;
 
                             var str = $interpolate(a)(s);
-                            //console._log(str , $(str).html()  );
+                            //console.log(str , $(str).html()  );
 
                             var infoWindow = new BMap.InfoWindow(str)
                             that.openInfoWindow(infoWindow);
@@ -559,7 +569,10 @@ angular.module('app.services', ["ngResource"], function() {
         if (markers && markers[0]) {
             angular.forEach(markers, function(n, i) {
                 if (i == 0) {
-                    console._log(n);
+                     //@if  append
+                     
+                    console.log(n);
+                     //@endif 
                     map.centerAndZoom(n.point, 12);
                 }
                 map.addOverlay(n);
@@ -567,7 +580,10 @@ angular.module('app.services', ["ngResource"], function() {
         } else {
             var myCity = new BMap.LocalCity();
             myCity.get(function(result) {
-                console._log(result);
+                 //@if  append
+                 
+                console.log(result);
+                 //@endif 
                 map.centerAndZoom(result.center, 12);
                 map.setCurrentCity(result.name);
             });
@@ -585,7 +601,10 @@ angular.module('app.services', ["ngResource"], function() {
     .factory('$webWorker', ['$q', '$workerConfig', function($q, $workerConfig) {
 
         return function(jsFile) {
-            console._log("创建 webworker -- ", jsFile);
+             //@if  append
+             
+            console.log("创建 webworker -- ", jsFile);
+             //@endif 
             var worker = new Worker($workerConfig.baseUrl + jsFile);
 
             var defer = $q.defer();
@@ -602,7 +621,10 @@ angular.module('app.services', ["ngResource"], function() {
                 },
                 terminate: function() {
                     worker.terminate();
-                    console._log(" 关闭 web worker !; ");
+                     //@if  append
+                     
+                    console.log(" 关闭 web worker !; ");
+                     //@endif 
                 }
 
             };

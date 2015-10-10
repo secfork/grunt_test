@@ -6,8 +6,10 @@ angular.module('app.basecontroller', [])
     $timeout, $sessionStorage, $source, $q, $source) {
 
     var S = $scope;
-
-    console._log("app ctrl", $scope);
+ //@if  append
+ 
+    console.log("app ctrl", $scope);
+ //@endif 
     //"f7846f55cf23e14eebeab5b4e1550cad5b509e3348fbc4efa3a1413d393cb650";
 
     // add 'ie' classes to html
@@ -76,7 +78,10 @@ angular.module('app.basecontroller', [])
         // 处理 form 的 validate ;
         var errName;
         angular.forEach(valids.$error, function(e, k) {
-          console._log(e);
+           //@if  append
+           
+          console.log(e);
+           //@endif 
           angular.forEach(e, function(modelCtrl, k1) {
 
             modelCtrl.$setViewValue(modelCtrl.$viewValue);
@@ -106,7 +111,10 @@ angular.module('app.basecontroller', [])
               }
 
               alert("修改成功!");
-              console._log("修改成功!");
+               //@if  append
+               
+              console.log("修改成功!");
+               //@endif 
               $scope.cancel();
             })
           }
@@ -159,8 +167,10 @@ angular.module('app.basecontroller', [])
     }
 
     $scope.navs = $sessionStorage.navs;
-
-    console._log($scope.navs);
+ //@if  append
+ 
+    console.log($scope.navs);
+ //@endif 
 
     function transState($title, $state, tab) {
       //var msg = $translate.instant("valid." + type);
@@ -251,9 +261,12 @@ angular.module('app.basecontroller', [])
     $scope.logout = function() { //ui-sref="access.signin"
       $source.$user.logout(
         function(ret) {
-          console._log(ret);
+           //@if  append
+           
+          console.log(ret);
 
-          console._log("注销!!");
+          console.log("注销!!");
+           //@endif 
 
           $scope.user = null;
 
@@ -278,9 +291,11 @@ angular.module('app.basecontroller', [])
         },
         controller: function($scope, station, $modalInstance, $source) {
           $scope.__proto__ = scope;
-
-          console._log("changeDastation");
-          console._log($scope);
+ //@if  append
+ 
+          console.log("changeDastation");
+          console.log($scope);
+ //@endif 
 
           $scope.station = station;
           $scope.cancel = function() {
@@ -288,7 +303,10 @@ angular.module('app.basecontroller', [])
           };
           // 替换逻辑;
           $scope.done = function(btn) {
-            console._log(111);
+             //@if  append
+             
+            console.log(111);
+             //@endif 
             //$scope.checkModalForm(btn, $scope);
             // if (!$scope.$$childTail.form.$valid) return;
             $scope.validForm();
@@ -362,12 +380,18 @@ angular.module('app.basecontroller', [])
     // 编辑采集站;
 
     $scope.editStation = function(scope, s, index) {
-      console._log("editStation");
+       //@if  append
+       
+      console.log("editStation");
+       //@endif 
       $modal.open({
         templateUrl: "athena/dastation/station_edit.html",
         controller: function($scope, $source, $modalInstance) {
           $scope.__proto__ = scope;
-          console._log(s, $scope);
+           //@if  append
+           
+          console.log(s, $scope);
+           //@endif 
           $scope.das = {
             uuid: s.uuid ,
             name: s.name,
@@ -400,8 +424,10 @@ angular.module('app.basecontroller', [])
             $scope.das.region_id = region.id,
 
             $source.$system.put($scope.das, function(resp) {
-               
-                console._log(resp);
+                //@if  append
+                
+                console.log(resp);
+                //@endif 
                 $scope.das.region_name = region.name;
                 angular.extend(s, $scope.das);
                 $scope.cancel(); 
@@ -417,7 +443,11 @@ angular.module('app.basecontroller', [])
 
     // 同步 das 配置;
     $scope.syncSystem = function(das) {
-      console._log(das, this);
+       //@if  append
+       
+      console.log(das, this);
+       //@endif 
+       
       this.sync_start = true;
       var that = this;
       $source.$system.sync({
@@ -472,13 +502,29 @@ angular.module('app.basecontroller', [])
 
     }
 
+
+
+
+    $scope.alert = function( msg ){
+      $modal.open( {
+          templateUrl:"athena/debris/_alert.html",
+          controller: function($scope, $modalInstance){
+            $scope.msg = msg || { type:"info" };
+
+            $scope.done = function() {
+              $modalInstance.dismiss('cancel');
+            };
+          }
+      })
+    }
+
     /**
      * msg = { title : '标题' , note:  注释 , warn: 警告  }
      * handler : funcction  ;     handler 最好有 true false 返回值 , 以便derfer 处理 ;
      * @param msg
      * @param handler
      */
-    $scope.confirmInvoke = function(msg, handler) {
+    $scope.confirmInvoke = function(msg, handler , showCancel ) {
       $modal.open({
         templateUrl: 'athena/debris/confirm_invoke.html',
         //resolve:{ msg: function (){ return  msg } ,  handler: function (){ return handler} } ,
@@ -505,9 +551,12 @@ angular.module('app.basecontroller', [])
 .controller("access_signin", function($scope, $state, $timeout, $localStorage, $sys,
   $sessionStorage, $compile, $source) {
 
-  console._log("sign controller");
-  console._log($scope);
-
+ //@if  append
+ 
+  console.log("sign controller");
+  console.log($scope);
+ //@endif 
+ 
   $scope.user = {};
   if ($sys.$debug) {
     $scope.user = {
@@ -529,8 +578,10 @@ angular.module('app.basecontroller', [])
 
   $scope.login = function() {
 
-
-    console._log($scope.user);
+ //@if  append
+ 
+    console.log($scope.user);
+ //@endif 
 
     $scope.validForm();
 
@@ -541,12 +592,19 @@ angular.module('app.basecontroller', [])
     $source.$user.login(
       $scope.user,
       function(resp) {
-        console._log(resp.ret);
+         //@if  append
+         
+        console.log(resp.ret);
+         //@endif 
+         
         //alert(1);
         if (resp.ret) {
           $scope.st.login_errtimes = 0;
           $sessionStorage.user = resp.ret;
-          console._log("log in ok ");
+           //@if  append
+           
+          console.log("log in ok ");
+           //@endif 
           //$state.go( $sys.rootState );
           $state.go("app");
           //$state.go("app.template");
@@ -591,8 +649,9 @@ angular.module('app.basecontroller', [])
           $localStorage.comp_name = $scope.comp.name;
           // $scope.regok = true ;
           // $scope.$parent.user =  { username : $scope.comp.company_name  } ;
-          alert("注册成功!");
-          $state.go('access.signin');
+          $scope.sign = true ;
+          //alert("注册成功!");
+          //$state.go('access.signin');
         }
     })
 
@@ -605,7 +664,10 @@ angular.module('app.basecontroller', [])
   $scope.sendEmail = function() {
     $scope.isCollapsed = false;
     $account.sendEmail($scope.email, function(resp) {
-      console._log(resp);
+       //@if  append
+       
+      console.log(resp);
+       //@endif 
     });
   };
 })

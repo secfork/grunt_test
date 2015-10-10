@@ -82,8 +82,9 @@
 
 
 
-              <div ng-show='form.confirm_password.$error.validator'  class="text-danger" >
-                   Passwords do not match!</div>
+                <div ng-show='form.confirm_password.$error.validator'  class="text-danger" >
+                   Passwords do not match!
+                   </div>
                 <div class="text-danger " ng-show=" nameok ">  企业名称已被占用   </div>
                 <div class="text-danger " ng-show=" codeok ">  邀请码不可用   </div>
 
@@ -91,9 +92,11 @@
 
           </div>
           <div class="checkbox m-b-md m-t-none">
-            <label class="i-checks">
+            <label class="i-checks small">
               <input type="checkbox"  name="check" ng-model="agree" required ><i></i>
-                  Agree the <a href>terms and policy</a>
+                  我已阅读并同意
+                   <a href="" target="_"  style="text-decoration: underline;"> &lt;&lt;ThingLinx工业云使用条款&gt;&gt;</a>
+                   
             </label>
           </div>
             <!--     {{form.$valid }}    <br>
@@ -103,8 +106,17 @@
                    {{   (isdupname ==false)  && form.$valid      }}
        -->
           <button type="submit" class="btn btn-lg btn-primary btn-block" 
-                ng-click="signup()"   ng-disabled=' !form.$valid  || nameok || codeok ' >注册</button>
+                ng-show="!sign"
+                ng-click="signup()"   ng-disabled=' !form.$valid  || nameok || codeok ' 
+                >注册</button>
            
+
+          <button   class="btn btn-lg btn-success btn-block" 
+                ng-show="sign"
+                   >注册成功</button>
+           
+    
+
 <!--          <button type="submit" class="btn btn-lg btn-primary btn-block"
                 ng-click="signup()"   ng-disabled='  ! ((isdupname ==false)  && form.$valid )   ' >注册</button>
            -->

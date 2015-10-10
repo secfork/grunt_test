@@ -1,19 +1,24 @@
  angular.module('app.account', [])
 
  .controller("account_info", function($scope, $state, $source) {
-     console._log("account_info");
-     console._log($scope);
+     //@if  append
+     
+     console.log("account_info");
+     console.log($scope);
+     //@endif 
 
      $scope.$moduleNav("账户信息", $state);
 
 
      // 账户信息; 项目, user ,station 数量 
-     return;
-     $source.$account.getByPk({
-         pk: 1234
-     }, function(resp) {
-         console._log(resp);
-         $scope.accMsg = resp.ret;
+    
+     $source.$account.getByPk({  pk: $scope.user.account_id  }, function(resp) {
+         //@if  append
+         
+         console.log(resp);
+         //@endif 
+         $scope.account = resp.ret;
+
      })
 
 
@@ -23,15 +28,18 @@
 
      //$scope.$moduleNav("用户pop", "_user");
      // $scope.$moduleNav("账户信息", $state);
-     $scope.$moduleNav("管理用户", $state);
+     $scope.$moduleNav("用户", $state);
 
      // 分页 加载 users ;
 
      $scope.page = {};
      $scope.user = {};
+     $scope.op ={} ; 
      $scope.od = {
-         groups: []
-     }; // 添加用户时 所属的 组;
+         groups: undefined
+     }; 
+
+     // 添加用户时 所属的 组;
 
      $scope.loadPageData = function(pageNo) {
          var d = {
@@ -50,22 +58,20 @@
              mail_notice: 1,
              sms_notice: 1
          };
-         $scope.loadPageData(1);
-
-
+         $scope.op.confirm_password = undefined;
+         $scope.loadPageData(1); 
          //}
      }
-
-
-
+ 
      // 加载所有 角色 信息;
+     
+
+      
      $source.$userGroup.query({
          currentPage: 1
      }, function(resp) { 
-         $scope.groups = resp.data;
-
-
-
+         $scope.groups = resp.data; 
+         // $scope.lgp = true ; 
      })
 
 
@@ -316,12 +322,9 @@
          angular.forEach($(e.currentTarget).parent('form').serializeArray(), function(v, i) {
              d.push(v.name)
          });
-         $source.$role.put({
-             pk: r.id
-         }, {
-             privilege: d
-         }, function(resp) {
+         $source.$role.put({  pk: r.id  }, {  privilege: d  }, function(resp) {
              s.op.edit = false;
+             r.privilege = d ; 
          }, function() { // 恢复更改之钱的值;  闪回!
              arr[i] = angular.copy(r);
          });
@@ -391,6 +394,9 @@
      }
 
  })
+
+
+
 
  .controller('acco_author', function($scope, $state, $source) {
      // 预先加载 所有组;
@@ -553,6 +559,7 @@
              permission,
              function(resp) {
                  scope.op.edit = false;
+                 g.privilege = permission;
 
              }
          );
@@ -576,7 +583,10 @@
      }
 
      $scope.ee = function(e) {
+         //@if  append
+         
          console.log(e);
+         //@endif 
      }
 
 

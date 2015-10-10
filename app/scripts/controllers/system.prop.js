@@ -6,8 +6,10 @@
 
 angular.module('app.system.prop', [])
     .controller("dastation_prop", function($scope, $state, $source, $stateParams) {
-
-        console._log("dastation_prop");
+         //@if  append
+         
+        console.log("dastation_prop");
+         //@endif 
 
         // $stateParams.state =="unactive"  时  需要激活 station ;
 
@@ -70,8 +72,10 @@ angular.module('app.system.prop', [])
         $scope.setFiles = function(element) {
             $scope.canupload = true;
             $scope.$apply(function($scope) {
-
-                console._log(element.files);
+                 //@if  append
+                 
+                console.log(element.files);
+                 //@endif 
                 // Turn the FileList object into an Array   form 中家 multiple  就是多文件上传;
                 $scope.files = [];
 
@@ -163,9 +167,11 @@ angular.module('app.system.prop', [])
     })
 
 .controller("das_basic", function($scope, $filter, $state, $stateParams) {
-
-    console._log(" das_basic ");
-    console._log($stateParams, $state); // $stateParams.dastationid
+     //@if  append
+     
+    console.log(" das_basic ");
+    console.log($stateParams, $state); // $stateParams.dastationid
+     //@endif 
 
 
     //  堆叠 导航;
@@ -178,9 +184,11 @@ angular.module('app.system.prop', [])
 
 .controller("das_config",
     function($scope, $state, $stateParams, $source, $modal, $filter) {
-
-        console._log("das_config");
-        console._log($stateParams);
+         //@if  append
+         
+        console.log("das_config");
+        console.log($stateParams);
+         //@endif 
 
         var S = $scope,
             needUpdate, hasSave;
@@ -297,14 +305,19 @@ angular.module('app.system.prop', [])
         // 托管 -- DaSErver类型 --Dtu 模式;  ;
         //  dtu驱动ng-change时 ;  dut_name  字段待定; v.name 待定;
         $scope.applyDtuData = function(params) { // params  =
-
+             //@if  append
+             
             console.log("--组装 DAServer ,  dtu network --");
+             //@endif 
 
             params.port = undefined;
             params.cmway = undefined;
             $.each($scope.dtuList, function(i, v) {
                 if (v.driver_id == params.driverid) {
-                    console._log(" dtu 数据", i, v);
+                     //@if  append
+                     
+                    console.log(" dtu 数据", i, v);
+                     //@endif 
                     params.port = v.port;
                     params.cmway = v.cmway;
                     toUpdate('daserver');
@@ -399,7 +412,10 @@ angular.module('app.system.prop', [])
 
                     // _$devs ;
                     $scope.filterDev = function() {
-                        console._log("filte dev");
+                         //@if  append
+                         
+                        console.log("filte dev");
+                         //@endif 
                         var arr = S.sysmodel.devices.filter(function(v, i, t) {
                             return !$scope.devRef[v.id];
                         })
@@ -718,8 +734,7 @@ angular.module('app.system.prop', [])
         timeout = $timeout(function() {
 
         }, 1000);
-
-        console.log(11111);
+ 
         return;
         $source.$note.get({
             op: "verify_connect"
@@ -734,8 +749,8 @@ angular.module('app.system.prop', [])
         pk: $scope.station.uuid
     }).$promise.then(function(resp) {
         resp.ret = {
-            first_name: 123,
-            mobile_phone: 123333
+            // first_name: 123,
+            // mobile_phone: 123333
         };
 
         $scope.isAdd = !resp.ret;
@@ -786,7 +801,10 @@ angular.module('app.system.prop', [])
 .controller("das_map",
     function($scope, $state, $stateParams, $map, $localStorage, $timeout, $document, $window, $source) {
 
-        console._log($state, $stateParams, $localStorage.active_das, $document, $window);
+         //@if  append
+         
+        console.log($state, $stateParams, $localStorage.active_das, $document, $window);
+         //@endif 
 
         $scope.$popNav($scope.station.name + "(地图)", $state);
 
@@ -832,7 +850,10 @@ angular.module('app.system.prop', [])
 
         // 新station 定位;
         function junpLocation(p) {
-            console._log(this, arguments);
+             //@if  append
+             
+            console.log(this, arguments);
+             //@endif 
 
             var d = {
                 uuid: $scope.station.uuid,
@@ -876,8 +897,7 @@ angular.module('app.system.prop', [])
 
         function addMarkMouseUpHandler() {
             this.addEventListener("mouseup", function(e) {
-                console._log(arguments);
-
+                
                 var pos = e.currentTarget.point;
                 // 有 $scope.station  则 不触发, 优先定位 Statoin , 后定义  themovestation ;
                 $scope.$apply(function() {
@@ -920,7 +940,10 @@ angular.module('app.system.prop', [])
 
         // 右键 定位 移动的 station  ;
         function locatedSation(p) {
-            console._log(this, arguments); // this = marker ;
+             //@if  append
+             
+            console.log(this, arguments); // this = marker ;
+             //@endif 
             var that = this;
             var d = {
                 uuid: $scope.station.uuid,
@@ -941,8 +964,7 @@ angular.module('app.system.prop', [])
 
 
 
-        function undo(p, e, m) {
-            console._log(this, arguments, map); // this = marker ;
+        function undo(p, e, m) { 
             map.removeOverlay(this);
             var mark = $map.mapMarker(m.station.latitude, m.station.longitude, m.station.name);
             mark.station = angular.copy(m.station);
@@ -953,9 +975,7 @@ angular.module('app.system.prop', [])
 
         // 创建 map ;
         function createMap(domid) {
-            map = $map.createMap(domid, marks);
-            console._log("map = ", map);
-
+            map = $map.createMap(domid, marks); 
             // 当前采集占无定位时
             if ($scope.station.station_id) {
                 //addMapMenu.apply(map);
@@ -968,10 +988,14 @@ angular.module('app.system.prop', [])
         }
 
         function mapClick(e) {
-            console._log(map, e);
+             //@if  append
+             
+            console.log(map, e);
+            console.log(e.point.lng, e.point.lat);
+
+             //@endif 
             if ($scope.lock) return;
             map.clearOverlays();
-            console._log(e.point.lng, e.point.lat);
             var x, y;
             x = e.point.lat;
             y = e.point.lng;

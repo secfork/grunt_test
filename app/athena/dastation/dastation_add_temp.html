@@ -4,7 +4,9 @@
         <input tl-wrap-l label="系统名称" required ng-model="system.name">
         <select tl-wrap-l label="所属区域" ng-model="system.region_id" required ng-options="  proj.id  as  proj.name  for  proj   in projects "></select>
         <select tl-wrap-l ng-model="systemModel" ng-options=" s  as s.name for s in sysmodels" label="系统模型" required></select>
-        <select tl-wrap-l ng-model="system.profile" ng-options="  p.uuid as p.name for  p  in  profiles " label="系统配置项" required>
+        <select tl-wrap-l ng-model="system.profile"
+              ng-options="  p.uuid as p.name for  p  in  profiles " 
+              label="系统配置项" required>
             <option value="">--请选择配置项--</option>
         </select>
         <div class="form-group " ng-if=" systemModel.mode==1 && systemModel.comm_type == 1 " ng-init=" system.network= { daserver: { type:'DTU'}  }; ">

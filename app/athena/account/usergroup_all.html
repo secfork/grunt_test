@@ -3,7 +3,7 @@
         <thead class="flip-content  ">
             <tr>
                 <th width="20%">名称</th>
-                <th> 权限</th>
+                <th width="40%"> 备注</th>
                 <th width="10%"> </th>
             </tr>
         </thead>
@@ -13,7 +13,10 @@
                     {{g.name}}
                 </td>
                 <td>
+                   <!-- 
                     <i class="fa {{ u.emailEffective?'fa-check text-success':'fa-times  text-danger' }}"></i>
+                 -->
+                   {{g.desc}}
                 </td>
                 <td>
                     <a href="" class="text-link" ng-click=" editGroup( page.data , g, $index ) " translate="edit">编辑</a>

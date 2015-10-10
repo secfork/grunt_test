@@ -149,7 +149,7 @@ angular.module('app.directives', ['pascalprecht.translate'])
                         next.css('bottom', w_h - top - offset).css('top',
                             'auto');
                     }
-                    next.appendTo(wrap); 
+                    next.appendTo(wrap);
 
                     next.on('mouseleave.nav', function(e) {
                         $(backdrop).remove();
@@ -192,7 +192,10 @@ angular.module('app.directives', ['pascalprecht.translate'])
             template: '<i class="fa fa-expand fa-fw text"></i><i class="fa fa-compress fa-fw text-active"></i>',
             link: function(scope, el, attr) {
                 el.addClass('hide');
-                console._log("加载 fullscreen .js 文件!");
+                //@if  append
+
+                console.log("加载 fullscreen .js 文件!");
+                //@endif 
                 uiLoad.load('lib/js/screenfull.min.js').then(function() {
                     if (screenfull.enabled) {
                         el.removeClass('hide');
@@ -218,7 +221,10 @@ angular.module('app.directives', ['pascalprecht.translate'])
                 restrict: 'AC',
                 template: '<span class="bar" ></span>',
                 link: function(scope, el, attrs) {
-                    console._log("bbbb", el);
+                    //@if  append
+
+                    console.log("bbbb", el);
+                    //@endif 
                     el.addClass('butterbar hide');
 
 
@@ -255,9 +261,12 @@ angular.module('app.directives', ['pascalprecht.translate'])
 
 .directive('draggable', function($document) {
     return function(scope, element, attr) {
-        console._log(attr);
-        console._log(element);
-        console._log($document);
+        //@if  append
+
+        console.log(attr);
+        console.log(element);
+        console.log($document);
+        //@endif 
 
         var startX = 0,
             startY = 0,
@@ -305,8 +314,11 @@ angular.module('app.directives', ['pascalprecht.translate'])
         restrict: "A",
         require: ["?^ngDisabled"],
         link: function(scope, $ele, attrs, fn) {
-            console._log(arguments);
-            console._log("token =", attrs.token || 1000);
+            //@if  append
+
+            console.log(arguments);
+            console.log("token =", attrs.token || 1000);
+            //@endif 
             $ele.on("click", function() {
                 var that = this;
                 that.disabled = true;
@@ -318,7 +330,7 @@ angular.module('app.directives', ['pascalprecht.translate'])
 
     }
 })
-  
+
 
 .directive("mark", function() {
     return {
@@ -326,7 +338,10 @@ angular.module('app.directives', ['pascalprecht.translate'])
         replace: true,
         template: '<span class="text-danger font-bold">*</span>',
         link: function() {
-            console._log("mark!");
+            //@if  append
+
+            console.log("mark!");
+            //@endif 
         }
     };
 })
@@ -344,8 +359,11 @@ angular.module('app.directives', ['pascalprecht.translate'])
 
         $element.ready(function() {
             $timeout(function() {
+                //@if  append
+
+                console.log(wh, dh);
+                //@endif 
                 dh = $element.height();
-                console._log(wh, dh);
                 dh ? $element.offset({
                     top: dh < wh ? st + (wh - dh) / 2 : 0
                 }) : $element.offset({
@@ -362,14 +380,14 @@ angular.module('app.directives', ['pascalprecht.translate'])
 
 
 .directive("wrap", function() {
-       return ; 
-       var x = '<div class="form-group">'+
-                '<div class="col-sm-3 col-sm-offset-1 control-label"></div></div>'
+    return;
+    var x = '<div class="form-group">' +
+        '<div class="col-sm-3 col-sm-offset-1 control-label"></div></div>'
 
-        return function(s, e, a) {
-            e.wrap(x);
-        }
-    })
+    return function(s, e, a) {
+        e.wrap(x);
+    }
+})
 
 
 .directive("wrapL", function() {
@@ -478,7 +496,7 @@ angular.module('app.directives', ['pascalprecht.translate'])
             label: "@"
         },
         link: function($scope, $ele, $attrs, modelCtrl) {
-            // console._log( $scope.label );
+            // console.log( $scope.label );
             // ==================================
 
             var label = '<label class= " col-sm-3 control-label   "  > ' + ' <span   translate="' + $attrs.label + '"  ></span> ' + ' </label>',
@@ -581,6 +599,9 @@ angular.module('app.directives', ['pascalprecht.translate'])
     }
 })
 
+
+
+// 指令默认 为A ;  清楚html 中的 script ; 
 .directive("html", function($sce) {
     return function($scope, $element, $attrs) {
 
@@ -591,6 +612,16 @@ angular.module('app.directives', ['pascalprecht.translate'])
 
 })
 
+// 挨个去修改 table 有点麻烦;  故用指令更改; 
+.directive("table" , function(){
+    return {
+        restrict:"E", 
+        link: function( $scope , $ele ,$attr){
+            /*  table-striped  */
+            $ele.addClass("   table  table-hover  table-bordered  ") ; 
+        }
+    }
+})
 
 // 展示  template  t ;  device  d ; templatePoint  tp ;  profpoint pp ;  profalarm pa
 //       project   proj ; station  s ;
@@ -613,23 +644,26 @@ angular.module('app.directives', ['pascalprecht.translate'])
 
 
             if (!b) {
-                console._log("无匹配的驱动数据: 驱动 id =  ", e.driver_id, " 驱动版本 = ",
-                               e.driver_ver);
+                console.error("无匹配的驱动数据: 驱动 id =  ", e.driver_id, " 驱动版本 = ",
+                    e.driver_ver);
                 $ele.text(x);
             } else {
-                console.log( params );
+                //@if  append
+
+                console.log(params);
+                //@endif 
                 angular.forEach(params, function(v, k) {
                     // a.push( $translate.instant("params."+k)  +'='+  b[k][v] );
                     //  非 select 的字段 匹配成原始值 ;
-                    c = b[k]; 
-                    //console._log(c , k);
+                    c = b[k];
+                    //console.log(c , k);
                     if (k == "type_ex") {
                         a.push("额外配置值:" + v)
                     } else {
                         f = $translate.instant("params." + k) + ":" + (c ? c[v].k : v);
                         a.push(f);
                     }
-                }); 
+                });
                 $ele.text(a.join(" , "));
             }
         }

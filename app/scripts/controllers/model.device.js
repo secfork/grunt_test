@@ -2,7 +2,10 @@ angular.module('app.model.device', [])
     .controller("devmodel", function($scope, $compile, $state, $modal, $log, $http,
         $timeout, $source) {
         // 加载 projects ;
-        console._log("template", $window); //postcode   $source.$dmPoint ,
+         //@if  append
+         
+        console.log("template", $window); //postcode   $source.$dmPoint ,
+         //@endif 
 
         var tempScope = $scope;
 
@@ -25,12 +28,15 @@ angular.module('app.model.device', [])
             $timeout.cancel(_timeout);
 
             _timeout = $timeout(function() {
-                console._log("window scroll", _timeout);
+                 //@if  append
+                 
+                console.log("window scroll", _timeout);
+                console.log(w_st, w_h);
+                 //@endif 
 
                 w_st = $(window).scrollTop();
                 w_h = $(window).innerHeight();
 
-                console.log(w_st, w_h);
                 return;
 
                 // 判断 temp 滚动;  当 temp 超上限 判断是否展开;  若展开判断 point ;
@@ -39,7 +45,10 @@ angular.module('app.model.device', [])
 
                 $.each(t_doms, function(i) {
                     $t_dom = $(this);
+                     //@if  append
+                     
                     console.log($t_dom);
+                     //@endif 
                     if ($dom.position().top < w_st) {
                         // 上超限 ;
 
@@ -65,7 +74,10 @@ angular.module('app.model.device', [])
 
         // 加载 device model  下 的 points ;
         $scope.loadPoints = function(scope, $event, index, devModel) {
-            console._log(arguments);
+             //@if  append
+             
+            console.log(arguments);
+             //@endif 
             if (!scope.points) {
                 $source.$dmPoint.get({
                         device_model: devModel.uuid
@@ -82,7 +94,10 @@ angular.module('app.model.device', [])
             $modal.open({
                 templateUrl: 'athena/template/temp.html',
                 controller: function($scope, $modalInstance,  $source , $filter) {
-                    console._log("edit or new  temp ", t);
+                     //@if  append
+                     
+                    console.log("edit or new  temp ", t);
+                     //@endif 
                     $scope.__proto__ = scope;
                     $scope.$modalInstance = $modalInstance;
 
@@ -175,7 +190,10 @@ angular.module('app.model.device', [])
 
 
         var temp_export = function($scope, $$scope, $modalInstance, T) {
-            console._log("export_t");
+             //@if  append
+             
+            console.log("export_t");
+             //@endif 
             $scope.cancel = $$scope.closePopupWin($modalInstance);
             $scope.T = T;
         };
@@ -205,7 +223,10 @@ angular.module('app.model.device', [])
         };
 
         $scope.delPoint = function(scope, index, p, dm_uuid) {
-            console._log("delPoint", p);
+             //@if  append
+             
+            console.log("delPoint", p);
+             //@endif 
             $scope.confirmInvoke({
                 title: "删除点 " + p.name + " ?"
             }, function(next) {
@@ -224,7 +245,10 @@ angular.module('app.model.device', [])
         //添加 point;
 
         $scope.addOrEditPoint = function(scope, p, index) {
-            console._log(" add_f or edit_f  ");
+             //@if  append
+             
+            console.log(" add_f or edit_f  ");
+             //@endif 
 
             $modal.open({
                 templateUrl: 'athena/template/file.html',
@@ -250,8 +274,10 @@ angular.module('app.model.device', [])
                                                     );
 
                     };
-
-                    console._log(p, $scope.point);
+                     //@if  append
+                     
+                    console.log(p, $scope.point);
+                     //@endif 
 
                     // $scope.g = {hex: "0001ffdf", show: "2", type: "2", mask: true};
 
@@ -284,7 +310,10 @@ angular.module('app.model.device', [])
             });
         };
         $scope.clone_f = function(f_id) {
-            console._log(arguments)
+             //@if  append
+             
+            console.log(arguments)
+             //@endif 
         };
 
     });

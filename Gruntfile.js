@@ -16,9 +16,7 @@ module.exports = function(grunt) {
     require('jit-grunt')(grunt, {
         useminPrepare: 'grunt-usemin',
         ngtemplates: 'grunt-angular-templates',
-        cdnify: 'grunt-google-cdn',
-        // processhtml :"grunt-processhtml",
-        //preprocess:"grunt-preprocess" 
+        cdnify: 'grunt-google-cdn'
     });
 
     grunt.loadNpmTasks('grunt-connect-proxy');
@@ -46,20 +44,53 @@ module.exports = function(grunt) {
         //     sourceHtml:{
         //         expand:true,
         //         dot:false,
-        //         cwd: '<%= yeoman.app %>', 
-        //         src: 'athena/{**/,}*.html', 
-        //         dest:".tmp/html" 
+        //         cwd: '<%= yeoman.app %>',
+        //         src: 'athena/{**/,}*.html',
+        //         dest:".tmp/html"
         //     } ,
         //     dist:{ '<%= yeoman.dist %>/index.html':'<%= yeoman.dist %>/index.html'  }
         // },
 
+
+        uncss:{
+            dist:{
+                files: {
+                   // 'dist/styles/main.css':  "athena/{*/,}*.html"
+
+                  // 'dist/styles/main_i.css': [ "app/index.html" , ".tmp/html/athena/{*/,}*.html" ]
+
+                  // 'dist/styles/main_1.css': [ "app/index.html" , "app/athena/account/*.html" ],
+                  // 'dist/styles/main_2.css': [ "app/index.html" , "app/athena/dastation/*.html" ],
+                  // 'dist/styles/main_3.css': [ "app/index.html" , "app/athena/debris/*.html" ],
+                  // 'dist/styles/main_6.css': [ "app/index.html" , "app/athena/region/*.html" ],
+                  // 'dist/styles/main_7.css': [ "app/index.html" , "app/athena/show/*.html" ],
+                  // 'dist/styles/main_7.css': [ "app/index.html" , "app/athena/support/*.html" ],
+                  // 'dist/styles/main_8.css': [ "app/index.html" , "app/athena/sysmodel/*.html" ],
+
+                  // 'dist/styles/main_9.css': [ "app/index.html" , "app/athena/template/*.html" ],
+                  // 'dist/styles/main_10.css': [ "app/index.html" , "app/athena/user/*.html" ],
+
+                  // 'dist/styles/main_11.css': [ "app/index.html" , "app/athena/_device/*.html" ],
+                  // 'dist/styles/main_12.css': [ "app/index.html" , "app/athena/_dtu/*.html" ],
+                  // 'dist/styles/main_13.css': [ "app/index.html" , "app/athena/_point/*.html" ]
+
+                }
+            }
+        } ,
+
+
         preprocess: {
             options: {
                 context: {
-                    debug: false,
-                    append: false
+
+                    append: false ,     // 是否build  debug信息;
+                    region_online: false , // 是否build  region 是否在线信息;
+
+
+                    debug: false
                 }
             },
+
             dist_index: {
                 src: 'dist/index.html',
                 dest: 'dist/index.html'
@@ -68,8 +99,8 @@ module.exports = function(grunt) {
             html: {
                 expand: true,
                 cwd: 'app',
-                dest: '.tmp/html',
-                src:  "athena/{*/,}*.html"
+                src:  "athena/{*/,}*.html",
+                dest: '.tmp/html'
 
                 //[
                  //  {**/,}*.html
@@ -91,8 +122,8 @@ module.exports = function(grunt) {
             },
 
             js: {
-                src: 'test/test.js',
-                dest: 'test/test.processed.js'
+                src:'.tmp/concat/scripts/thing.js',
+                dest: '.tmp/concat/scripts/thing.js'
             }
         },
 
@@ -149,7 +180,7 @@ module.exports = function(grunt) {
                options:{
                   port:9000,
                   hostname:"localhost"
-               },
+               }
                  // 当为 0.0.0.0 时  proxies 有效;   ????
                // proxies:[
                //    {
@@ -163,7 +194,7 @@ module.exports = function(grunt) {
                // ]
             }  ,
 
- 
+
 
 
             livereload: {
@@ -278,7 +309,7 @@ module.exports = function(grunt) {
             },
             server: {
                 options: {
-                    map: true,
+                    map: true
                 },
                 files: [{
                     expand: true,
@@ -453,14 +484,15 @@ module.exports = function(grunt) {
                     dot: false,
 
                     module: 'thinglinx',
-                    htmlmin: '<%= htmlmin.dist.options %>',
-                    // usemin: 'scripts/scripts.js' , 
+                    htmlmin: '<%= htmlmin.dist.options %>'
+                    // usemin: 'scripts/scripts.js' ,
                 },
                 // cwd: '<%= yeoman.app %>',
                 // src: 'athena/{**/,}*.html',
-                
+
                 cwd:".tmp/html",
-                src:"{**/,}*.html",
+                 src:"{**/,}*.html",
+                // src:"*.html",
 
                 dest: '.tmp/templateCache.js'
             }
@@ -504,11 +536,11 @@ module.exports = function(grunt) {
                             'styles/fonts/{,*/}*.*'
 
                             // athena 下的文件做成 tempalteCache ;   {athena,fonts,img}
-                            ,'{fonts,img,l10n}/**', 
+                            ,'{fonts,img,l10n}/**',
                             'lib/*/**' //  jquery 插件拷贝;
 
                         ]
-                    }, { // thinglinx_boot.js  拷贝到 .tmp 目录 ; 
+                    }, { // thinglinx_boot.js  拷贝到 .tmp 目录 ;
                         //expand:true ,
                         // dest:".tmp/boot",
                         // cwd: '<%= yeoman.app %>',
@@ -597,22 +629,23 @@ module.exports = function(grunt) {
         'useminPrepare',
         'concurrent:dist',
         'autoprefixer',
- 
-        "preprocess:html",
+
+        "preprocess:html", //
         'ngtemplates',
-        
-        'copy:dist', // 拷贝  thinglinx_boot.js 到 .tmp/boot 目录 ; 
+
+        'copy:dist', // 拷贝  thinglinx_boot.js 到 .tmp/boot 目录 ;
 
         'concat',
         'ngAnnotate',
+        "preprocess:js",
 
         //'cdnify',
         'cssmin',
-        'uglify', 
+        'uglify',
 
         'filerev',
-        'usemin',
-        "preprocess:dist_index",
+        'usemin'
+       // "preprocess:dist_index",
         //'htmlmin',
     ]);
 

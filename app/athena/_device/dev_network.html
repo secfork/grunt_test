@@ -1,6 +1,6 @@
 
 
-<div  ng-init = "  _$types = [ 'ETHERNET','RS232','RS485','RS422'  ] ; 
+<div     ng-init = "  _$types = [ 'ETHERNET','RS232','RS485','RS422'  ] ; 
 				   _proto  = ['tcp' , 'udp'] ;  ">  
 </div>
  
@@ -50,14 +50,12 @@
 </div>
 
 
-<div  ng-if="  D.network.type != 'ETHERNET' "  
-	>
+<div  ng-if="  D.network.type != 'ETHERNET' "   >
 	<select tl-wrap   
 			ng-model = "D.network.params.channel"
 			ng-options = " k as k  for (k,v) in  _$channel " 
 			label="串口"
 			required
-			 
 	>
 		<option value="">请选择串口</option>
 	</select>

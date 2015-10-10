@@ -19,6 +19,7 @@ var app = angular.module('thinglinx', [
   'app.directives',
   'app.filters',
   'app.services', 'app.sysconfig',
+  'app.errcode'
  
 ])
 
@@ -44,19 +45,16 @@ var app = angular.module('thinglinx', [
         $rootScope.$debug =   $sys.$debug;
 
         // $rootScope.$$cache = null ;
-
-        if ($sys.$debug) {
+         //@if  append
+         
           window.test = function() {
             alert("test  function !")
           };
           $rootScope.test = function() {
             alert("test  function !")
           }
-          console._log = console.log;
-        } else {
-          // console.log = function () {  }
-          console._log = function() {};
-        }
+         //@endif 
+           
 
         $rootScope.validate = function(data, msg) {
           if (!data) {
@@ -98,13 +96,13 @@ var app = angular.module('thinglinx', [
         //     var $scope = $new_proxy.apply(this);
         //     var _s // this = ?
         //     $scope.$on("$destroy", function($event) {
-        //       console._log("$scope $destroy event  ", "清除controller 缓存;");
+        //       console.log("$scope $destroy event  ", "清除controller 缓存;");
 
         //       _s = $event.targetScope;
 
         //       if (_s.hasOwnProperty('$cache')) {
         //         _s.$cache.destroy();
-        //         console._log(" 清除controller 缓存; ");
+        //         console.log(" 清除controller 缓存; ");
         //       }
 
 
@@ -166,7 +164,7 @@ var app = angular.module('thinglinx', [
 
               if (user) {
                 $scope.user = user;
-                console._log("sessionStorage 含有user");
+                console.log("sessionStorage 含有user");
                 // 是 app 路由转到 rootState ;
                 // rootstate = app.prpj.namage ;
                 $state.is("app") ? $state.go($sys.rootState) : undefined;

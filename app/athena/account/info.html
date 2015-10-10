@@ -1,9 +1,13 @@
 <div class="panel-body no-padder bg-light     ">
 
+
+
     <div class=" col-md-8 col-md-offset-2   col-lg-6 col-lg-offset-2 m-b  m-t-l ">
         <h4 class="center">账户信息</h4>
-        <div class="b-b m-b"> <span>账户名称</span> : {{system.name}}</div>
-        <div class="b-b m-b"> <span>注册时间</span> : {{system.desc}}</div>
+        <div class="b-b m-b"> <span>账户名称</span> : {{account.name}}</div>
+        <div class="b-b m-b"> <span>注册时间</span> : 
+            {{account.create_time | date:"yyyy-MM-dd HH:mm Z" }}</div>
+
         <div class="b-b m-b"> <span>系统数量</span> : {{system.group_id}} </div>
         <div class="b-b m-b"> <span>用户数量</span> : {{ $sys.sysModelMode.values[systemModel.mode] }} </div>
         <div class="b-b m-b"> <span>用户组数量</span> : {{ systemModel.comm_type }}</div>
@@ -11,13 +15,33 @@
         <div class="b-b m-b">
             <div class="inline">存储空间占用:</div>
             <div class="inline w-xl">
-                <progressbar animate="false" value="59" type="success" class="m-b-none"><b>{{dynamic}}59%</b> </progressbar>
+ 
+ <progressbar animate="true" value="59" type="success" 
+        class=" progress-sm m-b-none">
+     <b> 59%</b> 
+ </progressbar>
+           
+ 
+                        
+                       
+
+
+
+
+
+
+
+
+
             </div>
         </div>
     </div>
 </div>
 
- 
+ <!--@if append -->
+ account = {{account}}
+ <!--@endif  -->
+
 
 <!-- <strong>基本信息:</strong>
 

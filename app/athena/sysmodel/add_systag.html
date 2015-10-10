@@ -11,7 +11,7 @@
     <form name="form_tag" class=" form-validation form-horizontal   ">
 
         <div  ng-if="isManageMode ">
-            <select ng-options=" o as o.name  for  o in devices  "
+            <select ng-options=" o as o.name  for  o in devices   "
                     tl-wrap
 
                     ng-model=" op.dev "
@@ -21,10 +21,10 @@
                 <option value="">--请选择设备--</option>
             </select>
 
-            <select ng-options=" o as o.name  for  o in points   "
+            <select ng-options=" o.id as o.name  for  o in points   "
                     tl-wrap
 
-                    ng-model="op.point"
+                    ng-model="op.point_id"
                     label="connect 点"
                     ng-change=" T.name = op.point.name "
                     required   >
@@ -76,7 +76,7 @@
     T= {{T}} <br>
     op.dev  = {{ op.dev }}  <br>
     op.devModel  = {{ op.devModel }}  <br>
-    op.point  = {{ op.point }}  <br>
+    op.point_id  = {{ op.point_id }}  <br>
     profile = {{profile}}
 <!--@endif -->
 

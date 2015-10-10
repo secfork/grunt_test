@@ -1,9 +1,18 @@
 <div class="panel-heading  ">
 
-<button class="btn btn-sm btn-info  " ng-click="d_call( system   ,0)"> 召唤实时 </button>
-<button class="btn btn-sm btn-info  " ng-click="d_call( system  , 1 )"> 召唤参数 </button>
-<button class="btn btn-sm btn-info  " ng-click="d_call( system  , 2 )"> 召唤所有 </button>
+<button class="btn btn-sm btn-info  " ng-click="d_call( system   ,0)" token="5000" > 召唤实时 </button>
+<button class="btn btn-sm btn-info  " ng-click="d_call( system  , 1 )" token="5000" > 召唤参数 </button>
+<button class="btn btn-sm btn-info  " ng-click="d_call( system  , 2 )" token="5000" > 召唤所有 </button>
     
+ 
+  <progressbar class="progress-striped   m-t-xs  m-b-none  w pull-right"
+               animate="false"   value=" progValue / 100  " type="success">
+                            
+
+  </progressbar>
+                    
+
+
 </div>
  
 
@@ -30,7 +39,8 @@
      并做对应的输入框/下拉框等 -->
                     <input class="input h-30 " ng-model="v">
                     <!-- <tl-input    ></tl-input>-->
-                    <button class="btn btn-info btn-xs" ng-click="liveWrite( t, v , this )">下置</button>
+                    <button class="btn btn-info btn-xs" 
+                     ng-click="liveWrite( t, v , this )" token="5000" >下置</button>
                     <span id="current_msg_{{t}}" class="w">  {{ msg }}</span>
                 </td>
                 <td>
