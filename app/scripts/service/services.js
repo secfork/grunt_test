@@ -94,9 +94,15 @@ angular.module('app.services', ["ngResource"], function() {
         call: {
             method: "POST"
         },
-        assign:{
-              method:"GET"   
+        active:{ 
+            params:{options:"active"}
         },
+        deactive:{
+            params:{options:"deactive"}
+        },
+        assign: {
+            params:{options:"assign"}
+        }, 
         getDtuServer: {
             method:"GET"
         },

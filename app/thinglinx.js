@@ -18,8 +18,8 @@ var app = angular.module('thinglinx', [
       'app.show.proj', 'app.show.system', 'app.system', 'app.system.prop','app.support' ,
   'app.directives',
   'app.filters',
-  'app.services', 'app.sysconfig',
-  'app.errcode'
+  'app.services', 'app.sysconfig'
+  
  
 ])
 

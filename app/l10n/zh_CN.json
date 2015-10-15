@@ -12,6 +12,7 @@
     "sms_verify_err":"短信验证码无效",
 
     "send_repetition":"现在不能发送验证码",
+    "rest_err":"接口调用错误",
  
  
     "ER_NO_AUTH":"未授权", 
@@ -52,7 +53,7 @@
     "ER_DRIVER_NOT_EXISTS":"驱动不存在",
 
     "ER_DASERVER_EXISTS":"数据采集服务器已经存在",
-    "ER_DASERVER_NOT_EXISTS":"数据采集服务器不存在",
+    "ER_DASERVER_NOT_EXIST":"数据采集服务器不存在",
 
     "ER_SYSTEM_NOT_SAVE_LOG":"该点不保存历史",
     "BAD_REQUEST":"请求参数错误",

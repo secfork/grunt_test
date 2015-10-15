@@ -38,6 +38,7 @@ angular.module('ui.jq', ['ui.load']).
 
           // If ui-options are passed, merge (or override) them onto global defaults and pass to the jQuery method
           if (attrs.uiOptions) {
+            //
             linkOptions = scope.$eval('[' + attrs.uiOptions + ']');
             if (angular.isObject(options) && angular.isObject(linkOptions[0])) {
               linkOptions[0] = angular.extend({}, options, linkOptions[0]);
@@ -58,7 +59,8 @@ angular.module('ui.jq', ['ui.load']).
 
         // Call jQuery method and pass relevant options
         function callPlugin() {
-          $timeout(function() {
+          $timeout(function() { 
+            console.log(  elm ,   attrs );
             elm[attrs.uiJq].apply(elm, getOptions());
           }, 0, false);
         }

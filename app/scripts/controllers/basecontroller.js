@@ -317,7 +317,7 @@ angular.module('app.basecontroller', [])
             });
         };
 
-        //  采集占失效   失败;
+        //  采集占失效   失败; effactive ;
         $scope.effStation = function(dastations, station, index) {
             $scope.confirmInvoke({
                 title: "失效系统 " + station.name + " ?"
@@ -326,12 +326,15 @@ angular.module('app.basecontroller', [])
                     uuid: station.uuid,
                     state: 0
                 };
-                $source.$system.put(d, function(resp) {
 
+                $source.$system.deactive( { pk: station.uuid } , function(){
                     dastations.splice(index, 1);
-
                     next();
-                }, next)
+                } , function(){
+                    alert("系统失效失败!");
+                    next();
+                })
+ 
             })
         };
 
@@ -348,7 +351,10 @@ angular.module('app.basecontroller', [])
                     dastations.splice(index, 1);
 
                     next();
-                }, next);
+                }, function(){
+
+                    next()
+                });
             })
         };
 
@@ -360,20 +366,17 @@ angular.module('app.basecontroller', [])
             $scope.confirmInvoke({
                 title: "激活采集站 " + station.name + " ?"
             }, function(next) {
-                // 激活采集站;
-                var d = {
-                    uuid: station.uuid,
-                    state: 1
-                };
-                $source.$system.put(d, function(resp) {
-
+                // 激活采集站; 
+                $source.$system.active( {pk: station.uuid} , function( resp ){
                     station.state = 1;
                     dastations && (dastations.splice(index, 1));
-
                     next();
-
                     jump && $scope.goto('app.station.prop._basic', station, station);
-                }, next)
+
+                }, function(){
+                    alert( "激活失败!");
+                    next();
+                } );   
             })
         };
 
@@ -588,8 +591,8 @@ angular.module('app.basecontroller', [])
     //@if  append
 
     $scope.user = {
-        username: "111111",
-        password: "111111"
+        username: "123123",
+        password: "123123"
     };
     //@endif 
 
@@ -627,6 +630,7 @@ angular.module('app.basecontroller', [])
                 //@endif 
 
                 //alert(1);
+                
                 if (resp.ret) {
                     $scope.st.login_errtimes = 0;
                     $sessionStorage.user = resp.ret;

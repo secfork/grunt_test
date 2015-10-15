@@ -16,10 +16,14 @@ angular.module('app.directives', ['pascalprecht.translate'])
                             uiLoad.load(MODULE_CONFIG[attrs.uiModule])
                                 .then(function() {
                                     $compile(contents)(scope,
-                                        function(clonedElement,
-                                            scope) {
-                                            el
-                                                .append(clonedElement);
+                                        function(clonedElement, scope) {
+
+                                            if(attrs.to){
+                                              $(attrs.to).append( clonedElement)
+                                            }else{ 
+                                              el.append(clonedElement);
+                                            }
+ 
                                         });
                                 });
                         }
@@ -615,12 +619,12 @@ angular.module('app.directives', ['pascalprecht.translate'])
 })
 
 // 挨个去修改 table 有点麻烦;  故用指令更改; 
-.directive("table" , function(){
+.directive("table", function() {
     return {
-        restrict:"E", 
-        link: function( $scope , $ele ,$attr){
+        restrict: "E",
+        link: function($scope, $ele, $attr) {
             /*  table-striped  */
-            $ele.addClass("   table  table-hover  table-bordered  ") ; 
+            $ele.addClass("   table  table-hover  table-bordered  ");
         }
     }
 })

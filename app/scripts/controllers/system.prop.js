@@ -282,15 +282,15 @@ angular.module('app.system.prop', [])
             // 加载  assign 的   dtu server  信息;  
             $scope.l_m_P.then(function() { // 还要是激活的; 
                 if (
-                    $scope.sysmodel.mode == 1 
-                    && $scope.sysmodel.comm_type == 1 
-                    && $scope.daserver.params
-                    && $scope.state
+                    $scope.sysmodel.mode == 1  // 托管;
+                    && $scope.sysmodel.comm_type == 1  // dtu ;
+                    && $scope.daserver.params  // 指定了daserver ;
+                    && $scope.station.state   // 激活的; 
                 ) {
                     var d = {
                         options: "getassign",
                         proj_id: $scope.station.uuid
-                    }
+                    };
                     $source.$system.getDtuServer(d, function(resp) {
                         $scope.cmway_port = resp.ret;
                     })
@@ -479,7 +479,6 @@ angular.module('app.system.prop', [])
 
                     $scope.__proto__ = S,
                         $scope.$modalInstance = $modalInstance,
-
                         $scope.isAdd = !way;
 
                     var x = (way && way.dns && way.gateway) ? ('WLAN') : ('LAN');
@@ -560,37 +559,54 @@ angular.module('app.system.prop', [])
 
             if (field == 'daserver') {
                 // 未激活的话 提示激活; 
-                if (!$scope.station.state) {
+                if ($scope.station.state == 0 ) {
                     $scope.confirmInvoke({
                         title: "该系统处于未激活状态, 是否现在激活!"
                     }, function(next) {
-                        var d = {
-                            uuid: $scope.station.uuid,
-                            state: 1
-                        };
-                        // 激活系统; 
-                        $source.$system.put(d).$promise.then(function() {
-                            // 逻辑有待完善; 
-                            // assign system ;    
-                            $scope.station.state = 1;
-                            return assignSystem();
+                      // 激活系统; 
+                       $source.$system.active( { pk: $scope.station.uuid } ,
+                            function( resp ){
+                                $scope.station.state = 1 ; 
+                                next();
+                                //assgin  系统;
+                                assignSystem().then( function(){
+                                    // 保存网络参数; 
+                                    saveDaServer().then(next);
+                                })
+                            },
+                            next
+                        ) 
+                       
+                        // // 激活系统; 
+                        // $source.$system.active({  pk: $scope.station.uuid  }, function() {
+                        //     $scope.station.state = 1;
+                        //     // assign 系统; 
+                        //     next();
+                        //     return assignSystem();
+                        // }, next).then(function() {
+                        //     // 保存网络参数 
+                        //     saveDaServer().then(next);
+                        // }, next );
 
-                        }, next).then(function(resp) {
-                            // 保存网络参数;   
-                            saveDaServer(resp).then(next);
-                        }, next)
                     })
-                } else {
-                    // 激活的话 肯定已经指定了 daserver , 无需assign ; 
+                } else if( $scope.station.state == 1  &&  ( !$scope.cmway_port )   ) { 
+                    // 激活的话 , 但是没有指定 daserver ;  需要!assign ; 
+                    assignSystem().then( function(){
+                        // 保存网络参数; 
+                        saveDaServer().then(next);
+                    }) 
+                } else{
                     saveDaServer();
                 }
+
+
                 // 激活 , 指定 dtu system 的daserver ; 
                 function assignSystem() {
                     var d = {
-                        options: "assign",
-                        proj_id: $scope.station.uuid,
+                        pk: $scope.station.uuid,
                         driver_id: $scope.daserver.params.driverid
                     };
+
                     var b = $source.$system.assign(d).$promise;
                     b.then(function(resp) {
                         $scope.cmway_port = resp.ret; // 数据中心 , 端口数据 ;  
