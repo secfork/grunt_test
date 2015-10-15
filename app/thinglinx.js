@@ -64,7 +64,10 @@ var app = angular.module('thinglinx', [
         }
 
         $rootScope.funtest = function() {
+           //@if  append
+           
           console.log("函数测试!");
+           //@endif 
         };
 
       }
@@ -83,8 +86,10 @@ var app = angular.module('thinglinx', [
         // 默认前端 跨域;
         //$httpProvider.defaults.withCredentials = true;
 
-
+         //@if  append
+         
         console.log(document.cookie, $resourceProvider);
+         //@endif 
 
 
 
@@ -155,7 +160,10 @@ var app = angular.module('thinglinx', [
             url: '/app',
             templateUrl: 'athena/app.html',
             controller: function($scope, $state, $sys, $sessionStorage) {
+               //@if  append
+               
               console.log("appxxxxxxxxx");
+               //@endif 
               // jsorder go2long 要清除sessionstorage 的user ;
               var user = $sessionStorage.user;
               // if( $scope.$debug ){
@@ -164,7 +172,10 @@ var app = angular.module('thinglinx', [
 
               if (user) {
                 $scope.user = user;
+                 //@if  append
+                 
                 console.log("sessionStorage 含有user");
+                 //@endif 
                 // 是 app 路由转到 rootState ;
                 // rootstate = app.prpj.namage ;
                 $state.is("app") ? $state.go($sys.rootState) : undefined;
@@ -590,7 +601,7 @@ var app = angular.module('thinglinx', [
           })
           .state('access.forgotpwd', {
             url: '/forgotpwd',
-            // controller: "access_fogpas",
+            controller: "access_fogpas",
             templateUrl: 'athena/page_forgotpwd.html'
           })
           .state('access.404', {

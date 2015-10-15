@@ -322,8 +322,10 @@ angular.module('app.directives', ['pascalprecht.translate'])
             $ele.on("click", function() {
                 var that = this;
                 that.disabled = true;
+                $(this).addClass("disabled");
                 $timeout(function() {
                     that.disabled = false
+                    $(that).removeClass("disabled");
                 }, attrs.token || 1000)
             });
         }

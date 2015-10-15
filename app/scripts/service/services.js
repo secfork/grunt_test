@@ -15,6 +15,7 @@ angular.module('app.services', ["ngResource"], function() {
     ingorErr = {
         'DEVICE_NOT_EXIST': true,
         'ER_CONTACT_NOT_EXIST': true,
+        'ER_SYSTEM_HAS_NOT_BOUND': true,
 
     };
 
@@ -23,6 +24,7 @@ angular.module('app.services', ["ngResource"], function() {
 
 })
 
+ 
 
 .service('$source', ['$resource', function($resource) {
 
@@ -48,14 +50,17 @@ angular.module('app.services', ["ngResource"], function() {
     this.$role = $createSource("role/:pk");
     this.$driver = $createSource("driver/:type");
     
-    // op: send (发送) , verify( 验证) ;   sou: connent( sys联系人) , user( 用户) , 
+    //    sou: connent( sys联系人) , user( 用户) , 
     //  ? send : cell_phone , verify: code ;  
     this.$note = $createSource("note/:op/:sou"); 
-    
-    this.$common = $createSource("common", {}, {
+
+    this.$common = $createSource("common/:op", {}, {
         cc_passWord: {
             url: angular.rootUrl + "common/ccpassword",
             method: "PUT"
+        },
+        verify: {
+            url: angular.rootUrl +"common/verify"
         }
     });
 
@@ -220,6 +225,8 @@ angular.module('app.services', ["ngResource"], function() {
         // optional method   通过实现 response 方法拦截响应:
         'response': function(response) {
 
+            var  resp  = response.data
+
             if ($sys.$debug && !--ajax_times) {
                 $timeout.cancel(_timeout);
                 _timeout = $timeout(function() {
@@ -231,21 +238,30 @@ angular.module('app.services', ["ngResource"], function() {
                 }, 100);
             }
 
-            if (response.data.err && !ingorErr[response.data.err]) {
+            if ( resp.err && !ingorErr[resp.err]) {
                 //alert( $err[response.data.err+'']|| response.data.err );
-                  
-                alert(response.data.err); 
+                   
 
-                console.error("_ERR_:" + response.data.err);
-                throw  new Error ("_ERR_:"+ response.data.err )
+                console.error("_ERR_:" + resp.err);
+                angular.alert( {type:"resp_err",  title: resp.err } );
+                // angular.alert( {type:"resp_err",  title: resp.err } );
+
+                throw resp ;
             }
+
+            if(  resp.total == 0 &&   resp.data.length == 0    ){
+               // angular.alert( { type:"info" , title:"无返回数据"});
+            }
+
+
+
             //return response || $q.when(response); 
-            if (response.data.order) {
-                 //@if  append
+            if (  resp.order) {
+                //@if  append 
+                console.log("order:" +  resp.order);
+                //@endif 
                  
-                console.log("order:" + response.data.order);
-                 //@endif 
-                jsorder[response.data.order]();
+                jsorder[ resp.order]();
             }
             return response;
         },

@@ -32,23 +32,51 @@
                         autocomplete="off"
                         placeholder="Passwod" 
                         class=" form-control no-border"
-                        ng-keydown="showErr =false " name="password" ng-model="user.password" required>
+                        ng-keydown="showErr =false " 
+                        name="password" 
+                        ng-model="user.password" required>
                     </div> 
 
 <!-- ng-if="errtime >2" -->
 
-                    <div class="list-group-item"  ng-if=" st.login_errtimes  > 2 "  ng-init=" applyImg()"   >
-                        <input class="form-control inline "  required id='verifi' ng-model="user.verifi" style="width:50%">
+                <!--     <div class="list-group-item"   
+                         ng-init=" applyImg()"   >
+                        <input class="form-control inline " 
+                         required id='verifi' ng-model="user.verifi" 
+                         style="width:50%">
 
                         
+                    </div> -->
+
+
+                    <div class="list-group-item"   ng-if="st.login_errtimes >2 ">
+                        
+                        <input name="password" ng-model="user.verifi"
+                          class="form-control inline   m-t-xs" style="width:50%"
+                          placeholder="请输入验证码"  required  >
+
+                        <!-- <i class="fa w-30  fa-refresh"></i>   -->
+                        
+
+                        <img  ng-src="web/common/identify?t={{t||123}}"  
+                            class="inline  m-l "  
+                          style="width: 80px;height: 30px;">
+                        <a class="fa fa-refresh text-info  "  
+                           ng-click=" t = t+1" ></a>
+
                     </div>
+                 
+
+
 
                 </div> 
                 <!-- ng-disabled='form.$invalid'-->
-                <div class="text-danger wrapper text-center" ng-show=" resp.err=='pass_error' ">
+                <div class="text-danger wrapper text-center" 
+                    ng-show=" resp.err=='pass_error' ">
                     帐号或密码不正确!
                 </div>
-                <div class="text-danger wrapper text-center" ng-show=" resp.err=='verifi_error' ">
+                <div class="text-danger wrapper text-center" 
+                      ng-show=" resp.err=='verifi_error' ">
                     验证码不正确!
                 </div>
 
@@ -59,8 +87,9 @@
                         > 登录
                 </button>
 
-                <div class="text-center m-t m-b"><a ui-sref="access.forgotpwd"
-                                                    class=" text-primary font-normal">忘记密码?</a></div>
+                <div class="text-center m-t m-b">
+                   <a ui-sref="access.forgotpwd"
+                       class=" text-primary font-normal">忘记密码?</a></div>
                 <div class="line line-dashed"></div>
                 <!-- <p class="text-center"><small>Do not have an account?</small></p>-->
                 <a ui-sref="access.signup" class="btn btn-lg btn-default btn-block">企业注册</a>

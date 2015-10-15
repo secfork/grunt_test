@@ -21,7 +21,6 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-connect-proxy');
 
-
     // Configurable paths for the application
     var appConfig = {
         app: require('./bower.json').appPath || 'app',

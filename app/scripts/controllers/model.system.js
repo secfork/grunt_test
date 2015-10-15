@@ -357,10 +357,15 @@ angular.module("app.model.system", [])
     function($scope, $source, $modal, $q, $utils, $sys, $state) {
 
         $scope.$popNav($scope.sysmodel.name + "(Tags)", $state);
+
+
          //@if  append
          
         console.log(" sysmodel_tag");
-         //@endif 
+         //@endif  
+        
+
+
         var sysmodel = $scope.sysmodel, // $scope.$$cache[0],
             t = $scope;
         t.isManageMode = sysmodel.mode == $sys.manageMode;

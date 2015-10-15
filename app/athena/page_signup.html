@@ -35,7 +35,8 @@
                 </div> -->
 
                 <div class="list-group-item ">
-                    <input name="password"  ng-model="comp.invitation_code"    placeholder="激活码"
+                    <input name="password"  ng-model="comp.invitation_code"   
+                           placeholder="激活码"
                            class="form-control no-border "    required
                             >
                     <!--ng-minlength="6"   ng-maxlength="20" -->
@@ -59,16 +60,47 @@
                     <!--ng-minlength="6"   ng-maxlength="20" -->
                 </div>
 
- 
+                
+                <div class="list-group-item  hbox ">
+                    <input name="password"  ng-model="comp.admin.mobile_phone"
+                           placeholder="管理员手机号码" 
+                           style="width:70%"
+                           class="form-control no-border    inline "    required
+                            >
+
+                   <!--  <i class="fa fa-check text-success "></i>  
+                        
+                    <i class="fa fa-times text-danger "></i>   -->
+
+                    <a class="btn  btn-sm btn-info   "  ng-show="!time"  
+                        ng-click="sendNote()"
+                        style="width:30%"  token >
+                           发送验证码</span>
+                           
+                    </a>
+
+                    <a  class="btn btn-sm btn-info" ng-show="time" disabled
+                          style="width:30%" >
+                         重新发送( {{120 - time}} )
+                    </a>
+
+
+
+                    <!--ng-minlength="6"   ng-maxlength="20" -->
+                </div>
+
+
+
                 <div class="list-group-item"  ng-init="t = 1">
                         <input name="password" ng-model="comp.identifyCode"
                           class="form-control inline " style="width:50%"
                           placeholder="验证码"  required
                         >
 
-                        <img  ng-src="web/common/identify_img/{{t}}"  class="inline  "  style="width: 130px;height: 30px;">
+                      <!--   <img  ng-src="web/common/identify_img/{{t}}"  class="inline  " 
+                         style="width: 80px;height: 30px;">
                         <a class="fa fa-refresh text-info  "  
-                           ng-click=" t = t+1" ></a>
+                           ng-click=" t = t+1" ></a> -->
 
                 </div>
 
@@ -128,3 +160,9 @@
       </div>
       <div class="text-center" ng-include="'athena/page_footer.html'"></div>
     </div>
+
+
+
+    <!--@if  append -->
+    comp = {{comp}}
+    <!--@endif -->

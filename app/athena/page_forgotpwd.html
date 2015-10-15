@@ -1,32 +1,139 @@
 
 <div class="container w-xl w-auto-xs"   style="background-color : rgb(224, 224, 224) ; border-radius: 5px ;" >
+  
   <a href class="navbar-brand block m-t">
    <!-- {{app.name}}-->
     <img src="img/logo_2.png"   >
   </a>
-  <div class="m-b-lg">
-    <div class="wrapper text-center">
-      <strong>请输入您用于找回密码的邮箱</strong>
-    </div>
-    <form name="reset" ng-init="isCollapsed=true">
-      <div class="list-group list-group-sm">
-        <div class="list-group-item">
-          <input type="email" placeholder="Email" ng-model="email" class="form-control no-border" required >
-        </div>
-      </div>
-      <button type="submit" ng-disabled="reset.$invalid" class="btn btn-lg btn-primary btn-block"
-              ng-click=" sendEmail() " >发送</button>
-    </form>
 
-    <div collapse="isCollapsed" class="m-t">
-      <div class="alert alert-success text-center"  style="padding: 10px 2px">
-        <p>
-            重置密码连接已发送到您邮箱   <br>
-            <a ui-sref="access.signin" class="btn btn-lg btn-success btn-block  " style="margin: 10px 0px">Sign in</a>
-        </p>
-      </div>
-    </div>
+  <div class="m-b-lg"   >
+ 
+        <div   ng-switch on="od.step">
+ 
+            <form name="step1"  class="form-validation"   ng-switch-when="1">
+                <strong>请输入您要找回密码的帐号名称</strong>
+                <input  ng-model="od.account" 
+                        class="form-control   m-t-xs" required > 
+               
+                <input name="password" 
+                          ng-model="od.identi"
+                          class="form-control inline   m-t-xs" style="width:50%"
+                          ng-keyup="identify( )"
+                          placeholder="请输入验证码"  required  >
+
+                        <!-- <i class="fa w-30  fa-refresh"></i>   -->
+                        <i class="fa   fa-check "></i>  
+                        <i class="fa fa-times "></i>  
+
+                        <img  ng-src="web/common/identify?t={{t||123}}"  class="inline  "  
+                          style="width: 80px;height: 30px;">
+                        <a class="fa fa-refresh text-info  "  
+                           ng-click=" t = t+1 ; od.identiok = false " ></a>
+
+<!-- -->
+
+              <button type="submit" ng-disabled=" !(od.identiok)" 
+                 class="btn btn-lg btn-primary btn-block m-t"
+                    ng-click=" setp1()" >   下一步 </button>
+        
+
+
+            </form> 
+            
+            <form name="step2" class="form-validation"  ng-switch-when="2">
+               <strong>重设管理员帐号密码</strong> 
+            
+
+                <input name="password"  ng-model="admin.username"    placeholder="管理员帐号"
+                            
+                           class="form-control m-t-xs  "    required
+                            >           
+               <input name="password"  ng-model="admin.password"    placeholder="密码"
+                            ng-minlength="6"
+                            ng-maxlength = '16'
+                            onfocus="this.type='password'"
+                            class="form-control m-t-xs  "    required
+                            >
+
+                <input name="password"  ng-model="password"
+                           placeholder="确认密码"
+                           ng-minlength="6"
+                           ng-maxlength = '16'
+                           onfocus="this.type='password'"
+                           class="form-control   m-t-xs"  
+                            ui-validate=" '$value==admin.password' "
+                             required
+                            >
+
+                      <div class="text-muted small">长度6-14个字符,区分大小写,不与许空格</div>  
+                      <div class="text-muted small">由大写字母,小写字母,数字和符号组成</div>  
+           
+
+                <strong>验证您的预留手机号</strong>
+                  <input     ng-model = "od.phone"
+                         class="form-control inline  m-t-xs" required 
+                          readonly="true" style="width:60%">
+
+                        <a ng-show="!time" class="btn  btn-sm btn-info" 
+                           ng-click="send_msg()" > 发送验证码</a>
+                        <a  ng-show="time" class="btn  btn-sm btn-info" disabled="">重新发送({{time}})</a>
+                       
+
+                  <input name="password" ng-model="comp.identifyCode"
+                          class="form-control inline   m-t-xs"  style="width:60%"
+                          placeholder="验证码"  required  >
+
+                        <!-- <i class="fa w-30  fa-refresh"></i>   -->
+                        <!-- <i class="fa   fa-check "></i>  
+                        
+                        <i class="fa fa-times "></i>  
+                         -->
+                  <button type="submit"  
+                     class="btn btn-lg btn-primary btn-block m-t"
+                    ng-click=" cc_done()" >   确定 </button>
+        
+           
+
+
+            </form>
+
+
+
+<!-- 
+            <form name="step3" class="form-validation" ng-switch-when="3">
+            </form>
+
+ -->
+
+             
+          
+        </div>
+
+    
+      
+
+       
+
+<!-- 
+          <div collapse="isCollapsed" class="m-t">
+            <div class="alert alert-success text-center"  style="padding: 10px 2px">
+              <p>
+                  重置密码连接已发送到您邮箱   <br>
+                  <a ui-sref="access.signin" class="btn btn-lg btn-success btn-block  " style="margin: 10px 0px">Sign in</a>
+              </p>
+            </div>
+          </div>
+
+ -->
 
   </div>
   <div class="text-center" ng-include="'athena/page_footer.html'"></div>
 </div>
+
+
+
+<!--@if append -->
+od =  {{od}}
+
+step ={{step}}
+<!--@endif -->

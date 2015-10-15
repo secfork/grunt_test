@@ -1,5 +1,5 @@
 <!-- project  添加 和 属性展示 模版  -->
-<div class="panel-body table-responsive no-padder no-border bg-light ">
+<div class="panel-body table-responsive no-padder no-border bg-light " id="ccc">
     <h4 class="text-center m-t-l  "> </h4>
     <form name="form" panelclass class="form-horizontal form-validation  ">
         <!-- <span   wrap >12313</span> -->
@@ -26,7 +26,7 @@
             </div>
         </div>
         <input tl-wrap-l label="邮箱" ng-model=" C.email " type="email" required>
-        <input tl-wrap-l label="电话" ng-model=" C.tel " ng-pattern="/^\d{4}-\d{7,8}$/" placeholder="xxxx-xxxxxxxx">
+        <input tl-wrap-l label="固定电话" ng-model=" C.tel " ng-pattern="/^\d{4}-\d{7,8}$/" placeholder="xxxx-xxxxxxxx">
         <!-- 
         <input tl-wrap-l label="手机号码" ng-model=" C.mobile_phone " ng-pattern="/^\d{11}$/" required>
 
@@ -69,7 +69,7 @@
                     <span class="input-group-btn" ng-show="op.send">
                     <button class="btn btn-default w-xsl" type="button"
                         ng-disabled = "true"
-                     >{{op.second}}秒后重新发送...</button>
+                     > 重新发送({{op.second}})</button>
                   </span>
                 </div>
             </div>
@@ -119,4 +119,6 @@
 C = {{C}}
 <br/>
 op={{op}}
+<br/>
+isAdd ={{isAdd}}
 <!--@endif -->

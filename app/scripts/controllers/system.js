@@ -41,7 +41,7 @@ angular.module('app.system', [])
             $scope.regions.forEach( function( r){
                 $scope.rg_k_v[r.id] = r ;   // rg_k_v  在  region.prop - systom中 也要是 该名: rg_k_v;
             }) 
-        })   
+        });   
 
         loadSysModelPromise.then( function( resp ){
             $scope.sysModels = resp.ret ; 

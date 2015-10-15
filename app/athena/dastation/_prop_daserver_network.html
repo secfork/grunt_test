@@ -10,11 +10,21 @@
  ng-init="  initDaServer() ; loadSupportDtus() ;  ">
     <!-- @if append -->
     system.network.daserver ={{daserver}}
+<hr/>
+dastation = {{ station }}
+
     <!-- @endif  -->
 
 
+<!-- 只有  指定assign 过了 不可  不可编辑
+
+    激活的必定已经指定了 daserver ; 
+
+ -->
+
     <div ng-if=" daserver.type =='DTU' ">
         <select tl-wrap-l label="DTU驱动" required 
+           ng-disabled="  cmway_port  "
            ng-model="daserver.params.driverid"
             ng-change=" applyDtuData(daserver.params ) ;
               " ng-options=" o.driver_id as o.name  for o  in dtuList ">
@@ -24,7 +34,8 @@
                   <input  tl-wrap-l label="终端iD" required ng-model="network[type].simid"    > 
                   readonly
                 -->
-        <div  ng-include = "  'athena/_dtu/' +daserver.params.driverid + '.html' "> 
+        <div    ng-if="daserver.params.driverid" 
+                ng-include = "  'athena/_dtu/' +daserver.params.driverid + '.html' "> 
         </div>
 
        
