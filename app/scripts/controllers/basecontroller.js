@@ -1,7 +1,7 @@
 /* Controllers   单独的modul  ; 其他控制器 属于app模块 */
 
 
-angular.module('app.basecontroller', [])
+angular.module('app.basecontroller', ['ng'])
     .controller('AppCtrl', function($scope, $translate, $localStorage, $window, $modal, $state,
         $timeout, $sessionStorage, $source, $q, $source) {
 

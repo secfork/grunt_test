@@ -249,8 +249,7 @@ angular.module('app.services', ["ngResource"], function() {
                    
 
                 console.error("_ERR_:" + resp.err);
-                angular.alert( {type:"resp_err",  title: resp.err } );
-                // angular.alert( {type:"resp_err",  title: resp.err } );
+                angular.alert( {type:"resp_err",  title: resp.err } ); 
 
                 throw resp ;
             }

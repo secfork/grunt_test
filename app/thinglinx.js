@@ -56,12 +56,12 @@ var app = angular.module('thinglinx', [
          //@endif 
            
 
-        $rootScope.validate = function(data, msg) {
-          if (!data) {
-            alert(msg)
-            throw Error(msg);
-          }
-        }
+        // $rootScope.validate = function(data, msg) {
+        //   if (!data) {
+        //     alert(msg)
+        //     throw Error(msg);
+        //   }
+        // }
 
         $rootScope.funtest = function() {
            //@if  append
@@ -664,4 +664,4 @@ var app = angular.module('thinglinx', [
   $translateProvider.useLocalStorage();
 
 
-}])
+}]);

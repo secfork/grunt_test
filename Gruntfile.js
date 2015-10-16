@@ -24,7 +24,8 @@ module.exports = function(grunt) {
     // Configurable paths for the application
     var appConfig = {
         app: require('./bower.json').appPath || 'app',
-        dist: 'dist'
+        dist: 'dist' ,
+        thing: "thing/",  // app.js , app.css 目录; 
     };
 
 
@@ -121,13 +122,11 @@ module.exports = function(grunt) {
             },
 
             js: {
-                src:'.tmp/concat/scripts/thing.js',
-                dest: '.tmp/concat/scripts/thing.js'
+                src:'.tmp/concat/<%= yeoman.thing %>app.js',
+                dest: '.tmp/concat/<%= yeoman.thing %>app.js'
             }
         },
-
-
-
+ 
         // Watches files for changes and runs tasks based on the changed files
         watch: {
             bower: {
@@ -355,8 +354,8 @@ module.exports = function(grunt) {
         filerev: {
             dist: {
                 src: [
-                    '<%= yeoman.dist %>/scripts/{,*/}*.js',
-                    '<%= yeoman.dist %>/styles/{,*/}*.css',
+                    '<%= yeoman.dist %>/<%= yeoman.thing %>{,*/}*.js',
+                    '<%= yeoman.dist %>/<%= yeoman.thing %>{,*/}*.css',
                    //'<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
                    // '<%= yeoman.dist %>/styles/fonts/*'
                 ]
@@ -505,9 +504,9 @@ module.exports = function(grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: '.tmp/concat/scripts',
+                    cwd: '.tmp/concat/thing',
                     src: '*.js',
-                    dest: '.tmp/concat/scripts'
+                    dest: '.tmp/concat/thing'
                 }]
             }
         },
@@ -643,9 +642,9 @@ module.exports = function(grunt) {
         'uglify',
 
         'filerev',
-        'usemin'
+        'usemin',
        // "preprocess:dist_index",
-        //'htmlmin',
+       // 'htmlmin',
     ]);
 
     grunt.registerTask('default', [
