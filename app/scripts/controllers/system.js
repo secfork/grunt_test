@@ -211,13 +211,17 @@ angular.module('app.system', [])
             $scope.validForm();
 
            // $scope.system.network = angular.toJson($scope.system.network);
-
-            $source.$system.save(angular.extend({
-                model: $scope.systemModel.uuid
-            }, $scope.system), function(resp) { 
-                    alert("创建成功!"); 
-            })
-
+            var sys =  angular.extend({
+                            model: $scope.systemModel.uuid
+                        }, $scope.system);
+            $source.$system.save( sys, function(resp) { 
+                // alert("创建成功!"); 
+                 sys.uuid = resp.ret ;
+                $scope.confirmInvoke( { title:"创建成功,是否去配置系统"} , function( next ){
+                    $scope.goto( "app.station.prop._config" ,  sys , sys );
+                    next();
+                }) 
+            }) 
         }
 
 

@@ -524,31 +524,34 @@ angular.module('app.basecontroller', [])
                 templateUrl: "athena/debris/_alert.html",
                 controller: function($scope, $modalInstance , $translate) {
                     
+                    if( angular.isString( msg)){
+                        msg = { title: msg };
+                    };
+
                     if( msg.type == "resp_err"){
                         msg.title =   $translate.instant( msg.title ) ;  
                     }    
 
-                    $scope.msg =  msg;
-
-
+                    $scope.msg =  msg; 
                     var m = { 
                         'resp_err':"fa-exclamation-circle text-info",
                         "info": "fa-exclamation-circle text-info",
                         "warn": "fa-exclamation-triangle"
                     }
                     $scope.msg.type = m[$scope.msg.type || 'info'] || m.info;
-
-
+                    
+                    $scope.cancel = $modalInstance.close ;
                     $scope.done = function() {
                         $modalInstance.dismiss('cancel');
-                        fun && fun();
+                        fun &&  fun();
+                        $scope.cancel();
                     };
                 }
             })
         }
         
         /**
-         * msg = { title : '标题' , note:  注释 , warn: 警告  }
+         * msg = { title : '标题' , note:  注释 , warn: 警告  , todo: 确定按钮字符 }
          * handler : funcction  ;     handler 最好有 true false 返回值 , 以便derfer 处理 ;
          * @param msg
          * @param handler
@@ -559,11 +562,14 @@ angular.module('app.basecontroller', [])
                 //resolve:{ msg: function (){ return  msg } ,  handler: function (){ return handler} } ,
                 //  controller: function( $scope ,$modalInstance , $q ,  msg , handler  ){
                 controller: function($scope, $modalInstance) {
-                    $scope.cancel = function() {
-                        $modalInstance.dismiss('cancel')
-                    };
+                    $scope.cancel = $modalInstance.close;
+                     
+                    $scope.todo = msg.todo || "do";
+
+
                     $scope.done = function() {
-                        handler ? handler($scope.cancel) : $scope.cancel();
+                       // handler ? handler($scope.cancel) : $scope.cancel();
+                        handler ? handler( $modalInstance.close ) : $scope.cancel();
                     };
                     $scope.msg = msg;
 
@@ -580,16 +586,20 @@ angular.module('app.basecontroller', [])
 .controller("access_signin", function($scope, $state, $timeout, $localStorage, $sys,
     $sessionStorage, $compile, $source) {
 
-    //@if  append
+    // 获取登录次数; 
+    $source.$common.get( { op:'logintimes'} , function( resp){
+        $scope.logintimes  =  resp.ret || 0 ;
+    });
+ 
 
+    //@if  append 
     console.log("sign controller");
     console.log($scope);
     //@endif 
 
     $scope.user = {};
 
-    //@if  append
-
+    //@if  append 
     $scope.user = {
         username: "123123",
         password: "123123"
@@ -602,10 +612,8 @@ angular.module('app.basecontroller', [])
     $scope.op = {
         t: 1,
         b: false
-    };
-    $scope.st = $localStorage.settings;
+    }; 
 
-    $scope.st.login_errtimes = $scope.st.login_errtimes || ($scope.st.login_errtimes = 0);
 
     // $scope.st.login_errtimes ++ ;
 
@@ -622,8 +630,7 @@ angular.module('app.basecontroller', [])
 
         $localStorage.comp_name = $scope.user.company_name;
 
-        $source.$user.login(
-            $scope.user,
+        $source.$user.login(  $scope.user, 
             function(resp) {
                 //@if  append 
                 console.log(resp.ret);
@@ -631,8 +638,7 @@ angular.module('app.basecontroller', [])
 
                 //alert(1);
                 
-                if (resp.ret) {
-                    $scope.st.login_errtimes = 0;
+                if (resp.ret) { 
                     $sessionStorage.user = resp.ret;
                     //@if  append
 
@@ -642,17 +648,14 @@ angular.module('app.basecontroller', [])
                     $state.go("app");
                     //$state.go("app.template");
                 } else {
-                    $scope.op.b = false;
-                    $scope.applyImg();
+                    $scope.op.b = false; 
                     $scope.resp = resp;
                 }
             },
             function( resp ) {  // {err:.. , ret: ... }
-                $scope.op.b = false;
-                $scope.st.login_errtimes++
-                if( resp.err == "verifi_error"){
-                    $scope.st.login_errtimes = 3 ;
-                }
+                $scope.op.b = false; 
+                $scope.logintimes ++ ; 
+                 
             }
 
         );
@@ -735,21 +738,22 @@ angular.module('app.basecontroller', [])
 .controller("access_fogpas", function($scope, $sessionStorage, $source, $interval) {
 
     $scope.od = {
-        step: 1 ,
-        verify:null ,  // 手机
-        verifyok: null,
-        identi:null , // 图片验证码;
-        identiok:null
+        step: 1 
     };
-
+    $scope.account = { 
+        op:"admin",
+        account:null ,  // account  name ; 
+        identify:null , // 图片验证码; 
+    }
+    $scope.admin = {};
 
     $scope.step = $sessionStorage.cc_step || 1;
+
     $scope.cc_cancel = function() {
         $sessionStorage.cc_step = $scope.step = 1;
     }
 
-    $scope.time = $sessionStorage.fog_time || 0; // 倒计时;
-
+    $scope.time = $sessionStorage.fog_time || 0; // 倒计时; 
     if ($scope.time) {
         wait_interval();
     }
@@ -774,61 +778,29 @@ angular.module('app.basecontroller', [])
     }
 
     $scope.setp1 = function(){
-        $source.$common.get ( {op:"admin" , account: $scope.od.account }, function( resp ){
-            if(resp.ret){
+        //$scope.od.identi.length <4  return ; 
+        $source.$common.get ( 
+             $scope.account ,  
+            function( resp ){ 
                 $scope.od.phone = resp.ret ;
-                $scope.od.step = 2 ;
-            }else{
-                // account 不存在;
-                alert(" 帐号不存在!")
+                $scope.od.step = 2 ; 
+            } ,
+            function( resp ){
+               // $scope.alert( {type:"resp_err" , title: resp.err })
             } 
-        })
-    }
+        )    
+    };
 
-    // keyup 验证 pic 验证码;
-    $scope.identify = function() {
-      //  $source.$note.
-        if( $scope.od.identi.length == 4 ) {
-            $source.$common.verify( {  code: $scope.od.identi } , function(resp){
-                $scope.od.identiok = resp.ret;
-            }) 
-        }else{
-            $scope.od.identiok = false ;
-        } ;
-  
-    }
-
+   
 
     // 更改密码; 
-    $scope.cc_done = function() {
+    $scope.cc_done = function() {  
+        $source.$common.save( {op:"admin"} , $scope.admin , function( resp){
+            $scope.alert( {title:"修改成功" , do:""} , function(){
+                $
+            })
 
-
-
-        if ($scope.step == 3) {
-            // 重新 数据 admin user 的 name password ; 
-        }
-
-        if ($scope.step == 2) {
-            $sessionStorage.cc_step = ++$scope.step;
-            // 校验 修改密码的 验证码; 
-            $scope.ph_value = "123xxxx1231";
-        }
-
-        if ($scope.step == 1) {
-            // 校验 验证码;  
-            $sessionStorage.cc_step = ++$scope.step;
-            // 校验 验证码 + account name ;
-
-        }
-
-        return;
-
-        $account.sendEmail($scope.email, function(resp) {
-            //@if  append
-
-            console.log(resp);
-            //@endif 
-        });
+        }); 
     };
 
 

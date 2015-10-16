@@ -13,10 +13,9 @@
      <div ng-if="msg.warn " class="text-center  text-danger  "  >
         <i class= "fa  fa-exclamation-triangle  "></i> {{ msg.warn}}
      </div>
-
  </div>
 
  <div class="modal-footer ">
-     <button class="btn btn-sm btn-primary  w-xs "  ng-click=" done() "  token   >确定</button>
+     <button class="btn btn-sm btn-primary  w-xs "  ng-click=" done() "  token  translate="{{todo}}"  > </button>
      <button class="btn btn-sm  btn-default w-xs "  ng-click=" cancel() "  >取消</button>
  </div>

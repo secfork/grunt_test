@@ -12,27 +12,27 @@
  
             <form name="step1"  class="form-validation"   ng-switch-when="1">
                 <strong>请输入您要找回密码的帐号名称</strong>
-                <input  ng-model="od.account" 
+                <input  ng-model="account.account" 
                         class="form-control   m-t-xs" required > 
                
                 <input name="password" 
-                          ng-model="od.identi"
+                          ng-model="account.identify"
                           class="form-control inline   m-t-xs" style="width:50%"
-                          ng-keyup="identify( )"
+                         
+                          ng-minlength="4"
+                          ng-maxlength="4"
+
                           placeholder="请输入验证码"  required  >
-
-                        <!-- <i class="fa w-30  fa-refresh"></i>   -->
-                        <i class="fa   fa-check "></i>  
-                        <i class="fa fa-times "></i>  
-
-                        <img  ng-src="web/common/identify?t={{t||123}}"  class="inline  "  
+ 
+                        <img  ng-src="web/common/identify/admin?t={{t||123}}" 
+                             class="inline  m-l "  
                           style="width: 80px;height: 30px;">
                         <a class="fa fa-refresh text-info  "  
                            ng-click=" t = t+1 ; od.identiok = false " ></a>
 
 <!-- -->
 
-              <button type="submit" ng-disabled=" !(od.identiok)" 
+              <button type="submit" ng-disabled=" !step1.$valid" 
                  class="btn btn-lg btn-primary btn-block m-t"
                     ng-click=" setp1()" >   下一步 </button>
         
@@ -44,10 +44,10 @@
                <strong>重设管理员帐号密码</strong> 
             
 
-                <input name="password"  ng-model="admin.username"    placeholder="管理员帐号"
-                            
+                <input name="password"  ng-model="admin.username"    
+                          placeholder="管理员帐号" 
                            class="form-control m-t-xs  "    required
-                            >           
+                        >           
                <input name="password"  ng-model="admin.password"    placeholder="密码"
                             ng-minlength="6"
                             ng-maxlength = '16'
@@ -55,7 +55,7 @@
                             class="form-control m-t-xs  "    required
                             >
 
-                <input name="password"  ng-model="password"
+                <input name="repassword"  ng-model="password"
                            placeholder="确认密码"
                            ng-minlength="6"
                            ng-maxlength = '16'
@@ -79,8 +79,12 @@
                         <a  ng-show="time" class="btn  btn-sm btn-info" disabled="">重新发送({{time}})</a>
                        
 
-                  <input name="password" ng-model="comp.identifyCode"
-                          class="form-control inline   m-t-xs"  style="width:60%"
+                  <input name="password" 
+                          ng-model="admin.verifi"
+                          class="form-control inline   m-t-xs"  
+                          style="width:60%"
+                          ng-minlength="6"
+                          ng-maxlength="6"
                           placeholder="验证码"  required  >
 
                         <!-- <i class="fa w-30  fa-refresh"></i>   -->
@@ -88,7 +92,7 @@
                         
                         <i class="fa fa-times "></i>  
                          -->
-                  <button type="submit"  
+                  <button type="submit"  ng-disabled=" !step2.$valid" 
                      class="btn btn-lg btn-primary btn-block m-t"
                     ng-click=" cc_done()" >   确定 </button>
         
@@ -133,7 +137,10 @@
 
 
 <!--@if append -->
-od =  {{od}}
+account =  {{account}}
+<br/>
+admin = {{admin}}
 
+<br/>
 step ={{step}}
 <!--@endif -->

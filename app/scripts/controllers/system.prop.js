@@ -6,7 +6,7 @@
 
 angular.module('app.system.prop', [])
 
-.controller("dastation_prop", function($scope, $state, $source, $stateParams) {
+.controller("dastation_prop", function($scope, $state, $source  ) {
     //@if  append
 
     console.log("dastation_prop");
@@ -18,9 +18,7 @@ angular.module('app.system.prop', [])
     $scope.setActive = function() {
         $scope.activateStation($scope, null, $scope.station, null, "updata");
     };
-
-
-
+ 
     // 改变 station 会自动存到 sessionStorage ; AppScope.$watch("$$cache", fun... ,  true)
     $scope.station = $scope.$$cache[0];
     $scope.Sta_Data = $scope.$$cache[1];
@@ -52,7 +50,7 @@ angular.module('app.system.prop', [])
 
         // 转换 sysmodel Device = [{}], 为 k-v 形式; 便于 回显;
         $scope.deviceKV = {};
-        $scope.sysmodel.devices.forEach(function(v, i, t) {
+        $scope.sysmodel.devices && $scope.sysmodel.devices.forEach(function(v, i, t) {
             this[v.id] = v.name;
         }, $scope.deviceKV);
 
@@ -172,8 +170,7 @@ angular.module('app.system.prop', [])
     console.log(" das_basic ");
     console.log($stateParams, $state); // $stateParams.dastationid
     //@endif 
-
-
+ 
     //  堆叠 导航;
     $scope.$popNav($scope.station.name + "(状态)", $state);
 
@@ -351,8 +348,7 @@ angular.module('app.system.prop', [])
 
         $source.$sysProfile.get({
             system_model: $scope.station.model
-        }, function(resp) {
-
+        }, function(resp) { 
             $scope.profiles = resp.ret;
             var p_uuid = $scope.station.profile;
             $.each($scope.profiles, function(i, v, t) {

@@ -164,6 +164,8 @@ var app = angular.module('thinglinx', [
                
               console.log("appxxxxxxxxx");
                //@endif 
+               
+
               // jsorder go2long 要清除sessionstorage 的user ;
               var user = $sessionStorage.user;
               // if( $scope.$debug ){
@@ -172,13 +174,14 @@ var app = angular.module('thinglinx', [
 
               if (user) {
                 $scope.user = user;
-                 //@if  append
-                 
+                 //@if  append 
                 console.log("sessionStorage 含有user");
                  //@endif 
+                 
                 // 是 app 路由转到 rootState ;
                 // rootstate = app.prpj.namage ;
                 $state.is("app") ? $state.go($sys.rootState) : undefined;
+
               } else {
                 //  if( !$sys.$debug ){
                 $state.go('access.signin')
