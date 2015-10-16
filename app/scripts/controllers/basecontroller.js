@@ -540,11 +540,13 @@ angular.module('app.basecontroller', ['ng'])
                     }
                     $scope.msg.type = m[$scope.msg.type || 'info'] || m.info;
                     
-                    $scope.cancel = $modalInstance.close ;
+
+                    $scope.cancel =  function(){
+                        $modalInstance.dismiss('cancel');
+                    } ;
                     $scope.done = function() {
                         $modalInstance.dismiss('cancel');
-                        fun &&  fun();
-                        $scope.cancel();
+                        fun &&  fun(); 
                     };
                 }
             })
@@ -562,7 +564,9 @@ angular.module('app.basecontroller', ['ng'])
                 //resolve:{ msg: function (){ return  msg } ,  handler: function (){ return handler} } ,
                 //  controller: function( $scope ,$modalInstance , $q ,  msg , handler  ){
                 controller: function($scope, $modalInstance) {
-                    $scope.cancel = $modalInstance.close;
+                    $scope.cancel =  function(){
+                        $modalInstance.dismiss('cancel');
+                    } ;
                      
                     $scope.todo = msg.todo || "do";
 
@@ -720,17 +724,17 @@ angular.module('app.basecontroller', ['ng'])
     $scope.signup = function() {
         //delete $scope.comp.admin ;
         $source.$account.save($scope.comp, function(resp) {
-            if (resp.ret) {
-                // 注册成功;
-                $localStorage.comp_name = $scope.comp.name;
-                // $scope.regok = true ;
-                // $scope.$parent.user =  { username : $scope.comp.company_name  } ;
-                $scope.sign = true;
+             
+            // 注册成功;
+            $localStorage.comp_name = $scope.comp.name;
+            // $scope.regok = true ;
+            // $scope.$parent.user =  { username : $scope.comp.company_name  } ;
+            $scope.sign = true;
 
-                $scope.alert({type:'info' , title:"注册成功!"} , function(){
-                    $state.go( "access.signin");
-                }) 
-            }
+            $scope.alert({type:'info' , title:"注册成功!"} , function(){
+                $state.go( "access.signin");
+            }) 
+            
         }) 
     };
 })

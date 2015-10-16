@@ -13,9 +13,12 @@
 
     "send_repetition":"现在不能发送验证码",
     "rest_err":"接口调用错误",
+    "no_account":"无此Account 帐号",
  
  
     "ER_NO_AUTH":"未授权", 
+    "ER_REGION_EXIST":"区域已经存在",
+    "ER_REGION_NOT_EXIST":"区域不存在",
 
     "ER_SYSTEM_EXISTS":"系统已经存在", 
     "ER_SYSTEM_NOT_EXISTS":"系统不存在",
