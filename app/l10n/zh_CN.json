@@ -11,7 +11,7 @@
     "identify_err":"验证码无效",
     "sms_verify_err":"短信验证码无效",
 
-    "send_repetition":"现在不能发送验证码",
+    "send_repetition":"验证码已经发送",
     "rest_err":"接口调用错误",
     "no_account":"无此Account 帐号",
  

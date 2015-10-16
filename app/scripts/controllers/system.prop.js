@@ -15,9 +15,9 @@ angular.module('app.system.prop', [])
     // $stateParams.state =="unactive"  时  需要激活 station ;
 
     // 未激活的采集站 处理 ;
-    $scope.setActive = function() {
-        $scope.activateStation($scope, null, $scope.station, null, "updata");
-    };
+    // $scope.setActive = function() {
+    //     $scope.activateStation($scope, null, $scope.station, null, "updata");
+    // };
  
     // 改变 station 会自动存到 sessionStorage ; AppScope.$watch("$$cache", fun... ,  true)
     $scope.station = $scope.$$cache[0];

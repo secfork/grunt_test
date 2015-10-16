@@ -11,7 +11,7 @@
         <thead class="flip-content">
             <tr class="background ">
                 <th> 名称 </th>
-                <th ng-if=" isManageMode "> 连接 </th>
+               <!--  <th ng-if=" isManageMode "> 连接 </th> -->
                 <th> 类型 </th>
                 <!--  <th   >组</th> -->
                 <th>缩放</th>
@@ -27,7 +27,10 @@
         <tbody class="text-center " ng-init="_$type = $sys.log_type.values">
             <tr ng-repeat="  tag  in systags  " class="hover">
                 <td> {{tag.name}}</td>
+               <!-- 
                 <td ng-if="isManageMode" ng-init="splictC( tag  , $last )"> {{tag.connect}}</td>
+                -->
+
                 <td> {{tag.type}}</td>
                 <td> {{tag.scale}}</td>
                 <td> {{tag.deviation}}</td>
@@ -51,6 +54,6 @@
 <div class="panel-footer b-t-none" ng-if="isModelState">
     <!--   <ng-include  src=" 'athena/debris/_pager.html'  "></ng-include> -->
     <button class="btn btn-success btn-sm     " ng-click=" addTag('add') ">
-        添加TAG
+        添加变量
     </button>
 </div>

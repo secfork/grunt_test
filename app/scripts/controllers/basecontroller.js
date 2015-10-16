@@ -657,6 +657,7 @@ angular.module('app.basecontroller', ['ng'])
                 }
             },
             function( resp ) {  // {err:.. , ret: ... }
+                $scope.op.t ++ ;
                 $scope.op.b = false; 
                 $scope.logintimes ++ ; 
                  
