@@ -66,7 +66,7 @@
 
     "ER_SENDMESSAGE_ERROR":"控制命令发送失败,原因可能为超时或者设备收到数据处理错误",
     "ER_SEND_MESSAGE_ERROR":"控制命令发送失败,原因可能为超时或者设备收到数据处理错误",
-    "ER_INVALID_INVITATION_CODE":"激活码无效",
+    "ER_INVALID_INVITATION_CODE":"邀请码无效",
 
     "ER_SYSTEM_NO_LOG_DATA":"无历史数据",
  
