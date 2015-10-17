@@ -1,5 +1,6 @@
 angular.module("app.model.system", [])
-    .controller("sysmodel", function($scope, $state, $modal, $source, $utils) { // $source.$sysModel
+    .controller("sysmodel", function($scope, $state, $modal, $source, $utils) {
+     // $source.$sysModel
 
 
         $scope.$moduleNav("系统模型", $state);
@@ -44,7 +45,7 @@ angular.module("app.model.system", [])
 
         $scope.deleteSM = function(index, sm) {
             $scope.confirmInvoke({
-                title: "删除系统模版" + sm.name + "?"
+                title: "删除系统模版: " + sm.name + "?"
             }, function(next) {
                 $source.$sysModel.delete({
                     uuid: sm.uuid
@@ -94,7 +95,7 @@ angular.module("app.model.system", [])
 
     })
 
-.controller('sysmodelProp', ['$scope', '$source', '$q',
+.controller('sysmodelProp',  
     function($scope, $source, $q) {
 
 
@@ -128,7 +129,8 @@ angular.module("app.model.system", [])
             })
         }
 
-        $scope.tabs = $scope.tabs.concat([{
+        $scope.tabs = $scope.tabs.concat([
+            {
                 title: "tab.t11",
                 icon: "icon icon-tag",
                 state: "app.model.sysmodel_p.systag"
@@ -157,34 +159,70 @@ angular.module("app.model.system", [])
 
 
 
-        var defer = $q.defer();
 
         // tags , triggers,  message 对应的 prifile ;
         $scope.odp = {};
 
+
+        //  
+        var defer = $q.defer();   
         $scope.loadProfilePromise = defer.promise;
 
-        $source.$sysProfile.get({
-            system_model: $scope.sysmodel.uuid
-        }, function(resp) {
+        $source.$sysProfile.get({  system_model: $scope.sysmodel.uuid  }, function(resp) {
             $scope.profiles = resp.ret,
                 $scope.hasProfile = !!resp.ret.length;
             defer.resolve();
-        })
+        });
 
         // 控控制 tag , 触发器, 通知  在 systemodel ,
         $scope.isModelState = true;
 
+ 
+        //  在 父scope 中 定义 sysdevices ; 
+        var  defer_dev = $q.defer() ,
+             loadSystemDevicePromise = defer_dev.promise; 
+        defer_dev.resolved = false ;
 
+        $scope.applySysDev_P = function(){ 
+
+            if( ! defer_dev.resolved ){
+                $source.$sysDevice.get({system_model: $scope.sysmodel.uuid} ).$promise.then( function( resp ){
+                    $scope.sysdevices = resp.ret ;
+                    defer_dev.resolve();
+                    defer_dev.resolved = true ;
+                }); 
+            }  
+            return  loadSystemDevicePromise ;
+        }  
+
+
+        // 在 父scope 中定义 devmodels ; 
+        var defer_dev_model  = $q.defer() ,
+            loadDeviceModelPromise = defer_dev_model.promise ; 
+        defer_dev_model.resolved = false ;
+
+        $scope.applyDevModel_P = function(){
+            if( ! defer_dev_model.resolved ){
+                $source.$deviceModel.get( function( resp ){
+                    $scope.devmodels = resp.ret;
+                    defer_dev_model.resolve();
+                    defer_dev_model.resolved = true ;
+                }) 
+            }
+            return loadDeviceModelPromise;
+
+        }
+ 
 
     }
-])
+)
 
 .controller("sysmodel_basic", function($scope, $source, $state) {
 
 
     $scope.$popNav($scope.sysmodel.name + "(信息)", $state);
 
+ 
 
 })
 
@@ -193,30 +231,28 @@ angular.module("app.model.system", [])
 
         $scope.$popNav($scope.sysmodel.name + "(设备)", $state);
 
-        var sysmodel = $scope.sysmodel,
-            t = $scope;
+        var sysmodel = $scope.sysmodel ;
+
+        var    t = $scope;
 
         // 得到suoyou sysmode 下的 sysDevice ;
-        $source.$sysDevice.get({
-            system_model: sysmodel.uuid
-        }, function(resp) {
-            $scope.sysdevices = resp.ret;
-
-        })
-
-
-
-        var devModelPromise = $source.$deviceModel.get().$promise;
-
-        // 转换 devModel 为 kv 格式;
-
+        // 
+        $scope.applySysDev_P()   .then( function( resp){ 
+             //@if  append
+             
+                console.log(" 该方法 使 父 scope 中 定义了  sysdevices  ");
+             //@endif 
+        }); 
+ 
+        // 转换 devModel 为 kv 格式; 回显 sysdevice 因用的那个devicemodel; 
         $scope.devModelKV = {};
 
-        devModelPromise.then(function(resp) {
-            $.each(resp.ret, function(i, v, t) {
+        $scope.applyDevModel_P().then( function(){
+            $.each( $scope.devmodels , function(i, v, t) {
                 $scope.devModelKV[v.uuid] = v;
             })
         })
+ 
 
 
         $scope.addOrEditDevice = function(devices, index, dev) {
@@ -224,7 +260,7 @@ angular.module("app.model.system", [])
                 templateUrl: "athena/sysmodel/add_sysdevice.html",
                 resolve: {
                     data: function() {
-                        return devModelPromise;
+                        return $scope.applyDevModel_P();
                     }
                 },
                 controller: function($scope, $modalInstance, data) {
@@ -232,8 +268,8 @@ angular.module("app.model.system", [])
                     $scope.$modalInstance = $modalInstance;
 
                     $scope.__proto__ = t,
-                        $scope.isAdd = !dev,
-                        $scope.devModels = data.ret;
+                    $scope.isAdd = !dev  ,
+                    $scope.devModels =  $scope.devmodels ;
 
                     // gateway 网络参数 过滤; 
                     $scope.filterChannel = function(type, bool) {
@@ -341,7 +377,7 @@ angular.module("app.model.system", [])
 
         $scope.deleteSysD = function(scope, index, sysd) {
             $scope.confirmInvoke({
-                title: "删除系统设备" + sysd.name + " ?"
+                title: "删除系统设备: " + sysd.name + " ?"
             }, function(next) {
                 $source.$sysDevice.delete({
                     system_model: sysmodel.uuid,
@@ -366,7 +402,7 @@ angular.module("app.model.system", [])
 
         console.log(" sysmodel_tag");
         //@endif   
-        
+
         var sysmodel = $scope.sysmodel, // $scope.$$cache[0],
             t = $scope;
         t.isManageMode = sysmodel.mode == $sys.manageMode;
@@ -388,15 +424,10 @@ angular.module("app.model.system", [])
 
             scope.op = {};
 
-            var promise;
-
-            promise = $source.$sysDevice.get({
-                system_model: sysmodel.uuid
-            }).$promise;
-            promise.then(function(resp) {
-                scope.devices = resp.ret;
-            })
+            //zai 父scope中添加 sysdevices ; 
+            var promise =  $scope.applySysDev_P() ; 
  
+
             scope.loadPoint = function a1(dev) {
                 if (!dev) return;
                 if (dev.device_model == oldDevModel) return;
@@ -462,13 +493,13 @@ angular.module("app.model.system", [])
                     }
 
                     $scope.$modalInstance = $modalInstance,
-                    $scope.__proto__ = t,
-                    $scope.isAdd = true,
+                        $scope.__proto__ = t,
+                        $scope.isAdd = true,
 
-                    $scope.T = {
-                        type: "Number"
-                    },
-                    $scope.L = {};
+                        $scope.T = {
+                            type: "Number"
+                        },
+                        $scope.L = {};
 
                     $scope.done = function() {
                         // 验证表格;
@@ -563,7 +594,7 @@ angular.module("app.model.system", [])
             console.log("deleteTag");
             //@endif 
             $scope.confirmInvoke({
-                title: "删除系统模版点" + tag.name + " ?",
+                title: "删除系统模版点: " + tag.name + " ?",
                 warn: "其他系统配置项对该点的控制也将被删除!"
             }, function(next) {
                 $source.$sysTag.delete({
@@ -706,7 +737,7 @@ angular.module("app.model.system", [])
 
         $scope.deleteSysProfile = function(s, i, p) {
             $scope.confirmInvoke({
-                title: "删除配置项" + p.name + " ?"
+                title: "删除配置项: " + p.name + " ?"
             }, function(n) {
                 $source.$sysProfile.delete({
                     uuid: p.uuid
@@ -753,7 +784,7 @@ angular.module("app.model.system", [])
 
         $scope.deleteTrigger = function(i, t) {
             $scope.confirmInvoke({
-                title: "删除触发器" + t.name + " ?"
+                title: "删除触发器: " + t.name + " ?"
             }, function(n) {
                 $source.$sysProfTrigger.delete({
                     profile: t.profile,
@@ -1150,7 +1181,7 @@ angular.module("app.model.system", [])
 
         S.deleteGateway = function(T, t, data) {
             $scope.confirmInvoke({
-                warn: "删除串口 " + t + " ?"
+                warn: "删除串口: " + t + " ?"
             }, function(next) {
                 delete S.GateWay[T][t];
                 //S.sysmodel.gateway_default = S.GateWay ;

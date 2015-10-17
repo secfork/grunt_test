@@ -386,7 +386,7 @@ angular.module('app.system.prop', [])
         // 删除 gatewway dev , 删除 devRef 引用  ;
         $scope.delete_dev = function(gateway_devs, idnex, dev) {
             $scope.confirmInvoke({
-                warn: "删除设备 " + $scope.deviceKV[dev.id] + "  的网络配置?"
+                warn: "删除设备: " + $scope.deviceKV[dev.id] + "  的网络配置?"
             }, function(next) {
                 gateway_devs.splice(idnex, 1);
                 delete $scope.devRef[dev.id];
@@ -520,7 +520,7 @@ angular.module('app.system.prop', [])
         // 删除  gateway类型 中的 数据;
         $scope.del_way = function(T, t, way) {
             $scope.confirmInvoke({
-                warn: " 删除网关 " + t + "?"
+                warn: " 删除网关: " + t + "?"
             }, function(next) {
                 delete $scope.gateway[T][t]
                 toUpdate('gateway');

@@ -68,8 +68,10 @@
     "ER_SEND_MESSAGE_ERROR":"控制命令发送失败,原因可能为超时或者设备收到数据处理错误",
     "ER_INVALID_INVITATION_CODE":"邀请码无效",
 
-    "ER_SYSTEM_NO_LOG_DATA":"无历史数据",
- 
+    "ER_SYSTEM_NO_LOG_DATA":"无历史数据", 
+
+    "ER_DEVICE_MODEL_REF":"设备模型使用中",
+    "ER_SYSTEM_MODEL_REF":"系统模版使用中",
  
 
 
@@ -203,7 +205,7 @@
     "min": "该数值必须不小于X",
     "minlengh": "该字段至少为X个字符!",
     "maxlengh": "该字段不能不超过X个字符!",
-    "max": "该数值必须不大于X",
+    "max": "该数值必须小于X",
     "email": "Email 格式不正确!",
     "number": "该数值必须为数字格式!"
 
