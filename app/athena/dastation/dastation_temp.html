@@ -1,3 +1,41 @@
+
+
+
+<div class="form-group m-t-xs">
+    <label class=" w-xxs text-right control-label float-left m-t-xs">
+    起始时间:</label>
+    <input type="text" class=" input input-sm  
+    float-left" datetime-picker date-format='yyyy-MM-dd HH:mm'
+     nofocus data-readonly-input='false' 
+     ng-model="od.start" is-open='true' />
+    <span class=" float-left">
+          <button type="button" class="btn btn-default btn-sm" 
+          ng-click="openCalendar($event, 'op.showS=true')">
+          <i class="fa fa-calendar"></i></button>
+    </span>
+
+    <label class=" w-xxs text-right control-label float-left  m-t-xs">结束时间:</label>
+    <input type="text" class=" input input-sm float-left" datetime-picker date-format='yyyy-MM-dd HH:mm' nofocus ng-model="od.end" is-open='op.showE' />
+    <span class=" float-left">
+          <button type="button" class="btn btn-default btn-sm" 
+          ng-click="openCalendar($event, 'op.showE=true')">
+          <i class="fa fa-calendar"></i></button>
+      </span>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="  panel-heading   " ng-init=" list_map = 'list' ; a = 1 ;  ">
     <div class="row b-b " style="padding-bottom:5px;">
         <div class="col-md-4 col-xs-6 m-t-xs">
