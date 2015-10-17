@@ -1,31 +1,15 @@
+
+
 hr {
   border-color: #cfdadd ;
   margin: 10px 0px;
 }
 
-.add_usergroup {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  background-image: url(../img/add_usergroup.png) 
-}
 
- 
  
 input, select {
   border-color: #cfdadd;
 }
-
-.nav-tabs   + div {
-
-    margin-left: 1px;
-    margin-top: -1px;
-    margin-right: 1px;
-    margin-bottom: 1px;
-}
-
-
-
 
 .input {
   border-color: #cfdadd;
@@ -37,14 +21,7 @@ input, select {
   border: 1px solid #ccc;
 
 }
-.min-h-l {
-  min-height: 300px ;
-}
 
-/*.xxx {
-  margin: -1px -1px;
-}
-*/
 
 
 thead {
@@ -59,7 +36,7 @@ tbody {
  
  
 tr.hover:hover td {
-  /*border-color:  #BACACD ;*/
+  border-color:  #BACACD ;
   background-color: #BACACD
 }
 .hover-bg-info:hover {
@@ -80,7 +57,6 @@ tr.hover:hover td {
 
 
 .w-50 {
-  
   width: 50% ;
 }
 
@@ -159,7 +135,7 @@ tr.hover:hover td {
 }
 
 .temp-row  div {
-  /* max-height: 30px;*/
+   max-height: 30px;
    overflow: hidden;
 }
 
@@ -624,7 +600,6 @@ a.list-group-item:focus {
 }
 .nav-tabs {
   border-color: #dee5e7;
-  margin: 1px;
 }
 .nav-tabs > li > a {
   border-radius: 2px 2px 0 0;
@@ -725,7 +700,6 @@ a.list-group-item:focus {
   border-color: #edf1f2;
   border-radius: 0 0 2px 2px;
   background-color: #fff;
-  /*text-align: center;*/
 }
 .panel-default {
   border-color: #dee5e7;
@@ -2461,11 +2435,6 @@ fieldset[disabled] .i-checks input + i:before {
 .form-validation .form-control.ng-dirty.ng-invalid {
   border-color: #f05050;
 }
-.form-validation .ng-dirty.ng-invalid {
-  border-color: #f05050;
-}
-
-
 
 /*
 .form-validation .form-control.ng-valid {
@@ -4092,11 +4061,8 @@ a.text-black:hover {
 .w-xs {
   width: 90px;
 }
-.w-xm {
-  width: 110px;
-}
 .w-xsl {
-  width: 130px;
+  width: 120px;
 }
 .w-sm {
   width: 152px;
