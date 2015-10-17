@@ -365,10 +365,8 @@ angular.module("app.model.system", [])
         //@if  append
 
         console.log(" sysmodel_tag");
-        //@endif  
-
-
-
+        //@endif   
+        
         var sysmodel = $scope.sysmodel, // $scope.$$cache[0],
             t = $scope;
         t.isManageMode = sysmodel.mode == $sys.manageMode;
@@ -398,13 +396,7 @@ angular.module("app.model.system", [])
             promise.then(function(resp) {
                 scope.devices = resp.ret;
             })
-
-            // $source.$sysDevice.get({
-            //     system_model: sysmodel.uuid
-            // }, function(resp) {
-            //     scope.devices = resp.ret;
-            // });
-
+ 
             scope.loadPoint = function a1(dev) {
                 if (!dev) return;
                 if (dev.device_model == oldDevModel) return;
@@ -428,8 +420,7 @@ angular.module("app.model.system", [])
         // $scope.prof_uuid = 111
         // profile ng-chage ;   tag 比较特殊 没profile 也可以创建;
         $scope.loadSysTag = function(prof_uuid) {
-            // { profile_id: $scope.profile }
-
+            // { profile_id: $scope.profile } 
             if (prof_uuid) {
                 $source.$sysLogTag.get({
                     profile: prof_uuid
@@ -471,13 +462,13 @@ angular.module("app.model.system", [])
                     }
 
                     $scope.$modalInstance = $modalInstance,
-                        $scope.__proto__ = t,
-                        $scope.isAdd = true,
+                    $scope.__proto__ = t,
+                    $scope.isAdd = true,
 
-                        $scope.T = {
-                            type: "Number"
-                        },
-                        $scope.L = {};
+                    $scope.T = {
+                        type: "Number"
+                    },
+                    $scope.L = {};
 
                     $scope.done = function() {
                         // 验证表格;
