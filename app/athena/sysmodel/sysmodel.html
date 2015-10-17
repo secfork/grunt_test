@@ -15,11 +15,12 @@
                     <th>
                         <span translate="th.th21">系统模型名称</span>
                     </th>
-                    <th>
-                        <span translate="th.th22">版本</span>
-                    </th>
+                    
                     <th>
                         <a translate="th.th23">模式 mode </a>
+                    </th>
+                    <th>
+                        <span translate="th.th22">通信类型</span>
                     </th>
                     <th>
                         <a translate="th.th24">创建时间
@@ -31,7 +32,7 @@
                     </th>
                     <th translate="th.th26"> 设备 个数 </th>
                     <th translate="th.th27"> 配置 个数 </th>
-                    <th translate="th.th28"> 描述 </th>
+                    <th translate="th.th28" width="20%"> 描述 </th>
                     <th></th>
                 </tr>
             </thead>
@@ -42,13 +43,13 @@
               class=" text-info-dk  "> {{sm.name}} </a> -->
                         <a ng-click=" goto( 'app.model.sysmodel_p.basic' , sm , sm  )" class=" text-info-dk  "> {{sm.name}} </a>
                     </td>
-                    <td> {{ sm.version }} </td>
                     <td> {{ $sys.sysModelMode.values[sm.mode] }} </td>
+                    <td> {{ sm.comm_type==1?"DAServer":"Gateway" }} </td>
                     <td> {{ sm.create_time | date:"yyyy-MM-dd HH:mm" }} </td>
                     <td> {{ sm.last_modify_time | date:"yyyy-MM-dd HH:mm" }} </td>
                     <td> {{ sm.device_count }} </td>
                     <td> {{sm.profile_count }} </td>
-                    <td> {{sm.desc }} </td>
+                    <td> {{sm.desc }}   </td>
                     <td>
                         <a translate="bu.bu3" class="text-info-dk" ng-click="updateSM( this, $index , sm  )"> </a>
                         <a translate="bu.bu4" class="text-info-dk" ng-click="deleteSM( $index , sm  )"> </a>

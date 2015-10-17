@@ -460,9 +460,11 @@ angular.module('app.basecontroller', ['ng'])
             }, {}, function(resp) {
                 that.sync_start = false;
                 das.needsync = false;
+                that.sync_err_msg = null;
+                that.sync_ret_msg =   "同步完成";
+            }, function() { 
                 that.sync_err_msg = resp.err;
-                that.sync_ret_msg = resp.err ? undefined : "同步完成";
-            }, function() {
+                that.sync_ret_msg =   "同步失败";
                 das.needsync = true;
                 that.sync_start = false;
 

@@ -289,10 +289,10 @@ angular.module('app.model.device', [])
                         if (p) {
                             // 编辑;
                             $source.$dmPoint.put($scope.point, function(resp) {
-                                if(!resp.err){
+                                
                                     $scope.points[index] = angular.copy($scope.point);
                                     $scope.cancel();
-                                }
+                                
                             });
                         } else {
                             // 创建

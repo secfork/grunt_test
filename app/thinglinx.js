@@ -23,9 +23,7 @@ var app = angular.module('thinglinx', [
  
 ])
 
-.run(
-    ['$rootScope', '$state', '$stateParams', '$sys', "$compile", "$localStorage",
-      "$cacheFactory", "$translate", '$sce',"$sessionStorage",
+.run( 
       function($rootScope, $state, $stateParams, $sys, $compile, $localStorage,
         $cacheFactory, $translate , $sce , $sessionStorage) {
 
@@ -39,6 +37,8 @@ var app = angular.module('thinglinx', [
 
         $rootScope.ossRoot = "http://thinglinx-net.oss-cn-beijing.aliyuncs.com/";
 
+ 
+         window.onbeforeunload = function() { alert("关闭窗口")} ;
 
         // $rootScope.$err = $err ;
 
@@ -71,7 +71,7 @@ var app = angular.module('thinglinx', [
         };
 
       }
-    ]
+     
   )
 
 
@@ -643,14 +643,16 @@ var app = angular.module('thinglinx', [
 
 .constant('JQ_CONFIG', {
 
-    wysiwyg: ['lib/wysiwyg/bootstrap-wysiwyg.js',
-              'lib/wysiwyg/jquery.hotkeys.js'
-            ] ,
+    // wysiwyg: ['lib/wysiwyg/bootstrap-wysiwyg.js',
+    //           'lib/wysiwyg/jquery.hotkeys.js'
+    //         ] 
+
     chosen:['lib/chosen/chosen.jquery.min.js',
             'lib/chosen/chosen.css'],
     filestyle:[
         'lib/file/bootstrap-filestyle.min.js'
     ]
+
 })
 
 .config(['$translateProvider', function($translateProvider) {

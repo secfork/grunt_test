@@ -57,11 +57,11 @@ angular.module('app.system.prop', [])
     });
 
 
-    // ticket ;
-    $scope.t = {
-        sn: undefined,
-        ticket: undefined
-    };
+    // // ticket ;
+    // $scope.t = {
+    //     sn: undefined,
+    //     ticket: undefined
+    // };
 
     // 获得文件路径;
     $scope.op = {
@@ -187,6 +187,9 @@ angular.module('app.system.prop', [])
         console.log($stateParams);
         //@endif 
 
+           // // ticket ;
+        $scope.t = {};
+        
         var S = $scope,
             needUpdate, hasSave;
 
@@ -194,35 +197,42 @@ angular.module('app.system.prop', [])
             S.hasSave = hasSave = {};
 
 
-        // 生成 ticket ; 
+        // 生成 ticket ; //createTicket
         $scope.createTicket = function() {
-                // 先 写死 ticket 的 选前; 
-                $scope.t.privilege = ['SYSTEM_MANAGE', 'SYSTEM_CONTROL'];
 
-                $source.$ticket.save({
-                        system_id: $scope.station.uuid
-                    },
-                    $scope.t,
-                    function(resp) {
-                        $scope.t.ticket = resp.ret;
-                    })
-            }
-            //  就 托管的 daServer 不用  box ticket 
-            // <div ng-if=" !(sysmodel.mode ==1  && sysmodel.comm_type ==1 ) ">
+            // 先 写死 ticket 的 选前; 
+            $scope.t.privilege = ['SYSTEM_MANAGE', 'SYSTEM_CONTROL'];
+
+            $source.$ticket.save({
+                    system_id: $scope.station.uuid
+                },
+                $scope.t,
+                function(resp) {
+                    // $scope.ticket = { sn: $scope.t.sn , ticket: resp.ret };
+                     $scope.t.ticket =  resp.ret ;
+                }
+            )
+        }
+
+        //  就 托管的 daServer 不用  box ticket 
+        // <div ng-if=" !(sysmodel.mode ==1  && sysmodel.comm_type ==1 ) ">
 
         $scope.l_m_P.then(function(resp) {
             var model = resp.ret;
             $scope.nT = !(model.mode == 1 && model.comm_type == 1);
 
             if ($scope.nT) {
-                $source.$ticket.get({
-                    system_id: $scope.station.uuid
-                }, function(resp) {
-                    $scope.$parent.t = resp.ret;
+                $source.$ticket.get(
+                    { system_id: $scope.station.uuid }, 
+                    function(resp) { 
+                        //$scope.$parent.t = resp.ret;
+                        $scope.t = resp.ret ; 
 
-                }, function() { // 无 ticket 时; 
-
-                });
+                    }, 
+                    function() { // 无 ticket 时; 
+                        $scope.t = {};
+                    }
+                );
             }
         })
 

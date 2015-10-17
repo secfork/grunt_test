@@ -244,12 +244,13 @@ angular.module('app.services', ["ngResource"], function() {
                 }, 100);
             }
 
-            if ( resp.err && !ingorErr[resp.err]) {
-                //alert( $err[response.data.err+'']|| response.data.err );
-                   
-
+            if ( resp.err ) {
+                //alert( $err[response.data.err+'']|| response.data.err ); 
                 console.error("_ERR_:" + resp.err);
-                angular.alert( {type:"resp_err",  title: resp.err } ); 
+                
+                if( !ingorErr[resp.err] ) {
+                    angular.alert( {type:"resp_err",  title: resp.err } ); 
+                }
 
                 throw resp ;
             }

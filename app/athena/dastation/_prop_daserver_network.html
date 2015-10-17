@@ -77,22 +77,29 @@ cmway_port ={{cmway_port}}
 
 
 
-    <!--  <div class="line   line-dashed b-b line-chart m-l-n-sm   "></div> -->
+    <!--  <div class="line   line-dashed b-b line-chart m-l-n-sm   "></div>
+            ng-show=" needUpdate.daserver "
+     -->
     <div class="row m-t-xs">
         <div class="col-xs-12">
-            <span class="text-danger" ng-show=" needUpdate.daserver ">
-                            <button   
-                                     class=" btn btn-sm m-l w-xs btn-primary " 
-                                     ng-click = "  updateSystem( 'daserver' );  "
-                                  
-                            >
-                             保存网络参数
-                            </button>
-                            <i class="fa  fa-exclamation-triangle  "></i> 
+            <span class=""  >
+                <button   token= "5000"
+                         class=" btn btn-sm m-l w-xs btn-primary " 
+                         ng-click = "  updateSystem( 'daserver' );  "
+                      
+                >
+                 保存网络参数
+                </button> 
+            </span>
+            <span ng-show=" needUpdate.daserver " class="text-danger">
+                 <i class="fa  fa-exclamation-triangle  "></i> 
                              编辑完成后请保存网络参数
-                        </span>
+
+            </span>
+                        
             <span ng-show=" hasSave.daserver ">
-                           <strong  class= "text-info  m-lg"> <i class="fa  fa-thumbs-o-up "></i> <span>保存成功!</span> </strong>
+                   <strong  class= "text-info  m-lg"> 
+                   <i class="fa  fa-thumbs-o-up "></i> <span>保存成功!</span> </strong>
             </span>
         </div>
     </div>

@@ -68,6 +68,7 @@
     "ER_SEND_MESSAGE_ERROR":"控制命令发送失败,原因可能为超时或者设备收到数据处理错误",
     "ER_INVALID_INVITATION_CODE":"激活码无效",
 
+    "ER_SYSTEM_NO_LOG_DATA":"无历史数据",
  
  
 
@@ -270,7 +271,7 @@
 
     "desc": " sysmodel 表格",
     "th21": "系统模型名称",
-    "th22": "版本",
+    "th22": "通信类型",
     "th23": "模式",
     "th24": "创建时间",
     "th25": "最后更新时间",
