@@ -6,12 +6,12 @@
         </select>
     </div>
 </div>
-<div class="panel-body table-responsive no-padder"  ng-class="{'b-t-none': !isModelState}">
-    <table class=" table   table-bordered ">
+<div class="panel-body table-responsive no-padder" ng-class="{'b-t-none': !isModelState}">
+    <table class=" table  table-hover  table-bordered">
         <thead class="flip-content">
             <tr class="background ">
                 <th> 名称 </th>
-               <!--  <th ng-if=" isManageMode "> 连接 </th> -->
+                <!--  <th ng-if=" isManageMode "> 连接 </th> -->
                 <th> 类型 </th>
                 <!--  <th   >组</th> -->
                 <th>缩放</th>
@@ -24,13 +24,12 @@
                 <th ng-if="isModelState"></th>
             </tr>
         </thead>
-        <tbody class="text-center " ng-init="_$type = $sys.log_type.values">
-            <tr ng-repeat="  tag  in systags  " class="hover">
+        <tbody class="text-center  " ng-init="_$type = $sys.log_type.values">
+            <tr ng-repeat="  tag  in systags  "  >
                 <td> {{tag.name}}</td>
-               <!-- 
+                <!-- 
                 <td ng-if="isManageMode" ng-init="splictC( tag  , $last )"> {{tag.connect}}</td>
                 -->
-
                 <td> {{tag.type}}</td>
                 <td> {{tag.scale}}</td>
                 <td> {{tag.deviation}}</td>

@@ -6,8 +6,8 @@
         </select>
     </div>
 </div>
-<div class="panel-body table-responsive no-padder"   ng-class="{'b-t-none': !isModelState}" >
-    <table class=" table   table-bordered ">
+<div class="panel-body table-responsive no-padder" ng-class="{'b-t-none': !isModelState}">
+    <table class="  table  table-hover  table-bordered ">
         <thead class="flip-content">
             <tr class="background ">
                 <th> Message名称 </th>
@@ -20,7 +20,7 @@
             </tr>
         </thead>
         <tbody class="text-center ">
-            <tr ng-repeat="  m  in messages  " class="hover">
+            <tr ng-repeat="  m  in messages  ">
                 <td> {{m.name}}</td>
                 <td> {{m.trigger_id}}</td>
                 <td> {{m.user_category}}</td>

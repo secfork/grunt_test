@@ -35,10 +35,11 @@ tbody {
 }
  
  
-tr.hover:hover td {
+/*tr.hover:hover td {
   border-color:  #BACACD ;
   background-color: #BACACD
-}
+}*/
+
 .hover-bg-info:hover {
   background:#BACACD;
 }
@@ -4062,7 +4063,7 @@ a.text-black:hover {
   width: 90px;
 }
 .w-xsl {
-  width: 120px;
+  width: 130px;
 }
 .w-sm {
   width: 152px;

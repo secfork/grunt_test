@@ -624,7 +624,7 @@ angular.module('app.directives', ['pascalprecht.translate'])
         restrict: "E",
         link: function($scope, $ele, $attr) {
             /*  table-striped  */
-            $ele.addClass("   table  table-hover  table-bordered  ");
+            //$ele.addClass("   table  table-hover  table-bordered  ");
         }
     }
 })

@@ -1,37 +1,4 @@
-
-
-
-<div class="form-group m-t-xs">
-    <label class=" w-xxs text-right control-label float-left m-t-xs">
-    起始时间:</label>
-    <input type="text" class=" input input-sm  
-    float-left" datetime-picker date-format='yyyy-MM-dd HH:mm'
-     nofocus data-readonly-input='false' 
-     ng-model="od.start" is-open='true' />
-    <span class=" float-left">
-          <button type="button" class="btn btn-default btn-sm" 
-          ng-click="openCalendar($event, 'op.showS=true')">
-          <i class="fa fa-calendar"></i></button>
-    </span>
-
-    <label class=" w-xxs text-right control-label float-left  m-t-xs">结束时间:</label>
-    <input type="text" class=" input input-sm float-left" datetime-picker date-format='yyyy-MM-dd HH:mm' nofocus ng-model="od.end" is-open='op.showE' />
-    <span class=" float-left">
-          <button type="button" class="btn btn-default btn-sm" 
-          ng-click="openCalendar($event, 'op.showE=true')">
-          <i class="fa fa-calendar"></i></button>
-      </span>
-</div>
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
@@ -72,14 +39,14 @@
          -->
     </div>
     <div class="row  ">
-        <div class="radio     float-right  w-xxm     ">
+        <div class=" float-right  w-xxm   m-t-xs   ">
             <label class="i-checks">
                 <input type="radio" name="a" value="map" checked="" ng-model=" list_map">
                 <i></i>
                 <span>地图</span>
             </label>
         </div>
-        <div class="radio      float-right  w-xxm  ">
+        <div class=" float-right  w-xxm  m-t-xs  ">
             <label class="i-checks">
                 <input type="radio" name="a" value="list" checked="" ng-model=" list_map">
                 <i></i>
