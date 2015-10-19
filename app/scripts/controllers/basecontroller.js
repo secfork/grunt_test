@@ -474,26 +474,22 @@ angular.module('app.basecontroller', ['ng'])
         //  启动 采集站;
         //  在
         $scope.startSystem = function(sys, systems, index) {
-            var uuid = sys.uuid;
+            // var uuid = sys.uuid;
 
-            function start(uuid) {
-                return $source.$system.start({
-                    pk: uuid
-                }).$promise;
-            }
-
+            function start( ) {
+                return $source.$system.start({  pk: sys.uuid }).$promise;
+            } 
             if (systems) {
-                $scope.confirmInvoke({
-                    title: "启动系统 " + sys.name + " ?"
-                }, function(next) {
-                    start(uuid).then(function(resp) {
-                        systems.splice(index, 1);
-                        next();
+                $scope.confirmInvoke({  title: "启动系统 " + sys.name + " ?" }, function(next) {
+                    start( ).then(function(resp) { 
+                        systems.splice(index, 1);  // ?? 启动后移除; ???
+                        next(); 
+                        $scope.alert({ title:"启动成功"}) ; 
                     });
                 })
             } else {
-                start(uuid).then(function(resp) {
-                    alert(angular.toJson(resp))
+                start( ).then(function(resp) { 
+                    $scope.alert({ title:"启动成功"}) ;
                 });
             }
         }

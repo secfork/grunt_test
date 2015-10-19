@@ -49,22 +49,22 @@ angular.module('app.show.system', [])
 
 
     // // 查询全部报警; 
-    // 	//$scope.liveAlarm();
-    // 	$scope.queryAlarm = function() {
-    // 		var d = {},
-    // 			op = $scope.op,
-    // 			d1 = op.start.getTime(),
-    // 			d2 = op.end.getTime();
+    //  //$scope.liveAlarm();
+    //  $scope.queryAlarm = function() {
+    //      var d = {},
+    //          op = $scope.op,
+    //          d1 = op.start.getTime(),
+    //          d2 = op.end.getTime();
 
-    // 		d.uuid = $scope.system.uuid,
-    // 			d.start = d1 < d2 ? d1 : d2,
-    // 			d.end = d1 < d2 ? d2 : d1;
+    //      d.uuid = $scope.system.uuid,
+    //          d.start = d1 < d2 ? d1 : d2,
+    //          d.end = d1 < d2 ? d2 : d1;
 
-    // 		console.log(d);
-    // 		$show.alarm.save(d, null, function(resp) {
-    // 			$scope.alarms = resp.ret;
-    // 		})
-    // 	}
+    //      console.log(d);
+    //      $show.alarm.save(d, null, function(resp) {
+    //          $scope.alarms = resp.ret;
+    //      })
+    //  }
 
 
     $scope.queryAlarm = function() {
@@ -92,8 +92,6 @@ angular.module('app.show.system', [])
 
     }
 
-
-
 })
 
 
@@ -119,7 +117,7 @@ angular.module('app.show.system', [])
         num: 50,
         end: new Date(),
         start: new Date(new Date() - 86400000),
-        ala: "b", // a: 实时报警; b: 历史报警;
+        ala: "a", // a: 实时报警; b: 历史报警;
         pointSize: 60, // 曲线上的点数;
         c_int: 10000, // 实时数据 interval 时间;
         a_int: 10000, // 实时报警; interva 时间;
@@ -155,14 +153,10 @@ angular.module('app.show.system', [])
         $state.go('app.show.system_prop.history');
     }
 
-
-
 })
 
 .controller('show_system_basic', function($scope, $sys, $show) {
     // 获取是否在线; 
-
-
 
 })
 
@@ -251,10 +245,10 @@ angular.module('app.show.system', [])
     $scope.liveWrite = function(t, v) {
         //console.log(arguments);  // String system_id , String name ,String value
         if (!t) return;
-        // var d = {	system_id : $scope.system.uuid ,
-        // 			tagname: t.name ,
-        // 			value: v
-        // 		};
+        // var d = {    system_id : $scope.system.uuid ,
+        //          tagname: t.name ,
+        //          value: v
+        //      };
         var d = {};
         d[t.name] = v;
         $show.liveWrite.save({
@@ -272,8 +266,8 @@ angular.module('app.show.system', [])
 .controller('show_system_history', function($scope, $show, $sys) {
 
     // $scope.od = {
-    // 	showS: false,
-    // 	showE: false
+    //  showS: false,
+    //  showE: false
     // };
 
     $scope.$on("$destroy", function() {
@@ -338,65 +332,81 @@ angular.module('app.show.system', [])
 
     }
 
-
 })
 
-.controller('show_system_alarm', function($scope, $show, $interval, $modal) {
+.controller('show_system_alarm', function($scope, $show, $interval, $modal , $sys ) {
 
-    var interval;
+    // var interval;
+    $scope.page = {}; 
 
-    $scope.$on("$destroy", function() {
-        $interval.cancel(interval);
-    });
+    // $scope.$on("$destroy", function() {
+    //     $interval.cancel(interval);
+    // });
 
-    $scope.$watch("op.ala", function(n) {
-        $scope.alarms = [];
-        $interval.cancel(interval);
-        interval;
-        //@if  append
-
+    var od = { uuid: $scope.system.uuid } ; 
+    
+    $scope.$watch("op.ala", function(n) { 
+        // $interval.cancel(interval);
+        // interval; 
+        //@if  append 
         console.log(n);
-        //@endif 
+        //@endif  
+
         if (n == 'a') {
-            $scope.liveAlarm();
+            $scope.loadPageData(1);
         }
 
-    })
+    });
 
     // 查询活跃 报警;  未确认的; 
-    function getAlarm() {
-        $show.alarm.get({
-            uuid: $scope.system.uuid
-        }, function(resp) {
-            $scope.alarms = resp.ret;
+    $scope.getActiveAlarm = function( pageNo) {  // 一般值 interval是, 切换是调用; 
+        var  pg = { currentPage: pageNo ,  itemsPerPage : $sys.itemsPerPage  };
+
+        $show.alarm.get( angular.extend(  od, pg ) , function(resp) {
+            $scope.page = resp.ret;
+            $scope.page = pageNo ;
         })
     }
 
+    $scope.loadPageData = function( pageNo  ){
+        if( $scope.op.ala == "a"){ // 活跃报警
+            $scope.getActiveAlarm(pageNo); 
+        }else{//  全部活跃; 
+            $scope.queryAlarm( pageNo);
 
-    $scope.liveAlarm = function() {
-        getAlarm();
-        interval = $interval(function() {
-            getAlarm();
-        }, $scope.op.a_int);
+        } 
     }
+ 
+    // interval
 
-    // 查询全部报警; 
-    //$scope.liveAlarm();
-    $scope.queryAlarm = function() {
+    // $scope.liveAlarm = function() { 
+    //     getAlarm(1 );  // 首页 ;
+    //     interval = $interval(function() {
+    //         getAlarm(1);
+    //     }, $scope.op.a_int);
+    // }
+
+    // 点击按钮 查询全部报警;  
+    $scope.queryAlarm = function( pageNo ) {
         var d = {},
             op = $scope.op,
             d1 = op.start.getTime(),
             d2 = op.end.getTime();
 
-        d.uuid = $scope.system.uuid,
+        
             d.start = d1 < d2 ? d1 : d2,
             d.end = d1 < d2 ? d2 : d1;
         //@if  append
 
         console.log(d);
         //@endif 
+        //var  pg = { currentPage: pageNo ,  itemsPerPage : $sys.itemsPerPage  };
+        d.uuid = $scope.system.uuid,
+        d.currentPage  = pageNo ,
+        d.itemsPerPage = $sys.itemsPerPage ;
+
         $show.alarm.save(d, null, function(resp) {
-            $scope.alarms = resp.ret;
+            $scope.pageNo = resp.ret;
         })
     }
 

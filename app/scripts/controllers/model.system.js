@@ -45,7 +45,7 @@ angular.module("app.model.system", [])
 
         $scope.deleteSM = function(index, sm) {
             $scope.confirmInvoke({
-                title: "删除系统模版: " + sm.name + "?"
+                title: "删除系统模型: " + sm.name + "?"
             }, function(next) {
                 $source.$sysModel.delete({
                     uuid: sm.uuid
@@ -594,8 +594,8 @@ angular.module("app.model.system", [])
             console.log("deleteTag");
             //@endif 
             $scope.confirmInvoke({
-                title: "删除系统模版点: " + tag.name + " ?",
-                warn: "其他系统配置项对该点的控制也将被删除!"
+                title: "删除模型变量 : " + tag.name + " ?",
+                warn: "该点在各个配置项中的信息也将被删除!"
             }, function(next) {
                 $source.$sysTag.delete({
                     system_model: sysmodel.uuid,

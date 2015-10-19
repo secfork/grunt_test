@@ -26,7 +26,8 @@
             </div>
             <div class="form-group   ">
                 <label class=" w-xxs text-right control-label float-left m-t-xs">结束时间:</label>
-                <input type="text" class=" input input-sm float-left" datetime-picker date-format='yyyy-MM-dd HH:mm' nofocus ng-model="op.end" is-open='od.showE' />
+                <input type="text" class=" input input-sm float-left" 
+                datetime-picker date-format='yyyy-MM-dd HH:mm' nofocus ng-model="op.end" is-open='od.showE' />
                 <span class=" float-left">
                       <button type="button" class="btn btn-default btn-sm" 
                       ng-click="openCalendar($event, 'od.showE=true')">
@@ -39,18 +40,22 @@
                 </select>
             </div>
             <div class="form-group">
-                <span ng-if=" op.ala !='a' " class="btn btn-info btn-sm w-xs m-l m-t-xs" ng-click="queryAlarm()" token='5000'> 
+                <span ng-if=" op.ala !='a' " class="btn btn-info btn-sm w-xs m-l m-t-xs" 
+                 ng-click="loadPageData(1)" token > 
                      查询
                 </span>
             </div>
         </div>
         <div ng-if=" op.ala=='a' " class="inline m-l-lg  p-t">
-            <i class="fa fa-spin fa-spinner  text-info "></i>
+            <span   " class="btn btn-info btn-sm w-xs m-l m-t-xs" 
+                 ng-click="loadPageData(1)" token > 
+                刷新
+            </span>
         </div>
     </form>
 </div>
 <div class="panel-body table-responsive no-padder" ng-init=" _$A = $sys.trigger.op">
-    <table class=" table   table-bordered " ng-init="_config = $sys.trigger.severity">
+    <table class="  table  table-hover  table-bordered " ng-init="_config = $sys.trigger.severity">
         <thead class="flip-content">
             <tr class="background ">
                 <th> 报警ID </th>
@@ -63,7 +68,7 @@
             </tr>
         </thead>
         <tbody class="text-center ">
-            <tr ng-repeat="  a  in alarms  " class="hover">
+            <tr ng-repeat="  a  in  page.data  "  >
                 <td> {{ a.id }} </td>
                 <td> {{ a.timestamp | date:"yyyy-MM-dd HH:mm:ss" }}</td>
                 <td> {{ a.desc }}</td>
@@ -75,3 +80,12 @@
         </tbody>
     </table>
 </div>
+
+
+
+<div class="panel-footer ">
+   
+    <div class=" text-center " ng-include src=" 'athena/debris/_pager.html'  "></div>
+    
+</div>
+

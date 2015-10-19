@@ -216,7 +216,9 @@ angular.module('app.system', [])
                         }, $scope.system);
             $source.$system.save( sys, function(resp) { 
                 // alert("创建成功!"); 
-                 sys.uuid = resp.ret ;
+                sys.uuid = resp.ret ;
+                sys.state = 0 ;
+                
                 $scope.confirmInvoke( { title:"创建成功,是否去配置系统"} , function( next ){
                     $scope.goto( "app.station.prop._config" ,  sys , sys );
                     next();

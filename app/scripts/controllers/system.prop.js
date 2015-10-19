@@ -565,7 +565,7 @@ angular.module('app.system.prop', [])
 
             if (field == 'daserver') {
                 // 未激活的话 提示激活; 
-                if ($scope.station.state == 0 ) {
+                if (  $scope.station.state  == 0  ) {
                     $scope.confirmInvoke({
                         title: "该系统处于未激活状态, 是否现在激活!"
                     }, function(next) {

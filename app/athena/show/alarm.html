@@ -67,7 +67,7 @@
     </form>
 </div>
 <div class="panel-body table-responsive no-padder" ng-init=" _$A = $sys.trigger.op">
-    <table class=" table   table-bordered " ng-init="_config = $sys.trigger.severity">
+    <table class="table  table-hover  table-bordered" ng-init="_config = $sys.trigger.severity">
         <thead class="flip-content">
             <tr class="background ">
                 <th> 报警ID </th>
@@ -80,7 +80,7 @@
             </tr>
         </thead>
         <tbody class="text-center ">
-            <tr ng-repeat="  a  in alarms  " class="hover">
+            <tr ng-repeat="  a  in page.data  "  >
                 <td> {{ a.id }} </td>
                 <td> {{ a.timestamp | date:"yyyy-MM-dd HH:mm:ss" }}</td>
                 <td> {{ a.desc }}</td>
@@ -92,6 +92,15 @@
         </tbody>
     </table>
 </div>
+
+<div class="panel-footer ">
+   
+    <div class=" text-center " ng-include src=" 'athena/debris/_pager.html'  "></div>
+    
+</div>
+
+
+
 <!--@if append -->
 od = {{od}}
 <br/> op = {{op}}
