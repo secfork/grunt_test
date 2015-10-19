@@ -21,10 +21,10 @@
                 <option value="">--请选择设备--</option>
             </select>
 
-            <select ng-options=" o.id as o.name  for  o in points   "
-                    tl-wrap
+            <select ng-options=" o as o.name  for  o in points   "
+                    tl-wrap 
 
-                    ng-model="op.point_id"
+                    ng-model="op.point"
                     label="connect 点"
                     ng-change=" T.name = op.point.name "
                     required   >
@@ -32,7 +32,7 @@
             </select>
         </div>
 
-<!-- tag -->
+        <!-- tag -->
 
         <input tl-wrap  ng-model="T.name"    label="text.name"  required   >
 

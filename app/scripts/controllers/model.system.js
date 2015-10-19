@@ -164,52 +164,52 @@ angular.module("app.model.system", [])
         $scope.odp = {};
 
 
-        //  
-        var defer = $q.defer();   
-        $scope.loadProfilePromise = defer.promise;
+        //   并行回调, 没必要在次$q 下; 
+        // var defer = $q.defer();   
+        // $scope.loadProfilePromise = defer.promise;
 
-        $source.$sysProfile.get({  system_model: $scope.sysmodel.uuid  }, function(resp) {
+        // $source.$sysProfile.get({  system_model: $scope.sysmodel.uuid  }, function(resp) {
+        //     $scope.profiles = resp.ret,
+        //         $scope.hasProfile = !!resp.ret.length;
+        //     defer.resolve();
+        // });
+
+
+        $scope.loadProfilePromise = $source.$sysProfile.get( {system_model: $scope.sysmodel.uuid }).$promise;
+
+        $scope.loadProfilePromise.then( function( resp ){
             $scope.profiles = resp.ret,
-                $scope.hasProfile = !!resp.ret.length;
-            defer.resolve();
-        });
-
+            $scope.hasProfile = !!resp.ret.length;
+        })  
         // 控控制 tag , 触发器, 通知  在 systemodel ,
         $scope.isModelState = true;
 
  
-        //  在 父scope 中 定义 sysdevices ; 
-        var  defer_dev = $q.defer() ,
-             loadSystemDevicePromise = defer_dev.promise; 
-        defer_dev.resolved = false ;
+ 
+ 
 
-        $scope.applySysDev_P = function(){ 
+        var loadSystemDevicePromise  ;
+        $scope.loadSysDev = function(){ 
 
-            if( ! defer_dev.resolved ){
-                $source.$sysDevice.get({system_model: $scope.sysmodel.uuid} ).$promise.then( function( resp ){
-                    $scope.sysdevices = resp.ret ;
-                    defer_dev.resolve();
-                    defer_dev.resolved = true ;
+            if( ! loadSystemDevicePromise ){
+              loadSystemDevicePromise =   $source.$sysDevice.get({system_model: $scope.sysmodel.uuid} ).$promise;
+              loadSystemDevicePromise.then( function( resp ){
+                    $scope.sysdevices = resp.ret ; 
                 }); 
             }  
             return  loadSystemDevicePromise ;
         }  
 
-
-        // 在 父scope 中定义 devmodels ; 
-        var defer_dev_model  = $q.defer() ,
-            loadDeviceModelPromise = defer_dev_model.promise ; 
-        defer_dev_model.resolved = false ;
-
-        $scope.applyDevModel_P = function(){
-            if( ! defer_dev_model.resolved ){
-                $source.$deviceModel.get( function( resp ){
-                    $scope.devmodels = resp.ret;
-                    defer_dev_model.resolve();
-                    defer_dev_model.resolved = true ;
-                }) 
+ 
+        var loadAllDeviceModelsPromise ; 
+        $scope.loadDevModels = function(){
+            if(  !loadAllDeviceModelsPromise ){
+               loadAllDeviceModelsPromise =  $source.$deviceModel.get( ) .$promise;
+               loadAllDeviceModelsPromise.then(function( resp ){
+                    $scope.devmodels = resp.ret; 
+                });
             }
-            return loadDeviceModelPromise;
+            return loadAllDeviceModelsPromise;
 
         }
  
@@ -233,25 +233,23 @@ angular.module("app.model.system", [])
 
         var sysmodel = $scope.sysmodel ;
 
-        var    t = $scope;
+        var  t = $scope;
 
-        // 得到suoyou sysmode 下的 sysDevice ;
-        // 
-        $scope.applySysDev_P()   .then( function( resp){ 
-             //@if  append
-             
+        // 得到suoyou sysmode 下的 sysDevice ; 
+        $scope.loadSysDev().then( function( resp){ 
+             //@if  append 
                 console.log(" 该方法 使 父 scope 中 定义了  sysdevices  ");
              //@endif 
         }); 
  
         // 转换 devModel 为 kv 格式; 回显 sysdevice 因用的那个devicemodel; 
-        $scope.devModelKV = {};
+        $scope.devModelKV = {};  // 用来列出 设备模版 下拉表;
 
-        $scope.applyDevModel_P().then( function(){
+        $scope.loadDevModels().then( function(){
             $.each( $scope.devmodels , function(i, v, t) {
                 $scope.devModelKV[v.uuid] = v;
-            })
-        })
+            });
+        });
  
 
 
@@ -260,7 +258,7 @@ angular.module("app.model.system", [])
                 templateUrl: "athena/sysmodel/add_sysdevice.html",
                 resolve: {
                     data: function() {
-                        return $scope.applyDevModel_P();
+                        return $scope.loadDevModels();
                     }
                 },
                 controller: function($scope, $modalInstance, data) {
@@ -286,6 +284,7 @@ angular.module("app.model.system", [])
                     if ($scope.isAdd) { // 新建; 
 
                         $scope.devModel = $scope.devModelKV[Object.keys($scope.devModelKV)[0]];
+                        
                         if (!$scope.devModel) {
                             $scope.alert({
                                 type: "info",
@@ -425,7 +424,7 @@ angular.module("app.model.system", [])
             scope.op = {};
 
             //zai 父scope中添加 sysdevices ; 
-            var promise =  $scope.applySysDev_P() ; 
+            var promise =  $scope.loadSysDev() ; 
  
 
             scope.loadPoint = function a1(dev) {
@@ -546,9 +545,7 @@ angular.module("app.model.system", [])
             $modal.open({
                 templateUrl: "athena/sysmodel/add_systag.html",
                 controller: function($scope, $modalInstance) {
-                    var a, b, c, d, dd, dt;
-
-
+                    var a, b, c, d, dd, dt; 
 
                     $scope.$modalInstance = $modalInstance,
                         $scope.__proto__ = t,

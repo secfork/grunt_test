@@ -98,12 +98,23 @@ angular.module('app.show.system', [])
 
 .controller('show_system_prop', function($scope, $state, $source, $q, $sys, $filter) {
 
+    //@if  append
+    console.log("show_system_prop");
+    //@endif 
+
+
     $scope.system = $scope.$$cache[0];
+
+
 
     var sysModel = $scope.system.model,
         //td = $filter("date")(new Date(), "yyyy-MM-dd"),
         arr, d;
 
+
+    // 加载模型来干什么? 
+    //  0: 展示不需要列出系统引用那个模型; 
+    //  1: 获得模式来判断是否能下置点数据; 
     $source.$sysModel.getByPk({
         pk: sysModel
     }, function(resp) {
@@ -124,18 +135,22 @@ angular.module('app.show.system', [])
         progValue: 0
     };
 
-    // 得到 sysmodel 下的 log tags ;
-    // $scope.loadTagPromiseA = $source.$sysTag.get({
-    //     system_model: sysModel
-    // }).$promise;
+    // $scope.openCalendar = function(e, exp) {
 
-    $scope.loadTagPromise = $source.$sysLogTag.get({
-        profile: $scope.system.profile
+
+    $scope.loadTagPromise = $source.$system.get({
+        system_id: $scope.system.uuid,
+        tag: true
     }).$promise;
 
 
+    // $scope.loadTagPromise = $source.$sysLogTag.get({
+    //     profile: $scope.system.profile
+    // }).$promise;
+
+
     $scope.loadTagPromise.then(function(resp) {
-        $scope.tags = resp.ret;
+        $scope.tags = resp.ret.tags;
     });
 
 
@@ -175,13 +190,11 @@ angular.module('app.show.system', [])
 
 
     $scope.loadTagPromise.then(function(resp) {
-        angular.forEach(resp.ret, function(v, i) {
+        angular.forEach($scope.tags, function(v, i) {
             names.push(v.name);
         });
     })
-
-
-
+ 
     // 订阅数据;
     $scope.progValue = 0;
     $scope.liveData = function(need) {
@@ -334,18 +347,20 @@ angular.module('app.show.system', [])
 
 })
 
-.controller('show_system_alarm', function($scope, $show, $interval, $modal , $sys ) {
+.controller('show_system_alarm', function($scope, $show, $interval, $modal, $sys) {
 
     // var interval;
-    $scope.page = {}; 
+    $scope.page = {};
 
     // $scope.$on("$destroy", function() {
     //     $interval.cancel(interval);
     // });
 
-    var od = { uuid: $scope.system.uuid } ; 
-    
-    $scope.$watch("op.ala", function(n) { 
+    var od = {
+        uuid: $scope.system.uuid
+    };
+
+    $scope.$watch("op.ala", function(n) {
         // $interval.cancel(interval);
         // interval; 
         //@if  append 
@@ -359,24 +374,30 @@ angular.module('app.show.system', [])
     });
 
     // 查询活跃 报警;  未确认的; 
-    $scope.getActiveAlarm = function( pageNo) {  // 一般值 interval是, 切换是调用; 
-        var  pg = { currentPage: pageNo ,  itemsPerPage : $sys.itemsPerPage  };
+    $scope.getActiveAlarm = function(pageNo) { // 一般值 interval是, 切换是调用; 
+        var pg = {
+            currentPage: pageNo,
+            itemsPerPage: $sys.itemsPerPage
+        };
 
-        $show.alarm.get( angular.extend(  od, pg ) , function(resp) {
-            $scope.page = resp.ret;
-            $scope.page = pageNo ;
+        $show.alarm.get(angular.extend(od, pg), function(resp) {
+            $scope.page.data = resp.data; 
+            $scope.page.total = resp.total ;
+            if( !resp.data.length){
+                angular.alert({ title:"无活跃报警数据"})
+            } 
         })
     }
 
-    $scope.loadPageData = function( pageNo  ){
-        if( $scope.op.ala == "a"){ // 活跃报警
-            $scope.getActiveAlarm(pageNo); 
-        }else{//  全部活跃; 
-            $scope.queryAlarm( pageNo);
+    $scope.loadPageData = function(pageNo) {
+        if ($scope.op.ala == "a") { // 活跃报警
+            $scope.getActiveAlarm(pageNo);
+        } else { //  全部活跃; 
+            $scope.queryAlarm(pageNo);
 
-        } 
+        }
     }
- 
+
     // interval
 
     // $scope.liveAlarm = function() { 
@@ -387,14 +408,14 @@ angular.module('app.show.system', [])
     // }
 
     // 点击按钮 查询全部报警;  
-    $scope.queryAlarm = function( pageNo ) {
+    $scope.queryAlarm = function(pageNo) {
         var d = {},
             op = $scope.op,
             d1 = op.start.getTime(),
             d2 = op.end.getTime();
 
-        
-            d.start = d1 < d2 ? d1 : d2,
+
+        d.start = d1 < d2 ? d1 : d2,
             d.end = d1 < d2 ? d2 : d1;
         //@if  append
 
@@ -402,11 +423,15 @@ angular.module('app.show.system', [])
         //@endif 
         //var  pg = { currentPage: pageNo ,  itemsPerPage : $sys.itemsPerPage  };
         d.uuid = $scope.system.uuid,
-        d.currentPage  = pageNo ,
-        d.itemsPerPage = $sys.itemsPerPage ;
+            d.currentPage = pageNo,
+            d.itemsPerPage = $sys.itemsPerPage;
 
         $show.alarm.save(d, null, function(resp) {
-            $scope.pageNo = resp.ret;
+            $scope.page.data = resp.data; 
+            $scope.page.total = resp.total ;
+            if( !resp.data.length){
+                angular.alert({ title:"无报警数据"})
+            } 
         })
     }
 
