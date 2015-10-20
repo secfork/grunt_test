@@ -1,15 +1,19 @@
 
-    <div class="panel-heading   ">
-        <div class="input-group col-sm-4 col-sm-push-8 ">
+ 
+    <div class="panel-heading   " ng-show="page.data.length >15">
+        <div class="input-group col-sm-4 col-sm-push-8 " >
+ 
             <span class="input-group-btn">
                  <span class="btn btn-default height-30  "
                        translate="common.search"  >搜索</span>
             </span>
-            <input class="form-control input-sm" type="text" ng-change=" filteProjByName() " ng-model="f_projname">
+ 
+            <input class="form-control input-sm" type="text"   ng-model="f_n">
         </div>
     </div>
     <div class="panel-body table-responsive no-padder">
-        <table class=" table   table-bordered ">
+        <table class=" table  table-hover  table-bordered ">
+ 
             <thead class="flip-content">
                 <tr class="background ">
                     <th>
@@ -37,7 +41,9 @@
                 </tr>
             </thead>
             <tbody class="text-center ">
-                <tr ng-repeat=" sm in page.data  " class="hover">
+ 
+                <tr ng-repeat=" sm in page.data |filter:{name: f_n }  "  >
+ 
                     <td>
                         <!--     <a  ng-click=" goto( 'app.model.sysmodel_p.basic' , sm , sm  )"
               class=" text-info-dk  "> {{sm.name}} </a> -->

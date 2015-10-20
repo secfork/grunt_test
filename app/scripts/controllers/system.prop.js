@@ -47,16 +47,15 @@ angular.module('app.system.prop', [])
     $scope.l_m_P.then(function(resp) {
         // sysmodel ;
         $scope.sysmodel = resp.ret;
+ 
+        // 转换 sysmodel Device = [{}], 为 k-v(name) 形式; 便于 回显;
+        $scope.deviceKV = {}; 
 
-        // 转换 sysmodel Device = [{}], 为 k-v 形式; 便于 回显;
-        $scope.deviceKV = {};
-        $scope.sysmodel.devices && $scope.sysmodel.devices.forEach(function(v, i, t) {
-            this[v.id] = v.name;
-        }, $scope.deviceKV);
+        $scope.sysmodel.devices.forEach(function(v, i, t) {
+            this[v.id] = v.name; }, $scope.deviceKV);
 
     });
-
-
+  
     // // ticket ;
     // $scope.t = {
     //     sn: undefined,
@@ -385,8 +384,8 @@ angular.module('app.system.prop', [])
         // 托管-- Gatwway类型 ;
         // 删除 gatewway dev , 删除 devRef 引用  ;
         $scope.delete_dev = function(gateway_devs, idnex, dev) {
-            $scope.confirmInvoke({
-                warn: "删除设备 " + $scope.deviceKV[dev.id] + "  的网络配置?"
+            $scope.confirmInvoke({ 
+                warn: "删除设备: " + $scope.deviceKV[dev.id] + "  的网络配置?" 
             }, function(next) {
                 gateway_devs.splice(idnex, 1);
                 delete $scope.devRef[dev.id];
@@ -519,8 +518,8 @@ angular.module('app.system.prop', [])
         // 托管 -- gateway 类型;
         // 删除  gateway类型 中的 数据;
         $scope.del_way = function(T, t, way) {
-            $scope.confirmInvoke({
-                warn: " 删除网关 " + t + "?"
+            $scope.confirmInvoke({ 
+                warn: " 删除网关: " + t + "?" 
             }, function(next) {
                 delete $scope.gateway[T][t]
                 toUpdate('gateway');
@@ -564,8 +563,8 @@ angular.module('app.system.prop', [])
             }
 
             if (field == 'daserver') {
-                // 未激活的话 提示激活; 
-                if ($scope.station.state == 0 ) {
+                // 未激活的话 提示激活;  
+                if (  $scope.station.state  == 0  ) { 
                     $scope.confirmInvoke({
                         title: "该系统处于未激活状态, 是否现在激活!"
                     }, function(next) {
@@ -665,17 +664,16 @@ angular.module('app.system.prop', [])
         $scope.d_stop = function() {
             $source.$system.stop({
                 pk: $scope.station.uuid
-            }, function(resp) {
-                alert(angular.toJson(resp));
+            }, function(resp) { 
+                angular.alert(angular.toJson(resp)); 
             });
         }
 
 
     }
 )
-
-
-.controller('das_tag', ['$scope', '$source', '$state', function($scope, $source, $state) {
+ 
+.controller('das_tag',   function($scope, $source, $state , $q) { 
 
     var station = $scope.station;
 
@@ -683,41 +681,55 @@ angular.module('app.system.prop', [])
 
     $scope.systags = $scope.Sta_Data.tags;
 
+ 
+    $scope.getDevName = function( tag , scope ){
+        var d_id =  tag.connect.replace(/(\d+).(\d+)/,"$1"); 
+        scope.dev_name =  $scope.deviceKV[ d_id]
+        tag.type =  scope.dev_name?tag.type: null;
+    }
 
-    // if (station.profile) {
-    //     $source.$sysLogTag.get({
-    //         profile: station.profile
-    //     }, function(resp) {
-    //         $scope.systags = resp.ret;
-    //     })
-    // } else {
-    //     // query ;
-    //     $source.$sysTag.get({
-    //         system_model: station.model
-    //     }, function(argument) {
-    //         $scope.systags = argument.ret;
-    //     })
-    // }
+    if (station.profile) { 
+ 
+        var loadProfileTagPromise = $source.$sysLogTag.get({
+            profile: station.profile
+        } ).$promise; 
 
 
-}])
+        $q.all([ loadProfileTagPromise ,$scope.l_m_P]).then(  function(resp){
+
+            $scope.systags = resp[0].ret ;
+         
+        } )
 
 
-.controller('das_trigger', ['$scope', '$source', '$state', function($scope, $source, $state) {
+    } else {
+        // query ;
+        $source.$sysTag.get({
+            system_model: station.model
+        }, function(argument) {
+            $scope.systags = argument.ret;
+        })
+    }
+
+
+})
+
+
+.controller('das_trigger',   function($scope, $source, $state) { 
 
     var station = $scope.station;
     $scope.$popNav($scope.station.name + "(触发器)", $state);
 
     $scope.triggers = $scope.Sta_Data.triggers;
+ 
+    $source.$sysProfTrigger.get({
+        profile: station.profile
+    }, function(resp) {
+        $scope.triggers = resp.ret;
+    })
 
-    // $source.$sysProfTrigger.get({
-    //     profile: station.profile
-    // }, function(resp) {
-    //     $scope.triggers = resp.ret;
-    // })
 
-
-}])
+}) 
 
 .controller('das_message', function($scope, $source, $state) {
 
@@ -826,11 +838,9 @@ angular.module('app.system.prop', [])
 
         // 更新联系人; 
         function updateContact() {
-
-            $source.$contact.put({
-                pk: $scope.station.uuid
-            }, $scope.C, function(resp) {
-                (alert("修改成功!"));
+ 
+            $source.$contact.put({  pk: $scope.station.uuid  }, $scope.C, function(resp) {
+                angular.alert("修改成功!"); 
             })
         }
         // 创建联系人; 
@@ -841,8 +851,8 @@ angular.module('app.system.prop', [])
             }, $scope.C, function(resp) {
 
                 $scope.C.contact_id = resp.ret || $scope.C.contact_id;
-                $scope.isAdd = false;
-                alert('添加成功!');
+                $scope.isAdd = false; 
+                angular.alert('添加成功!'); 
 
             })
         }

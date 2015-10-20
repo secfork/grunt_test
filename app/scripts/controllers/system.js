@@ -41,8 +41,7 @@ angular.module('app.system', [])
             $scope.regions.forEach( function( r){
                 $scope.rg_k_v[r.id] = r ;   // rg_k_v  在  region.prop - systom中 也要是 该名: rg_k_v;
             }) 
-        });   
-
+        });    
         loadSysModelPromise.then( function( resp ){
             $scope.sysModels = resp.ret ; 
         })
@@ -215,8 +214,10 @@ angular.module('app.system', [])
                             model: $scope.systemModel.uuid
                         }, $scope.system);
             $source.$system.save( sys, function(resp) { 
-                // alert("创建成功!"); 
-                 sys.uuid = resp.ret ;
+                // alert("创建成功!");  
+                sys.uuid = resp.ret ;
+                sys.state = 0 ;
+                 
                 $scope.confirmInvoke( { title:"创建成功,是否去配置系统"} , function( next ){
                     $scope.goto( "app.station.prop._config" ,  sys , sys );
                     next();

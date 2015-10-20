@@ -33,9 +33,10 @@ angular.module('app.basecontroller', ['ng'])
                 black: '#1c2b36'
             },
             settings: {
+ 
                 themeID: 1,
                 navbarHeaderColor: 'bg-black',
-                navbarCollapseColor: 'bg-white-only',
+                navbarCollapseColor: 'bg-white-only', 
                 asideColor: 'bg-black',
                 headerFixed: true,
                 asideFixed: true,
@@ -87,8 +88,11 @@ angular.module('app.basecontroller', ['ng'])
                         modelCtrl.$setViewValue(modelCtrl.$viewValue);
 
                     })
-                });
-                throw (" form invalid !!", valids.$error)
+                }); 
+                angular.alert( {type:"error" , title:"表单填写错误"});
+
+                throw (" form invalid !!", valids.$error);
+ 
             }
         }
 
@@ -109,8 +113,8 @@ angular.module('app.basecontroller', ['ng'])
                                 $scope.od.msg = resp.msg;
                                 return;
                             }
-
-                            alert("修改成功!");
+ 
+                            angular.alert("修改成功!"); 
                             //@if  append
 
                             console.log("修改成功!");
@@ -329,9 +333,8 @@ angular.module('app.basecontroller', ['ng'])
 
                 $source.$system.deactive( { pk: station.uuid } , function(){
                     dastations.splice(index, 1);
-                    next();
-                } , function(){
-                    alert("系统失效失败!");
+                    next(); 
+                } , function(){  
                     next();
                 })
  
@@ -341,8 +344,8 @@ angular.module('app.basecontroller', ['ng'])
 
         // 移除;
         $scope.delStation = function(dastations, station, index) {
-            $scope.confirmInvoke({
-                title: "您是否要删除系统 " + station.name + " ?"
+            $scope.confirmInvoke({ 
+                title: "您是否要删除系统:" + station.name + " ?" 
             }, function(next) {
                 $source.$system.delete({
                     system_id: station.uuid
@@ -373,8 +376,8 @@ angular.module('app.basecontroller', ['ng'])
                     next();
                     jump && $scope.goto('app.station.prop._basic', station, station);
 
-                }, function(){
-                    alert( "激活失败!");
+                }, function(){ 
+                    angular.alert( "激活失败!"); 
                     next();
                 } );   
             })
@@ -454,16 +457,15 @@ angular.module('app.basecontroller', ['ng'])
             //@endif 
 
             this.sync_start = true;
-            var that = this;
-            $source.$system.sync({
-                pk: das.uuid
-            }, {}, function(resp) {
+            var that = this; 
+            $source.$system.sync({  pk: das.uuid  }, null, 
+                function(resp) { 
                 that.sync_start = false;
                 das.needsync = false;
                 that.sync_err_msg = null;
-                that.sync_ret_msg =   "同步完成";
-            }, function() { 
-                that.sync_err_msg = resp.err;
+                that.sync_ret_msg =   "同步完成"; 
+            }, function(resp) { 
+                // that.sync_err_msg = resp.err; 
                 that.sync_ret_msg =   "同步失败";
                 das.needsync = true;
                 that.sync_start = false;
@@ -473,27 +475,23 @@ angular.module('app.basecontroller', ['ng'])
 
         //  启动 采集站;
         //  在
-        $scope.startSystem = function(sys, systems, index) {
-            var uuid = sys.uuid;
+        $scope.startSystem = function(sys, systems, index) { 
+            // var uuid = sys.uuid;
 
-            function start(uuid) {
-                return $source.$system.start({
-                    pk: uuid
-                }).$promise;
-            }
-
+            function start( ) {
+                return $source.$system.start({  pk: sys.uuid }).$promise;
+            } 
             if (systems) {
-                $scope.confirmInvoke({
-                    title: "启动系统 " + sys.name + " ?"
-                }, function(next) {
-                    start(uuid).then(function(resp) {
-                        systems.splice(index, 1);
-                        next();
+                $scope.confirmInvoke({  title: "启动系统 " + sys.name + " ?" }, function(next) {
+                    start( ).then(function(resp) { 
+                        systems.splice(index, 1);  // ?? 启动后移除; ???
+                        next(); 
+                        $scope.alert({ title:"启动成功"}) ; 
                     });
                 })
             } else {
-                start(uuid).then(function(resp) {
-                    alert(angular.toJson(resp))
+                start( ).then(function(resp) { 
+                    $scope.alert({ title:"启动成功"}) ; 
                 });
             }
         }
@@ -507,12 +505,9 @@ angular.module('app.basecontroller', ['ng'])
             $source.$system.call({
                 pk: system.uuid,
                 type: type
-            }, {}, function(resp) {
-                
-                 //@if  append
+            }, {}, function(resp) { 
                  
-                alert(angular.toJson(resp));
-                 //@endif 
+                  angular.alert("召唤成功"); 
 
             });
 
@@ -574,8 +569,8 @@ angular.module('app.basecontroller', ['ng'])
 
 
                     $scope.done = function() {
-                       // handler ? handler($scope.cancel) : $scope.cancel();
-                        handler ? handler( $modalInstance.close ) : $scope.cancel();
+                       // handler ? handler($scope.cancel) : $scope.cancel(); 
+                        handler ? handler( $scope.cancel ) : $scope.cancel(); 
                     };
                     $scope.msg = msg;
 

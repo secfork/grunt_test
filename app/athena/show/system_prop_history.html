@@ -10,7 +10,10 @@
         </div> -->
         <div class="form-group">
             <label class=" w-30 text-right control-label">点</label>
-            <select ng-model="op.his_tag" class="height-30   inline m-t-xs" ng-options=" t.name as t.name  for t in tags | filter:{save_log:1}">
+ 
+            <select ng-model="op.his_tag" class="height-30   inline m-t-xs"
+             ng-options=" t.name as t.name  for t in tags  ">
+
                 <option value="">-请选择tag点-</option>
             </select>
         </div>

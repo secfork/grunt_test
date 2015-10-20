@@ -1,9 +1,9 @@
 <!--  添加  sysmodel  -->
 
-<div class="modal-header ">
-    <h4 ng-if="isAdd">添加系统模型点</h4>
-    <h4 ng-if="!isAdd">编辑系统模型点</h4>
-
+<div class="modal-header "> 
+    <h4 ng-if="isAdd">添加变量</h4>
+    <h4 ng-if="!isAdd">编辑变量</h4>
+ 
 </div>
 
 <div class="modal-body  ">
@@ -11,7 +11,9 @@
     <form name="form_tag" class=" form-validation form-horizontal   ">
 
         <div  ng-if="isManageMode ">
-            <select ng-options=" o as o.name  for  o in devices   "
+ 
+            <select ng-options=" o as o.name  for  o in sysdevices   "
+ 
                     tl-wrap
 
                     ng-model=" op.dev "
@@ -21,10 +23,13 @@
                 <option value="">--请选择设备--</option>
             </select>
 
-            <select ng-options=" o.id as o.name  for  o in points   "
-                    tl-wrap
+ 
+            <select ng-options=" o as o.name  for  o in points   "
+                    tl-wrap 
 
-                    ng-model="op.point_id"
+                    ng-model="op.point"
+ 
+
                     label="connect 点"
                     ng-change=" T.name = op.point.name "
                     required   >
@@ -32,17 +37,23 @@
             </select>
         </div>
 
-<!-- tag -->
+ 
+        <!-- tag -->
 
         <input tl-wrap  ng-model="T.name"    label="text.name"  required   >
 
-        <!--  <input tl-wrap   label="group"    ng-model="T.group"   > -->
+        <!--  <input tl-wrap   label="group"    ng-model="T.group"   >
+ ng-disabled = " true_conn "
+         -->
         <select tl-wrap
-                ng-disabled = "!isAdd"
+               
                 ng-model="T.type"
                 ng-options = "  k  for k in $sys.tag.type"
                 label="text.type"
+                required
         >
+            <option value="">--选择点类型--</option>
+ 
         </select>
 
 

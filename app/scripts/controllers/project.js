@@ -48,8 +48,8 @@
       * */
      $scope.delProject = function(proj, index) {
 
-         $scope.confirmInvoke({
-                 title: "删除区域 " + proj.name + " ?",
+         $scope.confirmInvoke({ 
+                 title: "删除区域: " + proj.name + " ?", 
                  note: "其下系统不会被删除!"
              },
              function(next) {
@@ -84,8 +84,8 @@
      $scope.commit = function() {
          $scope.validForm();
          $source.$region.save($scope.proj, function(resp) {
-             //resp.ret && $state.go("app.proj.manage"); 
-             alert("添加成功!")
+             //resp.ret && $state.go("app.proj.manage");  
+             angular.alert("添加成功!"); 
          })
 
 
@@ -265,8 +265,8 @@
 
          $source.$region.put({
              pk: $scope.project.id
-         }, $scope.proj, function(resp) {
-             alert("修改成功!")
+         }, $scope.proj, function(resp) { 
+             angular.alert("修改成功!") ;
 
              angular.extend($scope.project, $scope.proj);
          })

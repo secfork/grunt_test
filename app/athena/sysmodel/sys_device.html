@@ -1,5 +1,6 @@
 <div class="panel-body table-responsive no-padder b-t-none">
-    <table class=" table   table-bordered ">
+ 
+    <table class="  table  table-hover  table-bordered"> 
         <thead class="flip-content">
             <tr class="background ">
                 <th width="15%">
@@ -18,7 +19,9 @@
             </tr>
         </thead>
         <tbody class="text-center ">
-            <tr ng-repeat="  sysd  in sysdevices  " class="hover">
+ 
+            <tr ng-repeat="  sysd  in sysdevices  "  >
+ 
                 <td> {{sysd.name}} </td>
                 <td> {{sysmodel.name}} </td>
                 <td> {{ devModelKV[ sysd.device_model ] . name }} </td>
@@ -46,5 +49,10 @@
 
 
 <!--@if append -->
-sysmodel =={{sysmodel}}
+sysmodel =={{sysmodel}} 
+
+<hr/>
+sysdevices ={{sysdevices}}
+<hr/>
+devicesKV ={{devicesKV}} 
 <!--@endif -->

@@ -8,7 +8,12 @@
         <br> das = {{das}}
         <!--@endif -->
         <input tl-wrap label="采集站名称" required ng-model="das.name " ng-change=" ch( 'name' , das.name )">
-        <select tl-wrap label="区域" ng-model="op._proj" ng-options="p as p.name  for p in projs ">
+ 
+        <select tl-wrap label="区域" ng-model="op._proj" 
+        ng-options="p as p.name  for p in projs " required>
+            <option value="">--请选择区域--</option>
+        </select>
+ 
             <textarea ng-model=" das.desc " style="resize: none" label="备注" tl-wrap ng-change=" ch( 'desc' , das.desc )"></textarea>
     </form>
 </div>

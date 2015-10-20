@@ -68,7 +68,15 @@
     "ER_SEND_MESSAGE_ERROR":"控制命令发送失败,原因可能为超时或者设备收到数据处理错误",
     "ER_INVALID_INVITATION_CODE":"邀请码无效",
 
-    "ER_SYSTEM_NO_LOG_DATA":"无历史数据",
+ 
+    "ER_SYSTEM_NO_LOG_DATA":"无历史数据", 
+
+    "ER_DEVICE_MODEL_REF":"设备模型使用中",
+    "ER_SYSTEM_MODEL_REF":"系统模版使用中",
+
+    "ER_SYSTEM_NOT_ACTIVE":"系统尚未激活",
+    "ER_DASERVER_HAS_NOT_ASSIGNED":"系统尚未指定数据采集服务器",
+    "ER_PROFILE_REF":"配置项使用中",
  
  
 
@@ -202,8 +210,8 @@
     "required": "该字段不能为空!",
     "min": "该数值必须不小于X",
     "minlengh": "该字段至少为X个字符!",
-    "maxlengh": "该字段不能不超过X个字符!",
-    "max": "该数值必须不大于X",
+    "maxlengh": "该字段不能不超过X个字符!", 
+    "max": "该数值必须小于X", 
     "email": "Email 格式不正确!",
     "number": "该数值必须为数字格式!"
 
@@ -303,8 +311,8 @@
     "t8": "版项目划分用户",
     "t9": "添加用户",
 
-
-    "t10": "系统设备",
+ 
+    "t10": "设备", 
     "t11": "变量",
     "t12": "系统配置",
     "t13": "触发器",

@@ -227,8 +227,8 @@ angular.module('app.model.device', [])
              
             console.log("delPoint", p);
              //@endif 
-            $scope.confirmInvoke({
-                title: "删除点 " + p.name + " ?"
+            $scope.confirmInvoke({ 
+                title: "删除点: " + p.name + " ?" 
             }, function(next) {
                 $source.$dmPoint.delete({
                     id: p.id,
