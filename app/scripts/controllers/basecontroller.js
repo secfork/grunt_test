@@ -620,11 +620,25 @@ angular.module('app.basecontroller', ['ng'])
 
     $scope.login = function() {
 
-        //@if  append
-
+        //@if  append 
         console.log($scope.user);
         //@endif 
+         
+        var u = $scope.user ; 
+        if( !u.company_name){
+            angular.alert("请输入公司名称");
+            throw ( "" );
+        }
+        if( !u.username){
+            angular.alert("请输用户名");
+             throw ( "" );
+        }
+        if( !u.password){
+            angular.alert("请输入密码");
+             throw ( "" );
+        }
 
+ 
         $scope.validForm();
 
         $scope.op.b = true;
