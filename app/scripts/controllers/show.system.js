@@ -48,23 +48,7 @@ angular.module('app.show.system', [])
 
 
 
-    // // 查询全部报警; 
-    //  //$scope.liveAlarm();
-    //  $scope.queryAlarm = function() {
-    //      var d = {},
-    //          op = $scope.op,
-    //          d1 = op.start.getTime(),
-    //          d2 = op.end.getTime();
-
-    //      d.uuid = $scope.system.uuid,
-    //          d.start = d1 < d2 ? d1 : d2,
-    //          d.end = d1 < d2 ? d2 : d1;
-
-    //      console.log(d);
-    //      $show.alarm.save(d, null, function(resp) {
-    //          $scope.alarms = resp.ret;
-    //      })
-    //  }
+    // // 查询全部报警;  
 
 
     $scope.queryAlarm = function() {
@@ -90,8 +74,7 @@ angular.module('app.show.system', [])
 
 
 
-    }
-
+    } 
 })
 
 
@@ -106,15 +89,14 @@ angular.module('app.show.system', [])
     $scope.system = $scope.$$cache[0];
 
 
-
+ 
     var sysModel = $scope.system.model,
         //td = $filter("date")(new Date(), "yyyy-MM-dd"),
         arr, d;
-
-
+ 
     // 加载模型来干什么? 
     //  0: 展示不需要列出系统引用那个模型; 
-    //  1: 获得模式来判断是否能下置点数据; 
+    //  1: 获得模式来判断是否能下置点数据;  
     $source.$sysModel.getByPk({
         pk: sysModel
     }, function(resp) {
@@ -134,7 +116,7 @@ angular.module('app.show.system', [])
         a_int: 10000, // 实时报警; interva 时间;
         progValue: 0
     };
-
+ 
     // $scope.openCalendar = function(e, exp) {
 
 
@@ -150,7 +132,7 @@ angular.module('app.show.system', [])
 
 
     $scope.loadTagPromise.then(function(resp) {
-        $scope.tags = resp.ret.tags;
+        $scope.tags = resp.ret.tags; 
     });
 
 
@@ -167,12 +149,12 @@ angular.module('app.show.system', [])
         $scope.op.his_tag = t.name;
         $state.go('app.show.system_prop.history');
     }
-
+ 
 })
 
 .controller('show_system_basic', function($scope, $sys, $show) {
     // 获取是否在线; 
-
+ 
 })
 
 .controller('show_system_current', function($scope, $show, $interval, $sys, $state, $filter) {
@@ -189,12 +171,12 @@ angular.module('app.show.system', [])
         doms_v, doms_t;
 
 
-    $scope.loadTagPromise.then(function(resp) {
+    $scope.loadTagPromise.then(function(resp) { 
         angular.forEach($scope.tags, function(v, i) {
             names.push(v.name);
         });
     })
- 
+  
     // 订阅数据;
     $scope.progValue = 0;
     $scope.liveData = function(need) {
@@ -257,11 +239,7 @@ angular.module('app.show.system', [])
 
     $scope.liveWrite = function(t, v) {
         //console.log(arguments);  // String system_id , String name ,String value
-        if (!t) return;
-        // var d = {    system_id : $scope.system.uuid ,
-        //          tagname: t.name ,
-        //          value: v
-        //      };
+        if (!t) return; 
         var d = {};
         d[t.name] = v;
         $show.liveWrite.save({
@@ -278,9 +256,9 @@ angular.module('app.show.system', [])
 
 .controller('show_system_history', function($scope, $show, $sys) {
 
-    // $scope.od = {
+    // $scope.od = { 
     //  showS: false,
-    //  showE: false
+    //  showE: false 
     // };
 
     $scope.$on("$destroy", function() {
@@ -344,7 +322,7 @@ angular.module('app.show.system', [])
         });
 
     }
-
+ 
 })
 
 .controller('show_system_alarm', function($scope, $show, $interval, $modal, $sys) {
@@ -408,19 +386,19 @@ angular.module('app.show.system', [])
     // }
 
     // 点击按钮 查询全部报警;  
-    $scope.queryAlarm = function(pageNo) {
+    $scope.queryAlarm = function(pageNo) { 
         var d = {},
             op = $scope.op,
             d1 = op.start.getTime(),
             d2 = op.end.getTime();
+ 
 
-
-        d.start = d1 < d2 ? d1 : d2,
+        d.start = d1 < d2 ? d1 : d2, 
             d.end = d1 < d2 ? d2 : d1;
         //@if  append
 
         console.log(d);
-        //@endif 
+        //@endif  
         //var  pg = { currentPage: pageNo ,  itemsPerPage : $sys.itemsPerPage  };
         d.uuid = $scope.system.uuid,
             d.currentPage = pageNo,
@@ -432,7 +410,7 @@ angular.module('app.show.system', [])
             $scope.page.currentPage = pageNo;
             if( !resp.data.length){
                 angular.alert({ title:"无报警数据"})
-            } 
+            }  
         })
     }
 

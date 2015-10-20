@@ -25,6 +25,11 @@
             <div class="col "> {{ station.create_time | date:"yyyy-MM-dd HH:mm Z" }} </div>
         </div>
         <div class=" b-b  m-b  hbox ">
+ 
+ 
+ 
+
+
             <div class="col w-sm  "> 配置同步状态 </div>
             <div class="col "> {{station.needsync }} </div>
         </div>
@@ -33,10 +38,12 @@
             <div class="col "> {{ station.last_modify_time | date:"yyyy-MM-dd HH:mm Z" }} </div>
         </div>
         <div class=" b-b  m-b  hbox ">
+ 
             <div class="col w-sm  "> 使用的模型 </div>
             <div class="col "> {{ sysmodel.name }} </div>
         </div>
-        <div class=" b-b  m-b  hbox ">
+        <div class=" b-b  m-b  hbox "> 
+
             <div class="col w-sm  "> 系统类型 </div>
             <div class="col "> {{$sys.sysModelMode.values[sysmodel.mode] }} </div>
         </div>
@@ -79,7 +86,9 @@
     <div class="col-md-6  m-l gap-5 ">
         <img ng-src="{{ station.pic_url?( ossRoot + station.pic_url):'img/system_null.png'  }}" class="pag-5" style="width:500px; height:400px ">
         <form class="hbox m-t" style="width:500px;">
+ 
             <label class="col m-t-xs w-xsl p-t-5">上传系统图片</label>
+ 
             <div class="col">
                 <!--  
                     <input ui-jq="filestyle" type="file"  multiple     ng-model= " file.file "

@@ -4,9 +4,8 @@ hr {
   border-color: #cfdadd ;
   margin: 10px 0px;
 }
-
  
-input, select {
+input, select { 
   border-color: #cfdadd;
 }
 
@@ -33,12 +32,12 @@ tbody {
 
 }
  
- 
+  
 /*tr.hover:hover td {
   border-color:  #BACACD ;
   background-color: #BACACD
 }*/
-
+ 
 .hover-bg-info:hover {
   background:#BACACD;
 }
@@ -574,10 +573,7 @@ a.list-group-item:focus {
 }
 .nav-pills > li.active > a {
   color: #fff !important;
-  background-color: #23b7e5;
-/*fae*/
-  
-
+  background-color: #23b7e5; 
 }
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:active {
@@ -4064,8 +4060,8 @@ a.text-black:hover {
 .w-xs {
   width: 90px;
 }
-.w-xsl {
-  width: 130px;
+.w-xsl { 
+  width: 130px; 
 }
 .w-sm {
   width: 152px;
@@ -4405,8 +4401,7 @@ a.text-black:hover {
   99.9% {
     background-color: #7266ba;
   }
-}
-
+} 
 @keyframes changebar {
   0% {
     background-color: #23b7e5;

@@ -148,11 +148,11 @@ angular.module('app.sysconfig', [], function() {})
 
             action_default: 'alarm',
             action: {
-                'alarm': "Alarm",
+                'alarm': "Alarm", 
                 //"event": "Event",
                 //'task': "Task"
             }, 
-            // 1:"事件" , 2:"任务"} ,
+            // 1:"事件" , 2:"任务"} , 
 
             action_alarm: "alarm",
             action_event: "event",

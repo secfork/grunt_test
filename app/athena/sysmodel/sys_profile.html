@@ -1,4 +1,4 @@
-
+ 
 <!--@if append -->
 hasProfile =={{hasProfile}}
 <!--@endif -->
@@ -7,6 +7,7 @@ hasProfile =={{hasProfile}}
 
 <div class="panel-body table-responsive no-padder b-t-none">
     <table class=" table  table-hover  table-bordered ">
+ 
         <thead class="flip-content">
             <tr class="background ">
                 <th> 名称 </th>
@@ -21,7 +22,9 @@ hasProfile =={{hasProfile}}
             </tr>
         </thead>
         <tbody class="text-center ">
+ 
             <tr ng-repeat="  prof  in profiles  "  >
+ 
                 <td class="text-left"> {{ prof.name }} </td>
                 <td> {{ prof.tag_count || 0 }} </td>
                 <td> {{ prof.trigger_count || 0 }} </td>

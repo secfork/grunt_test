@@ -8,7 +8,9 @@
 </div>
 
 <div class="panel-body table-responsive no-padder   "  ng-class="{'b-t-none': !isModelState}" >
+ 
     <table class="  table  table-hover  table-bordered">
+ 
         <thead class="flip-content">
             <tr class="background ">
                 <th> 名称 </th>
@@ -17,12 +19,13 @@
                 <!--  <th   >组</th> -->
                 <th> 触发源 </th>
                 <th> 条件 </th>
-                <th width="20%"> 备注 </th>
+ 
+                <th width="20%"> 备注 </th> 
                 <th ng-if="isModelState"> </th>
             </tr>
         </thead>
-        <tbody class="text-center " ng-init=" _config = $sys.trigger ">
-            <tr ng-repeat="    t in triggers  "  >
+        <tbody class="text-center " ng-init=" _config = $sys.trigger "> 
+            <tr ng-repeat="    t in triggers  "  > 
                 <td> {{t.name}}</td>
                 <td> {{ _config.type[t.type] }}</td>
                 <td> {{ _config.action[t.action] }}</td>

@@ -5,13 +5,14 @@
         <select ng-model="odp.puuid" class=" form-control  input-sm w   " ng-options="   p.uuid as p.name for p in profiles  " ng-change="loadSysTag( odp.puuid  )">
         </select>
     </div>
-</div>
+</div> 
 <div class="panel-body table-responsive no-padder" ng-class="{'b-t-none': !isModelState}">
     <table class=" table  table-hover  table-bordered">
         <thead class="flip-content">
             <tr class="background ">
                 <th> 变量名称 </th>
                  <th  > 设备 </th>  
+ 
                 <th> 类型 </th>
                 <!--  <th   >组</th> -->
                 <th>缩放</th>
@@ -20,6 +21,7 @@
                 <th>保存日志</th>
                 <th>日志间隔(秒)</th>
                 <th>日志类型</th>
+ 
                 <th width="15%"> 备注 </th>
                 <th ng-if="isModelState"></th>
             </tr>
@@ -35,6 +37,7 @@
                         3: 是否真的 连接了模版点; 
                 -->
                 <td   style="background-color: {{  dev_name || 'grey' }}">{{  dev_name  }}  </td>
+ 
 
                 <td> {{tag.type}}</td>
                 <td> {{tag.scale}}</td>
@@ -44,11 +47,13 @@
                     <i ng-if="tag.save_log" class="glyphicon glyphicon-ok text-success"></i>
                 </td>
                 <td> <span ng-show="tag.save_log">{{tag.log_cycle }}  </span> </td>
+ 
                 <td> <span ng-show="tag.save_log"> {{ _$type[tag.log_type] ||'RAW' }}  </span> </td>
                 <td> {{ tag.desc||"" }}  </td>
                 <!--    <td  >  {{ proj.createTime | date:"yyyy-MM-dd HH:mm" }}</td> -->
                 <td ng-if="isModelState">
                     <a class="text-link m-r-xs" ng-click="updateTag(  $index  , tag , this  )">编辑</a>
+ 
                     <a class="text-link m-r-xs" ng-click="add_update_Log(  $index  , tag   )"> 配置</a>
                     <a class="text-link m-r-xs" translate="bu.bu4" ng-click="deleteTag(  $index  , tag   )">移除</a>
                 </td>

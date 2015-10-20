@@ -1,15 +1,12 @@
  
-
-
-
-
-<div class="  panel-heading   " ng-init=" list_map = 'list' ; a = 1 ;  ">
-    <div class="row b-b " style="padding-bottom:5px;">
+<div class="panel-heading b-b-none" ng-init=" list_map = 'list' ; a = 1 ;  ">
+    <div class="row  " style="padding-bottom:5px;"> 
         <div class="col-md-4 col-xs-6 m-t-xs">
             <input tl-wrap-l class="input-sm" label="名称" ng-model="od.name"> </input>
         </div>
         <div class="   col-md-4 col-xs-6  m-t-xs">
             <input tl-wrap-l class="input-sm" label="ID" ng-model="od.uuid">
+
             </input>
         </div>
         <div class="col-md-4 col-xs-6 m-t-xs" ng-if=" $state.includes('app.station') || $state.includes('app.show.system') ">
@@ -17,6 +14,7 @@
                 <option value="">-所有区域-</option>
             </select>
         </div>
+        
         <div class="col-md-4 col-xs-6 m-t-xs">
             <select tl-wrap-l class="input-sm" label="模型" ng-model="od.model" ng-options=" s.uuid as s.name for s in  sysModels">
                 <option value="">-所有模型-</option>
@@ -39,14 +37,15 @@
          -->
     </div>
     <div class="row  ">
-        <div class=" float-right  w-xxm   m-t-xs   ">
+ 
+        <div class="radio     float-right  w-xxm     "> 
             <label class="i-checks">
                 <input type="radio" name="a" value="map" checked="" ng-model=" list_map">
                 <i></i>
                 <span>地图</span>
             </label>
-        </div>
-        <div class=" float-right  w-xxm  m-t-xs  ">
+        </div> 
+        <div class="radio      float-right  w-xxm  "> 
             <label class="i-checks">
                 <input type="radio" name="a" value="list" checked="" ng-model=" list_map">
                 <i></i>
@@ -55,7 +54,9 @@
         </div>
     </div>
 </div>
-<div class="panel-body  table-responsive  no-padder   b-t " ng-switch on="list_map">
+ 
+<div class="panel-body b-t-none table-responsive  no-padder   b-t " ng-switch on="list_map">
+ 
   
     <table ng-switch-when="list" class=" table  table-hover  table-bordered ">
         <thead class="flip-content">
@@ -75,12 +76,12 @@
         </thead>
 
 
-
+ 
 <!--  未设置:灰,  在线 :绿 ,, 离线:红,  故障:橙色
  unset,online,offline,comm_failure
   -->
 
-  
+   
     <tbody class="text-center">
             <tr ng-repeat="  das  in page.data " class=" ">
                 <td class="">
@@ -167,7 +168,7 @@
     
     </table> 
     <div ng-switch-when="map" id="bdmap" ng-init=" initMap(); ">  </div>
-</div>
+</div>  
 
 <div class="panel-footer ">
     <button ng-if=" !isShowModul " class="btn btn-info  dker btn-sm   m-l  pos-abt " ng-click=" goto('app.station.add' , null , project ) ">
