@@ -1,0 +1,54 @@
+<div class="modal-header ">
+    <h4>添加权限</h4>
+</div>
+<div class="modal-body  ">
+    <form name="form" class=" form-validation form-horizontal   ">
+
+        <select tl-wrap ng-model="au.group"
+        	label="组"
+        	required
+        	ng-options=" g as g.name for g in groups2add">
+            <option value="">-请选择组-</option>
+        </select>
+
+         <select tl-wrap ng-model="au.role"
+        	label="预定义的角色"
+        	ng-options = " r as r.name for r in  regionroles "
+        	>
+            <option value="">-请选角色-</option>
+        </select>
+
+
+        <div class="form-group">
+            <div class="col-sm-3 col-sm-offset-1">
+                权限 <mark/>
+            </div>
+             <div class="col-sm-8">
+                <label class="checkbox i-checks inline w-sm m-l"
+                    ng-repeat =  " a in $sys.regionP  ">
+                    <input type="checkbox"
+                        name = {{a}}
+                        ng-checked=" au.role.privilege.indexOf(a) + 1 "  >
+                    <i></i>
+                    <span  translate="{{a}}" ></span>
+                </label>
+            </div>
+        </div>
+
+       <!--  <div class="row"    >
+            <div class="col-sm-8  col-sm-offset-4">
+                <label class="checkbox i-checks inline w-sm m-l"
+                    ng-repeat =  " a in $sys.regionP  ">
+                    <input type="checkbox"
+                        name = {{a}}
+                        ng-checked=" au.role.privilege.indexOf(a) + 1 "  >
+                    <i></i>
+                    <span  translate="{{a}}" ></span>
+                </label>
+            </div>
+        </div>   -->
+
+
+    </form>
+</div>
+<ng-include src=" 'athena/debris/_modal_footer.html' "></ng-include>

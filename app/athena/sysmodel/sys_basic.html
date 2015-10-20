@@ -1,0 +1,60 @@
+
+<div class=" panel-body bg-light  bg      ">
+    <div class="col-md-6  m-b ">
+
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 模型名称 </div>
+            <div class="col "> {{ sysmodel.name }} </div>
+        </div>
+       
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 通信类型 </div>
+            <div class="col "> {{ sysmodel.comm_type == 1 ? "DAServer":"Gateway"  }} </div>
+        </div>
+
+   		<div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 创建时间 </div>
+            <div class="col "> {{ sysmodel.create_time | date:"yyyy-MM-dd HH:mm Z" }} </div>
+        </div>
+
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 配置项数量 </div>
+            <div class="col "> {{s }} </div>
+        </div>
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  ">  Tag 数量 </div>
+            <div class="col "> </div>
+        </div>
+     
+      
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 触发器数量 </div>
+            <div class="col "> {{station.needsync }} </div>
+        </div>
+
+         
+   
+    </div>
+    <!-- <div class="col-md-5  b-a m-l ">
+        <img src="img/generator_left_0.png">
+    </div> -->
+</div>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

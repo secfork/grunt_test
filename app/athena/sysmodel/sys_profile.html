@@ -1,0 +1,44 @@
+
+<div class="panel-body table-responsive no-padder b-t-none">
+    <table class=" table   table-bordered ">
+        <thead class="flip-content">
+            <tr class="background ">
+                <th> 名称 </th>
+                <th> 点数目</th>
+                <th> 触发器数目</th>
+                <th> <a translate="th.th3">创建时间  </a> </th>
+                <th> <a> 最后更新时间 </a></th>
+                <th>
+                    备注
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="text-center ">
+            <tr ng-repeat="  prof  in profiles  " class="hover">
+                <td class="text-left"> {{ prof.name }} </td>
+                <td> {{ prof.tag_count || 0 }} </td>
+                <td> {{ prof.trigger_count || 0 }} </td>
+                <!--  | date:"yyyy-MM-dd HH:mm" -->
+                <td class="numeric "> {{ prof.create_time | date:"yyyy-MM-dd HH:mm  Z"}} </td>
+                <td class="numeric "> {{ prof.last_modify_time| date:"yyyy-MM-dd HH:mm  Z" }} </td>
+                <td class="numeric "> {{ prof.desc }} </td>
+                <td>
+                    <a class="text-link" translate="bu.bu3" ng-click="updateSysProfile( this, $index, prof )">编辑</a>
+                    <a class="text-link" translate="bu.bu4" ng-click="deleteSysProfile( this, $index, prof)"> delete </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="panel-footer b-t-none ">
+    <!--   <ng-include  src=" 'athena/debris/_pager.html'  "></ng-include> -->
+    <button class="btn btn-success btn-sm    " ng-click=" addSysProfile() ">
+        添加系统配置
+    </button>
+</div>
+
+
+<!--@if append -->
+sysmodel =={{sysmodel}}
+<!--@endif -->

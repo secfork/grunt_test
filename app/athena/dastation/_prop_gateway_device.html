@@ -1,0 +1,51 @@
+<table class=" table   table-bordered  bg-white " ng-init="  initGatewayDevs()">
+    <thead class="flip-content">
+        <tr>
+            <th width="15%"> device_id </th>
+            <th width="15%"> 类型 </th>
+            <th width="15%"> Channel </th>
+            <th width="15%"> Ip </th>
+            <th width="15%"> Port </th>
+            <th width="15%"> proto </th>
+            <th width="10%"></th>
+        </tr>
+    </thead>
+    <tbody class="text-center ">
+        <tr ng-repeat="   dev  in gatewayDevs  " class="hover" ng-init="  devRef[dev.id] = true  ">
+            <td> {{ deviceKV[ dev.id ] }} </td>
+            <td> {{ dev.type }} </td>
+            <td> {{ dev.params.channel }} </td>
+            <td> {{ dev.params.ip }} </td>
+            <td> {{ dev.params.port }} </td>
+            <td> {{ dev.params.proto }} </td>
+            <td>
+                <a class="text-link m-r-xs" ng-click="c_u_dev( gatewayDevs,  $index , dev   )">编辑</a>
+                <a class="text-link m-r-xs" translate="bu.bu4" ng-click="delete_dev( gatewayDevs , $index , dev   )">移除</a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan=7 class="text-left"   >
+                <button class="btn btn-success btn-sm m-l w-xs " 
+                    ng-show=" gatewayDevs.length !=  sysmodel.devices.length "
+                    ng-click=" c_u_dev(  gatewayDevs  ) ">
+                    添加设备
+                </button>
+                <span class="text-danger"
+                      ng-show=" needUpdate.gatewayDevs ">
+                            <button   
+                                     class=" btn btn-sm m-l btn-primary " 
+                                     ng-click = "  updateSystem( 'gatewayDevs' );  "
+                                  
+                            >
+                             保存网络参数
+                            </button>
+                            <i class="fa  fa-exclamation-triangle  "></i> 
+                             编辑完成后请保存网络参数
+                        </span>
+                <span ng-show=" hasSave.gatewayDevs ">
+                           <strong  class= "text-info  m-lg"> <i class="fa  fa-thumbs-o-up "></i> <span>保存成功!</span> </strong>
+                </span>
+            </td>
+        </tr>
+    </tbody>
+</table>

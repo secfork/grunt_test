@@ -1,0 +1,28 @@
+<!--  添加  sysmodel  -->
+
+<div class="modal-header ">
+    <h4 ng-if="isAdd">添加系统模型点</h4>
+    <h4 ng-if="!isAdd">编辑系统模型点</h4>
+
+</div>
+
+<div class="modal-body  " >
+
+   	<form name="form" class=" form-validation form-horizontal"  >
+
+        <ng-include src="  'athena/sysmodel/_log_part.html'  "  ></ng-include>
+
+    </form>
+
+</div>
+
+<ng-include src=" 'athena/debris/_modal_footer.html' "></ng-include>
+
+
+
+ <!-- @if append -->
+    L= {{L}} <br>
+ 
+ <!-- @endif -->
+
+

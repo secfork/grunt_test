@@ -1,0 +1,62 @@
+<div class="panel-body no-padder bg-light     ">
+
+
+
+    <div class=" col-md-8 col-md-offset-2   col-lg-6 col-lg-offset-2 m-b  m-t-l ">
+        <h4 class="center">账户信息</h4>
+        <div class="b-b m-b"> <span>账户名称</span> : {{account.name}}</div>
+        <div class="b-b m-b"> <span>注册时间</span> : 
+            {{account.create_time | date:"yyyy-MM-dd HH:mm Z" }}</div>
+
+        <div class="b-b m-b"> <span>系统数量</span> : {{system.group_id}} </div>
+        <div class="b-b m-b"> <span>用户数量</span> : {{ $sys.sysModelMode.values[systemModel.mode] }} </div>
+        <div class="b-b m-b"> <span>用户组数量</span> : {{ systemModel.comm_type }}</div>
+        <div class="b-b m-b"> <span>购买系统数量</span> : {{ system.network.daserver.network.type}} </div>
+        <div class="b-b m-b">
+            <div class="inline">存储空间占用:</div>
+            <div class="inline w-xl">
+ 
+ <progressbar animate="true" value="59" type="success" 
+        class=" progress-sm m-b-none">
+     <b> 59%</b> 
+ </progressbar>
+           
+ 
+                        
+                       
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+ <!--@if append -->
+ account = {{account}}
+ <!--@endif  -->
+
+
+<!-- <strong>基本信息:</strong>
+
+<p class="m-l-lg">
+    项目数量  {{accMsg.proj_total }} <br>
+    采集站数量 {{ accMsg.station_total | number:0  }},活跃数量{{ accMsg.sation_act_total | number:0  }}<br>
+    
+    用户数量 {{ accMsg.user_total }} <br>
+</p>
+ -->
+<!--  <div class=" col-md-4 col-xs-6  ">
+<strong>登录信息:</strong>
+<p class="m-l-lg">
+
+    登录帐号&nbsp;&nbsp;:xxxxxxxxx <br>
+    登录时间&nbsp;&nbsp;:&lt;!&ndash; {{ new Date()  }}&ndash;&gt; <br>
+</p>
+</div>-->

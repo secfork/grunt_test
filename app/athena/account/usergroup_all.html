@@ -1,0 +1,32 @@
+<div class="panel-body   no-padder table-responsive no-border"  >
+    <table class=" table   table-bordered  table-condensed      ">
+        <thead class="flip-content  ">
+            <tr>
+                <th width="20%">名称</th>
+                <th width="40%"> 备注</th>
+                <th width="10%"> </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat=" g in page.data" class="hover">
+                <td>
+                    {{g.name}}
+                </td>
+                <td>
+                   <!-- 
+                    <i class="fa {{ u.emailEffective?'fa-check text-success':'fa-times  text-danger' }}"></i>
+                 -->
+                   {{g.desc}}
+                </td>
+                <td>
+                    <a href="" class="text-link" ng-click=" editGroup( page.data , g, $index ) " translate="edit">编辑</a>
+                    <a href="" class="text-link" ng-click=" delGroup( page.data , g , $index ) " translate="del"> 删除</a>
+                    <a href="" class="text-link" ng-click="goto('app.account.usergroup_users' , unll , g )">组用户</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="panel-footer  ">
+     <div  class="text-center" ng-include src=" 'athena/debris/_pager.html'  "></div>
+</div>

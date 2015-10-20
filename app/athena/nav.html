@@ -1,0 +1,315 @@
+<ul class="nav">
+
+    <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+        <span><h5 translate="nav.a">展1示</h5></span>
+    </li>
+     
+
+    <li ui-sref-active="active">
+        <a  ui-sref="app.show.proj">
+           <i class="  icon icon-grid  text-info-dk"></i>  
+            <span   > 区域</span>
+        </a>
+    </li>
+
+    <li ui-sref-active="active">
+        <a  ui-sref="app.show.system({isactive:'1'})"  >
+           <i class="icon icon-screen-desktop  text-info-dk"></i>  
+            
+            <span    > 系统</span>
+        </a>
+    </li>
+
+    <li ui-sref-active="active">
+        <a  ui-sref="app.show.alarm"  >
+           <i class=" icon icon-fire  text-info-dk"></i>  
+            
+            <span > 报警</span>
+        </a>
+    </li>
+
+
+    <li ng-class="{active:$state.includes('app.table')}"  ng-if="false">
+        <a href class="auto">
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class=" fa fa-gear   text-info-dk"></i>
+            <span  >设备管理</span>
+        </a>
+        <ul class="nav nav-sub dk">
+
+            <li ui-sref-active="active">
+                <a ui-sref="app.table.a">
+                    <span  > 设备台账</span>
+                </a>
+            </li>
+
+            <li ui-sref-active="active">
+                <a ui-sref="app.table.b">
+                    <span  > 设备备件记录</span>
+                </a>
+            </li>
+
+            <li ui-sref-active="active">
+                <a ui-sref="app.table.c">
+                    <span  > 设备资料库</span>
+                </a>
+            </li>
+
+            <li ui-sref-active="active">
+                <a ui-sref="app.table.d">
+                    <span  > 设备维修记录日志</span>
+                </a>
+            </li>
+
+            <li ui-sref-active="active">
+                <a ui-sref="app.table.e">
+                    <span  > 设备运行报告</span>
+                </a>
+            </li>
+
+            <li ui-sref-active="active">
+                <a ui-sref="app.table.f">
+                    <span  > 历史数据报表</span>
+                </a>
+            </li>
+
+            <li ui-sref-active="active">
+                <a ui-sref="app.table.g">
+                    <span  > 故障分析报告</span>
+                </a>
+            </li>
+
+            <li ui-sref-active="active">
+                <a ui-sref="app.table.h">
+                    <span  > 设备巡检记录</span>
+                </a>
+            </li>
+
+
+
+        </ul>
+    </li>
+
+ 
+
+<li class="line dk hidden-folded"></li>
+
+<li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+    <h5 translate="nav.b"> 管理 </h5> 
+</li>
+
+
+ 
+
+
+<li ng-class="{active:$state.includes('app.proj') }">
+
+
+    <a href class="auto">
+          <span class="pull-right text-muted">
+               <i class="fa fa-fw fa-angle-right text"></i>
+               <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span> 
+        <i class=" icon icon-grid  text-info-dk"></i>  
+        <span  >区域</span>
+    </a>
+    <ul class="nav nav-sub dk">
+        <li ui-sref-active="active">
+            <a ui-sref="app.proj.manage">
+                <span  >  全部区域 </span>
+            </a>
+        </li>
+
+        <li ui-sref-active="active">
+            <a ui-sref="app.proj.addproj"> 
+                <span translate="nav.g5">添加区域</span>
+            </a>
+        </li>
+    </ul>
+</li>
+
+
+
+
+
+ <li ng-class="{active:$state.includes('app.station') }">
+
+    <a href class="auto">
+          <span class="pull-right text-muted">
+               <i class="fa fa-fw fa-angle-right text"></i>
+               <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span> 
+        <i class="  icon icon-screen-desktop text-info-dk"></i>  
+        <span translate="nav.g">系统</span>
+    </a>
+
+ 
+
+    <ul class="nav nav-sub dk">    
+        <li ui-sref-active="active">
+            <a ui-sref="app.station.active({isactive:'1'})" >
+                <!-- <b class="badge bg-info pull-right">3</b>-->
+                <span translate="nav.g2">活跃系统</span>
+            </a>
+        </li>
+        <li ui-sref-active="active">
+            <a ui-sref="app.station.unactive({isactive:'0'})" >
+                <!-- <b class="badge bg-info pull-right">3</b>-->
+                <span translate="nav.g3">非活跃系统</span>
+            </a>
+        </li>
+
+        <li ui-sref-active="active">
+            <a ui-sref="app.station.add">
+                <span translate="nav.g4">添加系统</span>
+            </a>
+        </li>  
+
+
+
+    </ul>
+</li>
+
+ 
+ 
+
+ <li ng-class="{active: $state.includes('app.model')} ">
+
+    <a href class="auto">
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+        <i class="icon  icon-puzzle text-info-dker"></i>
+        <span translate="nav.c">模型 , 配置项</span>
+    </a>
+    <ul class="nav nav-sub dk">
+
+
+        <li ui-sref-active="active">
+            <a  ui-sref="app.model.sysmodel" >
+                <span translate="nav.c2"> 系统模型</span>
+            </a>
+        </li>
+
+        <li ui-sref-active="active">
+            <a ui-sref="app.model.devmodel" >
+                <span translate="nav.c1"> 设备模型</span>
+            </a>
+        </li>
+
+    </ul>
+</li>
+
+ 
+
+ <li ng-class="{active:$state.includes('app.account')}">
+<!-- <li  >   -->
+    <a href class="auto">
+              <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+              </span>
+        <i class=" icon icon-user text-info-dker"></i>
+        <span translate="nav.u">账户</span>
+    </a>
+
+    <ul class="nav nav-sub dk">
+
+        <li ui-sref-active="active">
+            <a ui-sref="app.account.info">
+                <span translate="nav.u1"> 信息</span>
+            </a>
+        </li>
+
+
+        <li ui-sref-active="active">
+            <a ui-sref="app.account.user">
+                <span >用户</span>
+            </a>
+        </li>
+
+        <li ui-sref-active="active">
+            <a ui-sref="app.account.usergroup">
+                <span >  用户组 </span>
+            </a>
+        </li>
+      
+
+       <li ui-sref-active="active">
+            <a ui-sref="app.account.role">
+                <span>角色</span>
+            </a>
+        </li>
+ 
+
+
+        <li ui-sref-active="active">
+            <a ui-sref="app.account.author.region">
+                <span translate="nav.u4" >权限</span>
+            </a>
+        </li>
+ 
+ 
+    </ul>
+</li>
+ 
+
+<li ng-class="{active: $state.includes('app.model')} "  ng-if="false">
+
+    <a href class="auto">
+          <!--   fa  fa-question -->
+        <i class=" icon icon-question text-info-dker "></i>
+        <span  >支持</span>
+    </a>
+    <ul class="nav nav-sub dk">
+    
+    <li ui-sref-active="active">
+        <a  ui-sref=" "  > 
+            
+            <span    > 使用条款</span>
+        </a>
+    </li>
+    
+    <li ui-sref-active="active">
+        <a  ui-sref=" "> 
+            <span   > 技术支持</span>
+        </a>
+    </li>
+
+    <li ui-sref-active="active">
+        <a  ui-sref=" "  > 
+            
+            <span    > 联系我们</span>
+        </a>
+    </li>
+
+
+    <li ui-sref-active="active">
+        <a  ui-sref=" "  >   
+            
+            <span    > 问题反馈</span>
+        </a>
+    </li>
+    <li ui-sref-active="active">
+        <a  ui-sref=" "  >
+             
+            <span    > 帮助 </span>
+        </a>
+    </li>
+
+
+    </ul>
+    
+</li>        
+
+
+    
+
+
+</ul>
+
+

@@ -1,0 +1,54 @@
+<div class="panel-body table-responsive no-padder b-t-none bg-light">
+    <h4 class="text-center">添加系统</h4>
+    <form name="form" panelclass class="form-horizontal form-validation   ">
+        <input tl-wrap-l label="系统名称" required ng-model="system.name">
+        <select tl-wrap-l label="所属区域" ng-model="system.region_id"
+           required ng-options="  proj.id  as  proj.name  for  proj   in projects ">
+            <option value="">-请选择区域-</option>
+        </select>
+        <select tl-wrap-l ng-model="systemModel" ng-options=" s  as s.name for s in sysmodels" label="系统模型" required></select>
+        <select tl-wrap-l ng-model="system.profile"
+              ng-options="  p.uuid as p.name for  p  in  profiles " 
+              label="系统配置项" required>
+            <option value="">--请选择配置项--</option>
+        </select>
+        <div class="form-group " ng-if=" systemModel.mode==1 && systemModel.comm_type == 1 " ng-init=" system.network= { daserver: { type:'DTU'}  }; ">
+            <label class="col-sm-3 control-label  ">
+                <span>网络类型</span>
+            </label>
+            <div class=" col-sm-9">
+                <div class="radio inline ">
+                    <label class="i-checks">
+                        <input type="radio" value="DTU" 
+                               ng-model="system.network.daserver.type">
+                        <i></i>
+                        <span>DTU</span>
+                    </label>
+                </div>
+                <div class="radio inline m-l ">
+                    <label class="i-checks">
+                        <input type="radio" value="TcpClient"   ng-model="system.network.daserver.type">
+                        <i></i>
+                        <span>TCP Client</span>
+                    </label>
+                </div>
+                <div class="radio inline m-l ">
+                    <label class="i-checks">
+                        <input type="radio" value="TcpServer" disabled ng-model="system.network.daserver.type">
+                        <i></i>
+                        <span>TCP Server</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <textarea tl-wrap-l label="备注" ng-maxlength="100" placeholder=" 不应超过100字符" ng-model=" system.desc ">
+        </textarea>
+    </form>
+    <div panelclass class="text-center">
+        <button type="submit" class="btn  btn-info  btn-block-middle w-xs m-b " ng-click=" commit()" token> 保存 </button>
+    </div>
+</div>
+<!--@if append  -->
+system = {{ system }}
+<hr/> systemModel = {{systemModel}}
+<!--@endif  -->

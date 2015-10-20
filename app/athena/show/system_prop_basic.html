@@ -1,0 +1,57 @@
+<div class="panel-body  bg-light   ">
+    <div class="col-md-5  m-b ">
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 系统Id </div>
+            <div class="col  r"> {{system.uuid }} </div>
+        </div>
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 系统名称 </div>
+            <div class="col "> {{system.name }} </div>
+        </div>
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 活跃状态 </div>
+            <div class="col "> {{ system.state == 1 ? "激活":"未激活" }} </div>
+        </div>
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 在线状态 </div>
+            <div class="col "> {{ }} </div>
+        </div>
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 时区 </div>
+            <div class="col "> {{ }} </div>
+        </div>
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 系统类型 </div>
+            <div class="col "> {{$sys.sysModelMode.values[systemModel.mode] }} </div>
+        </div>
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 通讯类型 </div>
+            <div class="col "> {{ systemModel.comm_type == 1 ? 'DaServer':'GateWay' }} </div>
+        </div>
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 数据最后更新时间 </div>
+            <div class="col "> {{ system.last_modify_time | date:"yyyy-MM-dd HH:mm Z"}} </div>
+        </div>
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 位置 </div>
+            <div class="col "> {{ system.longitude +' , '+ system.latitude}} </div>
+        </div>
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 最后活跃报警 </div>
+            <div class="col "> {{  }} </div>
+        </div>
+        <div class=" b-b  m-b  hbox ">
+            <div class="col w-sm  "> 系统描述 </div>
+            <div class="col "> {{system.desc }} </div>
+        </div>
+    </div>
+    <div class="col-md-5  b-a m-l ">
+        <img ng-src="{{ system.pic_url?( ossRoot + system.pic_url):'img/system_null.png'  }}" class="pag-5" style="width:500px; height:400px ">
+      
+    </div>
+</div>
+<!--@if append-->
+system = {{ system }}
+<hr/> systemModel = {{systemModel}}
+<hr/>
+<!--@endif -->

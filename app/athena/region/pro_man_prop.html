@@ -1,0 +1,18 @@
+<ul class="nav  nav-tabs m-t-xxs ">
+    <li ui-sref-active="active">
+        <a ui-sref="{{  (isShowModul ? 'app.show.proj_prop.station':'app.proj.prop.station') +'($stateParams)' }}  ">
+            <i class=" icon icon-screen-desktop"></i> 系统
+        </a>
+    </li>
+    <li ui-sref-active="active">
+        <a ui-sref=" {{ ( isShowModul ? 'app.show.proj_prop.attr': 'app.proj.prop.attr') +'($stateParams)' }} ">
+            <i class="icon icon-grid"></i> 区域属性
+        </a>
+    </li>
+    <li ui-sref-active="active" ng-if=" !isShowModul ">
+        <a ui-sref="app.proj.prop.addstation( $stateParams)">
+            <i class=" glyphicon glyphicon-plus "></i> 添加系统
+        </a>
+    </li>
+</ul>
+<div ui-view class="panel panel-default b-t-none"> </div>

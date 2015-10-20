@@ -1,0 +1,50 @@
+<div class="panel-body table-responsive no-padder b-t-none">
+    <table class=" table   table-bordered ">
+        <thead class="flip-content">
+            <tr class="background ">
+                <th width="15%">
+                    名称
+                </th>
+                <th width="15%">
+                    系统模型
+                </th>
+                <th width="15%">
+                    设备模型
+                </th width="10%">
+                <th width="20%">配置参数</th>
+                <th width="20%"> 网络参数</th>
+                <th width="20%">  备注</th>
+                <th width="10%"> </th>
+            </tr>
+        </thead>
+        <tbody class="text-center ">
+            <tr ng-repeat="  sysd  in sysdevices  " class="hover">
+                <td> {{sysd.name}} </td>
+                <td> {{sysmodel.name}} </td>
+                <td> {{ devModelKV[ sysd.device_model ] . name }} </td>
+                <td>
+                    <i tip="sysd.params"></i>
+                </td>
+                <td>
+                    <i tip="sysd.network ">   </i>
+                </td>
+                <td>{{sysd.desc}}</td>
+                <td>
+                    <a class="text-link" ng-click="addOrEditDevice( sysdevices , $index , sysd )" translate="bu.bu3"></a>
+                    <a class="text-link" ng-click="deleteSysD( this , $index , sysd )" translate="bu.bu4"></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="panel-footer b-t-none">
+    <!--  <ng-include  src=" 'athena/debris/_pager.html'  "></ng-include> -->
+    <button class="btn btn-success btn-sm   " ng-click=" addOrEditDevice() " token >
+        添加设备
+    </button>
+</div>
+
+
+<!--@if append -->
+sysmodel =={{sysmodel}}
+<!--@endif -->
