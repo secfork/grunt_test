@@ -75,6 +75,8 @@
 
     "ER_SYSTEM_NOT_ACTIVE":"系统尚未激活",
     "ER_DASERVER_HAS_NOT_ASSIGNED":"系统尚未指定数据采集服务器",
+    "ER_PROFILE_REF":"配置项使用中",
+
  
 
 

@@ -36,13 +36,17 @@
 
         <input tl-wrap  ng-model="T.name"    label="text.name"  required   >
 
-        <!--  <input tl-wrap   label="group"    ng-model="T.group"   > -->
+        <!--  <input tl-wrap   label="group"    ng-model="T.group"   >
+ ng-disabled = " true_conn "
+         -->
         <select tl-wrap
-                ng-disabled = "!isAdd"
+               
                 ng-model="T.type"
                 ng-options = "  k  for k in $sys.tag.type"
                 label="text.type"
+                required
         >
+            <option value="">--选择点类型--</option>
         </select>
 
 

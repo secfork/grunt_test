@@ -33,7 +33,7 @@ angular.module('app.basecontroller', ['ng'])
                 black: '#1c2b36'
             },
             settings: {
-                themeID: 10,
+                themeID: "1",
                 navbarHeaderColor: 'bg-black',
                 navbarCollapseColor: 'bg-info ',
                 asideColor: 'bg-black',
@@ -88,7 +88,9 @@ angular.module('app.basecontroller', ['ng'])
 
                     })
                 });
-                throw (" form invalid !!", valids.$error)
+                angular.alert( {type:"error" , title:"表单填写错误"});
+
+                throw (" form invalid !!", valids.$error);
             }
         }
 
@@ -110,7 +112,7 @@ angular.module('app.basecontroller', ['ng'])
                                 return;
                             }
 
-                            alert("修改成功!");
+                            angular.alert("修改成功!");
                             //@if  append
 
                             console.log("修改成功!");
@@ -330,8 +332,7 @@ angular.module('app.basecontroller', ['ng'])
                 $source.$system.deactive( { pk: station.uuid } , function(){
                     dastations.splice(index, 1);
                     next();
-                } , function(){
-                    alert("系统失效失败!");
+                } , function(){ 
                     next();
                 })
  
@@ -374,7 +375,7 @@ angular.module('app.basecontroller', ['ng'])
                     jump && $scope.goto('app.station.prop._basic', station, station);
 
                 }, function(){
-                    alert( "激活失败!");
+                    angular.alert( "激活失败!");
                     next();
                 } );   
             })
@@ -455,15 +456,14 @@ angular.module('app.basecontroller', ['ng'])
 
             this.sync_start = true;
             var that = this;
-            $source.$system.sync({
-                pk: das.uuid
-            }, {}, function(resp) {
+            $source.$system.sync({  pk: das.uuid  }, null, 
+                function(resp) {
                 that.sync_start = false;
                 das.needsync = false;
                 that.sync_err_msg = null;
                 that.sync_ret_msg =   "同步完成";
-            }, function() { 
-                that.sync_err_msg = resp.err;
+            }, function(resp) { 
+                // that.sync_err_msg = resp.err;
                 that.sync_ret_msg =   "同步失败";
                 das.needsync = true;
                 that.sync_start = false;
@@ -504,11 +504,10 @@ angular.module('app.basecontroller', ['ng'])
                 pk: system.uuid,
                 type: type
             }, {}, function(resp) {
-                
-                 //@if  append
                  
-                alert(angular.toJson(resp));
-                 //@endif 
+                 
+                  angular.alert("召唤成功");
+                 
 
             });
 
@@ -571,7 +570,7 @@ angular.module('app.basecontroller', ['ng'])
 
                     $scope.done = function() {
                        // handler ? handler($scope.cancel) : $scope.cancel();
-                        handler ? handler( $modalInstance.close ) : $scope.cancel();
+                        handler ? handler( $scope.cancel ) : $scope.cancel();
                     };
                     $scope.msg = msg;
 

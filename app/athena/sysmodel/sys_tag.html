@@ -11,7 +11,7 @@
         <thead class="flip-content">
             <tr class="background ">
                 <th> 变量名称 </th>
-                 <th ng-if=" isManageMode "> 设备 </th>  
+                 <th  > 设备 </th>  
                 <th> 类型 </th>
                 <!--  <th   >组</th> -->
                 <th>缩放</th>
@@ -20,17 +20,22 @@
                 <th>保存日志</th>
                 <th>日志间隔(秒)</th>
                 <th>日志类型</th>
-                <th> 备注 </th>
+                <th width="15%"> 备注 </th>
                 <th ng-if="isModelState"></th>
             </tr>
         </thead>
         <tbody class="text-center  " ng-init="_$type = $sys.log_type.values">
-            <tr ng-repeat="  tag  in systags  "  >
+            <tr ng-repeat="  tag  in systags  "  ng-init="getDevName(tag , this )" >
                 <td> {{tag.name}}</td>
                 <!-- 
                 <td ng-if="isManageMode" ng-init="splictC( tag  , $last )"> {{tag.connect}}</td>
+                    getDevname (); 
+                        1:看是否有连接; 若没有 则 type 设置为null ;
+                        2:设置是否真的连接了设备; 
+                        3: 是否真的 连接了模版点; 
                 -->
-                <td>  </td>
+                <td   style="background-color: {{  dev_name || 'grey' }}">{{  dev_name  }}  </td>
+
                 <td> {{tag.type}}</td>
                 <td> {{tag.scale}}</td>
                 <td> {{tag.deviation}}</td>
@@ -39,11 +44,11 @@
                     <i ng-if="tag.save_log" class="glyphicon glyphicon-ok text-success"></i>
                 </td>
                 <td> <span ng-show="tag.save_log">{{tag.log_cycle }}  </span> </td>
-                <td> <span ng-show="tag.save_log"> {{   _$type[tag.log_type] ||'RAW' }}  </span> </td>
-                <td> {{ tag.desc +' '+tag.tp_desc }}</td>
+                <td> <span ng-show="tag.save_log"> {{ _$type[tag.log_type] ||'RAW' }}  </span> </td>
+                <td> {{ tag.desc||"" }}  </td>
                 <!--    <td  >  {{ proj.createTime | date:"yyyy-MM-dd HH:mm" }}</td> -->
                 <td ng-if="isModelState">
-                    <a class="text-link m-r-xs" ng-click="updateTag(  $index  , tag   )">编辑</a>
+                    <a class="text-link m-r-xs" ng-click="updateTag(  $index  , tag , this  )">编辑</a>
                     <a class="text-link m-r-xs" ng-click="add_update_Log(  $index  , tag   )"> 配置</a>
                     <a class="text-link m-r-xs" translate="bu.bu4" ng-click="deleteTag(  $index  , tag   )">移除</a>
                 </td>

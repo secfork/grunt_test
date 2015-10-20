@@ -85,7 +85,7 @@
          $scope.validForm();
          $source.$region.save($scope.proj, function(resp) {
              //resp.ret && $state.go("app.proj.manage"); 
-             alert("添加成功!")
+             angular.alert("添加成功!");
          })
 
 
@@ -266,7 +266,7 @@
          $source.$region.put({
              pk: $scope.project.id
          }, $scope.proj, function(resp) {
-             alert("修改成功!")
+             angular.alert("修改成功!")
 
              angular.extend($scope.project, $scope.proj);
          })

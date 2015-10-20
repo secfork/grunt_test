@@ -128,7 +128,7 @@ angular.module('app.show.system', [])
         num: 50,
         end: new Date(),
         start: new Date(new Date() - 86400000),
-        ala: "a", // a: 实时报警; b: 历史报警;
+        ala: "b", // a: 实时报警; b: 历史报警;
         pointSize: 60, // 曲线上的点数;
         c_int: 10000, // 实时数据 interval 时间;
         a_int: 10000, // 实时报警; interva 时间;
@@ -383,6 +383,7 @@ angular.module('app.show.system', [])
         $show.alarm.get(angular.extend(od, pg), function(resp) {
             $scope.page.data = resp.data; 
             $scope.page.total = resp.total ;
+            $scope.page.currentPage = pageNo ;
             if( !resp.data.length){
                 angular.alert({ title:"无活跃报警数据"})
             } 
@@ -393,8 +394,7 @@ angular.module('app.show.system', [])
         if ($scope.op.ala == "a") { // 活跃报警
             $scope.getActiveAlarm(pageNo);
         } else { //  全部活跃; 
-            $scope.queryAlarm(pageNo);
-
+            $scope.queryAlarm(pageNo); 
         }
     }
 
@@ -429,6 +429,7 @@ angular.module('app.show.system', [])
         $show.alarm.save(d, null, function(resp) {
             $scope.page.data = resp.data; 
             $scope.page.total = resp.total ;
+            $scope.page.currentPage = pageNo;
             if( !resp.data.length){
                 angular.alert({ title:"无报警数据"})
             } 

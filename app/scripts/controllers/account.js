@@ -193,7 +193,7 @@ angular.module('app.account', [])
     // 创建用户组;
     $scope.commit = function() {
         $source.$userGroup.save($scope.ug, function(resp) {
-            alert("创建成功!")
+            angular.alert("创建成功!")
 
         })
     }
