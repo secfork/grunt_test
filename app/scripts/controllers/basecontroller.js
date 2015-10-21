@@ -33,10 +33,10 @@ angular.module('app.basecontroller', ['ng'])
                 black: '#1c2b36'
             },
             settings: {
- 
+
                 themeID: 1,
                 navbarHeaderColor: 'bg-black',
-                navbarCollapseColor: 'bg-white-only', 
+                navbarCollapseColor: 'bg-white-only',
                 asideColor: 'bg-black',
                 headerFixed: true,
                 asideFixed: true,
@@ -88,11 +88,14 @@ angular.module('app.basecontroller', ['ng'])
                         modelCtrl.$setViewValue(modelCtrl.$viewValue);
 
                     })
-                }); 
-                angular.alert( {type:"error" , title:"表单填写错误"});
+                });
+                angular.alert({
+                    type: "error",
+                    title: "表单填写错误"
+                });
 
                 throw (" form invalid !!", valids.$error);
- 
+
             }
         }
 
@@ -113,8 +116,8 @@ angular.module('app.basecontroller', ['ng'])
                                 $scope.od.msg = resp.msg;
                                 return;
                             }
- 
-                            angular.alert("修改成功!"); 
+
+                            angular.alert("修改成功!");
                             //@if  append
 
                             console.log("修改成功!");
@@ -331,21 +334,23 @@ angular.module('app.basecontroller', ['ng'])
                     state: 0
                 };
 
-                $source.$system.deactive( { pk: station.uuid } , function(){
+                $source.$system.deactive({
+                    pk: station.uuid
+                }, function() {
                     dastations.splice(index, 1);
-                    next(); 
-                } , function(){  
+                    next();
+                }, function() {
                     next();
                 })
- 
+
             })
         };
 
 
         // 移除;
         $scope.delStation = function(dastations, station, index) {
-            $scope.confirmInvoke({ 
-                title: "您是否要删除系统:" + station.name + " ?" 
+            $scope.confirmInvoke({
+                title: "您是否要删除系统:" + station.name + " ?"
             }, function(next) {
                 $source.$system.delete({
                     system_id: station.uuid
@@ -354,7 +359,7 @@ angular.module('app.basecontroller', ['ng'])
                     dastations.splice(index, 1);
 
                     next();
-                }, function(){
+                }, function() {
 
                     next()
                 });
@@ -370,16 +375,18 @@ angular.module('app.basecontroller', ['ng'])
                 title: "激活采集站 " + station.name + " ?"
             }, function(next) {
                 // 激活采集站; 
-                $source.$system.active( {pk: station.uuid} , function( resp ){
+                $source.$system.active({
+                    pk: station.uuid
+                }, function(resp) {
                     station.state = 1;
                     dastations && (dastations.splice(index, 1));
                     next();
                     jump && $scope.goto('app.station.prop._basic', station, station);
 
-                }, function(){ 
-                    angular.alert( "激活失败!"); 
+                }, function() {
+                    angular.alert("激活失败!");
                     next();
-                } );   
+                });
             })
         };
 
@@ -457,41 +464,52 @@ angular.module('app.basecontroller', ['ng'])
             //@endif 
 
             this.sync_start = true;
-            var that = this; 
-            $source.$system.sync({  pk: das.uuid  }, null, 
-                function(resp) { 
-                that.sync_start = false;
-                das.needsync = false;
-                that.sync_err_msg = null;
-                that.sync_ret_msg =   "同步完成"; 
-            }, function(resp) { 
-                // that.sync_err_msg = resp.err; 
-                that.sync_ret_msg =   "同步失败";
-                das.needsync = true;
-                that.sync_start = false;
+            var that = this;
+            $source.$system.sync({
+                    pk: das.uuid
+                }, null,
+                function(resp) {
+                    that.sync_start = false;
+                    das.needsync = false;
+                    that.sync_err_msg = null;
+                    that.sync_ret_msg = "同步完成";
+                },
+                function(resp) {
+                    // that.sync_err_msg = resp.err; 
+                    that.sync_ret_msg = "同步失败";
+                    das.needsync = true;
+                    that.sync_start = false;
 
-            });
+                });
         };
 
         //  启动 采集站;
         //  在
-        $scope.startSystem = function(sys, systems, index) { 
+        $scope.startSystem = function(sys, systems, index) {
             // var uuid = sys.uuid;
 
-            function start( ) {
-                return $source.$system.start({  pk: sys.uuid }).$promise;
-            } 
+            function start() {
+                return $source.$system.start({
+                    pk: sys.uuid
+                }).$promise;
+            }
             if (systems) {
-                $scope.confirmInvoke({  title: "启动系统 " + sys.name + " ?" }, function(next) {
-                    start( ).then(function(resp) { 
-                        systems.splice(index, 1);  // ?? 启动后移除; ???
-                        next(); 
-                        $scope.alert({ title:"启动成功"}) ; 
+                $scope.confirmInvoke({
+                    title: "启动系统 " + sys.name + " ?"
+                }, function(next) {
+                    start().then(function(resp) {
+                        systems.splice(index, 1); // ?? 启动后移除; ???
+                        next();
+                        $scope.alert({
+                            title: "启动成功"
+                        });
                     });
                 })
             } else {
-                start( ).then(function(resp) { 
-                    $scope.alert({ title:"启动成功"}) ; 
+                start().then(function(resp) {
+                    $scope.alert({
+                        title: "启动成功"
+                    });
                 });
             }
         }
@@ -500,14 +518,14 @@ angular.module('app.basecontroller', ['ng'])
         $scope.d_call = function(system, type) {
             //@if append 
             console.log("召唤实时 : undefined ,  超换参数: 1  召唤 所有: 3  ")
-            //@endif
+                //@endif
 
             $source.$system.call({
                 pk: system.uuid,
                 type: type
-            }, {}, function(resp) { 
-                 
-                  angular.alert("召唤成功"); 
+            }, {}, function(resp) {
+
+                angular.alert("召唤成功");
 
             });
 
@@ -516,39 +534,41 @@ angular.module('app.basecontroller', ['ng'])
 
 
         // resp_err , info , warn ; 
-        angular.alert = $scope.alert = function(msg , fun ) {
+        angular.alert = $scope.alert = function(msg, fun) {
             $modal.open({
                 templateUrl: "athena/debris/_alert.html",
-                controller: function($scope, $modalInstance , $translate) {
-                    
-                    if( angular.isString( msg)){
-                        msg = { title: msg };
+                controller: function($scope, $modalInstance, $translate) {
+
+                    if (angular.isString(msg)) {
+                        msg = {
+                            title: msg
+                        };
                     };
 
-                    if( msg.type == "resp_err"){
-                        msg.title =   $translate.instant( msg.title ) ;  
-                    }    
+                    if (msg.type == "resp_err") {
+                        msg.title = $translate.instant(msg.title);
+                    }
 
-                    $scope.msg =  msg; 
-                    var m = { 
-                        'resp_err':"fa-exclamation-circle text-info",
+                    $scope.msg = msg;
+                    var m = {
+                        'resp_err': "fa-exclamation-circle text-info",
                         "info": "fa-exclamation-circle text-info",
                         "warn": "fa-exclamation-triangle"
                     }
                     $scope.msg.type = m[$scope.msg.type || 'info'] || m.info;
-                    
 
-                    $scope.cancel =  function(){
+
+                    $scope.cancel = function() {
                         $modalInstance.dismiss('cancel');
-                    } ;
+                    };
                     $scope.done = function() {
                         $modalInstance.dismiss('cancel');
-                        fun &&  fun(); 
+                        fun && fun();
                     };
                 }
             })
         }
-        
+
         /**
          * msg = { title : '标题' , note:  注释 , warn: 警告  , todo: 确定按钮字符 }
          * handler : funcction  ;     handler 最好有 true false 返回值 , 以便derfer 处理 ;
@@ -561,16 +581,16 @@ angular.module('app.basecontroller', ['ng'])
                 //resolve:{ msg: function (){ return  msg } ,  handler: function (){ return handler} } ,
                 //  controller: function( $scope ,$modalInstance , $q ,  msg , handler  ){
                 controller: function($scope, $modalInstance) {
-                    $scope.cancel =  function(){
+                    $scope.cancel = function() {
                         $modalInstance.dismiss('cancel');
-                    } ;
-                     
+                    };
+
                     $scope.todo = msg.todo || "do";
 
 
                     $scope.done = function() {
-                       // handler ? handler($scope.cancel) : $scope.cancel(); 
-                        handler ? handler( $scope.cancel ) : $scope.cancel(); 
+                        // handler ? handler($scope.cancel) : $scope.cancel(); 
+                        handler ? handler($scope.cancel) : $scope.cancel();
                     };
                     $scope.msg = msg;
 
@@ -588,10 +608,12 @@ angular.module('app.basecontroller', ['ng'])
     $sessionStorage, $compile, $source) {
 
     // 获取登录次数; 
-    $source.$common.get( { op:'logintimes'} , function( resp){
-        $scope.logintimes  =  resp.ret || 0 ;
+    $source.$common.get({
+        op: 'logintimes'
+    }, function(resp) {
+        $scope.logintimes = resp.ret || 0;
     });
- 
+
 
     //@if  append 
     console.log("sign controller");
@@ -613,7 +635,7 @@ angular.module('app.basecontroller', ['ng'])
     $scope.op = {
         t: 1,
         b: false
-    }; 
+    };
 
 
     // $scope.st.login_errtimes ++ ;
@@ -623,37 +645,37 @@ angular.module('app.basecontroller', ['ng'])
         //@if  append 
         console.log($scope.user);
         //@endif 
-         
-        var u = $scope.user ; 
-        if( !u.company_name){
+
+        var u = $scope.user;
+        if (!u.company_name) {
             angular.alert("请输入公司名称");
-            throw ( "" );
+            throw ("");
         }
-        if( !u.username){
+        if (!u.username) {
             angular.alert("请输用户名");
-             throw ( "" );
+            throw ("");
         }
-        if( !u.password){
+        if (!u.password) {
             angular.alert("请输入密码");
-             throw ( "" );
+            throw ("");
         }
 
- 
+
         $scope.validForm();
 
         $scope.op.b = true;
 
         $localStorage.comp_name = $scope.user.company_name;
 
-        $source.$user.login(  $scope.user, 
+        $source.$user.login($scope.user,
             function(resp) {
                 //@if  append 
                 console.log(resp.ret);
                 //@endif 
 
                 //alert(1);
-                
-                if (resp.ret) { 
+
+                if (resp.ret) {
                     $sessionStorage.user = resp.ret;
                     //@if  append
 
@@ -663,15 +685,15 @@ angular.module('app.basecontroller', ['ng'])
                     $state.go("app");
                     //$state.go("app.template");
                 } else {
-                    $scope.op.b = false; 
+                    $scope.op.b = false;
                     $scope.resp = resp;
                 }
             },
-            function( resp ) {  // {err:.. , ret: ... }
-                $scope.op.t ++ ;
-                $scope.op.b = false; 
-                $scope.logintimes ++ ; 
-                 
+            function(resp) { // {err:.. , ret: ... }
+                $scope.op.t++;
+                $scope.op.b = false;
+                $scope.logintimes++;
+
             }
 
         );
@@ -681,9 +703,6 @@ angular.module('app.basecontroller', ['ng'])
 
 
 .controller("access_signup", function($scope, $state, $source, $localStorage, $interval) {
-
-
-
 
     // signup ;
     $scope.comp = {};
@@ -701,9 +720,7 @@ angular.module('app.basecontroller', ['ng'])
                 title: "手机号码格式错误!"
             })
             return;
-        }
-
-
+        } 
 
         $source.$note.get({
                 op: "account",
@@ -717,11 +734,9 @@ angular.module('app.basecontroller', ['ng'])
                             $interval.cancel(inter),
                             $scope.time = 0
                         )
-
                     },
                     1000
                 )
-
             },
             function() {
 
@@ -734,32 +749,37 @@ angular.module('app.basecontroller', ['ng'])
 
 
     $scope.signup = function() {
-        //delete $scope.comp.admin ;
+        //delete $scope.comp.admin ; 
+         
+
         $source.$account.save($scope.comp, function(resp) {
-             
+
             // 注册成功;
             $localStorage.comp_name = $scope.comp.name;
             // $scope.regok = true ;
             // $scope.$parent.user =  { username : $scope.comp.company_name  } ;
             $scope.sign = true;
 
-            $scope.alert({type:'info' , title:"注册成功!"} , function(){
-                $state.go( "access.signin");
-            }) 
-            
-        }) 
+            $scope.alert({
+                type: 'info',
+                title: "注册成功!"
+            }, function() {
+                $state.go("access.signin");
+            })
+
+        })
     };
 })
 
 .controller("access_fogpas", function($scope, $sessionStorage, $source, $interval) {
 
     $scope.od = {
-        step: 1 
+        step: 1
     };
-    $scope.account = { 
-        op:"admin",
-        account:null ,  // account  name ; 
-        identify:null , // 图片验证码; 
+    $scope.account = {
+        op: "admin",
+        account: null, // account  name ; 
+        identify: null, // 图片验证码; 
     }
     $scope.admin = {};
 
@@ -786,37 +806,45 @@ angular.module('app.basecontroller', ['ng'])
     }
 
     $scope.send_msg = function() {
-        $source.$note.get({op:"admin" , mobile_phone: $scope.od.phone }, function() {
+        $source.$note.get({
+            op: "admin",
+            mobile_phone: $scope.od.phone
+        }, function() {
             $sessionStorage.fog_time = $scope.time = 60;
             wait_interval();
 
         })
     }
 
-    $scope.setp1 = function(){
+    $scope.setp1 = function() {
         //$scope.od.identi.length <4  return ; 
-        $source.$common.get ( 
-             $scope.account ,  
-            function( resp ){ 
-                $scope.od.phone = resp.ret ;
-                $scope.od.step = 2 ; 
-            } ,
-            function( resp ){
-               // $scope.alert( {type:"resp_err" , title: resp.err })
-            } 
-        )    
+        $source.$common.get(
+            $scope.account,
+            function(resp) {
+                $scope.od.phone = resp.ret;
+                $scope.od.step = 2;
+            },
+            function(resp) {
+                // $scope.alert( {type:"resp_err" , title: resp.err })
+            }
+        )
     };
 
-   
+
 
     // 更改密码; 
-    $scope.cc_done = function() {  
-        $source.$common.save( {op:"admin"} , $scope.admin , function( resp){
-            $scope.alert( {title:"修改成功" , do:""} , function(){
+    $scope.cc_done = function() {
+        $source.$common.save({
+            op: "admin"
+        }, $scope.admin, function(resp) {
+            $scope.alert({
+                title: "修改成功",
+                do: ""
+            }, function() {
                 $
             })
 
-        }); 
+        });
     };
 
 

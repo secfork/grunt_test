@@ -401,8 +401,8 @@ angular.module('app.sysconfig', [], function() {})
                         "area": 0,
                         "offset":0,
                         "type": 0, //  可选项遂区域在变; 
-                         "type_ex": 0,// 遂区域在变; 
-                        "access": 0  // 遂区域变; 
+                        "type_ex": 0,// 遂区域在变; 
+                        "access": 0 , // 遂区域变;  
                     } 
                 },
                 // 级联属性 start ;  
@@ -413,7 +413,7 @@ angular.module('app.sysconfig', [], function() {})
                          
 
                     var cc = {1:0 , 3:0 , 0:2 , 2:2};
-                    if( point.params.area < 2){
+                    if( point.params.area < 2){  // 意思是 co ,di 区时 , 
                         point.params.type = 0 ; 
                         // point.params.type_ex = undefined ;  
                         point.params.type_ex = 0 ;  
@@ -426,12 +426,13 @@ angular.module('app.sysconfig', [], function() {})
                 } ,
                 // Type 变化时 数据变化; 
                 TypeCC : function(point){  
-                    if( point.params.area  > 1 ){
+                    //if( point.params.area  > 1 ){   // 意思是  hr , ai 区  > 1 ;
+                        
                         //  // k: 数据类型 , v: typeEx 值;   
                         var cc = { 0:0 , 1:0 , 2:0 , 13:1 , 14:1}; 
 
-                        point.params.type_ex = cc[ point.params.type ];
-                    }
+                        point.params.type_ex = cc[ point.params.type ] || 0 ;
+                    // }
 
                 } , 
 
