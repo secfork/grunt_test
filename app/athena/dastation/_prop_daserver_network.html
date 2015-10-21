@@ -5,17 +5,17 @@
  -->
 
  
-
-<form name="form" panelclass class="form-horizontal form-validation "
+<!--  lixq  form 更名 便于update时 验证 相应的表单 -->
+<form name="form_daserver" panelclass class="form-horizontal form-validation "
  ng-init="  initDaServer() ; loadSupportDtus() ;  ">
-    <!-- @if append -->
+<!-- @if append -->
     system.network.daserver ={{daserver}}
-<hr/>
-dastation = {{ station }}
-<hr/>
-cmway_port ={{cmway_port}}
+    <hr/>
+    dastation = {{ station }}
+    <hr/>
+    cmway_port ={{cmway_port}}
 
-    <!-- @endif  -->
+<!-- @endif  -->
 
 
 <!-- 只有  指定assign 过了 不可  不可编辑

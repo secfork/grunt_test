@@ -40,12 +40,11 @@ angular.module('app.account', [])
         groups: undefined
     };
 
-    var  loadGroupsPromise = $source.$userGroup.query( {currentPage:1}).$promise ;
+    var  loadAllGroupsPromise = $source.$userGroup.query( {currentPage:1}).$promise ;
 
-    loadGroupsPromise.then( function( resp ){
+    loadAllGroupsPromise.then( function( resp ){
         $scope.groups = resp.data ;
     }); 
-
 
     // 添加用户时 所属的 组;
 
@@ -79,8 +78,10 @@ angular.module('app.account', [])
     $scope.editUser = function(arr, user, index) {
         $modal.open({
             templateUrl: "athena/account/users_edit.html",
-            resolve: { g: null   ,  d: loadGroupsPromise } ,
-            controller: function($scope, $modalInstance) {
+            resolve:{   g:  $source.user.get({pk:"groups" , user_id: user.id}).$promise,
+                        d: loadAllGroupsPromise
+                    } ,
+            controller: function($scope, $modalInstance , g ) {
                 $scope.__proto__ = S;
                 $scope.isEdit = true;
                 $scope.$modalInstance = $modalInstance;
@@ -101,9 +102,7 @@ angular.module('app.account', [])
                     $source.$user.put({}, $scope.user, function() {
                         angular.extend(user, $scope.user);
                         $scope.cancel();
-                    }, $scope.cancel)
-
-
+                    }, $scope.cancel) 
                 }
             }
         })
@@ -137,7 +136,6 @@ angular.module('app.account', [])
     };
 
 })
-
 
 .controller("usergroup", function($scope, $state, $source, $sys, $sessionStorage, $modal) {
 
@@ -227,7 +225,6 @@ angular.module('app.account', [])
     }
 
 })
-
 
 .controller("usergroup_users", function($scope, $state, $source, $sys, $localStorage) {
 

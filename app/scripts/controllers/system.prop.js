@@ -542,7 +542,7 @@ angular.module('app.system.prop', [])
         //                 profile , ($scope.op.profile )
         // 字段;
         $scope.updateSystem = function(field) {
-            $scope.validForm();
+            
 
             var d = {
                 uuid: $scope.station.uuid
@@ -553,6 +553,7 @@ angular.module('app.system.prop', [])
             }
 
             if (field == 'gatewayDevs') {
+                $scope.validForm();
                 d.network = angular.toJson({
                     devices: $scope.gatewayDevs
                 });
@@ -563,6 +564,7 @@ angular.module('app.system.prop', [])
             }
 
             if (field == 'daserver') {
+                $scope.validForm("form_daserver");
                 // 未激活的话 提示激活;  
                 if (  $scope.station.state  == 0  ) { 
                     $scope.confirmInvoke({
@@ -636,6 +638,7 @@ angular.module('app.system.prop', [])
             }
 
             if (field == 'gateway') {
+                $scope.validForm("form_gateway");
                 d.gateway = angular.toJson($scope.gateway);
                 update(d).then(function() {
                     toSave("gateway");
