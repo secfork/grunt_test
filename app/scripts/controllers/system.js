@@ -24,6 +24,7 @@ angular.module('app.system', [])
         }
  
 
+        $scope.op = { lm :"list" };
 
         $scope.updataORdel = "del";
   

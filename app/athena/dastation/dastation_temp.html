@@ -1,5 +1,5 @@
 
-<div class="panel-heading b-b-none" ng-init=" list_map = 'list' ; a = 1 ;  ">
+<div class="panel-heading b-b-none"   >
     <div class="row  " style="padding-bottom:5px;"> 
         <div class="col-md-4 col-xs-6 m-t-xs">
             <input tl-wrap-l class="input-sm input-s" label="名称" ng-model="od.name"> </input>
@@ -39,11 +39,14 @@
         </div>
          -->
     </div>
+ 
+
     <div class="row  ">
         <!--jjw margin-top-->
         <div class="radio     float-right  w-xxm " style="margin-top: 10px">
             <label class="i-checks">
-                <input type="radio" name="a" value="map" checked="" ng-model=" list_map">
+                <input type="radio"   value="map"  
+                        ng-model="op.lm">
                 <i></i>
                 <span>地图</span>
             </label>
@@ -51,7 +54,8 @@
         <!--jjw margin-top-->
         <div class="radio      float-right  w-xxm " style="margin-top: 10px">
             <label class="i-checks">
-                <input type="radio" name="a" value="list" checked="" ng-model=" list_map">
+                <input type="radio"   value="list" 
+                        ng-model="op.lm">
                 <i></i>
                 <span>列表</span>
             </label>
@@ -59,7 +63,8 @@
     </div>
 </div>
  
-<div class="panel-body b-t-none table-responsive  no-padder   b-t " ng-switch on="list_map">
+<div class="panel-body b-t-none table-responsive  no-padder   b-t "
+     ng-switch on="op.lm" >
  
   
     <table ng-switch-when="list" class=" table  table-hover  table-bordered ">
