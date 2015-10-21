@@ -27,8 +27,8 @@ angular.module('app.system', [])
 
         $scope.updataORdel = "del";
 
-        $scope.list_map = "list";
-  
+        $scope.lm = {list_map : "list"};
+    
         $scope.od = { } ; 
         $scope.page = {};
 
@@ -198,14 +198,10 @@ angular.module('app.system', [])
         })
 
 
-
-        //$scope.dastation = {timezone:"0"  };
+ 
         $scope.dastation = {};
 
-        $scope.cascadeTime = function() {
-            $scope.b = $scope.tiemzone[$scope.a];
-            $scope.dastation.timezone = $scope.b[0].value;
-        };
+      
 
         // 提交系统
         $scope.commit = function() {
