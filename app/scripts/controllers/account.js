@@ -118,24 +118,9 @@ angular.module('app.account', [])
         $scope.validForm();
 
         $source.$user.save( {groupids: $scope.od.groups } ,$scope.user,
-            function(resp) {
-                // 添加到组; 分配几个组 调用几次; 
-                // var p = [];
-                // angular.forEach($scope.od.groups, function(v) {
-                //     p.push($source.$userGroup.put({
-                //         pk: v,
-                //         userid: resp.ret
-                //     }, {}).$promise);
-                // })
-
-                // $q.all(p).then(function() {
-                //     alert("创建成功!")
-                // })
-                 
+            function(resp) {  
             
-            }
-
-
+            } 
         );
     }
 
