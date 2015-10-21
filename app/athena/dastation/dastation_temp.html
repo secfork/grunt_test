@@ -1,35 +1,38 @@
- 
+
 <div class="panel-heading b-b-none" ng-init=" list_map = 'list' ; a = 1 ;  ">
     <div class="row  " style="padding-bottom:5px;"> 
         <div class="col-md-4 col-xs-6 m-t-xs">
-            <input tl-wrap-l class="input-sm" label="名称" ng-model="od.name"> </input>
+            <input tl-wrap-l class="input-sm input-s" label="名称" ng-model="od.name"> </input>
         </div>
         <div class="   col-md-4 col-xs-6  m-t-xs">
-            <input tl-wrap-l class="input-sm" label="ID" ng-model="od.uuid">
+            <input tl-wrap-l class="input-sm input-s" label="ID" ng-model="od.uuid">
 
             </input>
         </div>
         <div class="col-md-4 col-xs-6 m-t-xs" ng-if=" $state.includes('app.station') || $state.includes('app.show.system') ">
-            <select tl-wrap-l class="input-sm" label="区域" ng-model="od.region_id" ng-options="  r.id as r.name for r in  regions">
+            <!--jjw height-->
+            <select tl-wrap-l style="height: 24px;line-height: 24px" class="input-sm input-s" label="区域" ng-model="od.region_id" ng-options="  r.id as r.name for r in  regions">
                 <option value="">-所有区域-</option>
             </select>
         </div>
         
         <div class="col-md-4 col-xs-6 m-t-xs">
-            <select tl-wrap-l class="input-sm" label="模型" ng-model="od.model" ng-options=" s.uuid as s.name for s in  sysModels">
+            <!--jjw height-->
+            <select tl-wrap-l style="height: 24px;line-height: 24px" class="input-sm input-s" label="模型" ng-model="od.model" ng-options=" s.uuid as s.name for s in  sysModels">
                 <option value="">-所有模型-</option>
             </select>
         </div>
         <div class="col-md-4 col-xs-6 m-t-xs">
-            <input tl-wrap-l class="input-sm" label="备注" ng-model="od.desc"></input>
+            <input tl-wrap-l class="input-sm input-s" label="备注" ng-model="od.desc"></input>
         </div>
         <div class="col-xs-12 m-t-xs">
-            <button class="btn btn-sm btn-info m-l w-xs" ng-click=" loadPageData(1)"> 搜索</button>
-            <button class="btn btn-sm btn-info m-l w-xs" ng-click="  reset() "> 复位 </button>
+            <!--jjw float-right-->
+            <button class="btn btn-sm btn-info m-l w-xs float-right" ng-click=" loadPageData(1)"> 搜索</button>
+            <button class="btn btn-sm btn-info m-l w-xs float-right" ng-click="  reset() "> 复位 </button>
         </div>
         <!--
           <div class="col-md-4 col-xs-6 m-t-xs">
-            <select tl-wrap-l  class="input-sm" label="状态" ng-model="od.state">
+            <select tl-wrap-l  class="input-sm input-s" label="状态" ng-model="od.state">
                 <option value="">-所有状态-</option>
             </select>
 
@@ -37,15 +40,16 @@
          -->
     </div>
     <div class="row  ">
- 
-        <div class="radio     float-right  w-xxm     "> 
+        <!--jjw margin-top-->
+        <div class="radio     float-right  w-xxm " style="margin-top: 10px">
             <label class="i-checks">
                 <input type="radio" name="a" value="map" checked="" ng-model=" list_map">
                 <i></i>
                 <span>地图</span>
             </label>
-        </div> 
-        <div class="radio      float-right  w-xxm  "> 
+        </div>
+        <!--jjw margin-top-->
+        <div class="radio      float-right  w-xxm " style="margin-top: 10px">
             <label class="i-checks">
                 <input type="radio" name="a" value="list" checked="" ng-model=" list_map">
                 <i></i>
@@ -82,7 +86,7 @@
   -->
 
    
-    <tbody class="text-center">
+    <tbody class="text-center j_tbody">
             <tr ng-repeat="  das  in page.data " class=" ">
                 <td class="">
                     <i class="fa fa-circle " 
@@ -94,7 +98,7 @@
                      > </i>
                     <!-- 在线  ng-class = "{'alert-danger':  das.state == 0 }" -->
                 </td>
-                <td> 
+                <td>
                     <a class="text-info-dk" ng-click="goto( _$stationState , das , das )">
 
                             {{ das.name }}
@@ -177,3 +181,13 @@
     <div class=" text-center " ng-include src=" 'athena/debris/_pager.html'  "></div>
     <!-- 只有 app.proj.prop 路由  才显示   -->
 </div>
+
+<!--jjw-->
+<style>
+    .flip-content>tr>th{
+        font-weight: bold;
+        font-size: 12px;
+        height: 38px;
+        line-height: 38px;
+    }
+</style>
