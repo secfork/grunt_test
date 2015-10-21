@@ -26,6 +26,8 @@ angular.module('app.system', [])
 
 
         $scope.updataORdel = "del";
+
+        $scope.list_map = "list";
   
         $scope.od = { } ; 
         $scope.page = {};
