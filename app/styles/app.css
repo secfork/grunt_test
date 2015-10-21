@@ -6,7 +6,9 @@ hr {
 }
  
 input, select { 
-  border-color: #cfdadd;
+  /*border-color: #cfdadd;*/
+    /*jjw*/
+    border-color: #CCCCCC;
 }
 
 .input {
@@ -18,6 +20,21 @@ input, select {
   font-size: 14px;
   border: 1px solid #ccc;
 
+}
+
+/*jjw input-l input-s*/
+.input-l{
+    height: 34px;
+    line-height: 34px;
+    font-size: 14px;
+    font-weight: normal;
+}
+.input-s{
+    height: 24px;
+    line-height: 24px;
+    font-size: 10px;
+    font-weight: normal;
+    padding: 0px;
 }
 
 
@@ -2547,6 +2564,12 @@ fieldset[disabled] .i-checks input + i:before {
 }
 
 
+/*jjw background*/
+.bg-normal{
+    background-color: #eff3f4;
+}
+
+
 .bg-gd {
   background-image: -webkit-gradient(linear,left 0,left 100%,from(rgba(40,50,60,0)),to(rgba(40,50,60,0.075)));
   background-image: -webkit-linear-gradient(top,rgba(40,50,60,0),0,rgba(40,50,60,0.075),100%);
@@ -3499,6 +3522,10 @@ a.text-black:hover {
 }
 .text-xs {
   font-size: 12px;
+}
+/*jjw*/
+.text-xsm{
+  font-size: 10px;
 }
 .text-xxs {
   text-indent: -9999px;
