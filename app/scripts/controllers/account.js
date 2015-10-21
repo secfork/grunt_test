@@ -91,6 +91,13 @@ angular.module('app.account', [])
                     ccpass: false
                 };
                 $scope.user = angular.copy(user);
+
+                // 得到 user 的groups 信息 ; 
+                
+
+
+
+
                 delete $scope.user.password;
 
                 $scope.done = function() {
@@ -587,19 +594,16 @@ angular.module('app.account', [])
     }
 
     $scope.ee = function(e) {
-        //@if  append
-
+        //@if  append 
         console.log(e);
         //@endif 
-    }
-
+    } 
 
     $scope.saveAuthor = function(scope, group, e) {
 
         var promise = $(e.target).parent("form").serializeArray().map(function(v) {
             return v.name;
-        })
-
+        }) 
 
         $source.$permission.put({
             source: "account",
