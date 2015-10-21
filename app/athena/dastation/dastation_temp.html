@@ -1,6 +1,7 @@
  
+ 
 <div class="panel-heading b-b-none" > 
-    <div class="row  " style="padding-bottom:5px;"> 
+    <div class="row  " style="padding-bottom:5px;">  
         <div class="col-md-4 col-xs-6 m-t-xs">
             <input tl-wrap-l class="input-sm input-s" label="名称" ng-model="od.name"> </input>
         </div>
@@ -43,11 +44,12 @@
 
     <div class="row  ">
         <!--jjw margin-top-->
-        <div class="radio     float-right  w-xxm " style="margin-top: 10px">
-            <label class="i-checks">
+        <div class="radio     float-right  w-xxm " 
+            style="margin-top: 10px">
+            <label class="i-checks"> 
                 <input type="radio"   value="map"  
                         ng-model="op.lm">
-                <i></i>
+                <i></i> 
                 <span>地图</span>
             </label>
         </div>
@@ -88,8 +90,7 @@
  
 <!--  未设置:灰,  在线 :绿 ,, 离线:红,  故障:橙色
  unset,online,offline,comm_failure
-  -->
-
+  --> 
    
     <tbody class="text-center j_tbody">
             <tr ng-repeat="  das  in page.data " class=" ">

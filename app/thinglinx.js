@@ -307,9 +307,7 @@ var app = angular.module('thinglinx', [
                 templateUrl: "athena/show/alarm.html",
                 controller: "show_alarm"
             })
-
-
-
+ 
 
             //===========================================================
 

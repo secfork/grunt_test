@@ -70,7 +70,6 @@ angular.module('app.account', [])
         $scope.loadPageData(1);
         //}
     };
-
     // 加载所有 角色 信息;
 
 
