@@ -40,6 +40,13 @@ angular.module('app.account', [])
         groups: undefined
     };
 
+    var  loadGroupsPromise = $source.$userGroup.query( {currentPage:1}).$promise ;
+
+    loadGroupsPromise.then( function( resp ){
+        $scope.groups = resp.data ;
+    }); 
+
+
     // 添加用户时 所属的 组;
 
     $scope.loadPageData = function(pageNo) {
@@ -50,8 +57,8 @@ angular.module('app.account', [])
         $source.$user.query(d, function(resp) {
             $scope.page = resp;
             $scope.page.currentPage = pageNo;
-        })
-    }
+        });
+    };
 
     $scope.tabToUsers = function() {
         //if( !$scope.page.data){
@@ -62,18 +69,9 @@ angular.module('app.account', [])
         $scope.op.confirm_password = undefined;
         $scope.loadPageData(1);
         //}
-    }
+    };
 
     // 加载所有 角色 信息;
-
-
-
-    $source.$userGroup.query({
-        currentPage: 1
-    }, function(resp) {
-        $scope.groups = resp.data;
-        // $scope.lgp = true ; 
-    })
 
 
     // 更改user ;
@@ -82,6 +80,7 @@ angular.module('app.account', [])
     $scope.editUser = function(arr, user, index) {
         $modal.open({
             templateUrl: "athena/account/users_edit.html",
+            resolve: { g: null   ,  d: loadGroupsPromise } ,
             controller: function($scope, $modalInstance) {
                 $scope.__proto__ = S;
                 $scope.isEdit = true;
@@ -92,9 +91,8 @@ angular.module('app.account', [])
                 };
                 $scope.user = angular.copy(user);
 
-                // 得到 user 的groups 信息 ; 
-                
-
+                // 得到 user 的groups 信息 ;  
+                $user.get({pk:"groups" , "user_id": user.id }).$promise;
 
 
 
@@ -110,19 +108,17 @@ angular.module('app.account', [])
                 }
             }
         })
-    }
+    };
 
 
-    $scope.createUser = function() {
-
-        $scope.validForm();
-
+    $scope.createUser = function() { 
+        $scope.validForm(); 
         $source.$user.save( {groupids: $scope.od.groups } ,$scope.user,
             function(resp) {  
-            
+                angular.alert("创建用户成功");
             } 
         );
-    }
+    };
 
 
     $scope.delUser = function(arr, u, i) {
@@ -137,9 +133,9 @@ angular.module('app.account', [])
                     next();
                 },
                 next
-            )
-        })
-    }
+            );
+        });
+    };
 
 })
 
