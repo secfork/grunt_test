@@ -25,6 +25,8 @@ angular.module('app.system', [])
  
 
 
+       
+
         $scope.updataORdel = "del";
   
         $scope.od = { } ; 
