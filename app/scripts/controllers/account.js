@@ -37,7 +37,7 @@ angular.module('app.account', [])
     $scope.user = {};
     $scope.op = {};
     $scope.od = {
-        groups: undefined
+        groups: [ "161" ]
     };
 
     var  loadAllGroupsPromise = $source.$userGroup.query( {currentPage:1}).$promise ;
@@ -78,8 +78,12 @@ angular.module('app.account', [])
     $scope.editUser = function(arr, user, index) {
         $modal.open({
             templateUrl: "athena/account/users_edit.html",
-            resolve:{   g:  $source.user.get({pk:"groups" , user_id: user.id}).$promise,
-                        d: loadAllGroupsPromise
+            resolve:{   g:  function(){
+                                return $source.$user.get({pk:"groups" , user_id: user.id}).$promise ;
+                            }, 
+                        d:  function(){ 
+                                return loadAllGroupsPromise ;
+                        }
                     } ,
             controller: function($scope, $modalInstance , g ) {
                 $scope.__proto__ = S;
@@ -89,10 +93,17 @@ angular.module('app.account', [])
                     isEdit: true,
                     ccpass: false
                 };
+
+
+                // $("#form-field-select-2").trigger("chosen:updated"); 
+                // 
+
+                $scope.od = { groups: g.ret.map( function(v){ return v.id +""})};
+                
                 $scope.user = angular.copy(user);
 
                 // 得到 user 的groups 信息 ;  
-                $user.get({pk:"groups" , "user_id": user.id }).$promise;
+                // $user.get({pk:"groups" , "user_id": user.id }).$promise;
 
 
 
@@ -107,8 +118,7 @@ angular.module('app.account', [])
             }
         })
     };
-
-
+ 
     $scope.createUser = function() { 
         $scope.validForm(); 
         $source.$user.save( {groupids: $scope.od.groups } ,$scope.user,

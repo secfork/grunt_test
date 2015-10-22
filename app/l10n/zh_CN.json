@@ -85,6 +85,8 @@
     "ER_PROFILE_REF":"配置项使用中",
     "Er_ACCOUNT_EXIST":"该Account名已被占用",
     "ER_DELETE_SUPER_USER":"管理员账户不可删除",
+
+    "ER_DUP_ENIRY":"_ ER_DUP_ENIRY _",
  
 
 
