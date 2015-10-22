@@ -419,7 +419,6 @@ angular.module('app.directives', ['pascalprecht.translate'])
             var label = '<label class= " col-sm-3 col-sm-offset-1 control-label   "  > ' + ' <span   translate="' + $attrs.label + '"  ></span> ' + ' </label>',
 
                 marklabel = '<label class= " col-sm-3 col-sm-offset-1 control-label   "  > ' + ' <span   translate="' + $attrs.label + '"  ></span> ' + ' <span class="text-danger font-bold">*</span>' + ' </label>',
-
                 wrap_input = '<div class="form-group " ><div class=" col-sm-7"></div></div>',
 
                 r = $ele.attr("required"),
@@ -433,7 +432,11 @@ angular.module('app.directives', ['pascalprecht.translate'])
             if ($ele.is('input , textarea, select')) {
                 cls = "form-control";
                 $ele.addClass(cls).wrap($compile(wrap_input)($scope));
-                l = r ? ($compile(marklabel)($scope)) : ($compile(label)($scope));
+
+//                jjw
+//                l = r ? ($compile(marklabel)($scope)) : ($compile(label)($scope));
+
+                l = $compile(label)($scope);
                 $ele.parent().before(l);
                 valid($scope, $ele, $attrs, $translate, $compile, modelCtrl);
             } else {
@@ -518,12 +521,14 @@ angular.module('app.directives', ['pascalprecht.translate'])
             //cls = (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") ?   "form-control"  :  "form-control no-border";
 
             $ele.addClass(cls).wrap($compile(wrap_input)($scope));
+//            jjw
+//            if (r) {
+//                l = $compile(marklabel)($scope);
+//            } else {
+//                l = $compile(label)($scope);
+//            }
+            l = $compile(label)($scope);
 
-            if (r) {
-                l = $compile(marklabel)($scope);
-            } else {
-                l = $compile(label)($scope);
-            }
             $ele.parent().before(l);
             valid($scope, $ele, $attrs, $translate, $compile, modelCtrl);
 

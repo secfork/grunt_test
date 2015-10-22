@@ -214,6 +214,10 @@ tbody {
   padding-top: 20px;
 }
 
+/*jjw p-b-0*/
+.p-b-0{
+  padding-bottom: 0px;
+}
 
 .p-b-5{
   padding-bottom: 5px;
@@ -748,7 +752,9 @@ a.list-group-item:focus {
 }
 .table-striped > tbody > tr:nth-child(odd) > td,
 .table-striped > tbody > tr:nth-child(odd) > th {
-  background-color: #fafbfc;
+    /*jjw bg*/
+  /*background-color: #fafbfc;*/
+    background-color: #f7f7f7;
 }
 .table-striped > thead > th {
   background-color: #fafbfc;
@@ -757,6 +763,17 @@ a.list-group-item:focus {
 .table-striped > thead > th:last-child {
   border-right: none;
 }
+
+/*jjw table*/
+.j_table th,.j_table td{
+    font-size: 14px;
+    height: 38px;
+    line-height: 38px !important;
+}
+.j_table th{
+    font-weight: bold !important;
+}
+
 .well,
 pre {
   background-color: #edf1f2;
@@ -1580,6 +1597,20 @@ body {
   border-radius: 2px;
   outline: 0 !important;
 }
+/*jjw button*/
+.btn-s{
+    font-size: 10px;
+    height:22px;
+}
+.btn-m{
+    font-size: 10px;
+    height:30px;
+}
+.btn-l{
+    font-size: 14px;
+    height:34px;
+}
+
 .btn-link {
   color: #58666e;
 }
