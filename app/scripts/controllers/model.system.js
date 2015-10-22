@@ -413,9 +413,7 @@ angular.module("app.model.system", [])
                 
                 //@if  append
                   console.log(" 查找 dev name =" , scope.dev_name );
-                //@endif 
-
-             
+                //@endif  
  
         }
 

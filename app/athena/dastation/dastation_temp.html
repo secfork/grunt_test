@@ -49,11 +49,11 @@
     </div>
  
     <!--jjw bg m-t-->
-    <div class="row bg-white m-t-sm">
+    <div class="row bg-white m-t-sm" ng-init=" lm = 'list' ">
         <!--jjw margin-top margin-bottom-->
         <div class="radio     float-right  w-xxm m-t-md m-b-md">
             <label class="i-checks">
-                <input type="radio"   value="map" checked="" ng-model=" op.lm ">
+                <input type="radio"   value="map" checked="" ng-model=" lm ">
                 <i></i> 
                 <span>地图</span>
             </label>
@@ -62,7 +62,7 @@
         <div class="radio      float-right  w-xxm m-t-md m-d-md " style="margin-top: 20px">
             <label class="i-checks">
                 <input type="radio"   value="list" 
-                        ng-model="op.lm">
+                        ng-model="lm">
                 <i></i>
                 <span>列表</span>
             </label>
@@ -71,7 +71,7 @@
 </div>
  
  
-<div class="panel-body b-t-none table-responsive  no-padder   b-t " ng-switch on="op.lm">
+<div class="panel-body b-t-none table-responsive  no-padder   b-t " ng-switch on="lm">
 
     <!--jjw table-striped j_table-->
     <table ng-switch-when="list" class=" table  table-hover  table-striped j_table"> 

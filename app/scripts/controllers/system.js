@@ -24,13 +24,12 @@ angular.module('app.system', [])
         }
  
 
-        $scope.op = { lm :"list" };
+        
 
        
 
         $scope.updataORdel = "del";
-
-        $scope.lm = {list_map : "list"};
+ 
     
         $scope.od = { } ; 
         $scope.page = {};

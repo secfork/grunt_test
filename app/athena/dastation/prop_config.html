@@ -45,20 +45,16 @@
                 {{ t.ticket || "无Ticket !" }}
                 <!--  <a class = "fa fa-copy text-success"></a> -->
             </div>
-            <!--@if append --> 
-                t = {{t}} 
+            <!--@if append -->
+            t = {{t}}
             <!--@endif -->
         </div>
     </div>
- 
     <!--jjw dashed-->
     <div class="line b-b line-dashed"></div>
-
     <!--   托管  daserver  模式   sysmodel.mode ==1 &&  sysmodel.comm_type == 1  -->
-    <div class="  text-left m-t-xs m-b   "  ng-if=" !nT ">
-        <h5 class="m-l-xs padder-md wrapper-sm"> 网络参数 </h5> 
-
-
+    <div class="  text-left m-t-xs m-b   " ng-if=" !nT ">
+        <h5 class="m-l-xs padder-md wrapper-sm"> 网络参数1 </h5>
         <ng-include src="  'athena/dastation/_prop_daserver_network.html'  "></ng-include>
     </div>
     <!--

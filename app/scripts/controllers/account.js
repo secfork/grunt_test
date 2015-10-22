@@ -95,12 +95,12 @@ angular.module('app.account', [])
                 };
 
 
-                 // "liszt:updated"事件，这样Chosen就会对更新过内容后的select
+                // "liszt:updated"事件，这样Chosen就会对更新过内容后的select
                 // 选择框重新进行渲染。  
                 //  $("#form-field-select").trigger("chosen:updated");   
                 //  在 ui-jq 库中修改, 调用chonse插件是 初始化选项; 
-
-                $scope.od = { groups: g.ret && g.ret.map( function(v){ return v.id +"" })};
+                var  oldgroups =  ( g.ret || (g.ret = []) ).map( function(v){ return v.id +"" });
+                $scope.od = { groups: oldgroups };
                 
                 $scope.user = angular.copy(user);
  
@@ -110,8 +110,45 @@ angular.module('app.account', [])
                     $scope.validForm();
                     $source.$user.put({}, $scope.user, function() {
                         angular.extend(user, $scope.user);
-                            
-                        
+                        // 用户组 更改时 ; 
+                        // 新就 groups 比较 来判断是否要 增 删 ; 
+                        // old = []  ; 
+                        // new = [] ; 
+                        var  toDel =[], 
+                             di;
+
+                        // 新组中有 老组的元素,移除; 
+                        // 新组中 无 老组的元素 ; 加入 toDel ; 
+                        // 新组新组中有剩余  ; 加入  toAdd ;     
+                        oldgroups.forEach( function( v , i ){
+                            di = $scope.od.groups.indexOf(v);
+                            if(di < 0){
+                                toDel.push(v);
+                            }else{
+                                $scope.od.groups.splice( di , 1); 
+                            } 
+                        });
+
+
+                        var  toAdd = $scope.od.groups;
+                        var  toAdd = $scope.od.groups; 
+                         //@if  append
+                            console.log(" 需删除---的组=", toDel);
+                            console.log(" 需添加+++的组=", $scope.od.groups);
+                         //@endif 
+
+
+                        // toDel  ,  toADd = $scope.od.groups ;
+                        // 删除项;
+                        toDel.forEach( function(v){
+                            $source.$userGroup.delete( {pk:v, userid: user.id});
+                        });
+
+                        // 增加项 ;
+                        $scope.od.groups.forEach( function(v){
+                            $source.$userGroup.put( {pk:v ,  userid: user.id }, null);
+                        });
+ 
 
 
                         $scope.cancel();

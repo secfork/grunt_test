@@ -127,8 +127,7 @@
 
      $scope.$popNav($scope.project.name + "(系统列表)", $state);
 
-     $scope.updataORdel = "updata";
-     $scope.lm = {list_map : "list"};
+     $scope.updataORdel = "updata"; 
 
 
      $source.$sysModel.get({
