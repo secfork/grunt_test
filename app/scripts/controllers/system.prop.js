@@ -582,18 +582,7 @@ angular.module('app.system.prop', [])
                                 })
                             },
                             next
-                        ) 
-                       
-                        // // 激活系统; 
-                        // $source.$system.active({  pk: $scope.station.uuid  }, function() {
-                        //     $scope.station.state = 1;
-                        //     // assign 系统; 
-                        //     next();
-                        //     return assignSystem();
-                        // }, next).then(function() {
-                        //     // 保存网络参数 
-                        //     saveDaServer().then(next);
-                        // }, next );
+                        )  
 
                     })
                 } else if( $scope.station.state == 1  &&  ( !$scope.cmway_port )   ) { 
@@ -612,8 +601,7 @@ angular.module('app.system.prop', [])
                     var d = {
                         pk: $scope.station.uuid,
                         driver_id: $scope.daserver.params.driverid
-                    };
-
+                    }; 
                     var b = $source.$system.assign(d).$promise;
                     b.then(function(resp) {
                         $scope.cmway_port = resp.ret; // 数据中心 , 端口数据 ;  
@@ -622,19 +610,15 @@ angular.module('app.system.prop', [])
                 }
 
                 // 为激活的system , 保存 systen 的 network 参数;  
-                function saveDaServer() { // resp 
-
+                function saveDaServer() { // resp  
                     d.network = angular.toJson({
                         daserver: $scope.daserver
                     });
-                    return update(d).then(function(resp) {
-
+                    return update(d).then(function(resp) { 
                         toSave("daserver");
                         $scope.station.network = d.network;
-                    })
-
-                }
-
+                    }) 
+                } 
             }
 
             if (field == 'gateway') {

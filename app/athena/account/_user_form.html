@@ -51,34 +51,50 @@
           ui-validate=" '$value==user.password' ">
     </div>
 </div>
+
 <!--
     <select  tl-wrap-l  label="组"  ng-model="user.group_id"
         ng-options="g.id as g.name  for g in groups"
         ></select>
  -->
-<div class="form-group"  ng-if="!isEdit">
+<div class="form-group"   >
     <label class="col-sm-3 control-label">组
         <mark/>
     </label>
     
-    <div class="col-sm-9"  ng-if="groups">
-        <select ui-jq="chosen" multiple required ng-model="od.groups" class="w-md">
-            <option ng-repeat=" g in  groups " value="{{g.id}}">{{g.name}}</option>
+
+    <!-- 
+  chosen 默认值 ;  $("#form-field-select-2").trigger("chosen:updated");
+    -->
+    <div class="col-sm-9"   >
+        <select ui-jq="chosen" multiple required  
+
+                ng-model="od.groups" class="w-md" >
+             <option ng-repeat=" g in  groups " value={{g.id}} > {{g.name}} </option> -->
+             <option value="162xx"> 161xx</option>
+
         </select>
     </div>
 </div> 
 
 
+ 
 
- <select  tl-wrap-l  label="接收邮件通知"  ng-model="user.mail_notice"
-    ng-options =" o.v as o.k  for o in $sys.yesOrNo"   
-  ></select>
- <select  tl-wrap-l  label="接收短信通知"  ng-model="user.sms_notice" 
-  ng-options =" o.v as o.k  for o in $sys.yesOrNo"    
-  ></select>
+
+<select   tl-wrap-l  label="接收邮件通知"  ng-model="user.mail_notice"
+          ng-options =" o.v as o.k  for o in $sys.yesOrNo"   
+    ></select>
+<select  tl-wrap-l  label="接收短信通知"  ng-model="user.sms_notice" 
+          ng-options =" o.v as o.k  for o in $sys.yesOrNo"    
+    ></select>
 
 <input tl-wrap-l label="电子邮件" ng-model=" user.email " type="email">
 <input tl-wrap-l label="手机" ng-model="user.mobile_phone">
 <input tl-wrap-l label="地址" ng-model="user.address">
 <textarea tl-wrap-l label="备注" ng-maxlength='100' ng-model="user.desc">
 </textarea>
+
+
+<!--@if append -->
+od.groups =={{  od.groups }}
+<!--@endif -->
