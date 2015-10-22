@@ -11,11 +11,9 @@
             </select>
 
  
-            <select ng-options=" o as o.name  for  o in points   "
-                    tl-wrap 
-
-                    ng-model="op.point"
- 
+            <select ng-options=" o as o.name  for  o in points "
+                    tl-wrap  
+                    ng-model="op.point" 
 
                     label="connect 点"
                     ng-change=" isAdd && T.name = op.point.name "
