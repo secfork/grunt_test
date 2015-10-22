@@ -11,9 +11,7 @@
 <div class="modal-body  m-t-n "  ng-init="stepx={  step:0}"    >
 
 
-    <progressbar value="(stepx.step+1)*34" class="progress-xs  m-b-xs " type="success">
-        
-    </progressbar>
+    <progressbar value="(stepx.step+1)*34" class="progress-xs  m-b-xs " type="success"> </progressbar>
 
     <form name="step0"  
         ng-show="stepx.step == 0"
@@ -82,10 +80,8 @@
                         <tr ng-repeat= " c in  T.conditions "
                              ng-init="  l = c.exp.left ;
                                         r = c.exp.right ;
-                                        op = c.exp.op ;
-                                        "
-
-                         >
+                                        exp = c.exp ;
+                                    " >
                             <td>
                                 <select ng-options="  l for l in _config.verb "
                                         class = "form-control "
@@ -139,7 +135,7 @@
                             <td>
                                 <select ng-options=" o for o in _config.op"
                                         tl-default="_config.op_default"
-                                        ng-model="op"
+                                        ng-model="exp.op"
                                         class = "form-control"
 
                                 >
