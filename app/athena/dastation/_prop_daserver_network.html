@@ -3,7 +3,7 @@
 托管模式: ==>  daserver 类型;  
 
  -->
-
+ 
  
 <!--  lixq  form 更名 便于update时 验证 相应的表单 -->
 <form name="form_daserver" panelclass class="form-horizontal form-validation "
@@ -14,6 +14,7 @@
     dastation = {{ station }}
     <hr/>
     cmway_port ={{cmway_port}}
+ 
 
 <!-- @endif  -->
 
@@ -24,7 +25,7 @@
 
  -->
 
-    <div ng-if=" daserver.type =='DTU' ">
+    <div ng-if=" daserver.type =='DTU' " class="wrap-text-l">
         <select tl-wrap-l label="DTU驱动" required 
            ng-disabled="  cmway_port  "
            ng-model="daserver.params.driverid"
@@ -105,3 +106,8 @@
         </div>
     </div>
 </form>
+<style>
+    .wrap-text-l label{
+        text-align: left;
+    }
+</style>

@@ -432,7 +432,7 @@ var app = angular.module('thinglinx', [
             //
             .state('app.station', {
                     url: '/station',
-                    template: '<div ui-view  class=" gap-5  panel panel-default "></div>',
+                    template: '<div ui-view  class=" gap-5  panel panel-default no-border"></div>',
                     controller: function($scope, $state) {
                         $scope.$rootNav("管理");
                     }
