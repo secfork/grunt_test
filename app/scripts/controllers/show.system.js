@@ -74,7 +74,7 @@ angular.module('app.show.system', [])
 
 
 
-    } 
+    }
 })
 
 
@@ -89,11 +89,11 @@ angular.module('app.show.system', [])
     $scope.system = $scope.$$cache[0];
 
 
- 
+
     var sysModel = $scope.system.model,
         //td = $filter("date")(new Date(), "yyyy-MM-dd"),
         arr, d;
- 
+
     // 加载模型来干什么? 
     //  0: 展示不需要列出系统引用那个模型; 
     //  1: 获得模式来判断是否能下置点数据;  
@@ -107,7 +107,7 @@ angular.module('app.show.system', [])
 
     $scope.op = {
         start: "",
-        num: 50,
+        num: 50, // 查询点历史 返回条数;  
         end: new Date(),
         start: new Date(new Date() - 86400000),
         ala: "b", // a: 实时报警; b: 历史报警;
@@ -116,7 +116,7 @@ angular.module('app.show.system', [])
         a_int: 10000, // 实时报警; interva 时间;
         progValue: 0
     };
- 
+
     // $scope.openCalendar = function(e, exp) {
 
 
@@ -132,7 +132,7 @@ angular.module('app.show.system', [])
 
 
     $scope.loadTagPromise.then(function(resp) {
-        $scope.tags = resp.ret.tags; 
+        $scope.tags = resp.ret.tags;
     });
 
 
@@ -149,12 +149,12 @@ angular.module('app.show.system', [])
         $scope.op.his_tag = t.name;
         $state.go('app.show.system_prop.history');
     }
- 
+
 })
 
 .controller('show_system_basic', function($scope, $sys, $show) {
     // 获取是否在线; 
- 
+
 })
 
 .controller('show_system_current', function($scope, $show, $interval, $sys, $state, $filter) {
@@ -165,41 +165,57 @@ angular.module('app.show.system', [])
 
     $scope.$on("$destroy", function() {
         $interval.cancel(interval);
-    })
+    });
+
+    // 自动刷新   ;
+    $scope.auto_r = true;
 
     var names = [],
         doms_v, doms_t;
 
 
-    $scope.loadTagPromise.then(function(resp) { 
+    // 自动,手动 刷新 模式切换;  
+    $scope.switch = function() {
+        if ($scope.auto_r) { // 自动刷新; 
+
+            $scope.liveData(true, true);
+
+        } else { // false; 
+            // 取消 interval , 但是保存状态( 保持 progvalue ); 
+            $interval.cancel(interval);
+        }
+
+    }
+
+    $scope.loadTagPromise.then(function() {
         angular.forEach($scope.tags, function(v, i) {
             names.push(v.name);
         });
     })
-  
-    // 订阅数据;
+
+    // 开始订阅数据;
     $scope.progValue = 0;
-    $scope.liveData = function(need) {
+    $scope.liveData = function(need, notloadFristData) { // $last ;
         if (!need) return;
 
         if (!names.length) {
             return;
         };
 
-        doms_t = doms_t || $(".current_time"),
-            doms_v = doms_v || $(".current_val");
-
-
-
         $interval.cancel(interval);
-        getCurrent();
+
+        if (!notloadFristData) {
+            getCurrent();
+        }
+
+
         interval = $interval(function() {
 
             $scope.progValue += 1000;
             //@if  append
 
-            console.log($scope.progValue)
-                //@endif 
+            console.log($scope.progValue);
+            //@endif 
             if ($scope.progValue == $scope.op.c_int) {
                 getCurrent();
             }
@@ -208,17 +224,19 @@ angular.module('app.show.system', [])
                 $scope.progValue = 0;
             }
 
-
         }, 1000);
     }
 
 
-
+    // 单次获得 当前数据; 
     function getCurrent() {
         $show.live.get({
             uuid: $scope.system.uuid,
             tag: names
         }, function(resp) {
+
+            doms_t = doms_t || $(".current_time");
+            doms_v = doms_v || $(".current_val");
 
             $.each(resp.ret, function(i, d) {
                 if (!d) {
@@ -231,15 +249,17 @@ angular.module('app.show.system', [])
                 doms_v.eq(i).text(d.pv);
                 doms_t.eq(i).text(t);
             })
-
+             
         });
     }
 
+    $scope.getCurrent = getCurrent;
 
 
+    // 下置数据; 
     $scope.liveWrite = function(t, v) {
         //console.log(arguments);  // String system_id , String name ,String value
-        if (!t) return; 
+        if (!t) return;
         var d = {};
         d[t.name] = v;
         $show.liveWrite.save({
@@ -322,7 +342,7 @@ angular.module('app.show.system', [])
         });
 
     }
- 
+
 })
 
 .controller('show_system_alarm', function($scope, $show, $interval, $modal, $sys) {
@@ -359,12 +379,14 @@ angular.module('app.show.system', [])
         };
 
         $show.alarm.get(angular.extend(od, pg), function(resp) {
-            $scope.page.data = resp.data; 
-            $scope.page.total = resp.total ;
-            $scope.page.currentPage = pageNo ;
-            if( !resp.data.length){
-                angular.alert({ title:"无活跃报警数据"})
-            } 
+            $scope.page.data = resp.data;
+            $scope.page.total = resp.total;
+            $scope.page.currentPage = pageNo;
+            if (!resp.data.length) {
+                angular.alert({
+                    title: "无活跃报警数据"
+                })
+            }
         })
     }
 
@@ -372,7 +394,7 @@ angular.module('app.show.system', [])
         if ($scope.op.ala == "a") { // 活跃报警
             $scope.getActiveAlarm(pageNo);
         } else { //  全部活跃; 
-            $scope.queryAlarm(pageNo); 
+            $scope.queryAlarm(pageNo);
         }
     }
 
@@ -386,14 +408,14 @@ angular.module('app.show.system', [])
     // }
 
     // 点击按钮 查询全部报警;  
-    $scope.queryAlarm = function(pageNo) { 
+    $scope.queryAlarm = function(pageNo) {
         var d = {},
             op = $scope.op,
             d1 = op.start.getTime(),
             d2 = op.end.getTime();
- 
 
-        d.start = d1 < d2 ? d1 : d2, 
+
+        d.start = d1 < d2 ? d1 : d2,
             d.end = d1 < d2 ? d2 : d1;
         //@if  append
 
@@ -405,12 +427,14 @@ angular.module('app.show.system', [])
             d.itemsPerPage = $sys.itemsPerPage;
 
         $show.alarm.save(d, null, function(resp) {
-            $scope.page.data = resp.data; 
-            $scope.page.total = resp.total ;
+            $scope.page.data = resp.data;
+            $scope.page.total = resp.total;
             $scope.page.currentPage = pageNo;
-            if( !resp.data.length){
-                angular.alert({ title:"无报警数据"})
-            }  
+            if (!resp.data.length) {
+                angular.alert({
+                    title: "无报警数据"
+                })
+            }
         })
     }
 

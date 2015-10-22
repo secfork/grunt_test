@@ -1,21 +1,45 @@
-<div class="panel-heading  ">
+<div class="panel-heading   ">
+        
+        <form class="form-inline"    >
+            
+            <div class="input-group "> 
+                <div class="btn btn-sm    input-group-addon">搜索</div>
+                <input type="text" class="form-control"  ng-model="f_name"   >
+            </div>
 
-<button class="btn btn-sm btn-info  " ng-click="d_call( system   ,0)" token="5000" > 召唤实时 </button>
-<button class="btn btn-sm btn-info  " ng-click="d_call( system  , 1 )" token="5000" > 召唤参数 </button>
-<button class="btn btn-sm btn-info  " ng-click="d_call( system  , 2 )" token="5000" > 召唤所有 </button>
-    
+            <!--     
+            <button class="btn btn-sm btn-info  w-xs " ng-click="d_call( system   ,0)" token="5000" > 召唤实时 </button>
+            <button class="btn btn-sm btn-info  w-xs " ng-click="d_call( system  , 1 )" token="5000" > 召唤参数 </button>
+             -->
+
+            <button class="btn btn-sm btn-info  w-xs" ng-click="d_call( system  , 2 )" 
+                popover="xxxx" popover-trigger="mouseenter"
+                token="5000"> 召唤所有 </button>
+      
+      
+            <label class="checkbox i-checks  "  >
+                <input type="checkbox"  ng-model="auto_r"  ng-change="switch()" >
+                <i></i> <span> 自动刷新</span>
+            </label>
+
+            <button class="btn btn-sm btn-info  w-xs"  
+                ng-show=" !auto_r"
+                ng-click=" getCurrent() "
+                token
+                >  刷新 </button>
+             
+            <span ng-show=" auto_r">
+                <progressbar class="progress-striped   
+                   m-b-n-xs  w  inline " animate="false" value=" progValue / 100  " type="success">
+                </progressbar>
+                
+            </span>    
+
+        </form>
  
-  <progressbar class="progress-striped   m-t-xs  m-b-none  w pull-right"
-               animate="false"   value=" progValue / 100  " type="success">
-                            
-
-  </progressbar>
-                    
  
 
 </div>
- 
-
 <div class="panel-body table-responsive no-padder">
     <table class=" table   table-bordered ">
         <thead class="flip-content">
@@ -26,7 +50,9 @@
             <th class="w"> </th>
         </thead>
         <tbody>
-            <tr ng-repeat="t in  tags" ng-init=" liveData( $last )" class="hover">
+            <tr ng-repeat="t in  tags | filter:{ name : f_name }"
+                ng-init=" liveData( $last )" class="hover">
+
                 <td class="full-td">
                     {{t.name}}
                 </td>
@@ -39,17 +65,14 @@
      并做对应的输入框/下拉框等 -->
                     <input class="input h-30 " ng-model="v">
                     <!-- <tl-input    ></tl-input>-->
-                    <button class="btn btn-info btn-xs" 
-                     ng-click="liveWrite( t, v , this )" token="5000" >下置</button>
+                    <button class="btn btn-info btn-xs" ng-click="liveWrite( t, v , this )" token="5000">下置</button>
                     <span id="current_msg_{{t}}" class="w">  {{ msg }}</span>
                 </td>
                 <td>
- 
-                    <button class="btn btn-info btn-xs"   ng-click="goHis(t)">查看历史</button>
+                    <button class="btn btn-info btn-xs" ng-click="goHis(t)">查看历史</button>
                     <!-- 
                     <button class="btn btn-info btn-xs" ng-show="t.save_log" ng-click="goHis(t)">查看历史</button>
                      -->
- 
                 </td>
             </tr>
         </tbody>
