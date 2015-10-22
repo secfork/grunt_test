@@ -81,6 +81,22 @@ tbody {
 }
 
 
+/*lixq system status  :unset,online,offline,comm_failure
+未设置:灰,  在线 :绿 ,, 离线:红,  故障:橙色
+*/
+.unset{
+  color: grey;
+}
+.online{
+  color: green;
+}
+.offline{
+  color: red;
+}
+.comm_failure{
+  color: orange;
+}
+
 
 
 .hex ul  {
