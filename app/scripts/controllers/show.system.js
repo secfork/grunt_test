@@ -229,25 +229,25 @@ angular.module('app.show.system', [])
 
 
     // 单次获得 当前数据; 
+    var x = {  src: null,  pv: null} , 
+        t ;
     function getCurrent() {
+        
+        // $scope.progValue = 10000;
+        
         $show.live.get({
             uuid: $scope.system.uuid,
             tag: names
         }, function(resp) {
 
             doms_t = doms_t || $(".current_time");
-            doms_v = doms_v || $(".current_val");
-
-            $.each(resp.ret, function(i, d) {
-                if (!d) {
-                    d = {
-                        src: null,
-                        pv: null
-                    };
-                };
+            doms_v = doms_v || $(".current_val"); 
+            
+            $.each(resp.ret, function(i, d) { 
+                d = d || x  ;
                 t = $filter("date")(d.src, 'MM-dd HH:mm:ss');
-                doms_v.eq(i).text(d.pv);
-                doms_t.eq(i).text(t);
+                d.pv &&  doms_v.eq(i).text(d.pv   );
+                t    &&  doms_t.eq(i).text(t);
             })
              
         });

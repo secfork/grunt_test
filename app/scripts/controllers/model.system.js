@@ -454,26 +454,27 @@ angular.module("app.model.system", [])
             return promise;
         }
 
+
+
+        // 组织 device 的kv 形式;
+        $scope.loadSysDev().then( function(){
+                //  // 加载 sys device ;  放到下面发昂只 deivice 增删时, devKV 跟着改变; 
+                $scope.devicesKV={};
+                $scope.sysdevices.forEach( function(v,i){
+                    $scope.devicesKV[v.id] = v ; 
+                });
+        })
+
+
         // $scope.prof_uuid = 111
         // profile ng-chage ;   tag 比较特殊 没profile 也可以创建; 
         $scope.loadSysTag = function(prof_uuid) {
             // { profile_id: $scope.profile } 
             if (prof_uuid) {
                 // 有profile时 ; 去检索是否连接了设备; 
-                var    promise_tag    = $source.$sysLogTag.get({ profile: prof_uuid }).$promise ,
-                       promise_device = $scope.loadSysDev() ;
-
-                $q.all([ promise_tag , promise_device ]).then( function( resp ){
-                    // 组织 device 的kv 形式;
-                    //  // 加载 sys device ;  放到下面发昂只 deivice 增删时, devKV 跟着改变; 
-                    $scope.devicesKV={};
-                    $scope.sysdevices.forEach( function(v,i){
-                        $scope.devicesKV[v.id] = v ; 
-                    });
-
+                var    promise_tag    = $source.$sysLogTag.get({ profile: prof_uuid }).$promise ;
+                $q.all([ promise_tag , $scope.loadSysDev() ]).then( function( resp ){
                     $scope.systags = resp[0].ret;
-
-
                 }) 
             } else {
                 // query ; 无profile时 ;  跟定不连接  设备;  

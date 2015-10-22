@@ -111,7 +111,7 @@ angular.module('app.account', [])
                     $source.$user.put({}, $scope.user, function() {
                         angular.extend(user, $scope.user);
                             
-
+                        
 
 
                         $scope.cancel();
