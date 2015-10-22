@@ -1,7 +1,14 @@
  
+<!--jjw background-->
+<div class="panel-heading b-b-none p-t-0 p-b-0"  
+ style="background-color: #eff3f4">
+    <div class="row  " style="padding-bottom:5px;"> 
  
-<div class="panel-heading b-b-none" > 
-    <div class="row  " style="padding-bottom:5px;">  
+
+
+
+
+
         <div class="col-md-4 col-xs-6 m-t-xs">
             <input tl-wrap-l class="input-sm input-s" label="名称" ng-model="od.name"> </input>
         </div>
@@ -41,20 +48,18 @@
          -->
     </div>
  
-
-    <div class="row  ">
-        <!--jjw margin-top-->
-        <div class="radio     float-right  w-xxm " 
-            style="margin-top: 10px">
-            <label class="i-checks"> 
-                <input type="radio"   value="map"  
-                        ng-model="op.lm">
+    <!--jjw bg m-t-->
+    <div class="row bg-white m-t-sm">
+        <!--jjw margin-top margin-bottom-->
+        <div class="radio     float-right  w-xxm m-t-md m-b-md">
+            <label class="i-checks">
+                <input type="radio"   value="map" checked="" ng-model=" op.lm ">
                 <i></i> 
                 <span>地图</span>
             </label>
         </div>
-        <!--jjw margin-top-->
-        <div class="radio      float-right  w-xxm " style="margin-top: 10px">
+        <!--jjw margin-top margin-bottom-->
+        <div class="radio      float-right  w-xxm m-t-md m-d-md " style="margin-top: 20px">
             <label class="i-checks">
                 <input type="radio"   value="list" 
                         ng-model="op.lm">
@@ -65,15 +70,15 @@
     </div>
 </div>
  
-<div class="panel-body b-t-none table-responsive  no-padder   b-t "
-     ng-switch on="op.lm" >
  
-  
-    <table ng-switch-when="list" class=" table  table-hover  table-bordered ">
+<div class="panel-body b-t-none table-responsive  no-padder   b-t " ng-switch on="op.lm">
+
+    <!--jjw table-striped j_table-->
+    <table ng-switch-when="list" class=" table  table-hover  table-striped j_table"> 
         <thead class="flip-content">
             <tr>
                 <th width="5%" translate="th.th6">状态</th>
-                <th width="10%" translate="th.th7">系统名称</th>
+                <th width="20%" translate="th.th7">系统名称</th>
                 <th width="10%">ID</th>
                 <!--<th   translate="dastation_grid.deviceno"   >设备号</th>-->
                 <th width="10%" translate="th.th8">区域</th>
@@ -81,7 +86,7 @@
                 <th width="10%" ttranslate="th.th9"> 定位</th>
                 <th width="15%" translate="th.th11" ng-if=" !isShowModul  ">
                     同步配置 </th>
-                <th width="30%">备注</th>
+                <th width="20%">备注</th>
                 <th width="15%" ng-if=" !isShowModul"></th>
             </tr>
         </thead>
@@ -92,7 +97,7 @@
  unset,online,offline,comm_failure
   --> 
    
-    <tbody class="text-center j_tbody">
+    <tbody class="text-center">
             <tr ng-repeat="  das  in page.data " class=" ">
                 <td class="">
                     <i class="fa fa-circle " 
@@ -181,19 +186,14 @@
 </div>  
 
 <div class="panel-footer ">
-    <button ng-if=" !isShowModul " class="btn btn-info  dker btn-sm   m-l  pos-abt " ng-click=" goto('app.station.add' , null , project ) ">
+    <!--jjw m-t m-d-->
+    <button ng-if=" !isShowModul " class="btn btn-info  dker btn-sm   m-l  pos-abt m-t m-b" ng-click=" goto('app.station.add' , null , project ) ">
         添加系统
-    </button> 
-    <div class=" text-center " ng-include src=" 'athena/debris/_pager.html'  "></div>
+    </button>
+    <!--jjw m-t m-d-->
+    <div class=" text-center m-t m-b" ng-include src=" 'athena/debris/_pager.html'  "></div>
     <!-- 只有 app.proj.prop 路由  才显示   -->
 </div>
 
-<!--jjw-->
 <style>
-    .flip-content>tr>th{
-        font-weight: bold;
-        font-size: 12px;
-        height: 38px;
-        line-height: 38px;
-    }
 </style>
