@@ -4,16 +4,16 @@
 
  -->
 
- 
+
 
 <form name="form" panelclass class="form-horizontal form-validation "
  ng-init="  initDaServer() ; loadSupportDtus() ;  ">
-    <!-- @if append -->
-    system.network.daserver ={{daserver}}
-<hr/>
-dastation = {{ station }}
-<hr/>
-cmway_port ={{cmway_port}}
+    <!--&lt;!&ndash; @if append &ndash;&gt;-->
+    <!--system.network.daserver ={{daserver}}-->
+<!--<hr/>-->
+<!--dastation = {{ station }}-->
+<!--<hr/>-->
+<!--cmway_port ={{cmway_port}}-->
 
     <!-- @endif  -->
 
@@ -24,7 +24,7 @@ cmway_port ={{cmway_port}}
 
  -->
 
-    <div ng-if=" daserver.type =='DTU' ">
+    <div ng-if=" daserver.type =='DTU' " class="wrap-text-l">
         <select tl-wrap-l label="DTU驱动" required 
            ng-disabled="  cmway_port  "
            ng-model="daserver.params.driverid"
@@ -105,3 +105,8 @@ cmway_port ={{cmway_port}}
         </div>
     </div>
 </form>
+<style>
+    .wrap-text-l label{
+        text-align: left;
+    }
+</style>

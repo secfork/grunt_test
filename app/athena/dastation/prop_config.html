@@ -1,7 +1,9 @@
-<div class=" bg-light  bg  panel-body     no-padder ">
-    <div class="col-md-8 col-xs-12   text-left   m-b m-t">
+<!--jjw bg-white b-b b-r b-l text-base-->
+<div class=" bg-light panel-body no-padder bg-white b-b b-r b-l text-base">
+    <!--jjw padder-->
+    <div class="col-md-8 col-xs-12   text-left   m-b m-t padder-md">
         <!--     <div class="form-group">      </div>   -->
-        <label class="col-md-3 col-md-offet-1 control-label m-t-xs">配置项</label>
+        <label class="col-md-2 col-md-offet-1 control-label m-t-xs">配置项</label>
         <div class="col-md-8">
             <select ng-model="profile" class=" form-control    " ng-options="   p as p.name for p in profiles  " ng-change="toUpdate('profile')" required>
             </select>
@@ -10,7 +12,7 @@
                          {{profile.desc}} 
             </span>
         </div>
-        <div class="col-md-9 col-md-offset-3 m-t-xs">
+        <div class="col-md-8 col-md-offset-2 m-t-xs">
             <span class="text-danger" ng-show=" needUpdate.profile ">
                             <button  class=" btn btn-sm   w-xs btn-primary "
                                      ng-click = "  updateSystem( 'profile' );  "
@@ -46,18 +48,19 @@
             </div>
 
             <!--@if append -->
-                t = {{t}}            
+                t = {{t}}
             <!--@endif -->
 
 
         </div>
     </div>
-    <div class="line b-b"></div>
+    <!--jjw dashed-->
+    <div class="line b-b line-dashed"></div>
 
     <!--   托管  daserver  模式   sysmodel.mode ==1 &&  sysmodel.comm_type == 1  -->
     <div class="  text-left m-t-xs m-b   "
          ng-if=" !nT ">
-        <h5 class="m-l-xs"> 网络参数 </h5>
+        <h5 class="m-l-xs padder-md wrapper-sm"> 网络参数 </h5>
         <ng-include src="  'athena/dastation/_prop_daserver_network.html'  "></ng-include>
     </div>
 

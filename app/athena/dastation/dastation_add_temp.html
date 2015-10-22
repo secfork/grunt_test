@@ -1,4 +1,4 @@
-<div class="panel-body table-responsive no-padder b-t-none bg-light">
+<div class="panel-body table-responsive no-padder b-t-none bg-light add">
     <h4 class="text-center">添加系统</h4>
     <form name="form" panelclass class="form-horizontal form-validation   ">
         <input tl-wrap-l label="系统名称" required ng-model="system.name">
@@ -52,3 +52,21 @@
 system = {{ system }}
 <hr/> systemModel = {{systemModel}}
 <!--@endif  -->
+
+<style>
+    .add{
+        border: 1px solid #DEE5E7 !important;
+        margin-top: 20px;
+    }
+    .add h4{
+        font-size: 14px;
+        font-weight: bold;
+        text-align: left;
+        background-color: #f6f8f8;
+        margin: 0px;
+        padding: 15px;
+        height: 45px;
+        border-bottom: 1px solid #edf1f2;
+    }
+
+</style>
