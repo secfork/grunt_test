@@ -95,23 +95,25 @@ angular.module('app.account', [])
                 };
 
 
-                // $("#form-field-select-2").trigger("chosen:updated"); 
-                // 
+                 // "liszt:updated"事件，这样Chosen就会对更新过内容后的select
+                // 选择框重新进行渲染。  
+                //  $("#form-field-select").trigger("chosen:updated");   
+                //  在 ui-jq 库中修改, 调用chonse插件是 初始化选项; 
 
-                $scope.od = { groups: g.ret.map( function(v){ return v.id +""})};
+                $scope.od = { groups: g.ret && g.ret.map( function(v){ return v.id +"" })};
                 
                 $scope.user = angular.copy(user);
-
-                // 得到 user 的groups 信息 ;  
-                // $user.get({pk:"groups" , "user_id": user.id }).$promise;
-
-
-
+ 
                 delete $scope.user.password;
 
                 $scope.done = function() {
+                    $scope.validForm();
                     $source.$user.put({}, $scope.user, function() {
                         angular.extend(user, $scope.user);
+                            
+
+
+
                         $scope.cancel();
                     }, $scope.cancel) 
                 }

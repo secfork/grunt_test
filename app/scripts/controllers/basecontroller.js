@@ -89,10 +89,11 @@ angular.module('app.basecontroller', ['ng'])
 
                     })
                 });
-                angular.alert({
-                    type: "error",
-                    title: "表单填写错误"
-                });
+                // 提示太不人道了! =.=
+                // angular.alert({
+                //     type: "error",
+                //     title: "表单填写错误"
+                // });
 
                 throw (" form invalid !!", valids.$error);
 
