@@ -1,93 +1,41 @@
 <!--  添加  sysmodel  -->
-
-<div class="modal-header "> 
+<div class="modal-header ">
     <h4 ng-if="isAdd">添加变量</h4>
     <h4 ng-if="!isAdd">编辑变量</h4>
- 
 </div>
-
 <div class="modal-body  ">
-
     <form name="form_tag" class=" form-validation form-horizontal   ">
-
-        <div  ng-if="isManageMode ">
- 
-            <select ng-options=" o as o.name  for  o in sysdevices   "
- 
-                    tl-wrap
-
-                    ng-model=" op.dev "
-                    label="设备"
-                    ng-change= " loadPoint( op.dev )"
-                    required   >
+        <div ng-if="isManageMode ">
+            <select ng-options=" o as o.name  for  o in sysdevices   " tl-wrap ng-model=" op.dev " label="设备" ng-change=" loadPoint( op.dev )" required>
                 <option value="">--请选择设备--</option>
             </select>
-
- 
-            <select ng-options=" o as o.name  for  o in points   "
-                    tl-wrap 
-
-                    ng-model="op.point"
- 
-
-                    label="connect 点"
-                    ng-change=" T.name = op.point.name "
-                    required   >
+            <select ng-options=" o as o.name  for  o in points   " tl-wrap ng-model="op.point" label="connect 点" ng-change=" T.name = op.point.name " required>
                 <option value="">--请选择DeviceModel Point--</option>
             </select>
         </div>
-
- 
         <!-- tag -->
-
-        <input tl-wrap  ng-model="T.name"    label="text.name"  required   >
-
+        <input tl-wrap ng-model="T.name" label="text.name" required>
         <!--  <input tl-wrap   label="group"    ng-model="T.group"   >
- ng-disabled = " true_conn "
+                ng-disabled = " true_conn "
          -->
-        <select tl-wrap
-               
-                ng-model="T.type"
-                ng-options = "  k  for k in $sys.tag.type"
-                label="text.type"
-                required
-        >
+        <select tl-wrap ng-model="T.type" ng-options="  k  for k in $sys.tag.type" label="text.type" required>
             <option value="">--选择点类型--</option>
- 
         </select>
-
-
-
-
-
-        <textarea tl-wrap  ng-model="T.desc" label="备注" >  </textarea>
-
-
-
-
+        <textarea tl-wrap ng-model="T.desc" label="备注"> </textarea>
     </form>
-
-
-  <!--   <div ng-show="L && hasProfile"  class="text-left b-b  m-b  "  style=" after:'14123' " >
-         <strang  class = "m-l-lg">  在配置项 {{profile.name}} 下配置点 </strang>
-    </div>
- -->
+    <!--   <div ng-show="L && hasProfile"  class="text-left b-b  m-b  "  style=" after:'14123' " >
+             <strang  class = "m-l-lg">  在配置项 {{profile.name}} 下配置点 </strang>
+        </div>
+    -->
     <form name="form_log" class=" form-validation form-horizontal   ">
-
-        <ng-include  ng-if=" L && hasProfile" src="  'athena/sysmodel/_log_part.html'  "  ></ng-include>
-
+        <ng-include ng-if=" L && hasProfile" src="  'athena/sysmodel/_log_part.html'  "></ng-include>
     </form>
-
 </div>
-
 <ng-include src=" 'athena/debris/_modal_footer.html' "></ng-include>
-
-
 <!--@if append -->
-    T= {{T}} <br>
-    op.dev  = {{ op.dev }}  <br>
-    op.devModel  = {{ op.devModel }}  <br>
-    op.point_id  = {{ op.point_id }}  <br>
-    profile = {{profile}}
+T= {{T}}
+<br> op.dev = {{ op.dev }}
+<br> op.devModel = {{ op.devModel }}
+<br> op.point_id = {{ op.point_id }}
+<br> profile = {{profile}}
 <!--@endif -->
-
