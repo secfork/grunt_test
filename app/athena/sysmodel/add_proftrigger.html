@@ -47,19 +47,26 @@ dd = {{ step1.xxx.$valid }} -->
                             <option value=""> 数值</option>
                         </select>
                     </td>
-                    <td>
+                    <td  >
                         <!-- ng-show = " c.exp.left.fn == 'PV' "    fileTag(pl)  tags_nv[tn].type 
                             删除 触发器引用的点后, 
                             pv 显示 "请选择 tag" 但是 pv的值却是 之前删除的tag 值; 
+
+                            && verifySel($elm , $ctrl)
                              
                           -->
-                        <select ng-if=" l.fn  == 'PV' " 
+                      <select ng-if=" l.fn  == 'PV' "  
                                 ng-options=" t.name as t.name for  t  in  tags_arr" 
                                 ng-model=" l.args " class="form-control  animated  animate-if" 
-                                ui-validate="  '$value != r.args && verifySel($elm)  '  " 
+                                 
+                                ui-validate="  '$value != r.args'  " 
                                 ui-validate-watch=" 'r.args' " required>
                             <option value=''> 请选择tag </option>
                         </select>
+  
+
+                        
+
 
                         <!--   ng-show = " c.exp.left.fn == 'null' "   c.exp.left.args -->
                         <input ng-if=" l.fn  == null || l.fn == 'null' " ng-model="l.args" class="form-control  animated  animate-if   " type="{{ tags_nv[r.args].type }}" placeholder='{{ typer }}' ui-validate="  ' $value != r.args' " ui-validate-watch=" 'r.args' " required></input>

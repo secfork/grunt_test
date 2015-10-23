@@ -957,11 +957,23 @@ angular.module("app.model.system", [])
         //                     删除 触发器引用的点后, 
         //                     pv 显示 "请选择 tag" 但是 pv的值却是 之前删除的tag 值; 
         //                    1: 增加 verifySel 方法; 
-        //                    2: 修改 vi-validate.js 类库 55行; 添加:  "$elm":elm ; 
+        //                    2: 修改 vi-validate.js 类库 55行; 添加:  "$elm":elm , "$ctrl":ctrl 
+        //                     
         //  -->
 
-        $scope.verifySel = function( e ){
-            return !!e.val(); 
+        var isSelectValExist ; 
+        $scope.verifySel = function( element, modelController  ){
+            console.log(  modelController );
+            
+            isSelectValExist =  !! element.val();
+            if( !isSelectValExist){
+                modelController.$modelValue = null ;
+               modelController.$setValidity("required", true );
+                modelController.$render();
+            }
+
+
+            return  isSelectValExist;
         }
 
         // prof alarm  params  为报警时! 验证十六进制 数;
