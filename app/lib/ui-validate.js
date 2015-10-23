@@ -28,6 +28,8 @@ angular.module('ui.validate', [])
       var validateFn,
           validators = {},
 
+
+
         validateExpr = scope.$eval(attrs.uiValidate);
  
 
@@ -49,7 +51,8 @@ angular.module('ui.validate', [])
         
 
           var expression = scope.$eval(exprssn, {
-            '$value': valueToValidate
+            '$value': valueToValidate ,
+            "$elm":elm
           });
            
 

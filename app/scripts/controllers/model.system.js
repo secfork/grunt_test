@@ -953,23 +953,16 @@ angular.module("app.model.system", [])
 
         }
 
-        // trigger 步骤控制; 
-        // $scope.SS=[
+        // <!-- ng-show = " c.exp.left.fn == 'PV' "    fileTag(pl)  tags_nv[tn].type 
+        //                     删除 触发器引用的点后, 
+        //                     pv 显示 "请选择 tag" 但是 pv的值却是 之前删除的tag 值; 
+        //                    1: 增加 verifySel 方法; 
+        //                    2: 修改 vi-validate.js 类库 55行; 添加:  "$elm":elm ; 
+        //  -->
 
-        //     [ {text:"下一步" , handler:"" } ,{ text:"取消", handler:"cancel()"}] ,
-
-        //     [ {text:"上一步" , handler:"" } ,{ text:"下一步", handler:""} , 
-        //       { text:"取消", handler:"cancel()"}
-        //     ] ,
-
-        //     [ {text:"上一步" , handler:"" },
-        //         {text:"创建" , handler:"" } ,
-        //         {text:"更新" , handler:"" },
-        //       { text:"取消", handler:"cancel()"}
-        //     ] 
-        // ] ; 
-
-
+        $scope.verifySel = function( e ){
+            return !!e.val(); 
+        }
 
         // prof alarm  params  为报警时! 验证十六进制 数;
         var regex = /^[0-9a-fA-F]$/;
