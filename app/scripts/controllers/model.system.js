@@ -778,29 +778,72 @@ angular.module("app.model.system", [])
 
 
 .controller("sysmodel_prof_trigger",
-    function($scope, $source, $modal, $state) {
+    function($scope, $source, $modal, $state , $q ) {
 
         $scope.$popNav($scope.sysmodel.name + "(触发器)", $state);
 
         var sysmodel = $scope.sysmodel,
-            S = $scope,
-            tags_nv,
-            tags_arr;
+            S = $scope;
+            // tags_nv,
+            // tags_arr;
 
 
         $scope.byte = 32; // 32 位 报警;
 
-        $scope.loadTriggers = function(prof_uuid) {
-            // { profile_id: $scope.profile }
 
+        // 加载 Tag 数据; ; 
+         
+        var loadTagPromise =  $source.$sysTag.get({ system_model: sysmodel.uuid }).$promise ;
+         
+        loadTagPromise.then( function( resp ){
+           $scope.tags_arr = resp.ret; 
+           $scope.tags_nv = {}; 
+           $scope.tags_arr.forEach(function(v, i, ar) {
+               $scope.tags_nv[v.name] = v;
+           }); 
+        })
+
+        function  condition_parmas_tojson  ( x ){
+            x.conditions = angular.fromJson(x.conditions);
+            x.params = angular.fromJson( x.params);
+        }
+
+
+        // 加载triger ; 
+        // var lose_tag = { 'background-color':'grey' };
+        $scope.loadTriggers = function(prof_uuid) {
             if (!prof_uuid) return;
-            $source.$sysProfTrigger.get({
-                profile: prof_uuid
-            }, function(resp) {
-                $scope.triggers = resp.ret;
-            })
+            $q.all([
+                $source.$sysProfTrigger.get({ profile: prof_uuid }).$promise ,
+                loadTagPromise
+            ]).then( function( resp ){  
+                $scope.triggers = resp[0].ret;
+                $scope.triggers.forEach( function( t ){ 
+                    condition_parmas_tojson(t);
+                    // 检查tag是否存在; 
+                    
+                    angular.isArray( t.conditions ) && t.conditions.forEach( function( v ){
+                        var left = v.exp.left ,
+                            right = v.exp.right ; 
+                        if( left.fn =="PV" && !$scope.tags_nv[left.args]){
+                           left.args = null ; 
+                          // t.lose_tag = lose_tag ;
+
+                        }   
+                        if(right.fn =="PV" && !$scope.tags_nv[ right.args]){
+                            right.args = null ; 
+                            // t.lose_tag = true ;
+                        }
+
+                    }) 
+                })  
+            }) 
         }
  
+  
+
+
+
         $scope.odp = {} ; 
         $scope.loadProfilePromise.then(function() {
             $scope.odp.puuid = $scope.odp.puuid || $scope.profiles[0] && $scope.profiles[0].uuid;
@@ -823,6 +866,7 @@ angular.module("app.model.system", [])
             })
         }
 
+        // 创建 , 编辑 触发器; 
         $scope.c_u_Trigger = function(add_OR_i, trigger) {
             if (!$scope.profiles.length) { 
                 angular.alert("请先创建 系统配置!"); 
@@ -840,48 +884,17 @@ angular.module("app.model.system", [])
                         $scope.$modalInstance = $modalInstance;
 
                     if (i) { // 创建;
-                        $scope.T = a = {
+                        $scope.T  = {
                             profile: S.odp.puuid,
                             conditions: [angular.copy($sys.trigger_c)],
                             params: {}
                         };
                     } else {
-                        a = angular.copy(trigger),
-                            a.conditions = angular.fromJson(a.conditions),
-                            a.params = angular.fromJson(a.params);
-
-
-                        $scope.T = a;
+                        $scope.T  = angular.copy(trigger);  
                     }
-
-
-                    // 加载 tags ; 由 [ {tag}, ,,]  转换为 {tagNanme:tag , ...  } 形式;
-                    if (!tags_nv) {
-                        $source.$sysTag.get({
-                            system_model: sysmodel.uuid
-                        }, function(resp) {
-                            $scope.tags_arr = tags_arr = resp.ret;
-
-                            tags_nv = {};
-
-                            tags_arr.forEach(function(v, i, ar) {
-                                tags_nv[v.name] = v;
-                            });
-
-                            $scope.tags_nv = tags_nv;
-                        })
-                    } else {
-                        $scope.tags_nv = tags_nv;
-                        $scope.tags_arr = tags_arr;
-                    }
-
-
-                    // 验证 左右参数是否合法; ,
-                    // 收集 tags ;
-
-
+  
                     $scope.done = function() {
-                        var x = angular.copy(a),
+                        var x = angular.copy( $scope.T ),
                             l, r,
                             tags = {};
 
@@ -899,21 +912,24 @@ angular.module("app.model.system", [])
 
                         });
 
-                        x.conditions = angular.toJson(x.conditions),
-
-                            x.params.tags = Object.keys(tags),
-                            x.params = angular.toJson(x.params);
+                        x.conditions = angular.toJson(x.conditions), 
+                        x.params.tags = Object.keys(tags),
+                        x.params = angular.toJson(x.params);
 
 
 
                         if (i) { // 新建;
                             $source.$sysProfTrigger.save(x, function(resp) {
-                                x.id = resp.ret;
+                                condition_parmas_tojson(x);
+
+                                x.id = resp.ret; 
                                 $scope.triggers.push(x);
                                 $scope.cancel();
                             })
                         } else { // 更新;
                             $source.$sysProfTrigger.put(x, function(resp) {
+                                condition_parmas_tojson(x);
+
                                 $scope.triggers[add_OR_i] = x;
                                 $scope.cancel();
                             })
@@ -953,28 +969,7 @@ angular.module("app.model.system", [])
 
         }
 
-        // <!-- ng-show = " c.exp.left.fn == 'PV' "    fileTag(pl)  tags_nv[tn].type 
-        //                     删除 触发器引用的点后, 
-        //                     pv 显示 "请选择 tag" 但是 pv的值却是 之前删除的tag 值; 
-        //                    1: 增加 verifySel 方法; 
-        //                    2: 修改 vi-validate.js 类库 55行; 添加:  "$elm":elm , "$ctrl":ctrl 
-        //                     
-        //  -->
-
-        var isSelectValExist ; 
-        $scope.verifySel = function( element, modelController  ){
-            console.log(  modelController );
-            
-            isSelectValExist =  !! element.val();
-            if( !isSelectValExist){
-                modelController.$modelValue = null ;
-               modelController.$setValidity("required", true );
-                modelController.$render();
-            }
-
-
-            return  isSelectValExist;
-        }
+      
 
         // prof alarm  params  为报警时! 验证十六进制 数;
         var regex = /^[0-9a-fA-F]$/;

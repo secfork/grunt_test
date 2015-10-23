@@ -33,29 +33,20 @@ dd = {{ step1.xxx.$valid }} -->
             <tbody>
                 <tr ng-repeat=" c in  T.conditions " ng-init="  l = c.exp.left ;
                                                                 r = c.exp.right ;
-                                                                exp = c.exp ;
+                                                                exp = c.exp ; 
                                                                 ">
                     <td>
                         <select ng-options="  l for l in _config.verb " class="form-control " ng-model="c.verb" ng-if="$index != 0 ">
                         </select>
                     </td>
-                    <td>
-                        <!--  不能用 ng-change ,  只能用 when-change ;
-                        tl-default="_config.fn_default"
-                        -->
+                    <td> 
                         <select ng-options=" v as k for (k,v) in _config.fn" ng-model=" l.fn " ng-change="  l.args = undefined ;  " class="form-control ">
                             <option value=""> 数值</option>
                         </select>
                     </td>
                     <td  >
-                        <!-- ng-show = " c.exp.left.fn == 'PV' "    fileTag(pl)  tags_nv[tn].type 
-                            删除 触发器引用的点后, 
-                            pv 显示 "请选择 tag" 但是 pv的值却是 之前删除的tag 值; 
-
-                            && verifySel($elm , $ctrl)
-                             
-                          -->
-                      <select ng-if=" l.fn  == 'PV' "  
+                      
+                      <select ng-if=" l.fn  == 'PV' "  ng-init="verfiyTag( l )"
                                 ng-options=" t.name as t.name for  t  in  tags_arr" 
                                 ng-model=" l.args " class="form-control  animated  animate-if" 
                                  
@@ -132,10 +123,10 @@ ng-repeat = " b in s">{{b.text}}
         <button type="submit" class="btn btn-default btn-sm btn-primary w-xs" ng-click="validForm('step0') ;stepx.step = 1 ; ">下一步</button>
         <button type="submit" class="btn btn-default btn-sm btn-primary w-xs" ng-click="cancel()">取消</button>
     </div>
-    <!--  step 2 -->
-    <div ng-show="stepx.step == 1">
+    <!--  step 2 ng-disabled="step1.$invalid"  -->
+    <div ng-show="stepx.step == 1" >
         <button class="btn btn-primary btn-sm   w-xs" ng-click="stepx.step = 0 ;   ">上一步</button>
-        <button ng-disabled="step1.$invalid" class="btn btn-primary btn-sm   w-xs" ng-disabled="form.$invalid" ng-click=" validForm('step1') ; stepx.step = 2   ; ">下一步</button>
+        <button     class="btn btn-primary btn-sm   w-xs" ng-disabled="form.$invalid" ng-click=" validForm('step1') ; stepx.step = 2   ; ">下一步</button>
         <button class="btn btn-default btn-sm btn-primary w-xs" ng-click="cancel()">取消</button>
     </div>
     <!--  step 3 -->

@@ -3,13 +3,15 @@ angular.module('app.show.system', [])
 .controller("show_alarm", function($scope, $state, $source, $show, $sys, $q, $filter) {
 
 
-    $scope.$moduleNav("报警", $state);
+    $scope.$moduleNav("报警", $state); 
 
     $scope.openCalendar = function(e, exp) {
         e.preventDefault();
         e.stopPropagation();
         this.$eval(exp);
     };
+
+    $scope.page = {};
 
     // 先加载 regions ; 
     $source.$region.query({
@@ -40,18 +42,17 @@ angular.module('app.show.system', [])
         region: undefined
     };
     $scope.od = {
-        class_id: 0,
-        severity: '0',
+        class_id: null ,//0,
+        severity: null ,//'0',
         end: new Date(),
         start: new Date(new Date() - 86400000)
     };
 
 
 
-    // // 查询全部报警;  
+    // // 查询全部报警;   
 
-
-    $scope.queryAlarm = function() {
+    $scope.loadPageData = function( pageNo) {
         $scope.validForm();
         var od = angular.copy($scope.od),
             d1 = od.start.getTime(),
@@ -59,16 +60,33 @@ angular.module('app.show.system', [])
 
         od.start = d1 < d2 ? d1 : d2;
         od.end = d1 < d2 ? d2 : d1;
+        od.itemsPerPage = $sys.itemsPerPage ;
+        od.currentPage = pageNo ;
 
         var promise;
         // 活跃报警; 
+        
         if ($scope.op.active) {
             $show.alarm.get(od, function(resp) {
-                $scope.alarms = resp.ret;
+                $scope.page.data = resp.data;
+                $scope.page.total = resp.total;
+                $scope.page.currentPage = pageNo;
+                if (!resp.data.length) {
+                    angular.alert({
+                        title: "无报警数据"
+                    })
+                }
             });
         } else { // 全部报警; 
             $show.alarm.save(od, undefined, function(resp) {
-                $scope.alarms = resp.ret;
+                $scope.page.data = resp.data;
+                $scope.page.total = resp.total;
+                $scope.page.currentPage = pageNo;
+                if (!resp.data.length) {
+                    angular.alert({
+                        title: "无报警数据"
+                    })
+                }
             });
         }
 
