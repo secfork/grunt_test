@@ -1,4 +1,16 @@
 
+<div ng-init=" arrx= [ {id:'1' , name:'x'} ,{id:'2' , name:'y'}];   valx = '3'  ">
+    
+</div>
+
+<select  ng-model="valx"  ng-options = " o.id as o.name for o in arrx" >
+        <option value="">--xxxxxxxx--</option>
+</select>
+
+ valx = {{valx}}
+
+
+
 <div class="panel-heading float-left w-full  " ng-if="isModelState">
     <div class="float-left m-t-xs m-l-md m-r"> 配置项 </div>
     <div class="float-left">

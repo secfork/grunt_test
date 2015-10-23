@@ -247,8 +247,9 @@ angular.module('app.show.system', [])
                 d = d || x  ;
                 t = $filter("date")(d.src, 'MM-dd HH:mm:ss');
 
-                d.pv != null &&  doms_v.eq(i).text(d.pv   );
-                t    &&  doms_t.eq(i).text(t);
+                doms_v.eq(i).text( d.pv==null?"":d.pv    );
+             
+                t &&  doms_t.eq(i).text(t);
             })
              
         });

@@ -65,7 +65,7 @@ angular.module('ui.jq', ['ui.load']).
 
             // 如果是 chosen 插件;  要赋 初始值; 
             if(attrs.uiJq === "chosen"){ 
-                elm.val( scope.$eval( attrs.ngModel) ).trigger("chosen:updated");
+                elm.val( scope.$eval( attrs.ngModel )  ).trigger("chosen:updated");
             }
 
           }, 0, false);

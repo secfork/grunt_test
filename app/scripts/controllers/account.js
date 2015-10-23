@@ -37,7 +37,7 @@ angular.module('app.account', [])
     $scope.user = {};
     $scope.op = {};
     $scope.od = {
-        groups: [ "161" ]
+        groups: []
     };
 
     var  loadAllGroupsPromise = $source.$userGroup.query( {currentPage:1}).$promise ;
