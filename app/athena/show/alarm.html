@@ -88,7 +88,11 @@
                 <td> {{ _config[a.severity] }} </td>
                 <td> {{ a.class_id }} </td>
                 <td> {{ a.active?"活跃":"关闭" }} </td>
-                <td> <a class="text-link" ng-click="alarmMsg(a)">详细信息</a></td>
+                <td> 
+                    <a class="text-link" ng-click="showAlarmMsg(a , od.uuid)">详细信息</a>
+                    <a  ng-show=" a.active " class="text-link m-l" ng-click="conformAlarm(a , od.uuid )">确认报警</a>
+
+                </td>
             </tr>
         </tbody>
     </table>
@@ -105,6 +109,5 @@
 <!--@if append -->
 od = {{od}}
 <br/> op = {{op}}
-<hr/>
-page ={{page}}
+<hr/> 
 <!-- @endif -->

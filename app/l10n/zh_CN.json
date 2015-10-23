@@ -36,8 +36,8 @@
     "ER_DEVICE_EXISTS":"设备已经存在",
     "ER_DEVICE_NOT_EXISTS":"设备不存在",
 
-    "ER_TAG_EXISTS":"tag已经存在",  
-    "ER_TAG_NOT_EXISTS":"tag不存在",
+    "ER_TAG_EXISTS":"变量名已被占用",  
+    "ER_TAG_NOT_EXISTS":"变量不存在",
 
     "ER_DEVICE_MODEL_EXISTS":"设备模型已经存在",
     "ER_DEVICE_MODEL_NOT_EXISTS":"设备模型不存在",

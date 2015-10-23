@@ -1,9 +1,11 @@
 angular.module('app.show.system', [])
 
-.controller("show_alarm", function($scope, $state, $source, $show, $sys, $q, $filter) {
+  
 
+.controller("show_alarm", function($scope, $state, $source, $show, $sys, $q, $filter , $modal) {
 
     $scope.$moduleNav("报警", $state); 
+    var S = $scope;
 
     $scope.openCalendar = function(e, exp) {
         e.preventDefault();
@@ -89,9 +91,22 @@ angular.module('app.show.system', [])
                 }
             });
         }
+    }
 
 
 
+       // alarm 详细信息;
+  
+    $scope.alarmMsg = function(a) {
+        $modal.open({
+            templateUrl: "athena/show/alarm_msg.html",
+            controller: function($scope, $modalInstance) {
+                $scope.__proto__ = S;
+                $scope.$modalInstance = $modalInstance;
+                // $scope.done = $scope.cancel;
+                $scope.alarm = a;
+            }
+        })
     }
 })
 
@@ -365,7 +380,7 @@ angular.module('app.show.system', [])
 
 })
 
-.controller('show_system_alarm', function($scope, $show, $interval, $modal, $sys) {
+.controller('show_system_alarm', function($scope, $show, $interval, $modal, $sys ) {
 
     // var interval;
     $scope.page = {};
@@ -378,9 +393,7 @@ angular.module('app.show.system', [])
         uuid: $scope.system.uuid
     };
 
-    $scope.$watch("op.ala", function(n) {
-        // $interval.cancel(interval);
-        // interval; 
+    $scope.$watch("op.ala", function(n) { 
         //@if  append 
         console.log(n);
         //@endif  
@@ -417,15 +430,7 @@ angular.module('app.show.system', [])
             $scope.queryAlarm(pageNo);
         }
     }
-
-    // interval
-
-    // $scope.liveAlarm = function() { 
-    //     getAlarm(1 );  // 首页 ;
-    //     interval = $interval(function() {
-    //         getAlarm(1);
-    //     }, $scope.op.a_int);
-    // }
+ 
 
     // 点击按钮 查询全部报警;  
     $scope.queryAlarm = function(pageNo) {
@@ -458,19 +463,8 @@ angular.module('app.show.system', [])
         })
     }
 
-    // alarm 详细信息;
-    var S = $scope;
-    $scope.alarmMsg = function(a) {
-        $modal.open({
-            templateUrl: "athena/show/alarm_msg.html",
-            controller: function($scope, $modalInstance) {
-                $scope.__proto__ = S;
-                $scope.$modalInstance = $modalInstance;
-                // $scope.done = $scope.cancel;
-                $scope.alarm = a;
-            }
-        })
-    }
+    
+   
 
 })
 

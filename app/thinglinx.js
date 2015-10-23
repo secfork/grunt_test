@@ -1,9 +1,8 @@
- 
 'use strict';
 
 
 var app = angular.module('thinglinx', [
- 
+
     'ngAnimate',
     'ngCookies',
     'ngStorage',
@@ -26,18 +25,18 @@ var app = angular.module('thinglinx', [
 
 .run(
     function($rootScope, $state, $stateParams, $sys, $compile, $localStorage,
-        $cacheFactory, $translate, $sce, $sessionStorage) { 
+        $cacheFactory, $translate, $sce, $sessionStorage) {
 
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
         $rootScope.$sys = $sys;
-        $rootScope.$translate = $translate; 
+        $rootScope.$translate = $translate;
         $rootScope.$sceHtml = $sce.trustAsHtml;
-        $rootScope.$session = $sessionStorage; 
+        $rootScope.$session = $sessionStorage;
 
 
         $rootScope.ossRoot = "http://thinglinx-net.oss-cn-beijing.aliyuncs.com/";
- 
+
 
         window.onbeforeunload = function() {
             alert("关闭窗口")
@@ -56,7 +55,7 @@ var app = angular.module('thinglinx', [
         $rootScope.test = function() {
                 alert("test  function !")
             }
-            //@endif  
+        //@endif  
 
         // $rootScope.validate = function(data, msg) {
         //   if (!data) {
@@ -65,7 +64,7 @@ var app = angular.module('thinglinx', [
         //   }
         // }
 
-        $rootScope.funtest = function() { 
+        $rootScope.funtest = function() {
             //@if  append
 
             console.log("函数测试!");
@@ -307,7 +306,7 @@ var app = angular.module('thinglinx', [
                 templateUrl: "athena/show/alarm.html",
                 controller: "show_alarm"
             })
- 
+
 
             //===========================================================
 
@@ -639,18 +638,18 @@ var app = angular.module('thinglinx', [
 
         }
     ]
-) 
+)
 
 .constant('JQ_CONFIG', {
 
     // wysiwyg: ['lib/wysiwyg/bootstrap-wysiwyg.js',
     //           'lib/wysiwyg/jquery.hotkeys.js'
     //         ] 
- 
+
     chosen: ['lib/chosen/chosen.jquery.min.js',
         'lib/chosen/chosen.css'
     ],
-    filestyle: [ 
+    filestyle: [
         'lib/file/bootstrap-filestyle.min.js'
     ]
 
@@ -658,13 +657,13 @@ var app = angular.module('thinglinx', [
 
 .config(['$translateProvider', function($translateProvider) {
 
- 
+
     $translateProvider.useStaticFilesLoader({
         prefix: 'l10n/',
         suffix: '.json'
     });
     $translateProvider.preferredLanguage('zh_CN');
-    $translateProvider.useLocalStorage(); 
+    $translateProvider.useLocalStorage();
 
 
 }]);
