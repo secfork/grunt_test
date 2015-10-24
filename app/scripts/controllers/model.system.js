@@ -441,6 +441,8 @@ angular.module("app.model.system", [])
                 if (dev.device_model == oldDevModel) return;
                 oldDevModel = dev.device_model;
 
+                scope.op.point = null;
+
                 var promise ; 
                 promise = $source.$dmPoint.get({ device_model: oldDevModel }).$promise;
 
@@ -452,7 +454,8 @@ angular.module("app.model.system", [])
 
             // 拼接  connnet  字段;
             scope.addConnect = function(tag) { 
-                tag.connect = scope.op.dev.id + "." + scope.op.point.id; 
+                // tag.connect = scope.op.dev.id + "." + scope.op.point.id; 
+                tag.connect = scope.op.dev.id +"." + scope.op.point.replace(/(.+)&(.+)/, '$1');
 
             };
 
@@ -526,6 +529,11 @@ angular.module("app.model.system", [])
                         },
                         $scope.L = {};
 
+                    $scope.copyName = function(){
+                        $scope.T.name = $scope.op.point.replace(/(.+)&(.+)/ ,"$2");
+                       // isAdd && ( T.name = op.point.name )
+                    } 
+
                     $scope.done = function() {
                         // 验证表格;
                         $scope.validForm("form_tag"), 
@@ -593,9 +601,20 @@ angular.module("app.model.system", [])
 
 
                             $scope.op.dev && $scope.loadPoint($scope.op.dev).then( function(){
-                                $scope.op.point = $scope.points.filter( function(v,i){
-                                                    return  v.id == dt 
-                                                })[0] || undefined  
+                               
+                                $.each( $scope.points , function( i,v ){
+                                    if( dt == v.id){
+                                        $scope.op.point = v.id +"&"+ v.name ; 
+                                        return false ;
+                                    } 
+                                    return  true ;
+
+                                })
+
+                                // $scope.op.point = $scope.points.filter( function(v,i){
+                                //                     return  v.id == dt 
+                                //                 })[0] || undefined  
+
                             }); 
                              
                         })

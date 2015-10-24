@@ -59,6 +59,22 @@ directive('uiJq', ['uiJqConfig', 'JQ_CONFIG', 'uiLoad', '$timeout', function uiJ
                     });
                 }
 
+                // lixq
+                var arr , value ; 
+                function getV ( model ,  v ){
+                    value = "";
+                    arr = v.split("&")
+                    if( arr.length == 1){
+                        value =  model[v]
+                    }else{
+                        arr.forEach( function( x , i ){
+                            value += model[x] + (i+1 == arr.length?"":"&" );
+                        })
+                    }
+                    return  value ;
+                }
+   
+
                 // Call jQuery method and pass relevant options
                 function callPlugin() {
                     $timeout(function() {
@@ -69,6 +85,7 @@ directive('uiJq', ['uiJqConfig', 'JQ_CONFIG', 'uiLoad', '$timeout', function uiJ
                         //=============
 
 
+
                         // 如果是 chosen 插件;  要赋 初始值; 
                         if (attrs.uiJq === "chosen") {
 
@@ -77,22 +94,22 @@ directive('uiJq', ['uiJqConfig', 'JQ_CONFIG', 'uiLoad', '$timeout', function uiJ
                                  k = attrs.k , 
                                  v = attrs.v ,
                                  child , arr ;
-                                 arr = scope.$eval( attrs.uiRefresh );
-
+                                 arr = scope.$eval( attrs.uiRefresh ); 
                                  if( arr ){
                                      arr.forEach( function( x ){
-                                       ops.push(  " <option value=" + x[v] +">" +x[k]+"</option>");
+                                        var va  = getV(x , v);
+                                        console.log(va);
+
+                                       ops.push(  " <option value='" +  getV( x , v )  +"'>" +x[k]+"</option>");
                                      });
                                     elm.children(":not(:first)").remove(); 
                                     elm.append( ops.join(""));
-                                 }
-                                  
+                                 } 
                             }   
 
-                            elm[attrs.uiJq].apply(elm, getOptions()); 
-                            
-                            
-                            elm.val(scope.$eval(attrs.ngModel)).trigger("chosen:updated");
+                            elm[attrs.uiJq].apply(elm, getOptions());  
+                            // scope.$eval(attrs.ngModel)
+                            elm.val( scope.$eval(attrs.ngModel) ).trigger("chosen:updated");
                           
 
  
