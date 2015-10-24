@@ -178,7 +178,7 @@
                         </a>
                     <a class="text-info-dk m-r-xs" ranslate="bu.bu3" ng-click=" editStation( this , das , $index  ) ">编辑
                         </a>
-                    <a class="text-info-dk m-r-xs" translate="bu.bu4" ng-click=" delStation( page.data  ,das , $index  ) ">移
+                    <a class="text-info-dk m-r-xs" ng-if=" das.state ==0 " translate="bu.bu4" ng-click=" delStation( page.data  ,das , $index  ) ">移
                         </a>
                 </td>
             </tr>
