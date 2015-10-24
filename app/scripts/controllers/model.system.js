@@ -33,8 +33,9 @@ angular.module("app.model.system", [])
                         $scope.validForm();
                         // 新建 sysmodel ;
                         $source.$sysModel.save($scope.sm, function(resp) {
-                            $scope.sm.uuid = resp.ret;
-                            page.data.push($scope.sm);
+                            var  d = { uuid: resp.ret , create_time: new Date() , device_count:0 ,profile_count:1};
+                     
+                            page.data.push( angular.extend( d , $scope.sm ) );
                             page.total++;
                             $scope.cancel();
                         });
@@ -101,6 +102,7 @@ angular.module("app.model.system", [])
         try {
             d.gateway_default = angular.fromJson(d.gateway_default || {});
         } catch (e) {
+            angular.alert("GateWay Default 严重错误!")
             console.error("  SystemModel  gateway_default 字段 不合法!!");
         }
 
@@ -248,14 +250,22 @@ angular.module("app.model.system", [])
                     $scope.isAdd = !dev  ,
                     $scope.devModels =  $scope.devmodels ; 
 
-                    // gateway 网络参数 过滤; 
+                    // gateway 网络参数 过滤;  bool 是否初始化 params 值; 
                     $scope.filterChannel = function(type, bool) {
+
                         $scope._$channel = t.sysmodel.gateway_default[type];
-                        if (bool) {
-                            var d = type == 'ETHERNET' ? 'LAN_1' : Object.keys($scope._$channel)[0];
-                            $scope.D.network.params = {
-                                channel: d
-                            };
+                        if (bool ) {
+                            var d ; 
+                            if( type == "ETHERNET"){
+                                d = "LAN_1";
+                            }else{
+                                if( $scope._$channel ){
+                                    d = Object.keys($scope._$channel)[0];
+                                }else{
+                                    d = null ;
+                                }
+                            }
+                            $scope.D.network.params = {  channel: d  };
                         }
                     }
 
@@ -268,8 +278,7 @@ angular.module("app.model.system", [])
                             $scope.alert({
                                 type: "info",
                                 title: "请先创建设备模型!"
-                            })
-
+                            }) 
                             throw ("_Error: No Device Model !");
 
                         }
@@ -345,9 +354,7 @@ angular.module("app.model.system", [])
 
                             })
                         };
-                    };
-
-
+                    }; 
                 }
             })
         }
@@ -1216,7 +1223,7 @@ angular.module("app.model.system", [])
                 //S.sysmodel.gateway_default = S.GateWay ;
                 S.needUpdate = true;
                 next();
-            }, next)
+            })
         }
 
         S.saveGateWay = function() {
