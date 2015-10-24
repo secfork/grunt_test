@@ -54,7 +54,7 @@
     <div class="line b-b line-dashed"></div>
     <!--   托管  daserver  模式   sysmodel.mode ==1 &&  sysmodel.comm_type == 1  -->
     <div class="  text-left m-t-xs m-b   " ng-if=" !nT ">
-        <h5 class="m-l-xs padder-md wrapper-sm"> 网络参数1 </h5>
+        <h5 class="m-l-xs padder-md wrapper-sm"> 网络参数 </h5>
         <ng-include src="  'athena/dastation/_prop_daserver_network.html'  "></ng-include>
     </div>
     <!--
@@ -69,13 +69,24 @@
         <h5 class="m-l"> 网关配置</h5>
         <ng-include src="  'athena/dastation/_prop_gateway_gateway.html'  "></ng-include>
     </div>
+
+
+
     <!--
     <div class="line b-b " ng-if="sysmodel.comm_type ==2   "></div>
  -->
-    <div class=" table-responsive  m-t " ng-if=" sysmodel.devices.length && sysmodel.mode ==1 && sysmodel.comm_type ==2 ">
+ <!--@if append --> 
+ <!--@endif -->
+
+    <div class=" table-responsive  m-t " 
+        ng-if=" sysmodel.devices.length && sysmodel.mode ==1 && sysmodel.comm_type ==2 ">
         <h5 class="m-l"> 设备网络参数   </h5>
         <ng-include src="  'athena/dastation/_prop_gateway_device.html'  "></ng-include>
     </div>
+
+
+
+
     <div class="line b-b"></div>
     <div class="col-md-4  col-xs-6   text-left  ">
         <span>上次配置更新</span>
