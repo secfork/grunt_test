@@ -891,13 +891,13 @@ angular.module("app.model.system", [])
                         $scope.$modalInstance = $modalInstance;
 
                     if (i) { // 创建;
-                        $scope.T  = {
+                        $scope.T =a = {
                             profile: S.odp.puuid,
                             conditions: [angular.copy($sys.trigger_c)],
                             params: {}
                         };
                     } else {
-                        $scope.T  = angular.copy(trigger);  
+                        $scope.T =a = angular.copy(trigger);  
                     }
   
                     $scope.done = function() {

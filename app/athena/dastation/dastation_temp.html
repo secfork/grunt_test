@@ -94,21 +94,21 @@
 
  
 <!--  未设置:灰,  在线 :绿 ,, 离线:红,  故障:橙色
- unset,online,offline,comm_failure
+ unset,online=1,offline=0,comm_failure
 
    ng-class="{ 
             'text-danger':  das.online =='' , 
             'text-success': das.online ==1,
             'text-warning': das.online ==2 
          }" 
-
+ng-class= "{'text-success':das.online }  "
   --> 
    
     <tbody class="text-center">
             <tr ng-repeat="  das  in page.data " class=" ">
                 <td class="">
-                    <i class="fa fa-circle {{ das.online || 'unset' }} " 
-                   
+                    <i class="fa fa-circle  {{ das.online?'text-success' : 'text-danger'  }}    " 
+                        
                      > </i>
                     <!-- 在线  ng-class = "{'alert-danger':  das.state == 0 }" -->
                 </td>

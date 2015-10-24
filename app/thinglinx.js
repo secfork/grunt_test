@@ -647,7 +647,7 @@ var app = angular.module('thinglinx', [
     //         ] 
 
     chosen: ['lib/chosen/chosen.jquery.min.js',
-        'lib/chosen/chosen.css'
+             'lib/chosen/chosen.css'
     ],
     filestyle: [
         'lib/file/bootstrap-filestyle.min.js'

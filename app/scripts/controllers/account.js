@@ -1,3 +1,4 @@
+
 angular.module('app.account', [])
 
 .controller("account_info", function($scope, $state, $source) {

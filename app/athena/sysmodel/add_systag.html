@@ -7,9 +7,22 @@
     <form name="form_tag" class=" form-validation form-horizontal   ">
         <div ng-if="isManageMode ">
             <select ng-options=" o as o.name  for  o in sysdevices   " tl-wrap
-             ng-model=" op.dev " label="设备" ng-change=" loadPoint( op.dev )" required>
+                ng-model=" op.dev " label="设备"
+                ng-change=" loadPoint( op.dev );   " required>
                 <option value="">--请选择设备--</option>
             </select>
+ 
+ 
+            <select  ui-jq="chosen" 
+                tl-wrap  
+                label="connect 点"
+                ng-model="op.xxxs" 
+                 ui-refresh = "points"  k="name" , v ="id" >
+                <option value="">--请选择点--</option> 
+            </select>
+                
+                xxxs ={{op.xxxs}}
+ 
 
  
             <select ng-options=" o as o.name  for  o in points "
@@ -20,9 +33,17 @@
                     ng-change=" isAdd && ( T.name = op.point.name ) "
                     required   >
  
-                <option value="">--请选择DeviceModel Point--</option>
+                   <option value="">--请选择DeviceModel Point--</option> 
+
+
             </select>
         </div>
+
+
+
+
+
+        
         <!-- tag -->
  
 

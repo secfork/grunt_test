@@ -31,6 +31,10 @@ angular.module('app.directives', ['pascalprecht.translate'])
                 };
             }
         ])
+
+    
+
+
     .directive('uiShift', ['$timeout', function($timeout) {
         return {
             restrict: 'A',

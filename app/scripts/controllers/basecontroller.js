@@ -643,12 +643,12 @@ angular.module('app.basecontroller', ['ng'])
                             function( resp){
                                 $scope.cancel();
                                 alarm.active = 0 ; 
-                                angular.alert("确认报警失成功");
+                                angular.alert("确认报警成功");
 
                             },
                             function(){
                                 $scope.cancel(); 
-                                angular.alert("确认报警失败")
+                                //angular.alert("确认报警失败")
                             })
                     }
 

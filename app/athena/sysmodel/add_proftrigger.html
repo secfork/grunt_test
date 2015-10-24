@@ -40,9 +40,16 @@ dd = {{ step1.xxx.$valid }} -->
                         </select>
                     </td>
                     <td> 
-                        <select ng-options=" v as k for (k,v) in _config.fn" ng-model=" l.fn " ng-change="  l.args = undefined ;  " class="form-control ">
+                       <!--  <select ng-options=" v as k for (k,v) in _config.fn" 
+                            ng-model=" l.fn " ng-change="  l.args = undefined ; 
+                            " class="form-control ">
                             <option value=""> 数值</option>
-                        </select>
+                        </select> -->
+
+
+                        <input class="form-control"  ng-model=" l.fn "   readonly=""  >
+
+
                     </td>
                     <td  >
                       
