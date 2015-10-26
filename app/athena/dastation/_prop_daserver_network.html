@@ -4,9 +4,13 @@
 
  -->
  
+
+<!--jjw m-b-md col-md-8 padder-md-->
+<form name="form_daserver" class="form-horizontal form-validation m-b-md col-md-8 padder-md"
  
-<!--  lixq  form 更名 便于update时 验证 相应的表单 -->
-<form name="form_daserver" panelclass class="form-horizontal form-validation "
+
+
+
  ng-init="  initDaServer() ; loadSupportDtus() ;  ">
 <!-- @if append -->
     system.network.daserver ={{daserver}}
@@ -24,8 +28,8 @@
     激活的必定已经指定了 daserver ; 
 
  -->
-
-    <div ng-if=" daserver.type =='DTU' " class="wrap-text-l">
+    <!--jjw padder-->
+    <div ng-if=" daserver.type =='DTU' " class="wrap-text-l padder">
         <select tl-wrap-l label="DTU驱动" required 
            ng-disabled="  cmway_port  "
            ng-model="daserver.params.driverid"
@@ -46,7 +50,8 @@
 
         <input readonly tl-wrap-l label="中心域名" ng-model="cmway_port.inet_ipv4">
         <input readonly tl-wrap-l label="端口" ng-model="cmway_port.inet_port">
-        <div class="text-muted">
+        <!--jjw col-md-9 col-md-offset-3 padding-0-->
+        <div class="text-muted col-md-9 col-md-offset-3 padding-0">
             <i class="fa  fa-warning   text-warning pos-rlt"></i> DSC地址和端口需要设置到指定的DTU设备中
         </div>
     </div>
@@ -81,12 +86,13 @@
     <!--  <div class="line   line-dashed b-b line-chart m-l-n-sm   "></div>
             ng-show=" needUpdate.daserver "
      -->
-    <div class="row m-t-xs">
-        <div class="col-xs-12">
+    <div class="row">
+        <!--jjw col col-offset padding m-t m-t-lg-->
+        <div class="col-md-9 col-md-offset-3 padding m-t">
             <span class=""  >
  
                 <button   token= "5000" 
-                         class=" btn btn-sm m-l w-xs btn-primary " 
+                         class=" btn btn-sm m-l-sm w-xs btn-primary "
                          ng-click = "  updateSystem( 'daserver' );  "
                       
                 >
@@ -104,10 +110,10 @@
                    <i class="fa  fa-thumbs-o-up "></i> <span>保存成功!</span> </strong>
             </span>
         </div>
-    </div>
+    </div> 
 </form>
 <style>
     .wrap-text-l label{
         text-align: left;
     }
-</style>
+</style> 

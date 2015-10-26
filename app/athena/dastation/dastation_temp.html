@@ -1,46 +1,44 @@
  
 <!--jjw background-->
-<div class="panel-heading b-b-none p-t-0 p-b-0"  
- style="background-color: #eff3f4">
-    <div class="row  " style="padding-bottom:5px;"> 
  
-
-
-
-
-
-        <div class="col-md-4 col-xs-6 m-t-xs">
-            <input tl-wrap-l class="input-sm input-s" label="名称" ng-model="od.name"> </input>
+<div class="panel-heading b-b-none p-t-0 p-b-0"  
+  style="background-color: #eff3f4">
+    <div class="row  " style="padding-bottom:5px;">
+        <!--jjw  tl-wrap-r wrap-label-span-30-->
+        <div class="col-md-4 col-xs-6 m-t-sm tl-wrap-r wrap-label-span-30">
+            <input tl-wrap-l class="input-sm" label="名称" ng-model="od.name"> </input>
+ 
         </div>
-        <div class="   col-md-4 col-xs-6  m-t-xs">
-            <input tl-wrap-l class="input-sm input-s" label="ID" ng-model="od.uuid">
+        <div class="   col-md-4 col-xs-6  m-t-sm tl-wrap-r wrap-label-span-30">
+            <input tl-wrap-l class="input-sm" label="ID" ng-model="od.uuid">
 
             </input>
         </div>
-        <div class="col-md-4 col-xs-6 m-t-xs" ng-if=" $state.includes('app.station') || $state.includes('app.show.system') ">
+        <div class="col-md-4 col-xs-6 m-t-sm tl-wrap-r wrap-label-span-30" ng-if=" $state.includes('app.station') || $state.includes('app.show.system') ">
             <!--jjw height-->
-            <select tl-wrap-l style="height: 24px;line-height: 24px" class="input-sm input-s" label="区域" ng-model="od.region_id" ng-options="  r.id as r.name for r in  regions">
+            <select tl-wrap-l class="input-sm " label="区域" ng-model="od.region_id" ng-options="  r.id as r.name for r in  regions">
                 <option value="">-所有区域-</option>
             </select>
         </div>
         
-        <div class="col-md-4 col-xs-6 m-t-xs">
+        <div class="col-md-4 col-xs-6 m-t-sm tl-wrap-r wrap-label-span-30">
             <!--jjw height-->
-            <select tl-wrap-l style="height: 24px;line-height: 24px" class="input-sm input-s" label="模型" ng-model="od.model" ng-options=" s.uuid as s.name for s in  sysModels">
+            <select tl-wrap-l class="input-sm" label="模型" ng-model="od.model" ng-options=" s.uuid as s.name for s in  sysModels">
                 <option value="">-所有模型-</option>
             </select>
         </div>
-        <div class="col-md-4 col-xs-6 m-t-xs">
-            <input tl-wrap-l class="input-sm input-s" label="备注" ng-model="od.desc"></input>
+        <div class="col-md-4 col-xs-6 m-t-sm tl-wrap-r wrap-label-span-30">
+            <input tl-wrap-l class="input-sm " label="备注" ng-model="od.desc"></input>
         </div>
-        <div class="col-xs-12 m-t-xs">
-            <!--jjw float-right-->
-            <button class="btn btn-sm btn-info m-l w-xs float-right" ng-click=" loadPageData(1)"> 搜索</button>
-            <button class="btn btn-sm btn-info m-l w-xs float-right" ng-click="  reset() "> 复位 </button>
+        <!--jjw md-4 padder-md-->
+        <div class="col-xs-12 m-t-sm col-md-4 padder-md">
+            <!--jjw float-right btn-s-->
+            <button class="btn btn-sm btn-info m-l float-right " ng-click=" loadPageData(1)"> 搜索</button>
+            <button class="btn btn-sm btn-info m-l float-right " ng-click="  reset() "> 复位 </button>
         </div>
         <!--
           <div class="col-md-4 col-xs-6 m-t-xs">
-            <select tl-wrap-l  class="input-sm input-s" label="状态" ng-model="od.state">
+            <select tl-wrap-l  class="input-sm" label="状态" ng-model="od.state">
                 <option value="">-所有状态-</option>
             </select>
 
@@ -48,8 +46,8 @@
          -->
     </div>
  
-    <!--jjw bg m-t-->
-    <div class="row bg-white m-t-sm">
+    <!--jjw bg m-t text-xs-->
+    <div class="row bg-white m-t-sm text-xs"> 
         <!--jjw margin-top margin-bottom-->
         <div class="radio     float-right  w-xxm m-t-md m-b-md">
             <label class="i-checks">
@@ -87,7 +85,7 @@
                 <th width="15%" translate="th.th11" ng-if=" !isShowModul  ">
                     同步配置 </th>
                 <th width="20%">备注</th>
-                <th width="15%" ng-if=" !isShowModul"></th>
+                <th width="15%" ng-if=" !isShowModul">操作</th>
             </tr>
         </thead>
 
@@ -99,7 +97,7 @@
    
     <tbody class="text-center">
             <tr ng-repeat="  das  in page.data " class=" ">
-                <td class="">
+                <td class="text-muted">
                     <i class="fa fa-circle " 
                     ng-class="{ 
                         'text-danger':  das.online ==0 , 
@@ -136,7 +134,8 @@
                         <span ng-if="das.latitude" class="fa fa-location-arrow text-success">
 
                              </span>
-                        <span ng-if=" !das.latitude && !isShowModul  " class="label bg-info m-l-sm  ng-scope">
+                        <!--jjw btn btn-xs btn-info-->
+                        <span ng-if=" !das.latitude && !isShowModul  " class="btn btn-xs btn-info bg-info m-l-sm  ng-scope">
                                    去定位
                              </span>
                     </a>
@@ -186,14 +185,11 @@
 </div>  
 
 <div class="panel-footer ">
-    <!--jjw m-t m-d-->
-    <button ng-if=" !isShowModul " class="btn btn-info  dker btn-sm   m-l  pos-abt m-t m-b" ng-click=" goto('app.station.add' , null , project ) ">
+    <!--jjw m-t m-d m-l-sm-->
+    <button ng-if=" !isShowModul " class="btn btn-info  dker btn-sm   m-l-sm  pos-abt m-t m-b" ng-click=" goto('app.station.add' , null , project ) ">
         添加系统
     </button>
     <!--jjw m-t m-d-->
     <div class=" text-center m-t m-b" ng-include src=" 'athena/debris/_pager.html'  "></div>
     <!-- 只有 app.proj.prop 路由  才显示   -->
 </div>
-
-<style>
-</style>

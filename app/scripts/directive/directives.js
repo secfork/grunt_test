@@ -508,8 +508,8 @@ angular.module('app.directives', ['pascalprecht.translate'])
             // console.log( $scope.label );
             // ==================================
 
-            var label = '<label class= " col-sm-3 control-label "  > ' + ' <span class="input-s float-right"   translate="' + $attrs.label + '"  ></span> ' + ' </label>',
-                marklabel = '<label class= " col-sm-3 control-label   "  > ' + ' <span class="input-s float-right"  translate="' + $attrs.label + '"  ></span> ' + ' <span class="text-danger font-bold">*</span>' + ' </label>',
+            var label = '<label class= " col-sm-3 control-label "  > ' + ' <span translate="' + $attrs.label + '"  ></span> ' + ' </label>',
+                marklabel = '<label class= " col-sm-3 control-label   "  > ' + ' <span translate="' + $attrs.label + '"  ></span> ' + ' <span class="text-danger font-bold">*</span>' + ' </label>',
                 wrap_input = '<div class="form-group"    ><div class=" col-sm-9"></div></div>',
                 r = $ele.attr("required"),
                 l;

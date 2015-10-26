@@ -381,7 +381,8 @@ var app = angular.module('thinglinx', [
             // project 管理 , 添加;  ================================================
             .state('app.proj', {
                     url: '/proj',
-                    template: '<div ui-view class="gap-5  panel panel-default "></div>',
+//                    jjw no-border
+                    template: '<div ui-view class="gap-5  panel panel-default no-border "></div>',
                     controller: function($scope, $state) {
                         $scope.$rootNav("管理");
                     },
@@ -526,7 +527,8 @@ var app = angular.module('thinglinx', [
 
             .state('app.account', {
                 url: '/account',
-                template: '<div ui-view class="  gap-5 panel panel-default"></div>',
+//                    jjw no-border
+                template: '<div ui-view class="  gap-5 panel panel-default no-border"></div>',
                 controller: function($scope, $state) {
                     $scope.$rootNav("管理");
                 }

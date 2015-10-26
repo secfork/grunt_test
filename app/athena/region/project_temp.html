@@ -1,5 +1,6 @@
 <div class="panel-heading   ">
-    <div class="input-group col-sm-4 col-sm-push-8 ">
+    <!--jjw m-t m-b-->
+    <div class="input-group col-sm-4 col-sm-push-8 m-t-sm m-b-sm">
         <input class="form-control input-sm" type="text" ng-model="f_projname">
         <span class="input-group-btn">
                    <span class="btn btn-default height-30 disabled"     translate="common.search"  ></span>
@@ -7,8 +8,9 @@
     </div>
 </div>
 <div class="panel-body table-responsive no-padder">
- 
-    <table class=" table  table-hover  table-bordered">
+
+    <!--jjw table-striped j_table-->
+    <table class=" table  table-hover table-striped j_table ">
         <thead class="flip-content">
             <tr class="background ">
                 <!--
@@ -27,9 +29,9 @@
                        </a>
                 </th>
                 <th>已激活系统</th>
- 
+
                 <th ng-if=" ! isShowModul " >未激活系统</th>
-                <th ng-if=" ! isShowModul " ></th> 
+                <th ng-if=" ! isShowModul " >操作</th>
             </tr>
         </thead>
         <tbody class="text-center ">
@@ -86,9 +88,11 @@
  
 </div>
 <div class="panel-footer">
-    <button class="btn btn-success btn-sm  pos-abt  " ng-if=" !isShowModul" ng-click="  goto( 'app.proj.addproj' ) ">
+    <!--jjw m-t m-b m-l-sm-->
+    <button class="btn btn-success btn-sm  pos-abt m-b m-t m-l-sm" ng-if=" !isShowModul" ng-click="  goto( 'app.proj.addproj' ) ">
         添加区域
     </button>
-    <div class="text-center" ng-include src=" 'athena/debris/_pager.html'  "></div>
+    <!--jjw m-t m-b-->
+    <div class="text-center m-b m-t" ng-include src=" 'athena/debris/_pager.html'  "></div>
 </div>
  

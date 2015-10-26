@@ -1,11 +1,10 @@
- 
-
 
     <div class="panel-body table-responsive  no-padder  no-border">
-        <table class=" table   table-bordered  table-condensed   ">
+        <!--jjw j_table-->
+        <table class=" table  table-condensed j_table  ">
             <thead class="flip-content  ">
                 <tr>
-                    <th>用户名</th>
+                    <th style="text-align: left;padding-left: 30px">用户名</th>
                     <th> 手机有效 </th>
                     <th> 电子邮件有效 </th>
                     <th> 上次登录IP </th>
@@ -15,7 +14,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat=" u in page.data"  >
-                    <td>
+                    <td style="text-align: left;padding-left: 30px">
 
                        {{ u.username }}
 
@@ -41,7 +40,8 @@
         </table>
     </div>
     <div class="panel-footer  ">
-          <div  class="text-center" ng-include src=" 'athena/debris/_pager.html'  "></div>
+        <!--jjw m-t m-b-->
+        <div  class="text-center m-b m-t" ng-include src=" 'athena/debris/_pager.html'  "></div>
     </div>
 
  
