@@ -45,26 +45,27 @@
                 {{ t.ticket || "无Ticket !" }}
                 <!--  <a class = "fa fa-copy text-success"></a> -->
             </div>
-            <!--@if append --> 
-                t = {{t}} 
+            <!--@if append -->
+            t = {{t}}
             <!--@endif -->
         </div>
     </div>
-
-
- 
     <!--jjw dashed-->
     <div class="line b-b line-dashed"></div>
-
     <!--   托管  daserver  模式   sysmodel.mode ==1 &&  sysmodel.comm_type == 1  -->
+ 
   
     <div class="  text-left m-t-xs m-b   "
          ng-if=" !nT ">
         <!--jjw sm-->
         <h5 class="m-l-xs wrapper-sm"> 网络参数 </h5> 
+
+
+
         <ng-include src="  'athena/dastation/_prop_daserver_network.html'  "></ng-include>
     </div>
     <!--
+    
     <div class="line b-b " ng-if=" sysmodel.comm_type == 1   "></div>
     
  -->
@@ -75,13 +76,21 @@
         <h5 class="m-l"> 网关配置</h5>
         <ng-include src="  'athena/dastation/_prop_gateway_gateway.html'  "></ng-include>
     </div>
+
+
+
     <!--
     <div class="line b-b " ng-if="sysmodel.comm_type ==2   "></div>
  -->
-    <div class=" table-responsive  m-t " ng-if=" sysmodel.devices.length && sysmodel.mode ==1 && sysmodel.comm_type ==2 ">
+ <!--@if append --> 
+ <!--@endif -->
+
+    <div class=" table-responsive  m-t " 
+        ng-if=" sysmodel.devices.length && sysmodel.mode ==1 && sysmodel.comm_type ==2 ">
         <h5 class="m-l"> 设备网络参数   </h5>
         <ng-include src="  'athena/dastation/_prop_gateway_device.html'  "></ng-include>
     </div>
+ 
  
     <!--jjw line-dashed-->
     <div class="line b-b line-dashed"></div>
@@ -137,6 +146,7 @@
             <button class="btn btn-sm btn-danger" ng-click="d_stop()"> 停止 </button>
             <!--  <button class="btn btn-sm btn-info" ng-click="d_call( station )"> 召唤实时 </button> -->
         </div>
+ 
  
     </div>
 </div>

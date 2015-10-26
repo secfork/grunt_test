@@ -6,28 +6,62 @@
 <div class="modal-body  ">
     <form name="form_tag" class=" form-validation form-horizontal   ">
         <div ng-if="isManageMode ">
-            <select ng-options=" o as o.name  for  o in sysdevices   " tl-wrap ng-model=" op.dev " label="设备" ng-change=" loadPoint( op.dev )" required>
-                <option value="">--请选择设备--</option>
+            <select ng-options=" o as o.name  for  o in sysdevices   " tl-wrap
+
+                ng-model=" op.dev " label="设备"
+                ng-change=" loadPoint( op.dev );   " required>
+                <option value="" >--请选择设备--</option>
             </select>
-
  
-            <select ng-options=" o as o.name  for  o in points   "
-                    tl-wrap 
+ <!--@if append -->
+ op.point" ={{op.point}}
+ <!--@endif -->
 
-                    ng-model="op.point"
+
+            <select  
+                ui-jq="chosen" 
+                tl-wrap  
+                label="connect 点" 
+                ng-model="op.point" 
+                ui-refresh = "points" 
+                ng-change=" copyName() "
+                k ="name" ,
+                v ="id&name"
+                required
+                >
+                 <option value="" >--请选择点--</option>
+            </select>
+                
+                 
  
+
+ <!-- 
+            <select ng-options=" o as o.name  for  o in points "
+                    tl-wrap  
+                    ng-model="op.point" 
 
                     label="connect 点"
-                    ng-change=" isAdd && T.name = op.point.name "
+                    ng-change=" isAdd && ( T.name = op.point.name ) "
                     required   >
  
-                <option value="">--请选择DeviceModel Point--</option>
-            </select>
+                   <option value="">--请选择DeviceModel Point--</option> 
+
+
+            </select> -->
+
+
         </div>
+
+
+
+
+
+        
         <!-- tag -->
  
 
-        <input tl-wrap  ng-model="T.name"  ng-disabled=" !isAdd"  label="text.name"  required   >
+        <input tl-wrap  ng-model="T.name"  ng-disabled=" !isAdd"  
+        label="text.name"  required   >
  
         <!--  <input tl-wrap   label="group"    ng-model="T.group"   >
                 ng-disabled = " true_conn "
@@ -50,6 +84,6 @@
 T= {{T}}
 <br> op.dev = {{ op.dev }}
 <br> op.devModel = {{ op.devModel }}
-<br> op.point_id = {{ op.point_id }}
+<br> op.point = {{ op.point }}
 <br> profile = {{profile}}
 <!--@endif -->

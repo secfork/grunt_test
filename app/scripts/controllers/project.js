@@ -125,10 +125,9 @@
      console.log("proj_prop_station");
      //@endif 
 
-     $scope.$popNav($scope.project.name + "(系统列表)", $state);
+     $scope.$popNav($scope.project.name + "", $state);
 
-     $scope.updataORdel = "updata";
-
+     $scope.updataORdel = "updata"; 
 
 
      $source.$sysModel.get({
@@ -252,7 +251,7 @@
      console.log($scope);
      //@endif 
 
-     $scope.$popNav($scope.project.name + "(区域属性)", $state);
+     $scope.$popNav($scope.project.name + "(属性)", $state);
 
 
      $scope.proj = angular.copy($scope.project);

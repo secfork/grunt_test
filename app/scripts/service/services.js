@@ -16,6 +16,7 @@ angular.module('app.services', ["ngResource"], function() {
         'DEVICE_NOT_EXIST': true,
         'ER_CONTACT_NOT_EXIST': true,
         'ER_SYSTEM_HAS_NOT_BOUND': true,
+        'ACK_MESSAGE_NOT_EXIST':true ,
 
     };
 
@@ -73,6 +74,7 @@ angular.module('app.services', ["ngResource"], function() {
             url:angular.rootUrl + "user/logout"
         }
     });
+    
 /// {pk:"@pk", userid:"@userid"} ,
     this.$userGroup = $createSource("usergroup/:pk/:userid" ,  {}, {
           queryUser :{ url: angular.rootUrl + "usergroup/:pk/users" },
@@ -127,7 +129,10 @@ angular.module('app.services', ["ngResource"], function() {
 
     this.live = $resource(live);
     this.his = $resource(his);
-    this.alarm = $resource(alarm);
+    this.alarm = $resource(alarm , {},{
+        conform: { method:"POST" , params:{uuid:"confirm"}   },
+        getConformMsg: { params: {uuid:"confirm"}    }
+    });
     this.liveWrite = $resource(liveWrite); // 下置; 
 
 
@@ -250,9 +255,9 @@ angular.module('app.services', ["ngResource"], function() {
                 
                 if( !ingorErr[resp.err] ) {
                     angular.alert( {type:"resp_err",  title: resp.err } ); 
+                    throw resp ;
                 }
-
-                throw resp ;
+                //throw resp ;
             }
 
             if(  resp.total == 0 &&   resp.data.length == 0    ){
@@ -274,6 +279,10 @@ angular.module('app.services', ["ngResource"], function() {
 
         // optional method  通过实现 responseError 方法拦截响应异常:
         'responseError': function(response) {
+             //@if  append
+                console.log("responseError");
+             //@endif 
+
             if (!--ajax_times) {
                 $timeout.cancel(_timeout);
                 _timeout = $timeout(function() {

@@ -89,10 +89,11 @@ angular.module('app.basecontroller', ['ng'])
 
                     })
                 });
-                angular.alert({
-                    type: "error",
-                    title: "表单填写错误"
-                });
+                // 提示太不人道了! =.=
+                // angular.alert({
+                //     type: "error",
+                //     title: "表单填写错误"
+                // });
 
                 throw (" form invalid !!", valids.$error);
 
@@ -600,6 +601,63 @@ angular.module('app.basecontroller', ['ng'])
 
 
         //********************
+        //
+        
+        $scope.showAlarmMsg = function(  alarm  , system_id ){
+            $modal.open({
+                templateUrl: "athena/show/alarm_msg.html",
+                resolve: {
+                    // triger: function(){
+                    //    return  $source.$sysProfTrigger.get({pk:1}).$promise 
+                    // } 
+                    conformMsg: function( $show ){
+                        return  $show.alarm.getConformMsg( { alarm_id: alarm.id , system_id:system_id } ).$promise;
+                    } 
+                },
+                controller: function($scope, $modalInstance , conformMsg ) {
+                    $scope.__proto__ = S ;
+                    $scope.$modalInstance = $modalInstance ;
+                    // $scope.done = $scope.cancel;
+                    $scope.alarm = alarm;
+                    $scope.conformMsg = conformMsg.ret  ;
+                }
+            });
+        }
+
+        $scope.conformAlarm = function( alarm , system_id ){
+            $modal.open({
+                templateUrl: "athena/show/alarm_conform.html", 
+                controller: function($scope, $modalInstance , $show ) {
+                    $scope.__proto__ = S ;
+                    $scope.$modalInstance = $modalInstance ;
+                    // $scope.done = $scope.cancel;
+                    $scope.alarm = alarm; 
+
+                    $scope.od = { message: ""}
+
+                    $scope.done = function(){
+
+                        $show.alarm.conform( 
+                            angular.extend( { alarm_id: alarm.id , system_id:system_id } , $scope.od ) ,
+                            null ,
+                            function( resp){
+                                $scope.cancel();
+                                alarm.active = 0 ; 
+                                angular.alert("确认报警成功");
+
+                            },
+                            function(){
+                                $scope.cancel(); 
+                                //angular.alert("确认报警失败")
+                            })
+                    }
+
+                }
+            });
+
+        }
+
+
 
     })
 
@@ -846,8 +904,6 @@ angular.module('app.basecontroller', ['ng'])
 
         });
     };
-
-
 })
 
 

@@ -46,8 +46,7 @@
             <div class="form-group">
  
                 <span ng-if=" op.ala !='a' " class="btn btn-info btn-sm w-xs m-l m-t-xs" 
-                 ng-click="loadPageData(1)" token > 
-
+                 ng-click="loadPageData(1)" token >  
                      查询
                 </span>
             </div>
@@ -87,7 +86,10 @@
                 <td> {{ _config[a.severity] }} </td>
                 <td> {{ a.class_id }} </td>
                 <td> {{ a.active?"活跃":"关闭" }} </td>
-                <td> <a class="text-link" ng-click="alarmMsg(a)">详细信息</a></td>
+                <td>
+                  <a class="text-link" ng-click="showAlarmMsg(a , system.uuid)">详细信息</a>
+                  <a  ng-show=" a.active " class="text-link m-l" ng-click="conformAlarm(a , system.uuid )">确认报警</a>
+                </td>
             </tr>
         </tbody>
     </table>

@@ -24,13 +24,12 @@ angular.module('app.system', [])
         }
  
 
-        $scope.op = { lm :"list" };
+        
 
        
 
         $scope.updataORdel = "del";
-
-        $scope.lm = {list_map : "list"};
+ 
     
         $scope.od = { } ; 
         $scope.page = {};
@@ -147,7 +146,7 @@ angular.module('app.system', [])
          //@endif 
 
         if ($scope.project) {
-            $scope.$popNav($scope.project.projName + "(添加系统)", $state);
+            $scope.$popNav($scope.project.name + "(添加系统)", $state);
         } else {
             $scope.$moduleNav("添加系统", $state);
         }

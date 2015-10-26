@@ -12,8 +12,10 @@
             <button class="btn btn-sm btn-info  w-xs " ng-click="d_call( system  , 1 )" token="5000" > 召唤参数 </button>
              -->
 
+
+             <!--  over="xxxx" popover-trigger="mouseenter" -->
             <button class="btn btn-sm btn-info  w-xs" ng-click="d_call( system  , 2 )" 
-                popover="xxxx" popover-trigger="mouseenter"
+                pop
                 token="5000"> 召唤所有 </button>
       
       
@@ -22,18 +24,18 @@
                 <i></i> <span> 自动刷新</span>
             </label>
 
-            <button class="btn btn-sm btn-info  w-xs"  
-                ng-show=" !auto_r"
-                ng-click=" getCurrent() "
-                token
-                >  刷新 </button>
-             
-            <span ng-show=" auto_r">
+            <span >
                 <progressbar class="progress-striped   
                    m-b-n-xs  w  inline " animate="false" value=" progValue / 100  " type="success">
                 </progressbar>
                 
             </span>    
+            <button class="btn btn-sm btn-info  w-xs"  
+                
+                ng-click=" getCurrent() "
+                token
+                >  刷新 </button>
+             
 
         </form>
  
@@ -57,7 +59,7 @@
                     {{t.name}}
                 </td>
                 <td class="current_val"> </td>
-                <td class="current_time |  date:'yyyy-MM-dd HH:mm Z' ">
+                <td class="current_time">
                     <!-- {{ |  date:"yyyy-MM-dd HH:mm"}} -->
                 </td>
                 <td ng-show=" systemModel.mode ==1 ">

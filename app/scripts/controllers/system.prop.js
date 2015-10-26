@@ -17,8 +17,7 @@ angular.module('app.system.prop', [])
     // 未激活的采集站 处理 ;
     // $scope.setActive = function() {
     //     $scope.activateStation($scope, null, $scope.station, null, "updata");
-    // };
- 
+    // }; 
     // 改变 station 会自动存到 sessionStorage ; AppScope.$watch("$$cache", fun... ,  true)
     $scope.station = $scope.$$cache[0];
     $scope.Sta_Data = $scope.$$cache[1];
@@ -225,7 +224,7 @@ angular.module('app.system.prop', [])
                     { system_id: $scope.station.uuid }, 
                     function(resp) { 
                         //$scope.$parent.t = resp.ret;
-                        $scope.t = resp.ret ; 
+                        $scope.t = resp.ret || {} ; 
 
                     }, 
                     function() { // 无 ticket 时; 
@@ -393,7 +392,7 @@ angular.module('app.system.prop', [])
                 // update_+   $scope.gateweayDevs ;不要乱起名;
                 toUpdate("gatewayDevs");
                 next();
-            }, next);
+            });
         }
 
         // 托管  -- gatwway类型;
@@ -524,7 +523,7 @@ angular.module('app.system.prop', [])
                 delete $scope.gateway[T][t]
                 toUpdate('gateway');
                 next();
-            }, next)
+            })
         }
 
 
@@ -586,12 +585,13 @@ angular.module('app.system.prop', [])
 
                     })
                 } else if( $scope.station.state == 1  &&  ( !$scope.cmway_port )   ) { 
-                    // 激活的话 , 但是没有指定 daserver ;  需要!assign ; 
+                    // 激活的话 , 但是没有指定 daserver( 没assign过的) ;   
                     assignSystem().then( function(){
                         // 保存网络参数; 
-                        saveDaServer().then(next);
+                        saveDaServer();
                     }) 
                 } else{
+                    // 激活 的 , 并且指定了 daserver ; (assign过的)
                     saveDaServer();
                 }
 

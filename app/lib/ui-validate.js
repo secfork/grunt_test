@@ -26,10 +26,12 @@ angular.module('ui.validate', [])
     require: 'ngModel',
     link: function(scope, elm, attrs, ctrl) {
       var validateFn,
-          validators = {},
-
+          validators = {}, 
         validateExpr = scope.$eval(attrs.uiValidate);
  
+
+        console.log( scope , elm.val());
+
 
 
       if (!validateExpr) {
@@ -47,9 +49,12 @@ angular.module('ui.validate', [])
         validateFn = function(valueToValidate) {
           
         
+          
 
           var expression = scope.$eval(exprssn, {
-            '$value': valueToValidate
+            '$value': valueToValidate ,
+            "$elm":elm ,
+            "$ctrl":ctrl
           });
            
 

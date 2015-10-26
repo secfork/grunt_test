@@ -81,6 +81,22 @@ tbody {
 }
 
 
+/*lixq system status  :unset,online,offline,comm_failure
+未设置:灰,  在线 :绿 ,, 离线:红,  故障:橙色
+*/
+.unset{
+  color: grey;
+}
+.online{
+  color: green;
+}
+.offline{
+  color: red;
+}
+.comm_failure{
+  color: orange;
+}
+
 
 
 .hex ul  {
@@ -3823,6 +3839,7 @@ a.text-black:hover {
 .m-l-xs {
   margin-left: 5px;
 }
+
 .m-l-sm {
   margin-left: 10px;
 }
@@ -3893,6 +3910,9 @@ a.text-black:hover {
 
 .m-t-xs {
   margin-top: 5px;
+}
+.m-t-xm {
+  margin-top: 8px;
 }
 .m-t-sm {
   margin-top: 10px;

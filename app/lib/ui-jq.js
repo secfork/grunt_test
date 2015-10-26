@@ -17,75 +17,130 @@
  * @example <input ui-jq="datepicker" ui-options="{showOn:'click'},secondParameter,thirdParameter" ui-refresh="iChange">
  */
 angular.module('ui.jq', ['ui.load']).
-  value('uiJqConfig', {}).
-  directive('uiJq',
-    ['uiJqConfig', 'JQ_CONFIG', 'uiLoad', '$timeout', function uiJqInjectingFunction(uiJqConfig,
-     JQ_CONFIG, uiLoad, $timeout) {
+value('uiJqConfig', {}).
+directive('uiJq', ['uiJqConfig', 'JQ_CONFIG', 'uiLoad', '$timeout', function uiJqInjectingFunction(uiJqConfig,
+    JQ_CONFIG, uiLoad, $timeout) {
 
-  return {
-    restrict: 'A',
-    compile: function uiJqCompilingFunction(tElm, tAttrs) {
+    return {
+        restrict: 'A',
+        require: '?^ngModel',
+        // link: function($scope, $ele, $attrs, modelCtrl) {
+        compile: function uiJqCompilingFunction(tElm, tAttrs) {
 
-      if (!angular.isFunction(tElm[tAttrs.uiJq]) && !JQ_CONFIG[tAttrs.uiJq]) {
-        throw new Error('ui-jq: The "' + tAttrs.uiJq + '" function does not exist');
-      }
-      var options = uiJqConfig && uiJqConfig[tAttrs.uiJq];
-
-      return function uiJqLinkingFunction(scope, elm, attrs) {
-
-        function getOptions(){
-          var linkOptions = [];
-
-          // If ui-options are passed, merge (or override) them onto global defaults and pass to the jQuery method
-          if (attrs.uiOptions) {
-            //
-            linkOptions = scope.$eval('[' + attrs.uiOptions + ']');
-            if (angular.isObject(options) && angular.isObject(linkOptions[0])) {
-              linkOptions[0] = angular.extend({}, options, linkOptions[0]);
+            if (!angular.isFunction(tElm[tAttrs.uiJq]) && !JQ_CONFIG[tAttrs.uiJq]) {
+                throw new Error('ui-jq: The "' + tAttrs.uiJq + '" function does not exist');
             }
-          } else if (options) {
-            linkOptions = [options];
-          }
-          console.log( "flot 参数!! ",linkOptions  )
-          return linkOptions;
-        }
+            var options = uiJqConfig && uiJqConfig[tAttrs.uiJq];
 
-        // If change compatibility is enabled, the form input's "change" event will trigger an "input" event
-        if (attrs.ngModel && elm.is('select,input,textarea')) {
-          elm.bind('change', function() {
-            elm.trigger('input');
-          });
-        }
+            return function uiJqLinkingFunction(scope, elm, attrs , ctrl) {
+                 
+                function getOptions() {
+                    var linkOptions = [];
 
-        // Call jQuery method and pass relevant options
-        function callPlugin() {
-          $timeout(function() { 
-            console.log(  elm ,   attrs );
-            elm[attrs.uiJq].apply(elm, getOptions());
-          }, 0, false);
-        }
+                    // If ui-options are passed, merge (or override) them onto global defaults and pass to the jQuery method
+                    if (attrs.uiOptions) {
+                        //
+                        linkOptions = scope.$eval('[' + attrs.uiOptions + ']');
+                        if (angular.isObject(options) && angular.isObject(linkOptions[0])) {
+                            linkOptions[0] = angular.extend({}, options, linkOptions[0]);
+                        }
+                    } else if (options) {
+                        linkOptions = [options];
+                    }
+                     //@if  append
+                     console.log("flot 参数!! ", linkOptions);
+                     
+                     //@endif 
+                    
+                    return linkOptions;
+                }
 
-        function refresh(){
-          // If ui-refresh is used, re-fire the the method upon every change
-          if (attrs.uiRefresh) {
-            scope.$watch(attrs.uiRefresh, function() {
-              callPlugin();
-            });
-          }
-        }
+                // If change compatibility is enabled, the form input's "change" event will trigger an "input" event
+                if (attrs.ngModel && elm.is('select,input,textarea')) {
+                    elm.bind('change', function() {
+                        elm.trigger('input');
+                    });
+                }
 
-        if ( JQ_CONFIG[attrs.uiJq] ) {
-          uiLoad.load(JQ_CONFIG[attrs.uiJq]).then(function() {
-            callPlugin();
-            refresh();
-          }).catch(function() {
-            
-          });
-        } else {
-          callPlugin();
-          refresh();
+                // lixq
+                var arr , value ; 
+                function getV ( model ,  v ){
+                    value = "";
+                    arr = v.split("&")
+                    if( arr.length == 1){
+                        value =  model[v]
+                    }else{
+                        arr.forEach( function( x , i ){
+                            value += model[x] + (i+1 == arr.length?"":"&" );
+                        })
+                    } 
+
+                    return  value ;
+                }
+   
+
+                // Call jQuery method and pass relevant options
+                
+                var f = elm.find("option").clone();
+                function callPlugin() {
+                    $timeout(function() { 
+                        // 如果是 chosen 插件;  要赋 初始值; 
+                        if (attrs.uiJq === "chosen") {
+
+                            if (attrs.uiRefresh) {
+                                var ops = [] ,
+                                 k = attrs.k , 
+                                 v = attrs.v ,
+                                 child , arr ;
+                                 arr = scope.$eval( attrs.uiRefresh ); 
+                                 if( arr ){
+                                     arr.forEach( function( x ){  
+                                       ops.push(  " <option value='" +  getV( x , v )  +"'>" +x[k]+"</option>");
+                                     });
+                                     // ":not(:first)" 
+
+                                    elm.empty().append(f).append( ops.join("") ); 
+                                 } 
+                            }   
+                             
+                            elm[attrs.uiJq].apply(elm, getOptions());  
+                            // scope.$eval(attrs.ngModel)
+                            elm.val( scope.$eval(attrs.ngModel) ).trigger("chosen:updated");
+                           
+                        } else {
+                             elm[attrs.uiJq].apply(elm, getOptions());
+                        }  
+                    }, 0, false);
+                }
+
+                function refresh() {
+                    // If ui-refresh is used, re-fire the the method upon every change
+                    if (attrs.uiRefresh) {
+                        scope.$watch(attrs.uiRefresh, function() {
+                             //@if  append
+                                console.log(" callPlugin -----------------");
+                             //@endif 
+                            callPlugin();
+                        });
+                    }
+                }
+
+              
+
+                if (JQ_CONFIG[attrs.uiJq]) {
+                    uiLoad.load(JQ_CONFIG[attrs.uiJq]).then(function() {
+                        
+                        callPlugin();
+                        refresh();
+                    }).catch(function() {
+
+                    });
+                } else {
+                    
+                    callPlugin();
+                    refresh();
+                }
+            };
         }
-      };
-    }
-  };
+    };
 }]);

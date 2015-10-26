@@ -1,15 +1,19 @@
 angular.module('app.show.system', [])
 
-.controller("show_alarm", function($scope, $state, $source, $show, $sys, $q, $filter) {
+  
 
+.controller("show_alarm", function($scope, $state, $source, $show, $sys, $q, $filter , $modal) {
 
-    $scope.$moduleNav("报警", $state);
+    $scope.$moduleNav("报警", $state); 
+    var S = $scope;
 
     $scope.openCalendar = function(e, exp) {
         e.preventDefault();
         e.stopPropagation();
         this.$eval(exp);
     };
+
+    $scope.page = {};
 
     // 先加载 regions ; 
     $source.$region.query({
@@ -40,18 +44,17 @@ angular.module('app.show.system', [])
         region: undefined
     };
     $scope.od = {
-        class_id: 0,
-        severity: '0',
+        class_id: null ,//0,
+        severity: null ,//'0',
         end: new Date(),
         start: new Date(new Date() - 86400000)
     };
 
 
 
-    // // 查询全部报警;  
+    // // 查询全部报警;   
 
-
-    $scope.queryAlarm = function() {
+    $scope.loadPageData = function( pageNo) {
         $scope.validForm();
         var od = angular.copy($scope.od),
             d1 = od.start.getTime(),
@@ -59,21 +62,51 @@ angular.module('app.show.system', [])
 
         od.start = d1 < d2 ? d1 : d2;
         od.end = d1 < d2 ? d2 : d1;
+        od.itemsPerPage = $sys.itemsPerPage ;
+        od.currentPage = pageNo ;
 
         var promise;
         // 活跃报警; 
+        
         if ($scope.op.active) {
             $show.alarm.get(od, function(resp) {
-                $scope.alarms = resp.ret;
+                $scope.page.data = resp.data;
+                $scope.page.total = resp.total;
+                $scope.page.currentPage = pageNo;
+                if (!resp.data.length) {
+                    angular.alert({
+                        title: "无报警数据"
+                    })
+                }
             });
         } else { // 全部报警; 
             $show.alarm.save(od, undefined, function(resp) {
-                $scope.alarms = resp.ret;
+                $scope.page.data = resp.data;
+                $scope.page.total = resp.total;
+                $scope.page.currentPage = pageNo;
+                if (!resp.data.length) {
+                    angular.alert({
+                        title: "无报警数据"
+                    })
+                }
             });
         }
+    }
 
 
 
+       // alarm 详细信息;
+  
+    $scope.alarmMsg = function(a) {
+        $modal.open({
+            templateUrl: "athena/show/alarm_msg.html",
+            controller: function($scope, $modalInstance) {
+                $scope.__proto__ = S;
+                $scope.$modalInstance = $modalInstance;
+                // $scope.done = $scope.cancel;
+                $scope.alarm = a;
+            }
+        })
     }
 })
 
@@ -229,25 +262,27 @@ angular.module('app.show.system', [])
 
 
     // 单次获得 当前数据; 
+    var x = {  src: null,  pv: null} , 
+        t ;
     function getCurrent() {
+        
+        // $scope.progValue = 10000;
+        
         $show.live.get({
             uuid: $scope.system.uuid,
             tag: names
         }, function(resp) {
 
             doms_t = doms_t || $(".current_time");
-            doms_v = doms_v || $(".current_val");
-
-            $.each(resp.ret, function(i, d) {
-                if (!d) {
-                    d = {
-                        src: null,
-                        pv: null
-                    };
-                };
+            doms_v = doms_v || $(".current_val"); 
+            
+            $.each(resp.ret, function(i, d) { 
+                d = d || x  ;
                 t = $filter("date")(d.src, 'MM-dd HH:mm:ss');
-                doms_v.eq(i).text(d.pv);
-                doms_t.eq(i).text(t);
+
+                doms_v.eq(i).text( d.pv==null?"":d.pv    );
+             
+                t &&  doms_t.eq(i).text(t);
             })
              
         });
@@ -345,7 +380,7 @@ angular.module('app.show.system', [])
 
 })
 
-.controller('show_system_alarm', function($scope, $show, $interval, $modal, $sys) {
+.controller('show_system_alarm', function($scope, $show, $interval, $modal, $sys ) {
 
     // var interval;
     $scope.page = {};
@@ -358,9 +393,7 @@ angular.module('app.show.system', [])
         uuid: $scope.system.uuid
     };
 
-    $scope.$watch("op.ala", function(n) {
-        // $interval.cancel(interval);
-        // interval; 
+    $scope.$watch("op.ala", function(n) { 
         //@if  append 
         console.log(n);
         //@endif  
@@ -397,15 +430,7 @@ angular.module('app.show.system', [])
             $scope.queryAlarm(pageNo);
         }
     }
-
-    // interval
-
-    // $scope.liveAlarm = function() { 
-    //     getAlarm(1 );  // 首页 ;
-    //     interval = $interval(function() {
-    //         getAlarm(1);
-    //     }, $scope.op.a_int);
-    // }
+ 
 
     // 点击按钮 查询全部报警;  
     $scope.queryAlarm = function(pageNo) {
@@ -438,19 +463,8 @@ angular.module('app.show.system', [])
         })
     }
 
-    // alarm 详细信息;
-    var S = $scope;
-    $scope.alarmMsg = function(a) {
-        $modal.open({
-            templateUrl: "athena/show/alarm_msg.html",
-            controller: function($scope, $modalInstance) {
-                $scope.__proto__ = S;
-                $scope.$modalInstance = $modalInstance;
-                // $scope.done = $scope.cancel;
-                $scope.alarm = a;
-            }
-        })
-    }
+    
+   
 
 })
 
