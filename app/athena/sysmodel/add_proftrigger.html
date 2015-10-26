@@ -52,9 +52,9 @@ dd = {{ step1.xxx.$valid }} -->
 
 
                     </td>
-                    <td  >
+                    
 
-                      <select ng-if=" l.fn  == 'PV' "  ng-init="verfiyTag( l )"
+                     <!--   <select ng-if=" l.fn  == 'PV' "  ng-init="verfiyTag( l )"
                                 ng-options=" t.name as t.name for  t  in  tags_arr"
                                 ng-model=" l.args " class="form-control  animated  animate-if"
 
@@ -62,14 +62,11 @@ dd = {{ step1.xxx.$valid }} -->
                                 ui-validate-watch=" 'r.args' " required>
                             <option value=''> 请选择tag </option>
                         </select>
-
+ -->
 
  
 
-                    <td>
-                    <!-- 
-                     ng-options=" t.name as t.name for  t  in  tags_arr" 
- -->
+                    <td> 
                         <select ng-if=" l.fn  == 'PV' " 
                            
                             ng-model=" l.args " 
@@ -136,9 +133,7 @@ dd = {{ step1.xxx.$valid }} -->
                             ui-validate-watch=" 'l.args' " 
                             required>
                     </td>
-
-
-
+ 
 
                     <td>
                         <!--   -->
