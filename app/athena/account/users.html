@@ -1,4 +1,5 @@
-<tabset class="tab-container">
+<!--jjw bg-normal-->
+<tabset class="tab-container bg-normal">
     <tab  select="tabToUsers()" >
 		<tab-heading >
 			<i  class="icon icon-user " ></i>
@@ -14,15 +15,16 @@
 		 	<span  translate= "添加用户"></span>
 		</tab-heading>
 
-     <div class="panel-body table-responsive  bg-light  no-padder  no-border">
-
-          <form name="form" panelclass class="form-horizontal form-validation no-border">
+     <!--jjw bg-white-->
+     <div class="panel-body table-responsive  bg-light bg-white  no-padder  no-border">
+            <!--jjw span-text-base-->
+          <form name="form" panelclass class="form-horizontal form-validation no-border span-text-base">
 
             <ng-include src=" 'athena/account/_user_form.html' "></ng-include>
 
           </form>
-          <div panelclass class="text-center">
-              <button type="submit" class="btn  btn-info  btn-block-middle w-xs m-b " ng-click=" createUser()" token> 保存 </button>
+          <div panelclass class="text-center m-t-sm">
+              <button type="submit" class="btn  btn-info  btn-block-middle w-xs m-b col-sm-9 col-sm-offset-3" ng-click=" createUser()" token> 保存 </button>
           </div>
       </div>
 

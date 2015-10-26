@@ -767,11 +767,12 @@ a.list-group-item:focus {
 /*jjw table*/
 .j_table th,.j_table td{
     font-size: 14px;
-    height: 38px;
-    line-height: 38px !important;
+    height: 30px;
+    line-height: 30px !important;
 }
 .j_table th{
     font-weight: bold !important;
+    background-color: #FFFFFF;
 }
 
 .well,
@@ -1601,6 +1602,7 @@ body {
 .btn-s{
     font-size: 10px;
     height:22px;
+    line-height: 0.8 !important;
 }
 .btn-m{
     font-size: 10px;
@@ -2160,6 +2162,19 @@ fieldset[disabled] .btn-black.active {
   background: transparent;
   border-color: #fff;
 }
+/*jjw tlWraper-textAlign*/
+.tl-wrap-l span{
+    float: left;
+}
+.tl-wrap-r span{
+    float: right;
+}
+/*jjw span-30*/
+.wrap-label-span-30 label span{
+    height: 30px;
+    line-height: 30px;
+}
+
 .tl-date {
   position: relative;
   top: 10px;
@@ -3422,7 +3437,7 @@ a.text-black:hover {
   color: #fff;
 }
 .text-muted {
-  color: #99a6ad;
+  color: #99a6ae;
 }
 .pos-rlt {
   position: relative;

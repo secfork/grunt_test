@@ -3,8 +3,8 @@
 修改  bootstrp-tpl.js   "  directive("tab", " 处 的 controller 增加   完善 select 属性不支持 {{}} "bia
  -->
 
-
-<tabset class="tab-container">
+<!--jjw bg-->
+<tabset class="tab-container bg-normal">
 
 
       <tab  select="tabToGroup()">
@@ -15,6 +15,7 @@
 	    <ng-include src=" 'athena/account/usergroup_all.html' "></ng-include>
 
     </tab>
+
     <tab  select="tabToAddGroup()" >
     	<tab-heading>
 			 <i  class="add_usergroup" ></i> <span translate=" 添加组 "></span>
@@ -23,8 +24,6 @@
 	    <ng-include src=" 'athena/account/usergroup_add.html' "></ng-include>
 
     </tab>
-
-
 
 
 </tabset>
