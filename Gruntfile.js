@@ -491,23 +491,25 @@ module.exports = function(grunt) {
                 // cwd: '<%= yeoman.app %>',
 
                 cwd:".tmp/html",
-               // src:"{**/,}*.html",
-                src: [ 
-                    "athena/*.html",
-                   // 'athena/_device/{**/,}*.html',
-                   // 'athena/_dtu/{**/,}*.html',
-                    // 'athena/_point/{**/,}*.html',
-                    // 'athena/account/{**/,}*.html',
-                    // 'athena/dastation/{**/,}*.html',
-                    // 'athena/debris/{**/,}*.html', 
-                    // 'athena/region/{**/,}*.html', 
-                    // 'athena/show/{**/,}*.html', 
-                    // 'athena/support/{**/,}*.html', 
+                src:"{**/,}*.html",
+                // src: [ 
+                //     "athena/*.html",
+                //    'athena/_device/{**/,}*.html',
+                //    'athena/_dtu/{**/,}*.html',
+                //     'athena/_point/{**/,}*.html',
+                //     'athena/account/{**/,}*.html',
+                //     'athena/dastation/{**/,}*.html',
+                //     'athena/debris/{**/,}*.html', 
+                //     'athena/region/{**/,}*.html', 
+                //     'athena/show/{**/,}*.html', 
+                //     'athena/support/{**/,}*.html', 
                     
-                     'athena/sysmodel/{**/,}*.html', 
-                     //'athena/template/{**/,}*.html', 
-                   // 'athena/user/{**/,}*.html', 
-                    ],
+                //     'athena/sysmodel/{**/,*}.html', 
+
+
+                //     'athena/template/{**/,}*.html', 
+                //     'athena/user/{**/,}*.html', 
+                //     ],
                 
 
                 dest: '.tmp/templateCache.js'

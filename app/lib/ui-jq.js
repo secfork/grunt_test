@@ -87,12 +87,12 @@ directive('uiJq', ['uiJqConfig', 'JQ_CONFIG', 'uiLoad', '$timeout', function uiJ
                         // 如果是 chosen 插件;  要赋 初始值; 
                         if (attrs.uiJq === "chosen") {
 
-                            if (attrs.source || attrs.uiRefresh) {
+                            if (attrs.sourceArr || attrs.uiRefresh) {
                                 var ops = [] ,
                                  k = attrs.k , 
                                  v = attrs.v ,
                                  child , arr ;
-                                 arr = scope.$eval(  attrs.source || attrs.uiRefresh ); 
+                                 arr = scope.$eval(  attrs.sourceArr || attrs.uiRefresh ); 
                                  if( arr ){
                                      arr.forEach( function( x ){  
                                        ops.push(  " <option value='" +  getV( x , v )  +"'>" +x[k]+"</option>");
