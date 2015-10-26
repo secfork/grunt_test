@@ -178,8 +178,8 @@ angular.module('app.sysconfig', [], function() {})
 
             // op:[ ">" , "<" , "=" ,">=" , "<=" ,"!=" , "&" ,"|" ,"!" ,"~"],
 
-            verb_default: 'And',
-            verb: ['And', 'Or'],
+            verb_default: 'and',
+            verb: ['and', 'or'],
 
 
             severity_default: "0",

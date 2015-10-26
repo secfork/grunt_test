@@ -910,7 +910,7 @@ angular.module("app.model.system", [])
                     profile: t.profile,
                     id: t.id
                 }, function(resp) {
-                    $scope.triggers.splice(i, 1);
+                    $scope.page.data.splice(i, 1);
                     n();
                 }, n)
             })

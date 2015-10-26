@@ -624,7 +624,7 @@ angular.module('app.basecontroller', ['ng'])
             });
         }
 
-        $scope.conformAlarm = function( alarm , system_id ){
+        $scope.conformAlarm = function( page , alarm , index , system_id ){
             $modal.open({
                 templateUrl: "athena/show/alarm_conform.html", 
                 controller: function($scope, $modalInstance , $show ) {
@@ -644,6 +644,8 @@ angular.module('app.basecontroller', ['ng'])
                                 $scope.cancel();
                                 alarm.active = 0 ; 
                                 angular.alert("确认报警成功");
+                                page.total-- ;
+                                page.data.splice( index ,1);
 
                             },
                             function(){

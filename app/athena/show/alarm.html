@@ -76,7 +76,7 @@
                 <th> 类别 </th>
                 <th> 活跃状态 </th>
                 <th class="w-xs"> </th>
-            </tr>
+            </tr> 
         </thead>
         <tbody class="text-center ">
  
@@ -87,10 +87,10 @@
                 <td> {{ a.desc }}</td>
                 <td> {{ _config[a.severity] }} </td>
                 <td> {{ a.class_id }} </td>
-                <td> {{ a.active?"活跃":"关闭" }} </td>
+                <td translate="alarm_active.{{ a.active}}" > "活跃":"关闭"  </td>
                 <td> 
                     <a class="text-link" ng-click="showAlarmMsg(a , od.uuid)">详细信息</a>
-                    <a  ng-show=" a.active " class="text-link m-l" ng-click="conformAlarm(a , od.uuid )">确认报警</a>
+                    <a  ng-show=" a.active " class="text-link m-l" ng-click="conformAlarm( page,  a , $idnex , od.uuid )">确认报警</a>
 
                 </td>
             </tr>
