@@ -86,7 +86,12 @@
                 <th width="10%" ttranslate="th.th9"> 定位</th>
                 <th width="15%" translate="th.th11" ng-if=" !isShowModul  ">
                     同步配置 </th>
-                <th width="20%">备注</th>
+                <th width="20%">
+
+                备注
+
+
+                </th>
                 <th width="15%" ng-if=" !isShowModul"></th>
             </tr>
         </thead>
@@ -166,6 +171,7 @@ ng-class= "{'text-success':das.online }  "
                 </td>
                 <td>
                     {{das.desc}}
+                       {{das.create_time |date:"hh-dd HH:MM"}}
                 </td>
                 <!--替换 失效 移除-->
                 <td ng-if=" !isShowModul ">

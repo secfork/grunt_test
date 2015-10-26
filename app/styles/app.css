@@ -3824,6 +3824,7 @@ a.text-black:hover {
 .m-l-xs {
   margin-left: 5px;
 }
+
 .m-l-sm {
   margin-left: 10px;
 }
@@ -3894,6 +3895,9 @@ a.text-black:hover {
 
 .m-t-xs {
   margin-top: 5px;
+}
+.m-t-xm {
+  margin-top: 8px;
 }
 .m-t-sm {
   margin-top: 10px;

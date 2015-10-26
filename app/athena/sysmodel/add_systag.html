@@ -13,21 +13,26 @@
                 <option value="" >--请选择设备--</option>
             </select>
  
- 
-            <select  ui-jq="chosen" 
+ <!--@if append -->
+ op.point" ={{op.point}}
+ <!--@endif -->
+
+
+            <select  
+                ui-jq="chosen" 
                 tl-wrap  
-                label="connect 点"
-                id = "123x"
+                label="connect 点" 
                 ng-model="op.point" 
                 ui-refresh = "points" 
                 ng-change=" copyName() "
                 k ="name" ,
                 v ="id&name"
+                required
                 >
                  <option value="" >--请选择点--</option>
             </select>
                 
-                op.point ={{op.point}}
+                 
  
 
  <!-- 

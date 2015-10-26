@@ -33,8 +33,7 @@ directive('uiJq', ['uiJqConfig', 'JQ_CONFIG', 'uiLoad', '$timeout', function uiJ
             var options = uiJqConfig && uiJqConfig[tAttrs.uiJq];
 
             return function uiJqLinkingFunction(scope, elm, attrs , ctrl) {
-                console.log("mmmmmmmmmmmmmmmmmmmmmmmmmmm" , ctrl)
-
+                 
                 function getOptions() {
                     var linkOptions = [];
 
@@ -48,7 +47,11 @@ directive('uiJq', ['uiJqConfig', 'JQ_CONFIG', 'uiLoad', '$timeout', function uiJ
                     } else if (options) {
                         linkOptions = [options];
                     }
-                    console.log("flot 参数!! ", linkOptions)
+                     //@if  append
+                     console.log("flot 参数!! ", linkOptions);
+                     
+                     //@endif 
+                    
                     return linkOptions;
                 }
 
@@ -70,22 +73,17 @@ directive('uiJq', ['uiJqConfig', 'JQ_CONFIG', 'uiLoad', '$timeout', function uiJ
                         arr.forEach( function( x , i ){
                             value += model[x] + (i+1 == arr.length?"":"&" );
                         })
-                    }
+                    } 
+
                     return  value ;
                 }
    
 
                 // Call jQuery method and pass relevant options
+                
+                var f = elm.find("option").clone();
                 function callPlugin() {
-                    $timeout(function() {
-
-                        //=============
-                        console.log(elm, attrs);
-                        var opt = getOptions();
-                        //=============
-
-
-
+                    $timeout(function() { 
                         // 如果是 chosen 插件;  要赋 初始值; 
                         if (attrs.uiJq === "chosen") {
 
@@ -96,29 +94,22 @@ directive('uiJq', ['uiJqConfig', 'JQ_CONFIG', 'uiLoad', '$timeout', function uiJ
                                  child , arr ;
                                  arr = scope.$eval( attrs.uiRefresh ); 
                                  if( arr ){
-                                     arr.forEach( function( x ){
-                                        var va  = getV(x , v);
-                                        console.log(va);
-
+                                     arr.forEach( function( x ){  
                                        ops.push(  " <option value='" +  getV( x , v )  +"'>" +x[k]+"</option>");
                                      });
-                                    elm.children(":not(:first)").remove(); 
-                                    elm.append( ops.join(""));
+                                     // ":not(:first)" 
+
+                                    elm.empty().append(f).append( ops.join("") ); 
                                  } 
                             }   
-
+                             
                             elm[attrs.uiJq].apply(elm, getOptions());  
                             // scope.$eval(attrs.ngModel)
                             elm.val( scope.$eval(attrs.ngModel) ).trigger("chosen:updated");
-                          
-
- 
+                           
                         } else {
                              elm[attrs.uiJq].apply(elm, getOptions());
-                        }
-
-
-
+                        }  
                     }, 0, false);
                 }
 
@@ -126,19 +117,26 @@ directive('uiJq', ['uiJqConfig', 'JQ_CONFIG', 'uiLoad', '$timeout', function uiJ
                     // If ui-refresh is used, re-fire the the method upon every change
                     if (attrs.uiRefresh) {
                         scope.$watch(attrs.uiRefresh, function() {
+                             //@if  append
+                                console.log(" callPlugin -----------------");
+                             //@endif 
                             callPlugin();
                         });
                     }
                 }
 
+              
+
                 if (JQ_CONFIG[attrs.uiJq]) {
                     uiLoad.load(JQ_CONFIG[attrs.uiJq]).then(function() {
+                        
                         callPlugin();
                         refresh();
                     }).catch(function() {
 
                     });
                 } else {
+                    
                     callPlugin();
                     refresh();
                 }

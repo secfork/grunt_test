@@ -3,7 +3,9 @@
 <div class="panel-heading float-left w-full  " ng-if="isModelState">
     <div class="float-left m-t-xs m-l-md m-r"> 配置项 </div>
     <div class="float-left">
-        <select ng-model="odp.puuid" class=" form-control  input-sm w " ng-options="p.uuid as p.name for p in profiles  " ng-change="loadTriggers( odp.puuid  )">
+        <select ng-model="odp.puuid" class=" form-control  input-sm w "
+         ng-options="p.uuid as p.name for p in profiles  " 
+         ng-change="loadPageData( 1 )">
         </select>
     </div>
 </div> 
@@ -26,7 +28,7 @@
             </tr>
         </thead>
         <tbody class="text-center " ng-init=" _config = $sys.trigger "> 
-            <tr ng-repeat="    t in triggers  "   > 
+            <tr ng-repeat="    t in page.data  "   > 
                 <td> {{t.name}}</td>
                 <td> {{ _config.type[t.type] }}</td>
                 <td> {{ _config.action[t.action] }}</td>
@@ -41,17 +43,22 @@
         </tbody>
     </table>
 </div>
-<div class=" panel-fotter b-t-none" ng-if="isModelState">
-    <button class="btn btn-success btn-sm  m-l m-t-xs m-b-xs" ng-click=" c_u_Trigger('create') ">
+
+
+<div class=" panel-footer text-center " ng-if="isModelState">
+     <button class="btn btn-success btn-sm m-t-xs m-l pull-left " ng-click=" c_u_Trigger('create') ">
         添加触发器
     </button>
+
+    <div class=" text-center inline m-t-xm  m-l-n-xxl " ng-include src=" 'athena/debris/_pager.html'  "></div>
+  
 </div>
-
-
+ 
+ 
 
 
 <!--@if append-->
-trigger = {{triggers}}
+page = {{page}}
 <hr/>
 tags_nv ={{tags_nv}}
 

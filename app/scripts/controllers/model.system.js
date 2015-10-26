@@ -425,44 +425,7 @@ angular.module("app.model.system", [])
         }
 
 
-        
-        //  manage 模式时 ,  tag 的编辑, 新建; 增加 dev , devModelPoint 联动;
-        function ApplyDevPoint(scope) {
-            var oldDevModel ;
-
-            scope.op = {};
-
-            //zai 父scope中添加 sysdevices ; 
-            var promise =  $scope.loadSysDev() ; 
- 
-
-            scope.loadPoint = function  (dev) {
-                if (!dev) return;
-                if (dev.device_model == oldDevModel) return;
-                oldDevModel = dev.device_model;
-
-                scope.op.point = null;
-
-                var promise ; 
-                promise = $source.$dmPoint.get({ device_model: oldDevModel }).$promise;
-
-                promise.then(function  (resp) {
-                    $scope.points = resp.ret;
-                }) 
-                return promise ; 
-            };
-
-            // 拼接  connnet  字段;
-            scope.addConnect = function(tag) { 
-                // tag.connect = scope.op.dev.id + "." + scope.op.point.id; 
-                tag.connect = scope.op.dev.id +"." + scope.op.point.replace(/(.+)&(.+)/, '$1');
-
-            };
-
-            return promise;
-        }
-
-
+   
 
         // 组织 device 的kv 形式;
         $scope.loadSysDev().then( function(){
@@ -501,6 +464,46 @@ angular.module("app.model.system", [])
             $scope.odp.puuid = $scope.odp.puuid || $scope.profiles[0] && $scope.profiles[0].uuid;
             $scope.loadSysTag($scope.odp.puuid);
         });
+     
+        //  manage 模式时 ,  tag 的编辑, 新建; 增加 dev , devModelPoint 联动;
+        function ApplyDevPoint(scope) {
+            var oldDevModel ;
+
+            scope.op = {};
+
+            //zai 父scope中添加 sysdevices ; 
+            var promise =  $scope.loadSysDev() ; 
+ 
+
+            scope.loadPoint = function  (dev) {
+                if (!dev) return;
+                if (dev.device_model == oldDevModel) return;
+                oldDevModel = dev.device_model;
+
+                
+
+                var promise ; 
+                promise = $source.$dmPoint.get({ device_model: oldDevModel }).$promise;
+
+                promise.then(function  (resp) {
+                    var p = resp.ret[0];
+                    scope.points = resp.ret;
+                    scope.op.point = p && (p.id +"&"+p.name);
+                    scope.T.name   = p && p.name ;
+                }) 
+                return promise ; 
+            };
+
+            // 拼接  connnet  字段;
+            scope.addConnect = function(tag) { 
+                // tag.connect = scope.op.dev.id + "." + scope.op.point.id; 
+                tag.connect = scope.op.dev.id +"." + scope.op.point.replace(/(.+)&(.+)/, '$1');
+
+            };
+
+            return promise;
+        }
+
 
 
         // tag 的 创建, 编辑 , 删除;
@@ -595,11 +598,18 @@ angular.module("app.model.system", [])
                         ApplyDevPoint($scope).then(function( ) {
                             
                             // 回显 devmodel , point ;
-                            $scope.op.dev = $scope.sysdevices.filter (function(v, i) {
-                                                return v.id == dd
-                                            })[0] || undefined,
-
-
+                            // $scope.op.dev = $scope.sysdevices.filter (function(v, i) {
+                            //                     return v.id == dd
+                            //                 })[0] ,
+ 
+                            $.each( $scope.sysdevices , function(i,v){
+                                if( v.id == dd ){
+                                    $scope.op.dev = v ; 
+                                    return false ; 
+                                }   
+                                return  true ;
+                            }) ;
+ 
                             $scope.op.dev && $scope.loadPoint($scope.op.dev).then( function(){
                                
                                 $.each( $scope.points , function( i,v ){
@@ -609,12 +619,7 @@ angular.module("app.model.system", [])
                                     } 
                                     return  true ;
 
-                                })
-
-                                // $scope.op.point = $scope.points.filter( function(v,i){
-                                //                     return  v.id == dt 
-                                //                 })[0] || undefined  
-
+                                }) 
                             }); 
                              
                         })
@@ -804,7 +809,7 @@ angular.module("app.model.system", [])
 
 
 .controller("sysmodel_prof_trigger",
-    function($scope, $source, $modal, $state , $q ) {
+    function($scope, $source, $modal, $state , $q ,$sys) {
 
         $scope.$popNav($scope.sysmodel.name + "(触发器)", $state);
 
@@ -835,16 +840,28 @@ angular.module("app.model.system", [])
         }
 
 
+        $scope.page = {} ;
+
+        $scope.loadPageData = function( pageNo ){
+
+
+        } 
         // 加载triger ; 
         // var lose_tag = { 'background-color':'grey' };
-        $scope.loadTriggers = function(prof_uuid) {
-            if (!prof_uuid) return;
+        $scope.loadPageData = function( pageNo ) {
+            var prof_id = $scope.odp.puuid;
+            if (!prof_id) return;
+            var d = { profile: prof_id } ;
+                d.currentPage = pageNo, 
+                d.itemsPerPage =  $sys.itemsPerPage  ;
             $q.all([
-                $source.$sysProfTrigger.get({ profile: prof_uuid }).$promise ,
+                $source.$sysProfTrigger.get(d).$promise ,
                 loadTagPromise
             ]).then( function( resp ){  
-                $scope.triggers = resp[0].ret;
-                $scope.triggers.forEach( function( t ){ 
+                var p =  resp[0] ;
+                p.data.forEach( function( t ){ 
+
+
                     condition_parmas_tojson(t);
                     // 检查tag是否存在; 
                     
@@ -862,7 +879,13 @@ angular.module("app.model.system", [])
                         }
 
                     }) 
-                })  
+                }) 
+
+                $scope.page.data = p.data ,
+                $scope.page.currentPage = pageNo,
+                $scope.page.total = p.total ;
+
+
             }) 
         }
  
@@ -873,7 +896,8 @@ angular.module("app.model.system", [])
         $scope.odp = {} ; 
         $scope.loadProfilePromise.then(function() {
             $scope.odp.puuid = $scope.odp.puuid || $scope.profiles[0] && $scope.profiles[0].uuid;
-            $scope.loadTriggers($scope.odp.puuid);
+            // $scope.loadTriggers();
+            $scope.loadPageData(1);
         });
 
 
@@ -949,14 +973,14 @@ angular.module("app.model.system", [])
                                 condition_parmas_tojson(x);
 
                                 x.id = resp.ret; 
-                                $scope.triggers.push(x);
+                                $scope.page.data.push(x);
                                 $scope.cancel();
                             })
                         } else { // 更新;
                             $source.$sysProfTrigger.put(x, function(resp) {
                                 condition_parmas_tojson(x);
 
-                                $scope.triggers[add_OR_i] = x;
+                                $scope.page.data[add_OR_i] = x;
                                 $scope.cancel();
                             })
                         }
