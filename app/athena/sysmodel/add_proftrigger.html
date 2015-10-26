@@ -51,9 +51,9 @@ dd = {{ step1.xxx.$valid }} -->
 
 
                     </td>
-                    <td  >
+                    
 
-                      <select ng-if=" l.fn  == 'PV' "  ng-init="verfiyTag( l )"
+                     <!--   <select ng-if=" l.fn  == 'PV' "  ng-init="verfiyTag( l )"
                                 ng-options=" t.name as t.name for  t  in  tags_arr"
                                 ng-model=" l.args " class="form-control  animated  animate-if"
 
@@ -61,11 +61,27 @@ dd = {{ step1.xxx.$valid }} -->
                                 ui-validate-watch=" 'r.args' " required>
                             <option value=''> 请选择tag </option>
                         </select>
+ -->
 
 
+ 
+                    <td> 
+                        <select ng-if=" l.fn  == 'PV' " 
+                           
+                            ng-model=" l.args " 
+                            class="form-control  "
+                            i-validate="  '$value != r.args'  "
+                            ui-validate-watch=" 'r.args' " 
 
+                            ui-jq="chosen"
+                            source ="tags_arr"
+                            k ="name"
+                            v = "name"
 
-
+                            required>
+                            <option value=''> 请选择变量</option>
+                        </select>
+ 
                         <!--   ng-show = " c.exp.left.fn == 'null' "   c.exp.left.args -->
                         <input ng-if=" l.fn  == null || l.fn == 'null' "
                                ng-model="l.args" class="form-control  animated  animate-if   "
@@ -92,6 +108,7 @@ dd = {{ step1.xxx.$valid }} -->
                         <!-- ng-show = " c.exp.right.fn == 'null' " -->
                         <input ng-if=" r.fn == null || r.fn == 'null' " ng-model=" r.args" class="form-control  animated  animate-if " placeholder='{{ typel }}' type="{{ tags_nv[l.args].type }}" ui-validate="  '$value!= l.args' " ui-validate-watch=" 'l.args' " required>
                     </td>
+ 
                     <td>
                         <!--   -->
                         <a class="fa  fa-minus-circle pull-right text-danger m-t-xs" ng-if=" $index != 0 " ng-click="delVerb( $index )"></a>
