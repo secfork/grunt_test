@@ -1,6 +1,5 @@
- // 管理-项目-管理; project
-
-
+ // 管理-项目-管理; project 
+ 
  angular.module('app.project', [])
 
  .controller("manage_projs", function($scope, $source, $state, $utils,
@@ -29,7 +28,8 @@
      $scope.loadPageData = function(pageNo) {
          var d = {
              itemsPerPage: per,
-             currentPage: pageNo
+             currentPage: pageNo ,
+             name:  $scope.f_projname
          };
 
          $source.$region.query(d, function(resp) {

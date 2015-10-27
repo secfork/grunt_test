@@ -322,10 +322,7 @@ angular.module('app.directives', ['pascalprecht.translate'])
         restrict: "A",
         require: ["?^ngDisabled"],
         link: function(scope, $ele, attrs, fn) {
-            //@if  append
-
-            console.log(arguments);
-            console.log("token =", attrs.token || 1000);
+            //@if  append 
             //@endif 
             $ele.on("click", function() {
                 var that = this;

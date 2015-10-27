@@ -12,7 +12,7 @@
     "sms_verify_err":"短信验证码无效",
 
     "send_repetition":"验证码已经发送",
-    "rest_err":"接口调用错误",
+    "rest_err":"Server Error!!",
     "no_account":"无此Account 帐号",
  
 

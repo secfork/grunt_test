@@ -12,7 +12,10 @@
 <div class="modal-body  ">
     <form name="form" class=" form-validation form-horizontal   ">
        
-        <textarea tl-wrap ng-model="od.message" label="确认信息"> </textarea>
+        <textarea tl-wrap ng-model="od.message" label="确认信息" required  ng-minlength="2" 
+			ng-maxlength = "50"
+			placeholder="2-50字符!"
+        > </textarea>
     </form>
   
 </div>

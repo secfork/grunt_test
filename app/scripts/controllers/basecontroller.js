@@ -563,7 +563,7 @@ angular.module('app.basecontroller', ['ng'])
                         $modalInstance.dismiss('cancel');
                     };
                     $scope.done = function() {
-                        $modalInstance.dismiss('cancel');
+                        $scope.cancel();
                         fun && fun();
                     };
                 }
@@ -637,6 +637,7 @@ angular.module('app.basecontroller', ['ng'])
 
                     $scope.done = function(){
 
+                        $scope.validForm();
                         $show.alarm.conform( 
                             angular.extend( { alarm_id: alarm.id , system_id:system_id } , $scope.od ) ,
                             null ,
@@ -811,6 +812,7 @@ angular.module('app.basecontroller', ['ng'])
     $scope.signup = function() {
         //delete $scope.comp.admin ; 
          
+        $scope.validForm();
 
         $source.$account.save($scope.comp, function(resp) {
 

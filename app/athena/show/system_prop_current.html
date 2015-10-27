@@ -1,46 +1,27 @@
 <div class="panel-heading   ">
-        
-        <form class="form-inline"    >
-            
-            <div class="input-group "> 
-                <div class="btn btn-sm    input-group-addon">搜索</div>
-                <input type="text" class="form-control"  ng-model="f_name"   >
-            </div>
-
-            <!--     
+    <form class="form-inline">
+        <div class="input-group ">
+            <div class="btn btn-sm    input-group-addon">搜索</div>
+            <input type="text" class="form-control" ng-model="f_name"  ng-change="filterTags(f_name)">
+        </div>
+        <!--     
             <button class="btn btn-sm btn-info  w-xs " ng-click="d_call( system   ,0)" token="5000" > 召唤实时 </button>
             <button class="btn btn-sm btn-info  w-xs " ng-click="d_call( system  , 1 )" token="5000" > 召唤参数 </button>
              -->
-
-
-             <!--  over="xxxx" popover-trigger="mouseenter" -->
-            <button class="btn btn-sm btn-info  w-xs" ng-click="d_call( system  , 2 )" 
-                pop
-                token="5000"> 召唤所有 </button>
-      
-      
-            <label class="checkbox i-checks  "  >
-                <input type="checkbox"  ng-model="auto_r"  ng-change="switch()" >
-                <i></i> <span> 自动刷新</span>
-            </label>
-
-            <span >
+        <!--  over="xxxx" popover-trigger="mouseenter" -->
+        <button class="btn btn-sm btn-info  w-xs" ng-click="d_call( system  , 2 )" pop token="5000"> 召唤所有 </button>
+        <label class="checkbox i-checks  ">
+            <input type="checkbox" ng-model="auto_r"  ">
+            <i></i> <span> 自动刷新</span>
+        </label>
+        <span>
                 <progressbar class="progress-striped   
                    m-b-n-xs  w  inline " animate="false" value=" progValue / 100  " type="success">
                 </progressbar>
                 
-            </span>    
-            <button class="btn btn-sm btn-info  w-xs"  
-                
-                ng-click=" getCurrent() "
-                token
-                >  刷新 </button>
-             
-
-        </form>
- 
- 
-
+            </span>
+        <button class="btn btn-sm btn-info  w-xs" ng-click=" getCurrent() " token> 刷新 </button>
+    </form>
 </div>
 <div class="panel-body table-responsive no-padder">
     <table class=" table   table-bordered ">
@@ -51,31 +32,35 @@
             <th class="w" ng-show=" systemModel.mode ==1 ">下置</th>
             <th class="w"> </th>
         </thead>
-        <tbody>
-            <tr ng-repeat="t in  tags | filter:{ name : f_name }"
-                ng-init=" liveData( $last )" class="hover">
+      
+            <tbody id="current-table"> 
+                <tr ng-repeat="t in   filtTags "  class="hover">
+                    <td class="full-td "   > 
 
-                <td class="full-td">
-                    {{t.name}}
-                </td>
-                <td class="current_val"> </td>
-                <td class="current_time">
-                    <!-- {{ |  date:"yyyy-MM-dd HH:mm"}} -->
-                </td>
-                <td ng-show=" systemModel.mode ==1 ">
-                    <!-- 输入框应该判断数据类型（布尔、数值、枚举、字符串等），
-     并做对应的输入框/下拉框等 -->
-                    <input class="input h-30 " ng-model="v">
-                    <!-- <tl-input    ></tl-input>-->
-                    <button class="btn btn-info btn-xs" ng-click="liveWrite( t, v , this )" token="5000">下置</button>
-                    <span id="current_msg_{{t}}" class="w">  {{ msg }}</span>
-                </td>
-                <td>
-                    <button class="btn btn-info btn-xs" ng-click="goHis(t)">查看历史</button>
-                    <!-- 
+                        {{t.name}}
+                    </td>
+                    <td id="_val_{{$index}}"> </td>
+
+                    <td id="_time_{{$index}}">
+                        <!-- {{ |  date:"yyyy-MM-dd HH:mm"}} -->
+                    </td>
+                    <td ng-show=" systemModel.mode ==1 ">
+                        <!-- 输入框应该判断数据类型（布尔、数值、枚举、字符串等），
+                         并做对应的输入框/下拉框等 -->
+                        <input class="input h-30 " ng-model="v">
+                        <!-- <tl-input    ></tl-input>-->
+                        <button class="btn btn-info btn-xs" ng-click="liveWrite( t, v , this )" token="5000">下置</button>
+                        <span id="current_msg_{{t}}" class="w">  {{ msg }}</span>
+                    </td>
+                    <td>
+                        <button class="btn btn-info btn-xs" ng-click="goHis(t)">查看历史</button>
+                        <!-- 
                     <button class="btn btn-info btn-xs" ng-show="t.save_log" ng-click="goHis(t)">查看历史</button>
                      -->
-                </td>
-            </tr>
-        </tbody>
+                    </td>
+                </tr>
+                 
+            </tbody>
+       
 </div>
+ 

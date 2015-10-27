@@ -3,7 +3,9 @@
     <div class="input-group col-sm-4 col-sm-push-8 m-t-sm m-b-sm">
         <input class="form-control input-sm" type="text" ng-model="f_projname">
         <span class="input-group-btn">
-                   <span class="btn btn-default height-30 disabled"     translate="common.search"  ></span>
+            <span class="btn btn-default height-30  "   
+                  ng-click=" loadPageData(1.)"
+                     translate="common.search"  ></span>
         </span>
     </div>
 </div>
@@ -44,7 +46,7 @@
                                               | orderBy    : predicate:reverse  "
                  >   -->
  
-            <tr ng-repeat="  proj  in page.data | filter:{name:f_projname } "  >
+            <tr ng-repeat="  proj  in page.data  "  >
                 <!--  
  
 

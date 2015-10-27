@@ -5,6 +5,7 @@ var app = angular.module('thinglinx', [
 
     'ngAnimate',
     'ngCookies',
+    'ngMessages',
     'ngStorage',
     'ui.router',
     'ui.bootstrap',
@@ -25,7 +26,7 @@ var app = angular.module('thinglinx', [
 
 .run(
     function($rootScope, $state, $stateParams, $sys, $compile, $localStorage,
-        $cacheFactory, $translate, $sce, $sessionStorage) {
+        $cacheFactory, $translate, $sce, $sessionStorage  ) {
 
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
@@ -185,8 +186,8 @@ var app = angular.module('thinglinx', [
 
                         } else {
                             //  if( !$sys.$debug ){
-                            $state.go('access.signin')
-                                //  }
+                             $state.go('access.signin')
+                            //  }
                         };
                     }
 

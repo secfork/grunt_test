@@ -1,10 +1,9 @@
     <div class="container w-xxl w-auto-xs"   style="background-color :
                                                     rgb(224, 224, 224) ; border-radius: 5px ;">
       <a href class="navbar-brand block m-t">
-          <!--  {{app.name}}   style="width: 150px;"   -->
-
+          <!--  {{app.name}}   style="width: 150px;"   --> 
           <img src="img/logo_2.png"   >
-      </a>
+      </a> 
 
 
       <div class="m-b-lg">
@@ -34,11 +33,15 @@
                 </div> -->
 
                 <div class="list-group-item ">
-                    <input name="password"  ng-model="comp.invitation_code"   
+                    <input name="invicode"  ng-model="comp.invitation_code"   
                            placeholder="激活码"
                            class="form-control no-border "    required
                             >
                     <!--ng-minlength="6"   ng-maxlength="20" -->
+                     
+                      <!--   <div  class="text-danger" ng-show="!form.invicode.$error.required" >You did not enter a field</div> 
+                      
+ -->
                 </div>
 
                 <div class="list-group-item ">
@@ -61,6 +64,27 @@
                             >
                     <!--ng-minlength="6"   ng-maxlength="20" -->
                 </div>
+
+
+
+                <div class="list-group-item">
+
+                    <input type="password" class="form-control  no-border "
+                     name="confirm_password"
+                           required ng-model="confirm_password"   
+                              placeholder=" 确认密码 "
+                           ui-validate=" '$value==comp.admin.password' " 
+                           ui-validate-watch=" 'comp.admin.password' ">
+                
+                    <div ng-show='form.confirm_password.$error.validator'  class="text-danger" >
+                         密码输入不一致
+                    </div>
+
+                </div> 
+
+
+
+              
 
                 
                 <div class="list-group-item  hbox ">
@@ -107,18 +131,7 @@
                 </div>
 
 
-             <!--   <div class="list-group-item">
-
-                    <input type="password" class="form-control  no-border " name="confirm_password"
-                           required ng-model="confirm_password"      placeholder=" 确认密码 "
-                           ui-validate=" '$value==password' " ui-validate-watch=" 'password' ">
-                </div>-->
-
-
-
-                <div ng-show='form.confirm_password.$error.validator'  class="text-danger" >
-                   Passwords do not match!
-                </div>
+       
  
               <!--  <div ng-show=" true " class="text-success text-center " >  注册成功!!</div>-->
 
@@ -139,7 +152,7 @@
        -->
           <button type="submit" class="btn btn-lg btn-primary btn-block" 
                 ng-show="!sign"
-                ng-click="signup()"   ng-disabled=' !form.$valid  || nameok || codeok ' 
+                ng-click="signup()"    
                 >注册</button>
            
 
