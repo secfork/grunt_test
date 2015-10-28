@@ -82,54 +82,6 @@ module.exports = function(grunt) {
         } ,
 
 
-        preprocess: {
-            options: {
-                context: {
-
-                    append: false ,     // 是否build  debug信息;
-                    region_online: false , // 是否build  region 是否在线信息;
-
-
-                    debug: false
-                }
-            },
-
-            dist_index: {
-                src: 'dist/index.html',
-                dest: 'dist/index.html'
-            },
-
-            html: {
-                expand: true,
-                cwd: 'app',
-                src:  "athena/{*/,}*.html",
-                dest: '.tmp/html'
-
-                //[
-                 //  {**/,}*.html
-                // '*.html',
-                // "account/*.html",
-                // "dastation/*.html",
-                //  "debris/*.html",
-                //  "device/*html",
-                //  "point/*html",
-                //  "region/*html",
-                //  "show/*html",
-                //  "support/*html",
-                //  "sysmodel/*html",
-                //  "template/*html",
-                //  "user/*html"
-
-               // ]
-
-            },
-
-            js: {
-                src:'.tmp/concat/<%= yeoman.thing %>app.js',
-                dest: '.tmp/concat/<%= yeoman.thing %>app.js'
-            }
-        },
- 
         // Watches files for changes and runs tasks based on the changed files
         watch: {
             bower: {

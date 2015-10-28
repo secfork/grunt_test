@@ -2,6 +2,7 @@
 
 
 angular.module('app.basecontroller', ['ng'])
+ 
     .controller('AppCtrl', function($scope, $translate, $localStorage, $window, $modal, $state,
         $timeout, $sessionStorage, $source, $q, $source) {
 
@@ -531,8 +532,7 @@ angular.module('app.basecontroller', ['ng'])
             });
 
         }
-
-
+ 
 
         // resp_err , info , warn ; 
         angular.alert = $scope.alert = function(msg, fun) {
