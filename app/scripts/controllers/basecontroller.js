@@ -685,8 +685,8 @@ angular.module('app.basecontroller', ['ng'])
 
     //@if  append 
     $scope.user = {
-        username: "123123",
-        password: "123123"
+        username: "111111",
+        password: "111111"
     };
     //@endif 
 
@@ -801,18 +801,15 @@ angular.module('app.basecontroller', ['ng'])
             },
             function() {
 
-            }
-
-
-        )
-
+            } 
+        ) 
     }
 
 
     $scope.signup = function() {
         //delete $scope.comp.admin ; 
          
-        $scope.validForm();
+        $scope.validForm('form1');
 
         $source.$account.save($scope.comp, function(resp) {
 
