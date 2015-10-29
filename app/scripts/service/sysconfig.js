@@ -375,7 +375,7 @@ angular.module('app.sysconfig', [], function() {})
 
 
         "point": {
-            // 公共部分默认值; 
+            // 公共部分默认值;   
             entity: {
                 poll:  0 ,
                 is_packet: 0,
@@ -395,6 +395,10 @@ angular.module('app.sysconfig', [], function() {})
 
             // devicemodel  驱动 Id ;   
             "FCS_MODBUS": { 
+                th:[
+                   'area' ,'offset' ,'type', 'type_ex','access'
+                ],
+
                 // 驱动相对应的默认参数; 
                 entity:{ 
                     params: {
@@ -477,6 +481,9 @@ angular.module('app.sysconfig', [], function() {})
 
             "PLC_SIEMENS_PPI":{
                 // 驱动默认参数; 
+                th:[
+                  'area' ,'offset' ,'type', 'type_ex'
+                ],
                 entity:{
                     params:{
                         area:0,
