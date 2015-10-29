@@ -8,11 +8,14 @@
 <div class="modal-body  ">
     <form name="form_tag" class=" form-validation form-horizontal   ">
         <div ng-if="isManageMode ">
+ 
             <select ng-options=" o as o.name  for  o in sysdevices   " 
             tl-wrap ng-model=" op.dev " label="设备" 
             ng-change=" loadPoint( op.dev ) " 
              required>
-                <option value="">--请选择设备--</option>
+                <option value="">--请选择设备--</option> 
+
+
             </select>
 
             <!--@if append -->

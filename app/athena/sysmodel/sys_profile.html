@@ -1,12 +1,15 @@
- 
-<!--@if append -->
-hasProfile =={{hasProfile}}
-<!--@endif -->
+
+
+<!--jjw 注释-->
+<!--&lt;!&ndash;@if append &ndash;&gt;-->
+<!--hasProfile =={{hasProfile}}-->
+<!--&lt;!&ndash;@endif &ndash;&gt;-->
 
 
 
 <div class="panel-body table-responsive no-padder b-t-none">
-    <table class=" table  table-hover  table-bordered ">
+    <!--jjw j_table 去掉table-bordered-->
+    <table class=" table  table-hover  j_table">
  
         <thead class="flip-content">
             <tr class="background ">
@@ -24,8 +27,8 @@ hasProfile =={{hasProfile}}
         <tbody class="text-center ">
  
             <tr ng-repeat="  prof  in profiles  "  >
- 
-                <td class="text-left"> {{ prof.name }} </td>
+                <!--jjw text-center-->
+                <td class="text-center"> {{ prof.name }} </td>
                 <td> {{ prof.tag_count || 0 }} </td>
                 <td> {{ prof.trigger_count || 0 }} </td>
                 <!--  | date:"yyyy-MM-dd HH:mm" -->
@@ -40,14 +43,17 @@ hasProfile =={{hasProfile}}
         </tbody>
     </table>
 </div>
-<div class="panel-footer b-t-none ">
+
+<!--jjw b-l b-r b-b-->
+<div class="panel-footer b-t-none b-l b-r b-b">
     <!--   <ng-include  src=" 'athena/debris/_pager.html'  "></ng-include> -->
-    <button class="btn btn-success btn-sm    " ng-click=" addSysProfile() ">
+    <!--jjw m-t-sm m-b-sm-->
+    <button class="btn btn-success btn-sm m-t-sm m-b-sm  " ng-click=" addSysProfile() ">
         添加系统配置
     </button>
 </div>
 
-
-<!--@if append -->
-sysmodel =={{sysmodel}}
-<!--@endif -->
+<!--jjw 注释-->
+<!--&lt;!&ndash;@if append &ndash;&gt;-->
+<!--sysmodel =={{sysmodel}}-->
+<!--&lt;!&ndash;@endif &ndash;&gt;-->

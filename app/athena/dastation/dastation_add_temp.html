@@ -1,5 +1,6 @@
-<div class="panel-body table-responsive no-padder b-t-none bg-light add">
-    <h4 class="text-center">添加系统</h4>
+<!--jjw bg-white-->
+<div class="panel-body table-responsive no-padder b-t-none bg-light bg-white card">
+    <h4 class="">添加系统</h4>
     <form name="form" panelclass class="form-horizontal form-validation   ">
         <input tl-wrap-l label="系统名称" required ng-model="system.name">
         <select tl-wrap-l label="所属区域" ng-model="system.region_id"
@@ -44,29 +45,16 @@
         <textarea tl-wrap-l label="备注" ng-maxlength="100" placeholder=" 不应超过100字符" ng-model=" system.desc ">
         </textarea>
     </form>
-    <div panelclass class="text-center">
-        <button type="submit" class="btn  btn-info  btn-block-middle w-xs m-b " ng-click=" commit()" token> 保存 </button>
+    <!--jjw padder-->
+    <div panelclass class="text-center padder">
+        <!--jjw col-sm-9 col-sm-offset-3-->
+        <button type="submit" class="btn  btn-info  btn-block-middle w-xs m-b col-sm-9 col-sm-offset-3" ng-click=" commit()" token> 保存 </button>
     </div>
 </div>
-<!--@if append  -->
-system = {{ system }}
-<hr/> systemModel = {{systemModel}}
-<!--@endif  -->
 
-<style>
-    .add{
-        border: 1px solid #DEE5E7 !important;
+<!--jjw 注释-->
+<!--&lt;!&ndash;@if append  &ndash;&gt;-->
+<!--system = {{ system }}-->
+<!--<hr/> systemModel = {{systemModel}}-->
+<!--&lt;!&ndash;@endif  &ndash;&gt;-->
 
-    }
-    .add h4{
-        font-size: 14px;
-        font-weight: bold;
-        text-align: left;
-        background-color: #f6f8f8;
-        margin: 0px;
-        padding: 15px;
-        height: 45px;
-        border-bottom: 1px solid #edf1f2;
-    }
-
-</style>

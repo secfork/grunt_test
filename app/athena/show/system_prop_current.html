@@ -1,10 +1,19 @@
 <div class="panel-heading   ">
-    <form class="form-inline">
-        <div class="input-group ">
-            <div class="btn btn-sm    input-group-addon">搜索</div>
-            <input type="text" class="form-control" ng-model="f_name"  ng-change="filterTags(f_name)">
-        </div>
-        <!--     
+
+
+ 
+        
+        <form class="form-inline ">
+            
+            <div class="input-group "> 
+                <div class="btn btn-sm    input-group-addon">搜索</div>
+                <input type="text" class="form-control"  ng-model="f_name"  
+                    ng-change="filterTags(f_name)"
+                 >
+            </div>
+
+            <!--      
+
             <button class="btn btn-sm btn-info  w-xs " ng-click="d_call( system   ,0)" token="5000" > 召唤实时 </button>
             <button class="btn btn-sm btn-info  w-xs " ng-click="d_call( system  , 1 )" token="5000" > 召唤参数 </button>
              -->
@@ -17,13 +26,20 @@
         <span>
                 <progressbar class="progress-striped     m-b-n-xs  w  inline " animate="false" value=" progValue / 100  " type="success">
                 </progressbar>
+                 
+            </span>    
+            <button class="btn btn-sm btn-info  w-xs"  
                 
-            </span>
-        <button class="btn btn-sm btn-info  w-xs" ng-click=" getCurrent() " token> 刷新 </button>
-    </form>
+                ng-click=" getCurrent() "
+                token
+                >  刷新 </button>
+             
+
+        </form>
+ 
 </div>
 <div class="panel-body table-responsive no-padder">
-    <table class=" table   table-bordered ">
+    <table class=" table   table-bordered j_table">
         <thead class="flip-content">
             <th class="w">变量</th>
             <th class="w">值</th>
@@ -56,10 +72,17 @@
                         <!-- 
                     <button class="btn btn-info btn-xs" ng-show="t.save_log" ng-click="goHis(t)">查看历史</button>
                      -->
-                    </td>
-                </tr>
-                 
-            </tbody>
-       
+  
+                </td>
+            </tr>
+        </tbody>
+     </table>
 </div>
+
+        <!--jjw 分页-->
+<!--<div class="panel-footer ">-->
+    <!--&lt;!&ndash;jjw m-t m-d&ndash;&gt;-->
+    <!--<div class=" text-center m-t m-b" ng-include src=" 'athena/debris/_pager.html'  "></div>-->
+    <!--&lt;!&ndash; 只有 app.proj.prop 路由  才显示   &ndash;&gt;-->
+<!--</div>-->
  

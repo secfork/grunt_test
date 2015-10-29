@@ -163,7 +163,10 @@ var app = angular.module('thinglinx', [
 
             .state("app.show", {
                 url: "/show",
-                template: '<div ui-view class="gap-5  panel panel-default "></div>'
+ 
+//                    jjw no-border
+                template: '<div ui-view class="gap-5  panel panel-default no-border  "></div>'
+ 
                     // , templateUrl:
                     ,
                 data: {
@@ -279,7 +282,8 @@ var app = angular.module('thinglinx', [
 
             .state("app.model", {
                 url: "/model",
-                template: '<div ui-view class=" gap-5 panel panel-default"></div>'
+//                    jjw no-border
+                template: '<div ui-view class=" gap-5 panel panel-default no-border"></div>'
                     //template:'<div ui-view class="fade-in-up smooth wrapper-xs"></div>'
             })
 

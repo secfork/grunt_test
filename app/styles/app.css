@@ -732,10 +732,13 @@ a.list-group-item:focus {
 .panel-heading .list-group {
   background: transparent;
 }
+
+/*jjw position*/
 .panel-footer {
   border-color: #edf1f2;
   border-radius: 0 0 2px 2px;
   background-color: #fff;
+  position: relative;
 }
 .panel-default {
   border-color: #dee5e7;
@@ -957,11 +960,32 @@ body {
 .app-content:after {
   clear: both;
 }
+/*jjw height-calc*/
 .app-content-body {
   padding-bottom: 35px;
   float: left;
   width: 100%;
+  height: -webkit-calc(100vh - 90px);
+
 }
+
+/*jjw 卡片*/
+.card{
+    border: 1px solid #DEE5E7 !important;
+
+}
+.card h4{
+    font-size: 14px;
+    font-weight: bolder;
+    text-align: left;
+    background-color: #f6f8f8;
+    margin: 0px;
+    padding: 15px;
+    height: 45px;
+    border-bottom: 1px solid #edf1f2;
+    width: 100%;
+}
+
 .app-footer {
   position: absolute;
   bottom: 0;
@@ -3680,10 +3704,14 @@ a.text-black:hover {
 .b-a {
   border: 1px solid #dee5e7;
 }
-.b-t-none  , .b-b-none , .b-l-none ,.b-r-none {
+.b-t-none  , .b-l-none ,.b-r-none {
   border-top-style: none;
 }
 
+/*jjw .b-b-none*/
+.b-b-none{
+    border-bottom-style: none;
+}
 
 .b-t {
   border-top: 1px solid #dee5e7;
