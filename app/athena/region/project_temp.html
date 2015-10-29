@@ -1,10 +1,15 @@
 <div class="panel-heading   ">
-    <!--jjw m-t m-b-->
-    <div class="input-group col-sm-4 col-sm-push-8 m-t-sm m-b-sm">
-        <input class="form-control input-sm" type="text" ng-model="f_projname">
-        <span class="input-group-btn">
-                   <span class="btn btn-default height-30 disabled"     translate="common.search"  ></span>
-        </span>
+    <!--jjw m-t m-b m-l 去掉col-push-->
+    <div class="input-group col-md-4  m-t-sm m-b-sm m-l-xs">
+        <label class="col-md-2 col-sm-12 text-base">
+            <span style="line-height: 30px">搜索</span>
+        </label>
+        <div class="col-md-8 col-sm-12">
+            <input style="border-radius: 2px" class="form-control input-sm" type="text" ng-model="f_projname">
+        </div>
+        <!--<span class="input-group-btn">-->
+                   <!--<span class="btn btn-default height-30 disabled"     translate="common.search"  ></span>-->
+        <!--</span>-->
     </div>
 </div>
 <div class="panel-body table-responsive no-padder">
@@ -21,17 +26,17 @@
                     <span translate="th.th1">在线</span>
                 </th>
                  --> 
-                <th>
+                <th width="20%">
                     <a translate="th.th2">名称</a>
                 </th>
-                <th>
+                <th width="30%">
                     <a translate="th.th3">创建时间
                        </a>
                 </th>
-                <th>已激活系统</th>
+                <th width="20%">已激活系统</th>
 
-                <th ng-if=" ! isShowModul " >未激活系统</th>
-                <th ng-if=" ! isShowModul " >操作</th>
+                <th width="20%" ng-if=" ! isShowModul " >未激活系统</th>
+                <th width="10%" ng-if=" ! isShowModul " >操作</th>
             </tr>
         </thead>
         <tbody class="text-center ">

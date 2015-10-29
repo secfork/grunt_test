@@ -1,5 +1,6 @@
 <!-- project  添加 和 属性展示 模版  -->
-<div class="panel-body table-responsive no-padder  no-border bg-light">
+<!--jjw bg-white card-->
+<div class="panel-body table-responsive no-padder  no-border bg-light bg-white card">
     <h4 class="text-center">添加区域</h4>
     <form name="form" panelclass class="form-horizontal form-validation  ">
         <!--    <div class="form-group  "  >
@@ -42,8 +43,9 @@
         
     </form> 
 
-     <div panelclass class="text-center" ng-if=" !isShowModul ">
-        <button type="submit" class="btn  btn-info  btn-block-middle w-xs m-b " 
+    <!--jjw padder-->
+     <div panelclass class="text-center padder" ng-if=" !isShowModul ">
+        <button type="submit" class="btn  btn-info  btn-block-middle w-xs m-b col-sm-9 col-sm-offset-3"
            ng-click=" commit()" token> 保存 </button>
     </div>
 </div>

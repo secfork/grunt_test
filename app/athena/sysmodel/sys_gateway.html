@@ -14,7 +14,7 @@
 
     </div>  -->
 <div class="panel-body table-responsive no-padder b-t-none">
-    <table class=" table   table-bordered ">
+    <table class=" table table-hover j_table">
         <thead class="flip-content">
             <tr>
                 <th width="15%"> 串口 </th>
@@ -44,42 +44,50 @@
         <tbody>
             <tr>
                 <td colspan=7 class="text-left" ng-if="!canAddPort">
-                    <button class="btn btn-success btn-xs  m-l  " ng-click=" c_u_Gateway( ) ">
+                    <!--jjw btn-sm m-t-sm m-b-sm-->
+                    <button class="btn btn-success btn-sm  m-l m-t-sm m-b-sm " ng-click=" c_u_Gateway( ) ">
                         添加串口
                     </button>
                 </td>
             </tr>
             <tr>
-                <td class="text-left  in-line">
-                    <div class="checkbox m-l m-t-none m-b-none">
+                <!--jjw colspan = 3-->
+                <td class="text-left  in-line" colspan="3">
+                    <!--jjw m-t-sm m-b-sm-->
+                    <div class="checkbox m-l m-t-sm m-b-sm">
                         <label class="i-checks">
-                            <input type="checkbox" value="" ng-model="enbaleGPS" ng-change="gpsChange()">
+                            <input type="checkbox" value="" ng-init="enbaleGPS=false" ng-model="enbaleGPS" ng-change="gpsChange()">
                             <i></i> GPS
                         </label>
                     </div>
                 </td>
                 <td ng-if="enbaleGPS " colspan=2>
                     <span> Distance</span>
-                    <select ng-model="GateWay.GPS.distance" class="  input-sm w  inline" ng-options="  k for k  in $sys.gateway.gps_distance" ng-change=" cc() " label="Distance">
+                    <!--jjw m-t-sm m-b-sm-->
+                    <select ng-model="GateWay.GPS.distance" class="  input-sm w  inline m-t-sm m-b-sm" ng-options="  k for k  in $sys.gateway.gps_distance" ng-change=" cc() " label="Distance">
                     </select>
                 </td>
                 <td ng-if="enbaleGPS " colspan=2>
                     <span> 波特率</span>
-                    <select ng-model="GateWay.GPS.baud_rate" class="  input-sm w  inline" ng-change=" cc() " ng-options="  k for k  in $sys.gateway.gps_baud_rate">
+                    <!--jjw m-t-sm m-b-sm-->
+                    <select ng-model="GateWay.GPS.baud_rate" class="  input-sm w  inline m-t-sm m-b-sm" ng-change=" cc() " ng-options="  k for k  in $sys.gateway.gps_baud_rate">
                     </select>
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
-<div class="panel-footer b-t-none">
-    <div ng-show="needUpdate">
+<!--jjw ng-show b-t-none b-b b-l b-r-->
+<div ng-show="enbaleGPS" class="panel-footer b-t-none b-b b-l b-r">
+    <!--jjw m-t m-b-->
+    <div ng-show="needUpdate" class="m-t-sm m-b-sm">
         <button class="btn btn-info  btn-sm  w-xs m-l  " token ng-click=" saveGateWay( ) ">
             保存网关设置
         </button>
         <strong class="text-danger m-l"><i class="fa fa-exclamation-triangle"></i><span > 网关配置需要保存!!</span> </strong>
     </div>
-    <div ng-show=" haveSave  &&  !needUpdate ">
+    <!--jjw m-b m-t-->
+    <div ng-show=" haveSave  &&  !needUpdate " class="m-t-sm m-b-sm" style="height: 30px">
         <strong class="text-info  m-lg"> <i class="fa  fa-thumbs-o-up "></i> <span>保存成功!</span>  </strong>
     </div>
     <!--    <ng-include  src=" 'athena/debris/_pager.html'  "></ng-include>   -->

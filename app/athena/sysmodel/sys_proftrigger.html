@@ -11,8 +11,9 @@
 </div> 
 
 <div class="panel-body table-responsive no-padder  float-left "  ng-class="{'b-t-none': !isModelState}" >
- 
-    <table class="  table  table-hover  table-bordered">
+
+    <!--jjw j_table table-striped-->
+    <table class="  table  table-hover  table-striped j_table">
  
         <thead class="flip-content">
             <tr class="background ">
@@ -24,7 +25,7 @@
                 <th> 条件 </th>
  
                 <th width="20%"> 备注 </th> 
-                <th ng-if="isModelState"> </th>
+                <th ng-if="isModelState"> 操作 </th>
             </tr>
         </thead>
         <tbody class="text-center " ng-init=" _config = $sys.trigger "> 
@@ -46,20 +47,21 @@
 
 
 <div class=" panel-footer text-center " ng-if="isModelState">
-     <button class="btn btn-success btn-sm m-t-xs m-l pull-left " ng-click=" c_u_Trigger('create') ">
+    <!--jjw m-t-sm m-b-sm -->
+     <button class="btn btn-success btn-sm m-t-sm m-b-sm pull-left " ng-click=" c_u_Trigger('create') ">
         添加触发器
     </button>
-
-    <div class=" text-center inline m-t-xm  m-l-n-xxl " ng-include src=" 'athena/debris/_pager.html'  "></div>
+    <!--jjw m-t-sm m-b-sm -->
+    <div class=" text-center inline m-t-sm m-b-sm  m-l-n-xxl " ng-include src=" 'athena/debris/_pager.html'  "></div>
   
 </div>
  
  
 
+<!--jjw 注释-->
+<!--&lt;!&ndash;@if append&ndash;&gt;-->
+<!--page = {{page}}-->
+<!--<hr/>-->
+<!--tags_nv ={{tags_nv}}-->
 
-<!--@if append-->
-page = {{page}}
-<hr/>
-tags_nv ={{tags_nv}}
-
-<!--@endif-->
+<!--&lt;!&ndash;@endif&ndash;&gt;-->

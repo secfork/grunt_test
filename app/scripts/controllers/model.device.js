@@ -166,7 +166,7 @@ angular.module('app.model.device', [])
         };
 
 
-        
+
 
        
 

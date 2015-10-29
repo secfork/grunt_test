@@ -1,46 +1,51 @@
-<div class="panel-body no-padder bg-light     ">
+<div class="panel-body no-padder bg-light card ">
 
-
-
-    <div class=" col-md-8 col-md-offset-2   col-lg-6 col-lg-offset-2 m-b  m-t-l ">
-        <h4 class="center">账户信息</h4>
-        <div class="b-b m-b"> <span>账户名称</span> : {{account.name}}</div>
-        <div class="b-b m-b"> <span>注册时间</span> : 
-            {{account.create_time | date:"yyyy-MM-dd HH:mm Z" }}</div>
-
-        <div class="b-b m-b"> <span>系统数量</span> : {{system.group_id}} </div>
-        <div class="b-b m-b"> <span>用户数量</span> : {{ $sys.sysModelMode.values[systemModel.mode] }} </div>
-        <div class="b-b m-b"> <span>用户组数量</span> : {{ systemModel.comm_type }}</div>
-        <div class="b-b m-b"> <span>购买系统数量</span> : {{ system.network.daserver.network.type}} </div>
-        <div class="b-b m-b">
-            <div class="inline">存储空间占用:</div>
-            <div class="inline w-xl">
+    <!--jjw h4提出-->
+    <h4 class="center">账户信息</h4>
+    <!--jjw col-lg-offset-3-->
+    <div class=" col-md-8 col-md-offset-2   col-lg-6 col-lg-offset-3 m-b  m-t-l text-base">
+        <div class="b-b line-dashed m-b">
+            <span>账户名称</span>
+            <span class="float-right">{{account.name}}</span></div>
+        <div class="b-b line-dashed m-b">
+            <span>注册时间</span>
+            <span class="float-right">{{account.create_time | date:"yyyy-MM-dd HH:mm Z" }}</span>
+        </div>
+        <div class="b-b line-dashed m-b">
+            <span>系统数量</span>
+            <span class="float-right">{{system.group_id}}</span>
+        </div>
+        <div class="b-b line-dashed m-b">
+            <span>用户数量</span>
+            <span class="float-right">{{ $sys.sysModelMode.values[systemModel.mode] }} </span>
+        </div>
+        <div class="b-b line-dashed m-b">
+            <span>用户组数量</span>
+            <span class="float-right">{{ systemModel.comm_type }}</span>
+        </div>
+        <div class="b-b line-dashed m-b">
+            <span>购买系统数量</span>
+            <span class="float-right">{{ system.network.daserver.network.type}}</span>
+        </div>
+        <div class="m-b">
+            <div class="inline">存储空间占用</div>
+            <!--jjw float-right-->
+            <div class="inline w-xl float-right">
  
  <progressbar animate="true" value="59" type="success" 
         class=" progress-sm m-b-none">
      <b> 59%</b> 
  </progressbar>
            
- 
-                        
-                       
-
-
-
-
-
-
-
-
 
             </div>
         </div>
     </div>
 </div>
 
- <!--@if append -->
- account = {{account}}
- <!--@endif  -->
+ <!--&lt;!&ndash;@if append &ndash;&gt;-->
+ <!--account = {{account}}-->
+ <!--&lt;!&ndash;@endif  &ndash;&gt;-->
 
 
 <!-- <strong>基本信息:</strong>
@@ -60,3 +65,21 @@
     登录时间&nbsp;&nbsp;:&lt;!&ndash; {{ new Date()  }}&ndash;&gt; <br>
 </p>
 </div>-->
+
+<style>
+    .card{
+        border: 1px solid #DEE5E7 !important;
+    }
+    .card h4{
+        font-size: 14px;
+        font-weight: bolder;
+        text-align: left;
+        background-color: #f6f8f8;
+        margin: 0px;
+        padding: 15px;
+        height: 45px;
+        border-bottom: 1px solid #edf1f2;
+        width: 100%;
+    }
+
+</style>
