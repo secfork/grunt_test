@@ -51,6 +51,7 @@
                 >
                 <thead  >
                     <tr>
+                        <td>名称</td>
                         <td translate="params.poll"></td>
                         <td translate="params.is_packet"></td> 
                         <td ng-repeat=" th in  _$config.th " 
@@ -61,6 +62,7 @@
 
                 <tbody> 
                     <tr ng-repeat=' p in points '  ng-init="  pa =  fromJson(p.params); "  > 
+                        <td>{{p.name}}</td>
                         <td>  {{ _$point.pointPoll[p.poll].k   }}   </td>
                         <td>  {{ _$point.packet[p.is_packet].k  }}  </td> 
 
