@@ -6,11 +6,11 @@
 // 'test/spec/{,*/}*.js'
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
- 
- 
+
+
 
 module.exports = function(grunt) {
-     
+
 
     // Time how long tasks take. Can help when optimizing build times
     require('time-grunt')(grunt);
@@ -27,8 +27,8 @@ module.exports = function(grunt) {
     // Configurable paths for the application
     var appConfig = {
         app: require('./bower.json').appPath || 'app',
-        dist: 'dist' ,
-        thing: "thing/",  // app.js , app.css 目录; 
+        dist: 'dist',
+        thing: "thing/", // app.js , app.css 目录; 
     };
 
 
@@ -55,31 +55,75 @@ module.exports = function(grunt) {
         // },
 
 
-        uncss:{
-            dist:{
+        preprocess: {
+            options: {
+                context: {
+                    append: false, // 是否build  debug信息;
+                    region_online: false, // 是否build  region 是否在线信息; 
+                    debug: false
+                }
+            },
+
+            dist_index: {
+                src: 'dist/index.html',
+                dest: 'dist/index.html'
+            },
+
+            html: {
+                expand: true,
+                cwd: 'app',
+                src: "athena/{*/,}*.html",
+                dest: '.tmp/html'
+
+                //[
+                //  {**/,}*.html
+                // '*.html',
+                // "account/*.html",
+                // "dastation/*.html",
+                //  "debris/*.html",
+                //  "device/*html",
+                //  "point/*html",
+                //  "region/*html",
+                //  "show/*html",
+                //  "support/*html",
+                //  "sysmodel/*html",
+                //  "template/*html",
+                //  "user/*html"
+
+                // ]
+
+            },
+
+            js: {
+                src: '.tmp/concat/<%= yeoman.thing %>app.js',
+                dest: '.tmp/concat/<%= yeoman.thing %>app.js'
+            }
+        },
+        uncss: {
+            dist: {
                 files: {
-                   // 'dist/styles/main.css':  "athena/{*/,}*.html"
+                    // 'dist/styles/main.css':  "athena/{*/,}*.html"
 
-                  // 'dist/styles/main_i.css': [ "app/index.html" , ".tmp/html/athena/{*/,}*.html" ]
+                    // 'dist/styles/main_i.css': [ "app/index.html" , ".tmp/html/athena/{*/,}*.html" ]
 
-                  // 'dist/styles/main_1.css': [ "app/index.html" , "app/athena/account/*.html" ],
-                  // 'dist/styles/main_2.css': [ "app/index.html" , "app/athena/dastation/*.html" ],
-                  // 'dist/styles/main_3.css': [ "app/index.html" , "app/athena/debris/*.html" ],
-                  // 'dist/styles/main_6.css': [ "app/index.html" , "app/athena/region/*.html" ],
-                  // 'dist/styles/main_7.css': [ "app/index.html" , "app/athena/show/*.html" ],
-                  // 'dist/styles/main_7.css': [ "app/index.html" , "app/athena/support/*.html" ],
-                  // 'dist/styles/main_8.css': [ "app/index.html" , "app/athena/sysmodel/*.html" ],
+                    // 'dist/styles/main_1.css': [ "app/index.html" , "app/athena/account/*.html" ],
+                    // 'dist/styles/main_2.css': [ "app/index.html" , "app/athena/dastation/*.html" ],
+                    // 'dist/styles/main_3.css': [ "app/index.html" , "app/athena/debris/*.html" ],
+                    // 'dist/styles/main_6.css': [ "app/index.html" , "app/athena/region/*.html" ],
+                    // 'dist/styles/main_7.css': [ "app/index.html" , "app/athena/show/*.html" ],
+                    // 'dist/styles/main_7.css': [ "app/index.html" , "app/athena/support/*.html" ],
+                    // 'dist/styles/main_8.css': [ "app/index.html" , "app/athena/sysmodel/*.html" ],
 
-                  // 'dist/styles/main_9.css': [ "app/index.html" , "app/athena/template/*.html" ],
-                  // 'dist/styles/main_10.css': [ "app/index.html" , "app/athena/user/*.html" ],
+                    // 'dist/styles/main_9.css': [ "app/index.html" , "app/athena/template/*.html" ],
+                    // 'dist/styles/main_10.css': [ "app/index.html" , "app/athena/user/*.html" ],
 
-                  // 'dist/styles/main_11.css': [ "app/index.html" , "app/athena/_device/*.html" ],
-                  // 'dist/styles/main_12.css': [ "app/index.html" , "app/athena/_dtu/*.html" ],
-                  // 'dist/styles/main_13.css': [ "app/index.html" , "app/athena/_point/*.html" ]
+                    // 'dist/styles/main_11.css': [ "app/index.html" , "app/athena/_device/*.html" ],
+                    // 'dist/styles/main_12.css': [ "app/index.html" , "app/athena/_dtu/*.html" ],
+                    // 'dist/styles/main_13.css': [ "app/index.html" , "app/athena/_point/*.html" ]
 
                 }
             }
-        } ,
+        },
 
 
         // Watches files for changes and runs tasks based on the changed files
@@ -129,23 +173,23 @@ module.exports = function(grunt) {
             },
 
 
-            server:{
-               options:{
-                  port:9000,
-                  hostname:"localhost"
-               }
-                 // 当为 0.0.0.0 时  proxies 有效;   ????
-               // proxies:[
-               //    {
-               //      context: '/web',
-               //      host: '127.0.0.1',
-               //      port: '8082',
-               //      https: false,
-               //      changeOrigin: false
-               //    }
+            server: {
+                options: {
+                    port: 9000,
+                    hostname: "localhost"
+                }
+                // 当为 0.0.0.0 时  proxies 有效;   ????
+                // proxies:[
+                //    {
+                //      context: '/web',
+                //      host: '127.0.0.1',
+                //      port: '8082',
+                //      https: false,
+                //      changeOrigin: false
+                //    }
 
-               // ]
-            }  ,
+                // ]
+            },
 
 
 
@@ -311,8 +355,8 @@ module.exports = function(grunt) {
                 src: [
                     '<%= yeoman.dist %>/<%= yeoman.thing %>{,*/}*.js',
                     '<%= yeoman.dist %>/<%= yeoman.thing %>{,*/}*.css',
-                   //'<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-                   // '<%= yeoman.dist %>/styles/fonts/*'
+                    //'<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+                    // '<%= yeoman.dist %>/styles/fonts/*'
                 ]
             }
         },
@@ -438,12 +482,12 @@ module.exports = function(grunt) {
 
                     module: 'thinglinx',
                     htmlmin: '<%= htmlmin.dist.options %>'
-                    // usemin: 'scripts/scripts.js' ,
+                        // usemin: 'scripts/scripts.js' ,
                 },
                 // cwd: '<%= yeoman.app %>',
 
-                cwd:".tmp/html",
-                src:"{**/,}*.html",
+                cwd: ".tmp/html",
+                src: "{**/,}*.html",
                 // src: [ 
                 //     "athena/*.html",
                 //    'athena/_device/{**/,}*.html',
@@ -455,14 +499,14 @@ module.exports = function(grunt) {
                 //     'athena/region/{**/,}*.html', 
                 //     'athena/show/{**/,}*.html', 
                 //     'athena/support/{**/,}*.html', 
-                    
+
                 //     'athena/sysmodel/{**/,*}.html', 
 
 
                 //     'athena/template/{**/,}*.html', 
                 //     'athena/user/{**/,}*.html', 
                 //     ],
-                
+
 
                 dest: '.tmp/templateCache.js'
             }
@@ -506,7 +550,7 @@ module.exports = function(grunt) {
                             'styles/fonts/{,*/}*.*'
 
                             // athena 下的文件做成 tempalteCache ;   {athena,fonts,img}
-                            ,'{fonts,img,l10n}/**',
+                            , '{fonts,img,l10n}/**',
                             'lib/*/**' //  jquery 插件拷贝;
 
                         ]
@@ -615,8 +659,8 @@ module.exports = function(grunt) {
 
         'filerev',
         'usemin',
-       // "preprocess:dist_index",
-       // 'htmlmin',
+        // "preprocess:dist_index",
+        // 'htmlmin',
     ]);
 
     grunt.registerTask('default', [

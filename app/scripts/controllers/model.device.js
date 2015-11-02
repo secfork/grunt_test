@@ -2,10 +2,10 @@ angular.module('app.model.device', [])
     .controller("devmodel", function($scope, $compile, $state, $modal, $log, $http,
         $timeout, $source) {
         // 加载 projects ;
-         //@if  append
-         
+        //@if  append
+
         console.log("template", $window); //postcode   $source.$dmPoint ,
-         //@endif 
+        //@endif 
 
         var tempScope = $scope;
 
@@ -28,11 +28,11 @@ angular.module('app.model.device', [])
             $timeout.cancel(_timeout);
 
             _timeout = $timeout(function() {
-                 //@if  append
-                 
+                //@if  append
+
                 console.log("window scroll", _timeout);
                 console.log(w_st, w_h);
-                 //@endif 
+                //@endif 
 
                 w_st = $(window).scrollTop();
                 w_h = $(window).innerHeight();
@@ -45,10 +45,10 @@ angular.module('app.model.device', [])
 
                 $.each(t_doms, function(i) {
                     $t_dom = $(this);
-                     //@if  append
-                     
+                    //@if  append
+
                     console.log($t_dom);
-                     //@endif 
+                    //@endif 
                     if ($dom.position().top < w_st) {
                         // 上超限 ;
 
@@ -74,10 +74,10 @@ angular.module('app.model.device', [])
 
         // 加载 device model  下 的 points ;
         $scope.loadPoints = function(scope, $event, index, devModel) {
-             //@if  append
-             
+            //@if  append
+
             console.log(arguments);
-             //@endif 
+            //@endif 
             if (!scope.points) {
                 $source.$dmPoint.get({
                         device_model: devModel.uuid
@@ -93,11 +93,11 @@ angular.module('app.model.device', [])
         $scope.add_edit_t = function(scope, t) { //  temp-scope , 或者; super-scope ;
             $modal.open({
                 templateUrl: 'athena/template/temp.html',
-                controller: function($scope, $modalInstance,  $source , $filter) {
-                     //@if  append
-                     
+                controller: function($scope, $modalInstance, $source, $filter) {
+                    //@if  append
+
                     console.log("edit or new  temp ", t);
-                     //@endif 
+                    //@endif 
                     $scope.__proto__ = scope;
                     $scope.$modalInstance = $modalInstance;
 
@@ -105,9 +105,13 @@ angular.module('app.model.device', [])
 
                     if (!t) { // 新建;
                         //$scope.drivers =
-                        $source.$driver.get( {type:"device"} ,function(resp) {
+                        $source.$driver.get({
+                            type: "device"
+                        }, function(resp) {
 
-                            $scope.drivers = $filter('filter')( resp.ret  , { category:'DEVICE'}) ;
+                            $scope.drivers = $filter('filter')(resp.ret, {
+                                category: 'DEVICE'
+                            });
                             $scope.T.driver_id = $scope.drivers[0].driver_id;
                         });
                     }
@@ -168,7 +172,7 @@ angular.module('app.model.device', [])
 
 
 
-       
+
 
         // 导出模版;===============================================================================
         $scope.export_t = function(T) {
@@ -190,10 +194,10 @@ angular.module('app.model.device', [])
 
 
         var temp_export = function($scope, $$scope, $modalInstance, T) {
-             //@if  append
-             
+            //@if  append
+
             console.log("export_t");
-             //@endif 
+            //@endif 
             $scope.cancel = $$scope.closePopupWin($modalInstance);
             $scope.T = T;
         };
@@ -214,21 +218,21 @@ angular.module('app.model.device', [])
                 $source.$deviceModel.delete({
                     uuid: obj.uuid
                 }, function(resp) {
-                    
-                        $scope.deviceModels.splice(index, 1);
-                    
+
+                    $scope.deviceModels.splice(index, 1);
+
                     next();
-                }, next )
+                }, next)
             });
         };
 
         $scope.delPoint = function(scope, index, p, dm_uuid) {
-             //@if  append
-             
+            //@if  append
+
             console.log("delPoint", p);
-             //@endif 
-            $scope.confirmInvoke({ 
-                title: "删除点: " + p.name + " ?" 
+            //@endif 
+            $scope.confirmInvoke({
+                title: "删除点: " + p.name + " ?"
             }, function(next) {
                 $source.$dmPoint.delete({
                     id: p.id,
@@ -236,7 +240,7 @@ angular.module('app.model.device', [])
                 }, function(resp) {
                     scope.points.splice(index, 1);
                     next();
-                } , next );
+                }, next);
             })
         };
 
@@ -245,10 +249,10 @@ angular.module('app.model.device', [])
         //添加 point;
 
         $scope.addOrEditPoint = function(scope, p, index) {
-             //@if  append
-             
+            //@if  append
+
             console.log(" add_f or edit_f  ");
-             //@endif 
+            //@endif 
 
             $modal.open({
                 templateUrl: 'athena/template/file.html',
@@ -261,23 +265,23 @@ angular.module('app.model.device', [])
                         $scope.point = angular.copy(p);
                         $scope.point.params = angular.fromJson($scope.point.params);
                     } else {
-                        var dm = scope.dm , // repeat 中的 属性;
-                            driver = $sys.point[ dm.driver_id];
+                        var dm = scope.dm, // repeat 中的 属性;
+                            driver = $sys.point[dm.driver_id];
 
-                       var basic = $sys.point.entity ; 
+                        var basic = $sys.point.entity;
                         // var  par =   driver.entity   ;     
-                       var  par = angular.copy ( driver.entity ) ;     
+                        var par = angular.copy(driver.entity);
 
-                        $scope.point =  angular.extend( {} ,
-                                                        basic, 
-                                                        par  
-                                                    );
+                        $scope.point = angular.extend({},
+                            basic,
+                            par
+                        );
 
                     };
-                     //@if  append
-                     
+                    //@if  append
+
                     console.log(p, $scope.point);
-                     //@endif 
+                    //@endif 
 
                     // $scope.g = {hex: "0001ffdf", show: "2", type: "2", mask: true};
 
@@ -289,31 +293,31 @@ angular.module('app.model.device', [])
                         if (p) {
                             // 编辑;
                             $source.$dmPoint.put($scope.point, function(resp) {
-                                
-                                    $scope.points[index] = angular.copy($scope.point);
-                                    $scope.cancel();
-                                
+
+                                $scope.points[index] = angular.copy($scope.point);
+                                $scope.cancel();
+
                             });
                         } else {
                             // 创建
                             $source.$dmPoint.save($scope.point, function(resp) {
-                                 
-                                    $scope.point.id = resp.ret;
-                                    $scope.points.push($scope.point);
-                                    $scope.cancel(); 
-                                
+
+                                $scope.point.id = resp.ret;
+                                $scope.points.push($scope.point);
+                                $scope.cancel();
+
                             });
                         }
-                       // $scope.cancel(); 
+                        // $scope.cancel(); 
                     };
                 }
             });
         };
         $scope.clone_f = function(f_id) {
-             //@if  append
-             
+            //@if  append
+
             console.log(arguments)
-             //@endif 
+                //@endif 
         };
 
     });

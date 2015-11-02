@@ -3,11 +3,15 @@
 <ul class="nav  nav-tabs   m-t-xxs bg-normal">
 
     <li ui-sref-active="active"  ng-repeat= "t in tabs "   >
-        <a class="inline" ui-sref="{{t.state}}">
+        <a  ui-sref="{{t.state}}">
             <i class=" {{t.icon }}"></i>
             <span translate="{{t.title}}"> 系统配置 </span>
         </a>
     </li>
 </ul>
 
-<div ui-view> </div>
+<div ui-view class="panel panel-default b-t-none"> </div>
+
+
+
+ 

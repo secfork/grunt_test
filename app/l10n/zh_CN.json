@@ -15,6 +15,8 @@
     "rest_err": "Server Error!!",
     "no_account": "无此Account 帐号",
 
+    "send_maill_err":"邮件发送失败",
+    "page_expire":"页面失效",
 
 
 
@@ -86,12 +88,14 @@
     "ER_DASERVER_HAS_NOT_ASSIGNED": "系统尚未指定数据采集服务器",
     "ER_PROFILE_REF": "配置项使用中",
     "Er_ACCOUNT_EXIST": "该Account名已被占用",
+    "ER_INVALID_ACCOUNT_NAME":"该Account名已被占用",
     "ER_DELETE_SUPER_USER": "管理员账户不可删除",
 
     "ALARM_ALLREADY_ACKED": "报警已经确认,无需再次确认",
 
-
+    "ER_ACCOUNT_NOT_EXIST":"Account用户不存在",
     "ER_DUP_ENIRY": "_ ER_DUP_ENIRY _",
+    "ER_AUTH_FAILURE":"无权限",
 
 
 
