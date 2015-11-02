@@ -527,7 +527,8 @@ angular.module('app.basecontroller', ['ng'])
                 type: type
             }, {}, function(resp) {
 
-                angular.alert("召唤成功");
+//                jjw 召唤成功不显示
+//                angular.alert("召唤成功");
 
             });
 
