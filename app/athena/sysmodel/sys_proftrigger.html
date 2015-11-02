@@ -1,68 +1,48 @@
  
-<div class="border b-t-none ">
-    <div class="panel-heading float-left w-full  " ng-if="isModelState">
-        <div class="float-left m-t-xs m-l-md m-r"> 配置项 </div>
-        <div class="float-left">
-            <select ng-model="odp.puuid" class=" form-control  input-sm w "
-                    ng-options="p.uuid as p.name for p in profiles  "
-                    ng-change="loadPageData( 1 )">
-            </select>
-        </div>
-    </div>
+<div class="panel-heading   w-full  " ng-if="isModelState">
 
-    <div class="panel-body table-responsive no-padder  float-left "  ng-class="{'b-t-none': !isModelState}" >
-
-        <!--jjw j_table table-striped b-t-none-->
-        <table class="  table  table-hover  table-striped j_table b-t-none">
-
-            <thead class="flip-content">
-            <tr class="background ">
-                <th> 名称 </th>
-                <th>触发类型</th>
-                <th> 行为 </th>
-                <!--  <th   >组</th> -->
-                <th> 触发源 </th>
-                <th> 条件 </th>
-
-                <th width="20%"> 备注 </th>
-                <th ng-if="isModelState"> 操作 </th>
-            </tr>
-            </thead>
-            <tbody class="text-center " ng-init=" _config = $sys.trigger ">
-            <tr ng-repeat="    t in page.data  "   >
-                <td> {{t.name}}</td>
-                <td> {{ _config.type[t.type] }}</td>
-                <td> {{ _config.action[t.action] }}</td>
-                <td> {{ _config.origin[t.origin] }}</td>
-                <td ng-style="t.lose_tag"> <i class="fa fa-android  text-info-dker " ng-clcik="showCondi( t )"></i> </td>
-                <td> {{t.desc}}</td>
-                <td ng-if="isModelState">
-                    <a class="text-link m-r-xs" ng-click="c_u_Trigger(  $index  , t   )">编辑</a>
-                    <a class="text-link m-r-xs" translate="bu.bu4" ng-click="deleteTrigger(  $index  , t   )">移除</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <!--jjw b-t-none-->
-    <div class="panel-footer  text-center b-t-none" ng-if="isModelState">
-        <!--jjw m-t-sm m-b-sm -->
-        <button class="btn btn-success btn-sm m-t-sm m-b-sm pull-left " ng-click=" c_u_Trigger('create') ">
-            添加触发器
-        </button>
-        <!--jjw m-t-sm m-b-sm -->
-        <div class=" text-center inline m-t-sm m-b-sm  m-l-n-xxl " ng-include src=" 'athena/debris/_pager.html'  "></div>
-
-    </div>
+        <span>  配置项</span>
+        <select ng-model="odp.puuid" class="input input-sm w " ng-options="p.uuid as p.name for p in profiles  " ng-change="loadPageData( 1 )">
+        </select>
+       
 </div>
 
-
-
-<!--jjw 注释-->
-<!--&lt;!&ndash;@if append&ndash;&gt;-->
-<!--page = {{page}}-->
-<!--<hr/>-->
-<!--tags_nv ={{tags_nv}}-->
-
-<!--&lt;!&ndash;@endif&ndash;&gt;-->
+ <!--jjw b-b-none-->
+<div class="panel-body table-responsive   no-padder b-t-none b-b-none">
+     <table class="  table  table-hover  table-striped j_table b-t-none">
+            <thead class="flip-content">
+                <tr class="background ">
+                    <th> 名称 </th>
+                    <th>触发类型</th>
+                    <th> 行为 </th>
+                  
+                    <th> 触发源 </th>
+                    <th> 条件 </th>
+                    <th width="20%"> 备注 </th>
+                    <th ng-if="isModelState"> 操作 </th>
+                </tr>
+            </thead>
+            <tbody class="text-center " ng-init=" _config = $sys.trigger ">
+                <tr ng-repeat="    t in page.data  ">
+                    <td> {{t.name}}</td>
+                    <td> {{ _config.type[t.type] }}</td>
+                    <td> {{ _config.action[t.action] }}</td>
+                    <td> {{ _config.origin[t.origin] }}</td>
+                    <td ng-style="t.lose_tag"> <i class="fa fa-android  text-info-dker " ng-clcik="showCondi( t )"></i> </td>
+                    <td> {{t.desc}}</td>
+                    <td ng-if="isModelState">
+                        <a class="text-link m-r-xs" ng-click="c_u_Trigger(  $index  , t   )">编辑</a>
+                        <a class="text-link m-r-xs" translate="bu.bu4" ng-click="deleteTrigger(  $index  , t   )">移除</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</div>
+<!--jjw b-b b-l b-r-->
+ <div class="panel-footer  text-center b-t-none" ng-if="isModelState">
+ 
+        <button class="btn btn-success btn-sm m-t-sm m-b-sm pull-left " ng-click=" c_u_Trigger('create') ">
+            添加触发器
+        </button> 
+        <div class=" text-center inline m-t-sm m-b-sm  m-l-n-xxl " ng-include src=" 'athena/debris/_pager.html'  "></div>
+ </div>

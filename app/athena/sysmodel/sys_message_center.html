@@ -1,14 +1,15 @@
-<div class="panel-heading  float-left w-full  " ng-if="isModelState">
-    <div class="float-left m-t-xs m-l-md m-r"> 配置项
-    </div>
-    <div class="float-left">
-        <select ng-model="odp.puuid" class=" form-control  input-sm w   " ng-options="   p.uuid as p.name for p in profiles  " ng-change="loadMessages( odp.puuid  )">
+ 
+<div class="panel-heading   w-full  " ng-if="isModelState">
+    
+    <span>  配置项 </span>
+    <select ng-model="odp.puuid" class="input input-sm w" ng-options="   p.uuid as p.name for p in profiles  " ng-change="loadMessages( odp.puuid  )">
         </select>
-    </div>
+    
 </div> 
 
 
-<div class="panel-body table-responsive no-padder float-left" ng-class="{'b-t-none': !isModelState}">
+<div class="panel-body table-responsive no-padder  "
+ ng-class="{'b-t-none': !isModelState}">
     <table class="  table  table-hover  table-bordered ">
  
         <thead class="flip-content">
@@ -16,9 +17,7 @@
                 <th> Message名称 </th>
                 <th> 触发器 Id </th>
                 <th> 发送方式 </th>
-                <th> 发送对象</th>
-                <!--  <th   >组</th> -->
- 
+                <th> 发送对象</th> 
                 <th width="30%"> 消息体</th>
  
                 <th ng-if="isModelState"></th>
@@ -32,8 +31,7 @@
                 <td> {{m.user_category}}</td>
                 <td> {{m.user_id }}</td>
                 <td> {{m.message_params}}</td>
-                <!--    <td  >  {{ proj.createTime | date:"yyyy-MM-dd HH:mm" }}</td> -->
-                <td ng-if="isModelState">
+                 <td ng-if="isModelState">
                     <a class="text-link m-r-xs" ng-click="createMessage(  $index  , m   )">编辑</a>
                     <a class="text-link m-r-xs" translate="bu.bu4" ng-click="deleteMessage(  $index  , m   )">移除</a>
                 </td>
@@ -41,10 +39,18 @@
         </tbody>
     </table>
 </div>
-<div class="panel-footer b-t-none" ng-if="isModelState">
-    <!--   <ng-include  src=" 'athena/debris/_pager.html'  "></ng-include> -->
+
+
+
+<div class="panel-footer b-t-none" ng-if="isModelState"> 
     <button class="btn btn-success btn-sm   " ng-click=" createMessage( ) ">
  
         添加通知 
     </button>
 </div>
+ 
+
+
+
+
+  
