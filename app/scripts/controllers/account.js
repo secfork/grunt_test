@@ -168,6 +168,18 @@ angular.module('app.account', [])
         );
     };
 
+    $scope.sendNote = function( ){
+
+        $source.$note.get( {   op: "account",
+                                mobile_phone: $scope.user.mobile_phone } , function( resp ){
+                                        angular.alert("短信发送成功")
+                                })
+    }
+
+    $scope.sendEmail = function(){
+        
+        
+    }
 
     $scope.delUser = function(arr, u, i) {
         $scope.confirmInvoke({

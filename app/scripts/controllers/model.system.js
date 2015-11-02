@@ -475,7 +475,8 @@ angular.module("app.model.system", [])
             var promise =  $scope.loadSysDev() ; 
  
 
-            scope.loadPoint = function  (dev) {
+            // bool 是否去初始化point ; 
+            scope.loadPoint = function  (dev , bool ) {
                 if (!dev) return;
                 if (dev.device_model == oldDevModel) return;
                 oldDevModel = dev.device_model;
@@ -486,10 +487,12 @@ angular.module("app.model.system", [])
                 promise = $source.$dmPoint.get({ device_model: oldDevModel }).$promise;
 
                 promise.then(function  (resp) {
-                    var p = resp.ret[0];
-                    scope.points = resp.ret;
-                    scope.op.point = p && (p.id +"&"+p.name);
-                    scope.T.name   = p && p.name ;
+                    scope.points = resp.ret; 
+                    if( bool){
+                        var p = resp.ret[0];
+                        scope.op.point = p && (p.id +"&"+p.name);
+                        scope.T.name   = p && p.name ; 
+                    }
                 }) 
                 return promise ; 
             };
@@ -595,13 +598,10 @@ angular.module("app.model.system", [])
                         dt = d[1];
  
                     if (t.isManageMode) { // 托管模式;
-                        ApplyDevPoint($scope).then(function( ) {
-                            
-                            // 回显 devmodel , point ;
-                            // $scope.op.dev = $scope.sysdevices.filter (function(v, i) {
-                            //                     return v.id == dd
-                            //                 })[0] ,
- 
+
+                        // ApplyDevPoint 会初始化第一个point名字; 
+                        ApplyDevPoint($scope).then(function( ) { 
+
                             $.each( $scope.sysdevices , function(i,v){
                                 if( v.id == dd ){
                                     $scope.op.dev = v ; 

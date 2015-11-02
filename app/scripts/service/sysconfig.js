@@ -1,6 +1,7 @@
 angular.module('app.sysconfig', [], function() {})
 
 .service("$sys", function($translate) {
+    
     return { 
         
         mailindex:{
