@@ -1,14 +1,12 @@
-<!--jjw b-b-none-->
-<div class="panel-heading b-b-none">
+<!--jjw b-b-none no-padder-->
+<div class="panel-heading b-b-none no-padder">
 
     <form class="form-inline ">
         <!--jjw 添加div-->
-        <div class="col-md-5 col-xs-12 m-t-sm m-b-sm">
-            <div class="input-group col-sm-9 col-xs-12">
+        <div class="col-md-3 col-sm-4 col-xs-12 m-t-sm m-b-sm">
+            <div class="input-group col-sm-12">
                 <div class="btn btn-sm    input-group-addon">搜索</div>
-                <input type="text" class="form-control input-sm" ng-model="f_name"
-                       ng-change="filterTags(f_name)"
-                        >
+                <input type="text" class="form-control input-sm" ng-model="f_name" ng-change="filterTags(f_name)">
             </div>
 
             <!--
@@ -18,23 +16,24 @@
              -->
             <!--  over="xxxx" popover-trigger="mouseenter" -->
 
-            <!--jjw 召唤所有——>召唤-->
-            <button class="btn btn-sm btn-info  w-xs col-sm-3 col-xs-12 float-right" ng-click="d_call( system  , 2 )" pop token="5000"> 召唤</button>
         </div>
         <!--jjw 添加div-->
-        <div class="col-md-6 col-xs-12 m-t-sm m-b-sm" style="line-height: 30px">
+        <div class="col-md-6 col-sm-8 col-xs-12 m-t-sm m-b-sm" style="line-height: 30px;min-width: 350px">
 
-            <label class="checkbox i-checks col-sm-3 col-xs-5">
+            <label class="checkbox inline i-checks col-sm-4" style="text-align: center">
                 <input type="checkbox" ng-model="auto_r">
-                <i></i> <span> 自动刷新</span>
+                <i></i><span>自动刷新</span>
             </label>
-            <span class="col-sm-6 col-xs-6">
+            <span class="col-sm-8 float-right">
                 <progressbar class="progress-striped     m-b-n-xs  w  inline" animate="false"
                              value=" progValue / 100  " type="success">
                 </progressbar>
             </span>
-            <button class="btn btn-sm btn-info  w-xs col-sm-3 col-xs-12 float-right " ng-click=" getCurrent() " token> 刷新</button>
-
+        </div>
+        <div class="col-md-3 col-sm-6 m-t-sm m-b-sm float-right">
+            <!--jjw 召唤所有——>召唤-->
+            <button class="btn btn-sm btn-info  w-xs col-sm-6 float-right m-l m-t-xs" ng-click="d_call( system  , 2 )" pop token="5000"> 召唤</button>
+            <button class="btn btn-sm btn-info  w-xs col-sm-6 float-right m-l m-t-xs" ng-click=" getCurrent() " token> 刷新</button>
         </div>
     </form>
 </div>
@@ -50,8 +49,7 @@
       
             <tbody id="current-table"> 
                 <tr ng-repeat="t in   filtTags "  class="hover">
-                    <td class="full-td "   > 
-
+                    <td class="full-td "   >
                         {{t.name}}
                     </td>
                     <td id="_val_{{$index}}"> </td>
@@ -81,10 +79,4 @@
      </table>
 </div>
 
-        <!--jjw 分页-->
-<!--<div class="panel-footer ">-->
-    <!--&lt;!&ndash;jjw m-t m-d&ndash;&gt;-->
-    <!--<div class=" text-center m-t m-b" ng-include src=" 'athena/debris/_pager.html'  "></div>-->
-    <!--&lt;!&ndash; 只有 app.proj.prop 路由  才显示   &ndash;&gt;-->
-<!--</div>-->
  

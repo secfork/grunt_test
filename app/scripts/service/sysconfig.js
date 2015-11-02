@@ -602,7 +602,9 @@ angular.module('app.sysconfig', [], function() {})
         },
 
         "tag": {
-            type: ['Number', 'Boolean', 'String', 'Buffer', 'Array', 'Date', 'Object']
+//            jjw 变量类型
+//            type: ['Number', 'Boolean', 'String', 'Buffer', 'Array', 'Date', 'Object']
+            type:['Analog','Digital']
 
         },
 
