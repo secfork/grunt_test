@@ -43,10 +43,14 @@
                 <a href="" target="_" style="text-decoration: underline;"> &lt;&lt;ThingLinx工业云使用条款&gt;&gt;</a>
             </label>
         </div>
-        <button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="signup()">注册</button>
+        <button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="signup()"
+            token  >注册</button>
         <a ui-sref="access.signin" class="btn btn-lg btn-default btn-block">返回登录</a>
     </form>
 </div>
+
+
+
 <div ng-show=" op.step == 'step2' " class="m-g-lg  m-t-lg   ">
     <div class="wrapper text-center">
         <strong>2/3&nbsp;&nbsp;验证邮箱</strong>
