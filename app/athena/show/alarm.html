@@ -1,7 +1,8 @@
 <!--jjw 添加div.card bg-white-->
 <div class="card bg-white">
     <h4>报警查询</h4>
-    <div class="panel-heading p-b-0"
+    <!--jjw bg-white-->
+    <div class="panel-heading bg-white p-b-0"
             >
         <!--jjw form-inne去掉-->
         <!--div.row-->
@@ -171,7 +172,7 @@
         </div>
 
         <!--jjw 添加div-->
-        <div class="row bg-white m-t-sm text-xs b-b b-t" ng-init=" op.active = false ">
+        <div class="row bg-white m-t-sm text-xs b-t" ng-init=" op.active = false ">
 
             <!--jjw margin-top margin-bottom-->
             <div class="radio     float-right  w-xxm m-t-md m-b-md m-l m-r">
@@ -182,7 +183,7 @@
                 </label>
             </div>
             <!--jjw margin-top margin-bottom-->
-            <div class="radio      float-right  w-xxm m-t-md m-d-md m-l m-r" style="margin-top: 20px">
+            <div class="radio      float-right  w-xxm m-t-md m-b-md m-l m-r" style="margin-top: 20px">
                 <label class="i-checks">
                     <input type="radio"   value="true" ng-model="op.active">
                     <i></i>
@@ -205,27 +206,26 @@
             <thead class="flip-content">
             <tr class="background ">
                 <th> 报警ID </th>
-                <th> 报警时间</th>
+                <th width="10%"> 报警时间</th>
                 <th> 报警描述 </th>
                 <th> 重要性 </th>
                 <th> 类别 </th>
-                <th> 活跃状态 </th>
+                <th> 活跃状态 </th> 
                 <th class="w-xs"> 操作 </th>
             </tr>
             </thead>
-            <tbody class="text-center ">
-
+            <tbody class="text-center "> 
             <tr ng-repeat="  a  in page.data  "  >
 
                 <td> {{ a.id }} </td>
                 <td> {{ a.timestamp | date:"yyyy-MM-dd HH:mm:ss" }}</td>
                 <td> {{ a.desc }}</td>
                 <td> {{ _config[a.severity] }} </td>
-                <td> {{ a.class_id }} </td>
-                <td> {{ a.active?"活跃":"关闭" }} </td>
-                <td>
+                <td> {{ a.class_id }} </td> 
+                <td translate="alarm_active.{{ a.active}}" > "活跃":"关闭"  </td>
+                <td>  
                     <a class="text-link" ng-click="showAlarmMsg(a , od.uuid)">详细信息</a>
-                    <a  ng-show=" a.active " class="text-link m-l" ng-click="conformAlarm(a , od.uuid )">确认报警</a>
+                    <a  ng-show=" a.active " class="text-link m-l" ng-click="conformAlarm( page,  a , $idnex , od.uuid )">确认报警</a>
 
                 </td>
             </tr>

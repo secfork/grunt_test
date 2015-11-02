@@ -1,8 +1,8 @@
 <!-- <div class="panel-body bg-light   table-responsive no-padder no-border gap-5"> -->
 <div class="panel-body table-responsive   padding-5">
     <div ng-repeat='r in page.data ' ng-init=" op ={} ">
-
-        <div class=' b-b temp-row  my-bg-info ' ng-click='op.show = !op.show '>
+        <!--jjw 去掉my-bg-info-->
+        <div class=' b-b temp-row ' ng-click='op.show = !op.show '>
             <i class="m-l-xs  fa"
                 ng-class="{ 'fa-plus-square-o': !op.show , 'fa-minus-square-o':op.show  }"></i>
             {{r.name }}
@@ -39,9 +39,8 @@
                     </label>
                 </form>
             </div>
-
-            <a  class="btn btn-sm btn-info m-t-xs"
-                ng-click="addAuthor( this , page.data , r ) " > 添加权限</a>
+            <!--jjw m-l m-t m-b-->
+            <a  class="btn btn-sm btn-info  m-l-sm m-t-sm m-b-sm" ng-click="addAuthor( this , page.data , r ) " > 添加权限</a>
 
         </div>
 
@@ -49,6 +48,7 @@
 </div>
 
  
-<div class="panel-footer"> 
-     <div  class="text-center" ng-include src=" 'athena/debris/_pager.html'  "></div>
+<div class="panel-footer">
+    <!--jjw m-t m-b-->
+     <div  class="text-center m-t-sm m-b-sm" ng-include src=" 'athena/debris/_pager.html'  "></div>
 </div>

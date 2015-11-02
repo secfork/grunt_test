@@ -1,167 +1,123 @@
-    <div class="container w-xxl w-auto-xs"   style="background-color :
-                                                    rgb(224, 224, 224) ; border-radius: 5px ;">
-      <a href class="navbar-brand block m-t">
-          <!--  {{app.name}}   style="width: 150px;"   -->
-
-          <img src="img/logo_2.png"   >
-      </a>
-
-
-      <div class="m-b-lg">
+<div class="container w-xxl w-auto-xs" >
+    <a href class="navbar-brand block m-t">
+        <!--  {{app.name}}   style="width: 150px;"   -->
+        <img src="img/logo_2.png">
+    </a>
+    <div class="m-b-lg">
         <div class="wrapper text-center">
-          <strong>注册account 用户</strong>
+            <strong>注册account 用户</strong>
         </div>
+        <form name="form1" class="form-validation   ">
+            <div class="list-group list-group-sm"> 
 
-        <form name="form" class="form-validation">
-
-
-            <div class="list-group list-group-sm">
-                <!--  ng-keyup=" isDuplicate() " -->
                 <div class="list-group-item">
-                    <input name="username"  ng-model="comp.name" 
-                      placeholder="公司名称(2至20个字符)"
-                      class="form-control no-border"     required
-                      ng-minlength="2"  ng-maxlength="20"  >
+                    <input name="username" ng-model="comp.name" 
+                    placeholder="公司名称(2至20个字符)" class="form-control no-border" required ng-minlength="2" ng-maxlength="20">
+                </div>
+              
+                <div class="list-group-item ">
+                    <input  name="invicode" ng-model="comp.invitation_code" 
+                            placeholder="激活码" class="form-control no-border " required>
                 </div>
 
-                <!-- ng-keyup=" isInviteCode() " -->
-               <!--  <div class="list-group-item   ">
-                    <input name="password"  ng-model="comp.license"    placeholder="邀请码"
-                           class="form-control no-border "    required
+                <div class="list-group-item " >
+                   <input  name="email" ng-model="comp.admin.email" 
+                          type="email"
+                            placeholder="邮箱" class="form-control no-border " required>
+           
+                </div>
 
-                            >
+
+                  <!--   
+                    <div class="list-group-item  hbox ">
+                        <input name="password" ng-model="comp.admin.mobile_phone" placeholder="管理员手机号码" style="width:70%" class="form-control no-border    inline " required>
                     
-                </div> -->
+                        <a class="btn  btn-sm btn-info   " ng-show="!time" ng-click="sendNote()" style="width:30%" token>
+                               发送验证码</span>
+                               
+                        </a>
+                        <a class="btn btn-sm btn-info" ng-show="time" disabled style="width:30%">
+                             重新发送( {{120 - time}} )
+                        </a> 
+                   </div> 
+                  -->
 
-                <div class="list-group-item ">
-                    <input name="password"  ng-model="comp.invitation_code"   
-                           placeholder="激活码"
-                           class="form-control no-border "    required
-                            >
-                    <!--ng-minlength="6"   ng-maxlength="20" -->
-                </div>
 
-                <div class="list-group-item ">
-                    <input name="password"  ng-model="comp.admin.username"  
-                           placeholder="管理员帐号,至少6个字符"
-                           ng-minlength="3"
-                           ng-maxlength = '16'
-                           class="form-control no-border "    required
-                            >
-                    <!--ng-minlength="6"   ng-maxlength="20" -->
-                </div>
 
-                <div class="list-group-item ">
-                    <input name="password"  ng-model="comp.admin.password"
-                           placeholder="管理员密码,至少6个字符"
-                           ng-minlength="6"
-                           ng-maxlength = '16'
-                           onfocus="this.type='password'"
-                           class="form-control no-border "    required
-                            >
-                    <!--ng-minlength="6"   ng-maxlength="20" -->
-                </div>
-
-                
-                <div class="list-group-item  hbox ">
-                    <input name="password"  ng-model="comp.admin.mobile_phone"
-                           placeholder="管理员手机号码" 
-                           style="width:70%"
-                           class="form-control no-border    inline "    required
-                            >
-
-                   <!--  <i class="fa fa-check text-success "></i>  
+                  <div class="list-group-item"   >
                         
-                    <i class="fa fa-times text-danger "></i>   -->
+                        <input name="password" ng-model="comp.IdentifyCode"
+                          class="form-control inline   m-t-xs" style="width:50%"
+                          placeholder="请输入验证码"  required  >
 
-                    <a class="btn  btn-sm btn-info   "  ng-show="!time"  
-                        ng-click="sendNote()"
-                        style="width:30%"  token >
-                           发送验证码</span>
-                           
-                    </a>
+                        <!-- <i class="fa w-30  fa-refresh"></i>   --> 
 
-                    <a  class="btn btn-sm btn-info" ng-show="time" disabled
-                          style="width:30%" >
-                         重新发送( {{120 - time}} )
-                    </a>
+                        <img  ng-src="web/common/identify/account?t={{op.t||123}}"  
+                            class="inline  m-l "  
+                          style="width: 80px;height: 30px;">
+                        <a class="fa fa-refresh text-info  "  
+                           ng-click=" op.t = op.t+1" ></a>
+
+                    </div>
+
+            </div>
 
 
+            <div class="checkbox m-b-md m-t-none">
+                <label class="i-checks small">
+                    <input type="checkbox" name="check" ng-model="agree" required><i></i> 我已阅读并同意
+                    <a href="" target="_" style="text-decoration: underline;"> &lt;&lt;ThingLinx工业云使用条款&gt;&gt;</a>
+                </label>
+            </div>
+        
+            <button type="submit" class="btn btn-lg btn-primary btn-block" ng-show="!sign" ng-click="signup()">注册</button>
+            <button class="btn btn-lg btn-success btn-block" ng-show="sign">注册成功</button>
+           
+            <div class="line line-dashed"></div>
+            <a ui-sref="access.signin" class="btn btn-lg btn-default btn-block">返回登录</a>
+        </form>
 
+       <form name="form2" class="form-validation  m-t ">
+            <div class="list-group list-group-sm">
+          
+
+                <div class="list-group-item ">
+                    <input name="password" ng-model="comp.admin.username"
+                     placeholder="管理员帐号,至少6个字符" ng-minlength="3" 
+                     ng-maxlength='16' class="form-control no-border " required>
                     <!--ng-minlength="6"   ng-maxlength="20" -->
                 </div>
-
-
-
-                <div class="list-group-item"  ng-init="t = 1">
-                        <input name="password" ng-model="comp.identifyCode"
-                          class="form-control inline " style="width:50%"
-                          placeholder="验证码"  required
-                        >
-
-                      <!--   <img  ng-src="web/common/identify_img/{{t}}"  class="inline  " 
-                         style="width: 80px;height: 30px;">
-                        <a class="fa fa-refresh text-info  "  
-                           ng-click=" t = t+1" ></a> -->
-
+                <div class="list-group-item ">
+                    <input name="password" ng-model="comp.admin.password" placeholder="管理员密码,至少6个字符" ng-minlength="6" ng-maxlength='16' onfocus="this.type='password'" class="form-control no-border " required>
+                    <!--ng-minlength="6"   ng-maxlength="20" -->
                 </div>
-
-
-             <!--   <div class="list-group-item">
-
-                    <input type="password" class="form-control  no-border " name="confirm_password"
-                           required ng-model="confirm_password"      placeholder=" 确认密码 "
-                           ui-validate=" '$value==password' " ui-validate-watch=" 'password' ">
-                </div>-->
-
-
-
-                <div ng-show='form.confirm_password.$error.validator'  class="text-danger" >
-                   Passwords do not match!
+                <div class="list-group-item">
+                    <input type="password" class="form-control  no-border " name="confirm_password" required ng-model="confirm_password" placeholder=" 确认密码 " ui-validate=" '$value==comp.admin.password' " ui-validate-watch=" 'comp.admin.password' ">
+                    <div ng-show='form.confirm_password.$error.validator' class="text-danger">
+                        密码输入不一致
+                    </div>
                 </div>
- 
-              <!--  <div ng-show=" true " class="text-success text-center " >  注册成功!!</div>-->
-
-          </div>
-          <div class="checkbox m-b-md m-t-none">
-            <label class="i-checks small">
-              <input type="checkbox"  name="check" ng-model="agree" required ><i></i>
-                  我已阅读并同意
-                   <a href="" target="_"  style="text-decoration: underline;"> &lt;&lt;ThingLinx工业云使用条款&gt;&gt;</a>
-                   
-            </label>
-          </div>
-            <!--     {{form.$valid }}    <br>
-                {{form.check.$error}}  <br>
-                   {{ form | json }}    <br>
-                   {{  isdupname  }}  -  {{  form.$valid   }}     <br>
-                   {{   (isdupname ==false)  && form.$valid      }}
-       -->
-          <button type="submit" class="btn btn-lg btn-primary btn-block" 
-                ng-show="!sign"
-                ng-click="signup()"   ng-disabled=' !form.$valid  || nameok || codeok ' 
-                >注册</button>
-           
-
-          <button   class="btn btn-lg btn-success btn-block" 
-                ng-show="sign"
-                   >注册成功</button>
-           
-    
-
-<!--          <button type="submit" class="btn btn-lg btn-primary btn-block"
-                ng-click="signup()"   ng-disabled='  ! ((isdupname ==false)  && form.$valid )   ' >注册</button>
-           -->
-
-          <div class="line line-dashed"></div> 
-          <a ui-sref="access.signin" class="btn btn-lg btn-default btn-block">返回登录</a>
+            </div>
         </form>
-      </div>
-      <div class="text-center" ng-include="'athena/page_footer.html'"></div>
+
+
     </div>
+    <div class="text-center" ng-include="'athena/page_footer.html'"></div>
+</div>
 
 
 
-    <!--@if  append -->
-    comp = {{comp}}
-    <!--@endif -->
+
+
+
+
+
+
+
+
+
+
+
+<!--@if  append -->
+comp = {{comp}}
+<!--@endif -->

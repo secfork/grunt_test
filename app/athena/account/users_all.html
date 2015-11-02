@@ -1,7 +1,7 @@
 
     <div class="panel-body table-responsive  no-padder  no-border">
-        <!--jjw j_table-->
-        <table class=" table  table-condensed j_table  ">
+        <!--jjw j_table b-t-none-->
+        <table class=" table  table-condensed j_table b-t-none ">
             <thead class="flip-content  ">
                 <tr>
                     <th style="text-align: left;padding-left: 30px">用户名</th>
@@ -21,13 +21,16 @@
                     </td>
                     <td>
                         {{u.mobile_phone}}
+                        <!-- 
                         <i class="   fa {{ u.emailEffective?'fa-check text-success':'fa-times  text-danger' }}"></i>
-                         
+                         --> 
                     </td>
                     <td>
                         <!-- pull-right -->
                         {{u.email}}
+                        <!-- 
                         <i class="  fa {{ u.emailEffective?'fa-check text-success':'fa-times  text-danger' }}"></i>
+                         -->
                     </td>
                     <td> {{u.last_login_ip }}</td>
                     <td> {{u.last_login_time| date:'yyyy-MM-dd HH:mm:ss'}} </td>

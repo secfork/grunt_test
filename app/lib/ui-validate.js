@@ -46,15 +46,15 @@ angular.module('ui.validate', [])
 
       angular.forEach(validateExpr, function(exprssn, key) { 
 
-        validateFn = function(valueToValidate) {
-          
-        
-          
+ 
+        validateFn = function(valueToValidate) { 
+ 
 
           var expression = scope.$eval(exprssn, {
-            '$value': valueToValidate ,
-            "$elm":elm ,
-            "$ctrl":ctrl
+            '$value': valueToValidate 
+          //  ,
+          //  "$elm":elm ,
+          //  "$ctrl":ctrl
           });
            
 

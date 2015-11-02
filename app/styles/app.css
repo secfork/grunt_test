@@ -784,13 +784,23 @@ a.list-group-item:focus {
 }
 
 /*jjw table*/
-.j_table th,.j_table td{
+.j_table{
+    border-bottom: 1px solid #eaeff0 !important;
+    border-top: 1px solid #eaeff0 !important;
+    font-size: 14px;
+    margin-bottom: 0px !important;
+    margin-top: 0px !important;
+}
+.j_table td{
     font-size: 14px;
     height: 30px;
     line-height: 30px !important;
 }
 .j_table th{
+    font-size: 14px;
     font-weight: bold !important;
+    height: 49px;
+    line-height: 49px !important;
     background-color: #FFFFFF;
 }
 
@@ -972,7 +982,8 @@ body {
 /*jjw 卡片*/
 .card{
     border: 1px solid #DEE5E7 !important;
-
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
+    border-radius: 2px;
 }
 .card h4{
     font-size: 14px;
@@ -3301,7 +3312,7 @@ fieldset[disabled] .i-checks input + i:before {
   background-color: #f13636 !important;
 }
 .bg-white {
-  background-color: #fff;
+  background-color: #fff !important;
   color: #58666e;
 }
 .bg-white a {
@@ -3704,14 +3715,21 @@ a.text-black:hover {
 .b-a {
   border: 1px solid #dee5e7;
 }
-.b-t-none  , .b-l-none ,.b-r-none {
-  border-top-style: none;
+.b-t-none{
+  border-top-style: none !important;
 }
 
 /*jjw .b-b-none*/
 .b-b-none{
-    border-bottom-style: none;
+    border-bottom-style: none !important;
 }
+.b-l-none{
+    border-left-style: none !important;
+}
+.b-r-none{
+    border-right-style: none !important;
+}
+
 
 .b-t {
   border-top: 1px solid #dee5e7;

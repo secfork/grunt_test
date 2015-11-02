@@ -2,6 +2,7 @@
 
 
 angular.module('app.basecontroller', ['ng'])
+ 
     .controller('AppCtrl', function($scope, $translate, $localStorage, $window, $modal, $state,
         $timeout, $sessionStorage, $source, $q, $source) {
 
@@ -531,8 +532,7 @@ angular.module('app.basecontroller', ['ng'])
             });
 
         }
-
-
+ 
 
         // resp_err , info , warn ; 
         angular.alert = $scope.alert = function(msg, fun) {
@@ -563,7 +563,7 @@ angular.module('app.basecontroller', ['ng'])
                         $modalInstance.dismiss('cancel');
                     };
                     $scope.done = function() {
-                        $modalInstance.dismiss('cancel');
+                        $scope.cancel();
                         fun && fun();
                     };
                 }
@@ -624,7 +624,7 @@ angular.module('app.basecontroller', ['ng'])
             });
         }
 
-        $scope.conformAlarm = function( alarm , system_id ){
+        $scope.conformAlarm = function( page , alarm , index , system_id ){
             $modal.open({
                 templateUrl: "athena/show/alarm_conform.html", 
                 controller: function($scope, $modalInstance , $show ) {
@@ -637,6 +637,7 @@ angular.module('app.basecontroller', ['ng'])
 
                     $scope.done = function(){
 
+                        $scope.validForm();
                         $show.alarm.conform( 
                             angular.extend( { alarm_id: alarm.id , system_id:system_id } , $scope.od ) ,
                             null ,
@@ -644,6 +645,8 @@ angular.module('app.basecontroller', ['ng'])
                                 $scope.cancel();
                                 alarm.active = 0 ; 
                                 angular.alert("确认报警成功");
+                                page.total-- ;
+                                page.data.splice( index ,1);
 
                             },
                             function(){
@@ -798,17 +801,15 @@ angular.module('app.basecontroller', ['ng'])
             },
             function() {
 
-            }
-
-
-        )
-
+            } 
+        ) 
     }
 
 
     $scope.signup = function() {
         //delete $scope.comp.admin ; 
          
+        $scope.validForm('form1');
 
         $source.$account.save($scope.comp, function(resp) {
 

@@ -1,7 +1,7 @@
 <!-- project  添加 和 属性展示 模版  -->
 <!--jjw bg-white card-->
-<div class="panel-body table-responsive no-padder  no-border bg-light bg-white card">
-    <h4 class="text-center">添加区域</h4>
+<div class="panel-body table-responsive no-padder bg-light bg-white" ng-class="{'card':$state.includes('app.proj') &&!($state.includes('app.proj.prop'))}">
+    <h4 class="text-center" ng-show="$state.includes('app.proj')&&!($state.includes('app.proj.prop'))">添加区域</h4>
     <form name="form" panelclass class="form-horizontal form-validation  ">
         <!--    <div class="form-group  "  >
     <label class= " col-sm-3 control-label   "  >  <h4   >添加项目</h4> </label>

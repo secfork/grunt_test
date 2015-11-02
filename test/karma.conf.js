@@ -23,6 +23,7 @@ module.exports = function(config) {
     files: [
       // bower:js
       'bower_components/requirejs/require.js',
+      'bower_components/lodash/lodash.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower

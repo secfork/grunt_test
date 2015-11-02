@@ -85,10 +85,17 @@
                 <td> {{ a.desc }}</td>
                 <td> {{ _config[a.severity] }} </td>
                 <td> {{ a.class_id }} </td>
-                <td> {{ a.active?"活跃":"关闭" }} </td>
+
+
+                <!--    active status,default to 1 
+                    0:cleared 
+                    -1 : closed 
+                    1 : occured
+                -->
+                <td translate="alarm_active.{{ a.active}}"  >    </td>
                 <td>
                   <a class="text-link" ng-click="showAlarmMsg(a , system.uuid)">详细信息</a>
-                  <a  ng-show=" a.active " class="text-link m-l" ng-click="conformAlarm(a , system.uuid )">确认报警</a>
+                  <a  ng-show=" a.active " class="text-link m-l" ng-click="conformAlarm( page, a , $index , system.uuid )">确认报警</a>
                 </td>
             </tr>
         </tbody>

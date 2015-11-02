@@ -5,6 +5,7 @@ var app = angular.module('thinglinx', [
 
     'ngAnimate',
     'ngCookies',
+    'ngMessages',
     'ngStorage',
     'ui.router',
     'ui.bootstrap',
@@ -33,6 +34,7 @@ var app = angular.module('thinglinx', [
         $rootScope.$translate = $translate;
         $rootScope.$sceHtml = $sce.trustAsHtml;
         $rootScope.$session = $sessionStorage;
+        $rootScope.fromJson = angular.fromJson ;
 
 
         $rootScope.ossRoot = "http://thinglinx-net.oss-cn-beijing.aliyuncs.com/";
@@ -55,7 +57,7 @@ var app = angular.module('thinglinx', [
         $rootScope.test = function() {
                 alert("test  function !")
             }
-        //@endif  
+            //@endif  
 
         // $rootScope.validate = function(data, msg) {
         //   if (!data) {
@@ -94,39 +96,6 @@ var app = angular.module('thinglinx', [
 
 
 
-            // $provide.decorator('$rootScope', ['$delegate', function($delegate) {
-            //   // ['$delegate',
-            //   // 为 所有的 scope 注册  $destroy 事件; !!
-            //   var $new_proxy = $delegate.$new;
-            //   $delegate.$new = function() {
-            //     var $scope = $new_proxy.apply(this);
-            //     var _s // this = ?
-            //     $scope.$on("$destroy", function($event) {
-            //       console.log("$scope $destroy event  ", "清除controller 缓存;");
-
-            //       _s = $event.targetScope;
-
-            //       if (_s.hasOwnProperty('$cache')) {
-            //         _s.$cache.destroy();
-            //         console.log(" 清除controller 缓存; ");
-            //       }
-
-
-            //     });
-            //     return $scope;
-            //   };
-
-            //   $delegate.$autoClearCache = function() {
-            //     var args = arguments;
-            //     this.$on("$destroy", function() {
-            //       console.log("$scope destroy  2 clear cache ");
-            //     });
-            //   };
-            //   return $delegate;
-            // }]);
-
-
-
 
             // lazy controller, directive and service
             app.controller = $controllerProvider.register;
@@ -155,49 +124,50 @@ var app = angular.module('thinglinx', [
             //.otherwise('/app/proj/manage');
                 .otherwise('/app');
 
-            $stateProvider
-                .state('app', {
-                    //abstract: true,
-                    url: '/app',
-                    templateUrl: 'athena/app.html',
-                    controller: function($scope, $state, $sys, $sessionStorage) {
-                        //@if  append
+            $stateProvider.state('app', {
+                //abstract: true,
+                url: '/app',
+                templateUrl: 'athena/app.html',
+                controller: function($scope, $state, $sys, $sessionStorage) {
+                    //@if  append
 
-                        console.log("appxxxxxxxxx");
+                    console.log("appxxxxxxxxx");
+                    //@endif 
+
+
+                    // jsorder go2long 要清除sessionstorage 的user ;
+                    var user = $sessionStorage.user;
+                    // if( $scope.$debug ){
+                    //    user = $sessionStorage.user || {};
+                    // }
+
+                    if (user) {
+                        $scope.user = user;
+                        //@if  append 
+                        console.log("sessionStorage 含有user");
                         //@endif 
 
+                        // 是 app 路由转到 rootState ;
+                        // rootstate = app.prpj.namage ;
+                        $state.is("app") ? $state.go($sys.rootState) : undefined;
 
-                        // jsorder go2long 要清除sessionstorage 的user ;
-                        var user = $sessionStorage.user;
-                        // if( $scope.$debug ){
-                        //    user = $sessionStorage.user || {};
-                        // }
+                    } else {
+                        //  if( !$sys.$debug ){
+                        $state.go('access.signin')
+                            //  }
+                    };
+                }
 
-                        if (user) {
-                            $scope.user = user;
-                            //@if  append 
-                            console.log("sessionStorage 含有user");
-                            //@endif 
-
-                            // 是 app 路由转到 rootState ;
-                            // rootstate = app.prpj.namage ;
-                            $state.is("app") ? $state.go($sys.rootState) : undefined;
-
-                        } else {
-                            //  if( !$sys.$debug ){
-                            $state.go('access.signin')
-                                //  }
-                        };
-                    }
-
-                })
+            })
 
 
 
             .state("app.show", {
                 url: "/show",
+ 
 //                    jjw no-border
                 template: '<div ui-view class="gap-5  panel panel-default no-border  "></div>'
+ 
                     // , templateUrl:
                     ,
                 data: {
@@ -382,7 +352,7 @@ var app = angular.module('thinglinx', [
             // project 管理 , 添加;  ================================================
             .state('app.proj', {
                     url: '/proj',
-//                    jjw no-border
+                    //                    jjw no-border
                     template: '<div ui-view class="gap-5  panel panel-default no-border "></div>',
                     controller: function($scope, $state) {
                         $scope.$rootNav("管理");
@@ -528,7 +498,7 @@ var app = angular.module('thinglinx', [
 
             .state('app.account', {
                 url: '/account',
-//                    jjw no-border
+                //                    jjw no-border
                 template: '<div ui-view class="  gap-5 panel panel-default no-border"></div>',
                 controller: function($scope, $state) {
                     $scope.$rootNav("管理");
@@ -651,7 +621,7 @@ var app = angular.module('thinglinx', [
     //         ] 
 
     chosen: ['lib/chosen/chosen.jquery.min.js',
-             'lib/chosen/chosen.css'
+        'lib/chosen/chosen.css'
     ],
     filestyle: [
         'lib/file/bootstrap-filestyle.min.js'

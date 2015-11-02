@@ -910,7 +910,7 @@ angular.module("app.model.system", [])
                     profile: t.profile,
                     id: t.id
                 }, function(resp) {
-                    $scope.triggers.splice(i, 1);
+                    $scope.page.data.splice(i, 1);
                     n();
                 }, n)
             })
@@ -973,7 +973,7 @@ angular.module("app.model.system", [])
                                 condition_parmas_tojson(x);
 
                                 x.id = resp.ret; 
-                                $scope.page.data.push(x);
+                                $scope.page.data.unshift(x);
                                 $scope.cancel();
                             })
                         } else { // 更新;
