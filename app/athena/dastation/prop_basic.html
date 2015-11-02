@@ -81,12 +81,12 @@
                 <div class="b-b m-b"> 最近报警:</div>
  -->
     </div>
-    <div class="col-md-6  m-l gap-5 float-right" style="height: 400px;width: 500px;background-color: #EEEEEE">
+    <div class="col-md-6  m-l gap-5 float-right" style="height: 400px;width: 500px;">
         <!--jjw 添加div-->
-        <div ng-show="!system.pic_url" style="width: 100%;height: 100%;font-size: 45px;text-align: center;line-height: 400px;">
-            500*400
-        </div>
-        <img ng-show="system.pic_url" ng-src="{{ station.pic_url?( ossRoot + station.pic_url):'img/system_null.png'  }}" class="pag-5" style="width:500px; height:400px ">
+        <!--<div ng-show="!system.pic_url" style="width: 100%;height: 100%;font-size: 45px;text-align: center;line-height: 400px;">-->
+            <!--500*400-->
+        <!--</div>-->
+        <img ng-src="{{ station.pic_url?( ossRoot + station.pic_url):'img/system_null.png'  }}" class="pag-5" style="width:500px; height:400px">
         <form class="hbox m-t" style="width:500px;">
  
             <label class="col m-t-xs w-xsl p-t-5">上传系统图片</label>

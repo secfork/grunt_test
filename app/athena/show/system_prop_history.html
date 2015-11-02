@@ -1,5 +1,5 @@
 <div class="panel-heading ">
-    <form class="form-inline  form-validation ng-pristine ng-valid" name="form">
+    <form class="form-validation ng-pristine ng-valid" name="form">
         <!--     <div class="form-group">
            <label  class=" w-30 text-right control-label "  >设备</label>
           
@@ -8,35 +8,47 @@
            </select>
 
         </div> -->
-        <div class="form-group">
-            <label class=" w-30 text-right control-label">点</label>
- 
-            <select ng-model="op.his_tag" class="height-30   inline m-t-xs"
-             ng-options=" t.name as t.name  for t in tags  ">
+        <div>
+            <div class="form-group col-md-4 col-sm-6 col-xs-12 tl-wrap-r wrap-label-span-30">
+                <label class="text-right control-label col-sm-3 control-label">
+                    <span>点</span>
+                </label>
+                <div class="col-sm-9">
+                    <select ng-model="op.his_tag" class="height-30  inline col-sm-12"
+                            ng-options=" t.name as t.name  for t in tags  ">
 
-                <option value="">-请选择tag点-</option>
-            </select>
-        </div>
-        <div class="form-group   ">
-            <label class=" w-xxs text-right control-label float-left m-t-xs">起始时间:</label>
-            <input type="text" class=" input input-sm  float-left" datetime-picker date-format='yyyy-MM-dd HH:mm' nofocus data-readonly-input='false' ng-model="op.start" is-open='od.showS' />
-            <span class=" float-left">
-                <button type="button" class="btn btn-default btn-sm" 
-                ng-click="openCalendar($event, 'od.showS=true')">
-                <i class="fa fa-calendar"></i></button>
-            </span>
-        </div>
-        <div class="form-group   ">
-            <label class=" w-xxs text-right control-label float-left m-t-xs">结束时间:</label>
-            <input type="text" class=" input input-sm float-left" datetime-picker date-format='yyyy-MM-dd HH:mm' nofocus ng-model="op.end" is-open='od.showE' />
-            <span class=" float-left">
-                  <button type="button" class="btn btn-default btn-sm" 
-                  ng-click="openCalendar($event, 'od.showE=true')">
-                  <i class="fa fa-calendar"></i></button>
-              </span>
-        </div>
-        <div class="form-group">
-            <span class="btn btn-info btn-sm w-xs m-l m-t-xs" ng-disabled="!op.his_tag" ng-click="queryHistory()">查询</span>
+                        <option value="">-请选择tag点-</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group  col-md-4 col-sm-6 col-xs-12 tl-wrap-r wrap-label-span-30">
+                <label class="text-right control-label col-sm-3">
+                    <span>起始时间</span>
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" class=" input input-sm  float-left col-xs-12" datetime-picker date-format='yyyy-MM-dd HH:mm' nofocus data-readonly-input='false' ng-model="op.start" is-open='od.showS' />
+                    <span class=" float-left" style="position: absolute;top: 0px;right: 10px">
+                        <button type="button" class="btn btn-default btn-sm"
+                                ng-click="openCalendar($event, 'od.showS=true')">
+                            <i class="fa fa-calendar"></i></button>
+                    </span>
+                </div>
+
+            </div>
+            <div class="form-group  col-md-4 col-sm-6 col-xs-12">
+                <label class=" w-xxs text-right control-label float-left m-t-xs">
+                    <span>结束时间</span>
+                </label>
+                <input type="text" class=" input input-sm float-left" datetime-picker date-format='yyyy-MM-dd HH:mm' nofocus ng-model="op.end" is-open='od.showE' />
+                <span class=" float-left">
+                      <button type="button" class="btn btn-default btn-sm"
+                              ng-click="openCalendar($event, 'od.showE=true')">
+                          <i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div class="form-group  col-md-4 col-sm-6 col-xs-12 float-right">
+                <span class="btn btn-info btn-sm w-xs m-l m-t-xs" ng-disabled="!op.his_tag" ng-click="queryHistory()">查询</span>
+            </div>
         </div>
     </form>
 </div>
