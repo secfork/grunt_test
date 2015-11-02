@@ -1,71 +1,73 @@
 
- 
+<!--jjw 添加卡片-->
+<div class="card">
+    <h4>系统模版</h4>
     <div class="panel-heading   " ng-show="page.data.length >15">
         <div class="input-group col-sm-4 col-sm-push-8 " >
- 
+
             <span class="input-group-btn">
                  <span class="btn btn-default height-30  "
                        translate="common.search"  >搜索</span>
             </span>
- 
+
             <input class="form-control input-sm" type="text"   ng-model="f_n">
         </div>
     </div>
-    <div class="panel-body table-responsive no-padder">
+    <!--jjw no-border-->
+    <div class="panel-body table-responsive no-padder no-border">
         <!--jjw table-striped j_table-->
-        <table class=" table  table-hover table-striped j_table">
- 
+        <table class=" table table-striped j_table">
+
             <thead class="flip-content">
-                <tr class="background ">
-                    <th>
-                        <span translate="th.th21">系统模型名称</span>
-                    </th>
-                    
-                    <th>
-                        <a translate="th.th23">模式 mode </a>
-                    </th>
-                    <th>
-                        <span translate="th.th22">通信类型</span>
-                    </th>
-                    <th>
-                        <a translate="th.th24">创建时间
-              </a>
-                    </th>
-                    <th>
-                        <a translate="th.th25"> 上次更新时间
-              </a>
-                    </th>
-                    <th translate="th.th26"> 设备 个数 </th>
-                    <th translate="th.th27"> 配置 个数 </th>
-                    <th translate="th.th28" width="20%"> 描述 </th>
-                    <th></th>
-                </tr>
+            <tr class="background ">
+                <th>
+                    <span translate="th.th21">系统模型名称</span>
+                </th>
+
+                <th>
+                    <a translate="th.th23">模式 mode </a>
+                </th>
+                <th>
+                    <span translate="th.th22">通信类型</span>
+                </th>
+                <th>
+                    <a translate="th.th24">创建时间</a>
+                </th>
+                <th>
+                    <a translate="th.th25"> 上次更新时间</a>
+                </th>
+                <th translate="th.th26"> 设备 个数 </th>
+                <th translate="th.th27"> 配置 个数 </th>
+                <th translate="th.th28" width="20%"> 描述 </th>
+                <th> 操作 </th>
+            </tr>
             </thead>
             <tbody class="text-center ">
- 
-                <tr ng-repeat=" sm in page.data |filter:{name: f_n }  "  >
- 
-                    <td>
-                        <!--     <a  ng-click=" goto( 'app.model.sysmodel_p.basic' , sm , sm  )"
-              class=" text-info-dk  "> {{sm.name}} </a> -->
-                        <a ng-click=" goto( 'app.model.sysmodel_p.basic' , sm , sm  )" class=" text-info-dk  "> {{sm.name}} </a>
-                    </td>
-                    <td> {{ $sys.sysModelMode.values[sm.mode] }} </td>
-                    <td> {{ sm.comm_type==1?"DAServer":"Gateway" }} </td>
-                    <td> {{ sm.create_time | date:"yyyy-MM-dd HH:mm" }} </td>
-                    <td> {{ sm.last_modify_time | date:"yyyy-MM-dd HH:mm" }} </td>
-                    <td> {{ sm.device_count }} </td>
-                    <td> {{sm.profile_count }} </td>
-                    <td> {{sm.desc }}   </td>
-                    <td>
-                        <a translate="bu.bu3" class="text-info-dk" ng-click="updateSM( this, $index , sm  )"> </a>
-                        <a translate="bu.bu4" class="text-info-dk" ng-click="deleteSM( $index , sm  )"> </a>
-                    </td>
-                </tr>
+
+            <tr ng-repeat=" sm in page.data |filter:{name: f_n }  "  >
+
+                <td>
+                    <!--     <a  ng-click=" goto( 'app.model.sysmodel_p.basic' , sm , sm  )"
+          class=" text-info-dk  "> {{sm.name}} </a> -->
+                    <a ng-click=" goto( 'app.model.sysmodel_p.basic' , sm , sm  )" class=" text-info-dk  "> {{sm.name}} </a>
+                </td>
+                <td> {{ $sys.sysModelMode.values[sm.mode] }} </td>
+                <td> {{ sm.comm_type==1?"DAServer":"Gateway" }} </td>
+                <td> {{ sm.create_time | date:"yyyy-MM-dd HH:mm" }} </td>
+                <td> {{ sm.last_modify_time | date:"yyyy-MM-dd HH:mm" }} </td>
+                <td> {{ sm.device_count }} </td>
+                <td> {{sm.profile_count }} </td>
+                <td> {{sm.desc }}   </td>
+                <td>
+                    <a translate="bu.bu3" class="text-info-dk" ng-click="updateSM( this, $index , sm  )"> </a>
+                    <a translate="bu.bu4" class="text-info-dk" ng-click="deleteSM( $index , sm  )"> </a>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
-    <div class="panel-footer">
+    <!--jjw b-t-none-->
+    <div class="panel-footer b-t-none">
         <!--  <ng-include  src=" 'athena/debris/_pager.html'  "></ng-include>
  -->
         <!--jjw m-t m-b m-l-sm-->
@@ -73,4 +75,4 @@
             新建系统模型
         </button>
     </div>
-
+</div>

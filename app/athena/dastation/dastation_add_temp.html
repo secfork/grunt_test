@@ -1,6 +1,7 @@
 <!--jjw bg-white-->
-<div class="panel-body table-responsive no-padder b-t-none bg-light bg-white card">
-    <h4 class="">添加系统</h4>
+<div class="panel-body table-responsive no-padder b-t-none bg-light bg-white" ng-class="{'card':$state.includes('app.station')}">
+    <!--{{$state}}-->
+    <h4 ng-show="$state.includes('app.station')">添加系统</h4>
     <form name="form" panelclass class="form-horizontal form-validation   ">
         <input tl-wrap-l label="系统名称" required ng-model="system.name">
         <select tl-wrap-l label="所属区域" ng-model="system.region_id"
