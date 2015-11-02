@@ -763,15 +763,31 @@ angular.module('app.basecontroller', ['ng'])
 })
 
 
-.controller("access_signup", function($scope, $state, $source, $localStorage, $interval) {
+.controller("access_signup", function($scope, $state, $location, $source, $localStorage, $interval) {
 
     // signup ;
     $scope.comp = {};
+    $scope.op={ };
 
     $scope.time = 0;
     var inter, time = 0;
 
-    // 发送 account 验证码; 
+     //@if  append
+        console.log( $location.$$search.uuid )
+     //@endif 
+
+    // 是否是 第三部; 
+    var uuid = $location.$$search.uuid ;
+    if( uuid ){
+        $source.$account.get( {pk:"admin" , uuid: uuid } , function( resp ){
+            $scope.op.step =  resp.ret ? "step3":"step1";
+        }) 
+    }else{
+        $scope.op.step = "step1";
+    } 
+ 
+    // 发送 account 验证码;  
+    //@if append 
     $scope.sendNote = function() {
 
         var ph = $scope.comp.admin && $scope.comp.admin.mobile_phone;
@@ -804,46 +820,78 @@ angular.module('app.basecontroller', ['ng'])
             } 
         ) 
     }
+    //@endif 
 
-
-    $scope.signup = function() {
-        //delete $scope.comp.admin ; 
-         
+ 
+    // 去缓存account,到 website ;
+    // setp1
+    $scope.signup = function() { 
         $scope.validForm('form1');
 
         $source.$account.save($scope.comp, function(resp) {
 
+
+            $scope.op.step = "step2"; 
+
+            // 注册成功;
+            //$localStorage.comp_name = $scope.comp.name;
+            // $scope.alert({  type: 'info',   title: "注册成功!"  }, function() {
+            //     $state.go("access.signin");
+            // })
+
+        })
+    };
+
+
+    $scope.reSendEmail = function(){
+        $scope.validForm("form1");
+        $source.$account.save($scope.comp, function(resp) {
+            angular.alert("邮件重发成功");
+        })
+    }
+
+    $scope.openEmail = function(){ 
+        window.open("//mail."+ $scope.comp.admin.email.replace(/.*@(.+)/ ,"$1")  )
+    }
+
+
+    // 创建 account ; step3 ; 
+    $scope.create = function(){
+        $source.$account.save( {pk:'admin' , uuid: uuid }  , $scope.comp.admin , function( resp){
             // 注册成功;
             $localStorage.comp_name = $scope.comp.name;
-            // $scope.regok = true ;
-            // $scope.$parent.user =  { username : $scope.comp.company_name  } ;
-            $scope.sign = true;
-
-            $scope.alert({
-                type: 'info',
-                title: "注册成功!"
-            }, function() {
+            $scope.alert({  type: 'info',   title: "注册成功!"  }, function() {
                 $state.go("access.signin");
             })
 
         })
-    };
+    }
 })
 
-.controller("access_fogpas", function($scope, $sessionStorage, $source, $interval) {
+.controller("access_fogpas", function($scope, $state ,$sessionStorage, $source, $interval , $location ) {
 
-    $scope.od = {
-        step: 1
-    };
+    $scope.od = {  };
     $scope.account = {
         op: "admin",
         account: null, // account  name ; 
         identify: null, // 图片验证码; 
     }
     $scope.admin = {};
+ 
 
-    $scope.step = $sessionStorage.cc_step || 1;
 
+    var uuid =  $location.$$search.uuid ; 
+    if( uuid ){
+        $source.$account.get( {pk:"admin" , uuid: uuid } , function( resp ){
+           $scope.od.step =  resp.ret ? 3:1 ;
+        })
+    }else{
+        $scope.od.step = 1 ; 
+    }
+ 
+
+
+    //@if append
     $scope.cc_cancel = function() {
         $sessionStorage.cc_step = $scope.step = 1;
     }
@@ -852,9 +900,7 @@ angular.module('app.basecontroller', ['ng'])
     if ($scope.time) {
         wait_interval();
     }
-
-    var inter;
-
+    var inter; 
     function wait_interval() {
         inter = $interval(function() {
             $sessionStorage.fog_time = --$scope.time;
@@ -862,8 +908,7 @@ angular.module('app.basecontroller', ['ng'])
                 $interval.cancel(inter);
             }
         }, 1000)
-    }
-
+    } 
     $scope.send_msg = function() {
         $source.$note.get({
             op: "admin",
@@ -874,33 +919,33 @@ angular.module('app.basecontroller', ['ng'])
 
         })
     }
-
+    //@endif 
+    
     $scope.setp1 = function() {
         //$scope.od.identi.length <4  return ; 
         $source.$common.get(
             $scope.account,
             function(resp) {
-                $scope.od.phone = resp.ret;
+                // $scope.od.phone = resp.ret;
                 $scope.od.step = 2;
             },
-            function(resp) {
-                // $scope.alert( {type:"resp_err" , title: resp.err })
+            function(resp) { 
             }
         )
     };
-
-
+ 
 
     // 更改密码; 
     $scope.cc_done = function() {
         $source.$common.save({
-            op: "admin"
+            op: "admin",
+            uuid: uuid
         }, $scope.admin, function(resp) {
             $scope.alert({
                 title: "修改成功",
                 do: ""
             }, function() {
-                $
+                $state.go('access.signin');
             })
 
         });
