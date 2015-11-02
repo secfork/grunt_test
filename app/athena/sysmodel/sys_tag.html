@@ -2,33 +2,31 @@
  
 
  <div class="panel-heading   w-full  " ng-if="isModelState">
-     
-        <span>  配置项</span>
-        
-        <select ng-model="odp.puuid" class=" input input-sm w   " 
-        ng-options="   p.uuid as p.name for p in profiles  " ng-change="loadSysTag( odp.puuid  )">
-        </select>
-            
-        
+     <!--jjw 添加div-->
+     <div class="form-group m-t-sm m-b-sm m-l-xs">
+         <span style="margin-right: 30px"> 配置项 </span>
+         <select ng-model="odp.puuid" class=" input input-sm w" ng-options="   p.uuid as p.name for p in profiles  " ng-change="loadSysTag( odp.puuid  )"></select>
+     </div>
 </div>
  
 
  <!--jjw b-b-none-->
 <div class="panel-body    table-responsive no-padder b-t-none b-b-none">
-  <table class=" table  table-hover  table-striped j_table b-t-none">
+    <!--jjw j_table-->
+  <table class=" table   table-striped j_table b-t-none">
         <thead class="flip-content">
             <tr class="background ">
                 <th> 变量名称 </th>
                 <th> 设备 </th>
                 <th> 类型 </th>
-                <th>缩放</th>
-                <th>偏差</th>
-                <th> 单位</th>
-                <th>保存日志</th>
-                <th>日志间隔(秒)</th>
-                <th>日志类型</th>
+                <th> 缩放 </th>
+                <th> 偏差 </th>
+                <th> 单位 </th>
+                <th> 保存日志 </th>
+                <th> 日志间隔(秒) </th>
+                <th> 日志类型 </th>
                 <th width="15%"> 备注 </th>
-                <th ng-if="isModelState"></th>
+                <th ng-if="isModelState"> 操作 </th>
             </tr>
         </thead>
         <tbody class="text-center  " ng-init="_$type = $sys.log_type.values">
@@ -37,8 +35,7 @@
  
                <!-- 
                 getDevname (); 1:看是否有连接; 若没有 则 type 设置为null ; 2:设置是否真的连接了设备; 3: 是否真的 连接了模版点;
-               --> 
-
+               -->
                 <td style="background-color: {{  dev_name || 'grey' }}">{{ dev_name }} </td>
                 <td> {{tag.type}}</td>
                 <td> {{tag.scale}}</td>
@@ -60,9 +57,10 @@
     </table>
 </div>
 
-  
+
 <div class="panel-footer b-t-none b-b b-l b-r">
-    <button class="btn btn-success btn-sm     " ng-click=" addTag('add') ">
+    <!--jjw m-t-sm m-b-sm-->
+    <button class="btn btn-success btn-sm m-t-sm m-b-sm" ng-click=" addTag('add') ">
         添加变量
     </button>
 </div>  
