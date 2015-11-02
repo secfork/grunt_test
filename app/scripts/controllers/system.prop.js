@@ -233,10 +233,7 @@ angular.module('app.system.prop', [])
                 );
             }
         })
-
-
-
-
+ 
 
         // 控制 编辑按钮 显隐 ;
         function toUpdate(field) {
@@ -335,7 +332,7 @@ angular.module('app.system.prop', [])
                     //@endif 
                     params.port = v.port;
                     params.cmway = v.cmway;
-                    toUpdate('daserver');
+                    toUpdate('daserver'); // 
                     return false;
                 }
             })
@@ -505,8 +502,15 @@ angular.module('app.system.prop', [])
                         // 添加||编辑;
                         var op = $scope.op;
                         $scope.isAdd && (op.way.enable = false);
+
+                        if( !$scope.isAdd ){
+                            delete $scope.gateway[op.T][t];
+                        }
+                        
                         ($scope.gateway[op.T] || ($scope.gateway[op.T] = {}))[op.t] = $scope.op.way;
+
                         toUpdate('gateway');
+
                         $scope.cancel();
 
                     }

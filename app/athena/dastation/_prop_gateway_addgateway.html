@@ -7,12 +7,15 @@
 <div class="modal-body  ">
     <form name="form_gateway" class=" form-validation form-horizontal ">
         <!--@if append -->
-        op = {{op }}
+        op = {{op }} <br/>
+        isAdd ={{isAdd }}
         <!--@endif  -->
         <select tl-wrap ng-if="isAdd" ng-model="op.T" ng-options=" t for t in  _type   " label="类型" ng-change="  op.t = undefined ; op.way = {} " required>
         </select>
+
         <div ng-if=" op.T == 'ETHERNET' " ng-init="  op.x =  op.x||'LAN' ">
-            <select tl-wrap ng-model="op.x" ng-options=" x as x  for x in ['LAN','WLAN'] " label="以太网类型">
+            <select tl-wrap ng-model="op.x" 
+                ng-options=" x as x  for x in ['LAN','WLAN'] " label="以太网类型">
             </select>
             <input tl-wrap label="名称" ng-model=" op.t " required>
             <input tl-wrap label="ip" ng-model=" op.way.ip " required>
@@ -22,6 +25,14 @@
                 <input tl-wrap label="dns" ng-model=" op.way.dns " required>
             </div>
         </div>
+
+
+
+
+
+
+
+
         <div ng-if=" op.T == 'GPRS' ">
             <input tl-wrap label="名称" ng-model=" op.t " required>
             <input tl-wrap label="simid" ng-model=" op.way.simid " required>

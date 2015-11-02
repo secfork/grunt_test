@@ -60,6 +60,11 @@ angular.module('app.show.system', [])
             d1 = od.start.getTime(),
             d2 = od.end.getTime();
 
+        if( d1 > d1){
+            angular.alert("起始时间不可超前与结束时间");
+            return; 
+        }
+
         od.start = d1 < d2 ? d1 : d2;
         od.end = d1 < d2 ? d2 : d1;
         od.itemsPerPage = $sys.itemsPerPage;
@@ -117,8 +122,7 @@ angular.module('app.show.system', [])
     //@if  append
     console.log("show_system_prop");
     //@endif 
-
-
+ 
     $scope.system = $scope.$$cache[0];
 
 
@@ -345,28 +349,39 @@ angular.module('app.show.system', [])
         if (!$scope.op.his_tag) return;
 
         var d = {},
-            op = $scope.op,
-            d1 = op.start.getTime(),
-            d2 = op.end.getTime();
+            op = $scope.op ; 
+            // d1 = op.start.getTime(),
+            // d2 = op.end.getTime(); 
+            
+            d.start = op.start.getTime(),
+            d.end   = op.end.getTime();
+
+        if( d.start > d.end ){
+            angular.alert( "起始时间不可超前与结束时间");
+            return ; 
+        }
+
 
         d.uuid = $scope.system.uuid,
-            d.start = d1 < d2 ? d1 : d2,
-            d.end = d1 < d2 ? d2 : d1,
+            // d.start = d1 < d2 ? d1 : d2,
+            // d.end = d1 < d2 ? d2 : d1,
             d.num = op.num,
-            d.tag = op.his_tag;
+            d.tag = op.his_tag; 
 
-
+        //  intervali =  ts ,  readRow  = rcv ;   
         $show.his.get(d, function(resp) {
+            var xx = d ; 
+            var  timekey = ( d.end - d.start )>86400000 ? "ts":"rcv" ;
+
             var data = resp.ret[0],
-                d = [];
-
-
+                df = [];
+ 
             $.each(data, function(i, v, t) {
-                d.push([v.ts, v.pv]);
+                df.push([v[timekey], v.pv]);
             })
 
             plot = $.plot("#show_live_data", [{
-                data: d,
+                data: df,
                 label: op.his_tag
             }], plot_config);
 
