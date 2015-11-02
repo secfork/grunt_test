@@ -661,7 +661,25 @@ angular.module('app.basecontroller', ['ng'])
 
         }
 
+        // 接收邮件通知 ; 
+        $scope.acceptSMS = function( user){
+              //"mail_notice":0,"sms_notice":0  
+            
+            $source.$user.put( {id: user.id , sms_notice: user.sms_notice?0:1 } , function(){
+                user.sms_notice = !user.sms_notice ; 
+            })     
+        }
 
+
+        $scope.acceptEmail = function( user ){
+
+            $source.$user.put( {id: user.id ,  mail_notice: user.mail_notice?0:1 } , function(){
+                user.mail_notice = !user.mail_notice ;
+            })
+        }
+
+        // 接收短信通知;  
+        
 
     })
 
@@ -738,6 +756,10 @@ angular.module('app.basecontroller', ['ng'])
                 //alert(1);
 
                 if (resp.ret) {
+                    resp.ret.sms_notice = !!resp.ret.sms_notice;
+                    resp.ret.mail_notice = !!resp.ret.mail_notice;
+
+
                     $sessionStorage.user = resp.ret;
                     //@if  append
 

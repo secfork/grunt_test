@@ -334,13 +334,8 @@ angular.module('app.show.system', [])
             $scope.op.end = new Date();
             $scope.queryHistory();
         } else {
-            plot = $.plot("#show_live_data", [{
-                data: [],
-                label: "未选择点"
-            }], plot_config);
-        }
-
-
+            plot = $.plot("#show_live_data", [{  data: [],  label: "未选择点" }], plot_config);
+        } 
     }
 
 

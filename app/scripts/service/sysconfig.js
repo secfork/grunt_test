@@ -14,7 +14,12 @@ angular.module('app.sysconfig', [], function() {})
         // systemo 模式: manage , unmanage ,unknown ; 
         manageMode: 1,
 
+        itemsPerPage: 20,
+         //@if  append
         itemsPerPage: 5,
+         
+         //@endif 
+
 
         yesOrNo:[
             {k:"是",v:1},

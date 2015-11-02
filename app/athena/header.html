@@ -37,11 +37,8 @@
     <!-- nabar right   靠右 -->
     <ul class="nav navbar-nav navbar-right">
         <!--     语言种类选择; -->
-
         <!--@if append -->
-
-        
-   <!--      <li class="dropdown  " is-open="lang.isopen">
+        <!--      <li class="dropdown  " is-open="lang.isopen">
             <a href class="dropdown-toggle" data-toggle="dropdown">
                 {{selectLang}} <b class="caret"></b>
             </a>
@@ -52,9 +49,7 @@
             </ul>
         </li>
  -->
-
-       <!--@endif  -->
-
+        <!--@endif  -->
         <!-- 顶部  用户下拉 -->
         <li class="dropdown">
             <a href class="dropdown-toggle clear" data-toggle="dropdown">
@@ -62,27 +57,44 @@
                     <img src="img/a0.jpg" alt="...">
                     <i class="on md b-white bottom"></i>
                   </span>
-                <span  >{{user.username}}</span>
-                 <b class="caret"></b>
+                <span>{{user.username}}</span>
+                <b class="caret"></b>
             </a>
             <!-- dropdown -->
             <ul class="dropdown-menu animated fadeInRight w-md ">
-                <li class="wrapper b-b m-b-sm bg-light m-t-n-xs">
-                     
-                        <p class="text-sm">上次登录IP:
-                            <span class="text-primary"> 
+                <li class="wrapper b-b   bg-light m-t-n-xs">
+                    <p class="text-sm">上次登录IP:
+                        <span class="text-primary"> 
                                 {{user.last_login_ip  }} 
                             </span>
-                        </p>
-                       <p class="text-sm">上次登录时间:
-                            <span class="text-primary"> 
+                    </p>
+                    <p class="text-sm">上次登录时间:
+                        <span class="text-primary"> 
                                 {{user.lastLoginTime |date :"yyyy-MM-dd HH:mm"}} 
                             </span>
-                        </p>
-                    
+                    </p>
                 </li>
-                 
-                <li class="text-center  b-b ">
+                <li class="b-b ">
+                    <a ng-click="acceptEmail( user)" >接收邮件通知
+
+                        <label class="i-switch bg-info   m-r inline    pull-right ">
+                          <input type="checkbox"   ng-model="user.mail_notice" >
+                          <i></i>
+                        </label>
+
+                    </a>
+                </li>
+                <li class="b-b ">
+                     <a ng-click="acceptSMS( user )" >接收短信通知
+                            <label class="i-switch bg-info     m-r inline  pull-right ">
+                              <input type="checkbox"  ng-model="user.sms_notice" >
+                              <i></i>
+                            </label> 
+                    </a>   
+                          
+                        
+                </li>
+                <li class="  b-b ">
                     <a ng-click="ccPassWord()">修改密码</a>
                 </li>
                 <li class="text-center  ">
