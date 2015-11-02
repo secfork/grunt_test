@@ -1,6 +1,9 @@
 
 
 <input tl-wrap-l label="用户名" ng-model=" user.username  " required>
+
+
+
 <!-- 是否更改密码 -->
 <div class="form-group " ng-if="op.isEdit">
     <label class="col-sm-3   control-label  ">
@@ -15,16 +18,15 @@
 </div>
 
 
+
+
 <div ng-if="op.ccpass">
     <input  tl-wrap-l  label="新密码" name="password"
        ng-minlength="6"
        ng-maxlength="20"
        onfocus="this.type='password'" 
        ng-model=" user.password " required>
-</div>
-
-
-
+</div> 
 
 <div class="form-group" ng-if="!op.isEdit">
     <label class="col-sm-3  control-label text-base">
@@ -37,6 +39,8 @@
              ng-model=" user.password " required>
     </div>
 </div>
+
+
 <div class="form-group" ng-if="!op.isEdit">
     <label class="col-sm-3  control-label text-base">
         确认密码
@@ -50,32 +54,25 @@
     </div>
 </div>
 
+
 <!--
     <select  tl-wrap-l  label="组"  ng-model="user.group_id"
         ng-options="g.id as g.name  for g in groups"
         ></select>
  --> 
 <div class="form-group"   >
-    <label class="col-sm-3 control-label text-base">组
- 
-        <mark/>
-    </label>
-    
-
-    <!-- 
-  chosen 默认值 ;  $("#form-field-select-2").trigger("chosen:updated");
-    -->
+    <label class="col-sm-3 control-label text-base">组  <mark/>
+    </label> 
     <div class="col-sm-9"   ng-if="groups" >
         <select ui-jq="chosen" multiple required   
                 ng-model="od.groups" class="w-md" >
-             <option ng-repeat=" g in  groups " value={{g.id}} > {{g.name}} </option> -->
+             <option ng-repeat=" g in  groups "   value={{g.id}} > {{g.name}} </option> 
              
         </select>
     </div>
 </div> 
 
- 
-
+  
 
 <select   tl-wrap-l  label="接收邮件通知"  ng-model="user.mail_notice"
           ng-options =" o.v as o.k  for o in $sys.yesOrNo"   
@@ -84,8 +81,72 @@
           ng-options =" o.v as o.k  for o in $sys.yesOrNo"    
     ></select>
 
-<input tl-wrap-l label="电子邮件" ng-model=" user.email " type="email">
-<input tl-wrap-l label="手机" ng-model="user.mobile_phone">
+
+<!-- 是否 验证手机 -->
+<!-- <div class="form-group "  >
+    <label class="col-sm-3   control-label  ">
+        <span>验证手机</span>
+    </label>
+    <div class=" col-sm-9">
+        <label class="i-checks m-t-xs">
+            <input type="checkbox"  ng-model="op.verifyPhone">
+            <i></i>
+        </label>
+    </div>
+</div> -->
+
+<!-- 
+ ng-pattern="/^1\d{10}$/"
+  -->
+<div class="form-group" >
+    <label class="col-sm-3  control-label text-base">
+        手机号码  
+    </label>
+    <div class="  col-sm-9">
+         <div class="input-group">
+              <input type="text" class="form-control  "  name="phone" 
+                ng-model="user.mobile_phone"  
+               ng-pattern="/^1\d{10}$/"
+                  >
+              <span class="input-group-btn">
+                <button class="btn   btn-default" type="button"  ng-click="sendNote( )" 
+                    ng-disabled="!form.phone.$valid "
+                    >发送验证码</button>
+              </span>
+        </div>
+    </div>
+
+   <!--  <div class="col-sm-3 " >
+        <input  class="form-control"  ng-model="ver.phone" placeholder="验证码" required >
+    </div> -->
+</div>
+  
+ 
+
+<div class="form-group"  > 
+ 
+    <label class="col-sm-3  control-label text-base">
+        电子邮件  
+    </label>
+    <div class="  col-sm-9">
+         <div class="input-group">
+              <input   class="form-control " ng-model=" user.email "  name="email" type="email" required >
+              <span class="input-group-btn">
+                <button class="btn    btn-default" type="button"
+                    ng-disabled="!form.email.$valid "
+                    token='5000'
+                >发送验证码</button>
+              </span>
+        </div>
+    </div> 
+
+  <!--   <div class="col-sm-3" >
+        <input  class="form-control"  ng-model="ver.email" placeholder="验证码" required >
+    </div> -->
+   
+</div>
+ 
+
 <input tl-wrap-l label="地址" ng-model="user.address">
 <textarea tl-wrap-l label="备注" ng-maxlength='100' ng-model="user.desc">
 </textarea>

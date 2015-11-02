@@ -18,21 +18,10 @@
             <div class="list-group-item ">
                 <input name="email" ng-model="comp.admin.email" type="email" placeholder="邮箱" class="form-control no-border " required>
             </div>
-            <!--   
-                        <div class="list-group-item  hbox ">
-                            <input name="password" ng-model="comp.admin.mobile_phone" placeholder="管理员手机号码" style="width:70%" class="form-control no-border    inline " required>
-                        
-                            <a class="btn  btn-sm btn-info   " ng-show="!time" ng-click="sendNote()" style="width:30%" token>
-                                   发送验证码</span> 
-                            </a>
-                            <a class="btn btn-sm btn-info" ng-show="time" disabled style="width:30%">
-                                 重新发送( {{120 - time}} )
-                            </a> 
-                       </div> 
-                      -->
+          
             <div class="list-group-item">
                 <input name="password" ng-model="comp.identifyCode" class="form-control inline   m-t-xs" style="width:50%" placeholder="请输入验证码" required>
-                <!-- <i class="fa w-30  fa-refresh"></i>   -->
+                 
                 <img ng-src="web/common/identify/account?t={{op.t||123}}" class="inline  m-l " style="width: 80px;height: 30px;">
                 <a class="fa fa-refresh text-info  " ng-click=" op.t = op.t+1"></a>
             </div>
@@ -74,7 +63,9 @@
         </div>
         <div class="list-group list-group-sm">
             <div class="list-group-item ">
-                <input name="password" ng-model="comp.admin.username" placeholder="管理员帐号,至少6个字符" ng-minlength="3" ng-maxlength='16' class="form-control no-border " required>
+                <input name="password" ng-model="comp.admin.username" 
+                placeholder="管理员帐号,至少2个字符" ng-minlength="2" 
+                ng-maxlength='16' class="form-control no-border " required>
                 <!--ng-minlength="6"   ng-maxlength="20" -->
             </div>
             <div class="list-group-item ">

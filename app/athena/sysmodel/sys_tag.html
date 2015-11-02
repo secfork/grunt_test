@@ -32,8 +32,7 @@
         <tbody class="text-center  " ng-init="_$type = $sys.log_type.values">
             <tr ng-repeat="  tag  in systags  " ng-init="getDevName(tag , this )">
                 <td> {{tag.name}}</td>
-                <!--jjw 注释-->
-                <!--<td ng-if="isManageMode" ng-init="splictC( tag  , $last )"> {{tag.connect}}</td>-->
+ 
                <!-- 
                 getDevname (); 1:看是否有连接; 若没有 则 type 设置为null ; 2:设置是否真的连接了设备; 3: 是否真的 连接了模版点;
                -->

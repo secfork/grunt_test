@@ -6,7 +6,7 @@ hr {
 }
  
 input, select { 
-  /*border-color: #cfdadd;*/
+  /*border-color: #cfdadd; */
     /*jjw*/
     border-color: #CCCCCC;
 }
@@ -182,7 +182,7 @@ tbody {
   width: 500px;
 }
 
-.modal-body input {
+.modal-body input, .modal-body button {
    height: 30px;
 }
 
