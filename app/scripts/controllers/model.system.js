@@ -814,7 +814,7 @@ angular.module("app.model.system", [])
 
 
 .controller("sysmodel_prof_trigger",
-    function($scope, $source, $modal, $state , $q ,$sys) {
+    function($scope, $source, $modal, $state , $q ,$sys , $utils) {
 
         $scope.$popNav($scope.sysmodel.name + "(触发器)", $state);
 
@@ -998,22 +998,10 @@ angular.module("app.model.system", [])
         }
 
         // 显示 触发器的 condition ; 
-        $scope.showCondi = function(trigger) {
-            $modal.open({
-                templateUrl: "athena/sysmodel/add_proftrigger.html",
-                size: "lg",
-                controller: function($scope, $modalInstance) {
-                    $scope.__proto__ = S,
-                        $scope.$modalInstance = $modalInstance;
-                    var a, b, c, d, e;
-
-
-                }
-            })
-
-        }
+        $scope.conditions = $utils.triggerConditions ; 
 
       
+
 
         // prof alarm  params  为报警时! 验证十六进制 数;
         var regex = /^[0-9a-fA-F]$/;
@@ -1036,6 +1024,9 @@ angular.module("app.model.system", [])
                 $scope.T.params = s.toUpperCase();
             }
         }
+
+
+
 
     }
 )

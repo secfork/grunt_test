@@ -343,7 +343,18 @@ angular.module('app.services', ["ngResource"], function() {
 .factory("$utils", function() {
     var a, b, c, d, e, f;
     return {
-        
+        // 展示 触发器 触发条件; 
+        triggerConditions : function( conditions ){
+            var arr =[] , exp  ;
+            $.each( conditions , function(i , v ){ 
+                exp = v.exp ; 
+                arr.push( v.verb|| "" );
+                arr.push( exp.left.args);
+                arr.push( exp.op);
+                arr.push( exp.right.args);
+            })  
+            return  arr.join(" "); 
+        },
      
 
         // 拷贝 部分属性; 

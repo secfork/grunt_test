@@ -721,14 +721,7 @@ angular.module('app.system.prop', [])
     }
 
     
-    $scope.loadPageData( 1 );
-
-    // $source.$sysProfTrigger.get({
-    //     profile: station.profile
-    // }, function(resp) {
-    //     $scope.triggers = resp.ret;
-    // })
-
+    $scope.loadPageData( 1 ); 
 
 }) 
 
