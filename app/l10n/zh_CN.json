@@ -159,7 +159,7 @@
 
         "desc": "point 参数名称",
         "area": "区域",
-        "offset": "偏差",
+        "offset": "偏移地址",
         "type": "类型",
         "type_ex":"扩展参数",
         "access": "读写属性",

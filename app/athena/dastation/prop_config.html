@@ -101,22 +101,25 @@
     <!--jjw 添加一个col-md-8的div
     子div全部添加col-md-？，m-t m-b
     -->
-    <div class="col-md-8 col-xs-12 text-left m-b m-t padder-md">
+    <div class="col-md-8 col-xs-12 text-left m-t padder-md">
         <div class="col-md-3  col-xs-6   text-left m-t-sm m-b-sm ">
             <span>上次配置更新</span>
         </div>
         <div class="col-md-9 col-xs-6 m-t-sm m-b-sm ">
             {{ station.last_modify_time| date:"yyyy-MM-dd HH:mm" }}
         </div>
+    </div>
 
-
+    <div class="col-md-8 col-xs-12 text-left padder-md">
         <div class="col-md-3  col-xs-6 text-left m-t-xs m-t-sm m-b-sm ">
             上次同步
         </div>
         <div class="col-md-9 col-xs-6 m-t-xs m-t-sm m-b-sm ">
             <span class=" ">  {{station.last_sync_time | date:"yyyy-MM-dd HH:mm" }} </span>
         </div>
+    </div>
 
+    <div class="col-md-8 col-xs-12 text-left m-b padder-md">
         <!--jjw md-3 xs-6-->
         <div class="col-xs-6 m-t-sm col-md-3 m-t-sm m-b-sm ">
             <button class="btn  btn-sm btn-primary" ng-click="syncSystem( station ) ; " ng-disabled=" sync_start"> 同步配置</button>
