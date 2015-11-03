@@ -60,7 +60,7 @@
         ng-options="g.id as g.name  for g in groups"
         ></select>
  --> 
-<div class="form-group"   >
+<div class="form-group"  ng-if="!user.is_super_user " >
     <label class="col-sm-3 control-label text-base">组  <mark/>
     </label> 
     <div class="col-sm-9"   ng-if="groups" >

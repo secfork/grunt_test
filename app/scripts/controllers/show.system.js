@@ -195,7 +195,8 @@ angular.module('app.show.system', [])
 
 })
 
-.controller('show_system_current', function($scope, $show, $interval, $sys, $state, $filter, $timeout) {
+.controller('show_system_current', function($scope, $show, $interval, $sys, $state, $filter,
+   $timeout) {
 
     $scope.$popNav($scope.system.name + "(实时数据)", $state);
 
@@ -295,11 +296,13 @@ angular.module('app.show.system', [])
 
 
     // 下置数据; 
-    $scope.liveWrite = function(t, v) {
+    $scope.liveWrite = function(t, v , e) {
         //console.log(arguments);  // String system_id , String name ,String value
         if (!t) return;
-        var d = {};
+        var d = {} , $button = $(e.currentTarget);;
         d[t.name] = v;
+
+        $button.text( "下置中...");
         $show.liveWrite.save({
             uuid: $scope.system.uuid
         }, d, function(resp) {
@@ -307,6 +310,17 @@ angular.module('app.show.system', [])
 
             console.log(resp);
             //@endif 
+            $button.text("下置成功");
+            
+            $timeout( function(){
+                $button.text("下置");
+            },2000)
+            
+        } , function(){
+            $button.text("下置失败").toggleClass("btn-danger");
+            $timeout( function(){
+                $button.text("下置").toggleClass("btn-danger");
+            },2000) 
         })
     }
 

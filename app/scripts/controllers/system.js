@@ -110,7 +110,7 @@ angular.module('app.system', [])
                     //$scope.page = resp_A ;
 
                     // 翻页 刷新  地图上的点;
-                    if ($scope.list_map == "map") {
+                    if ($scope.lm == "map") {
                         $map.flushMarkers(map, $scope.page.data);
                     }
                 })

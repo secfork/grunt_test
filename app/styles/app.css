@@ -2596,7 +2596,7 @@ fieldset[disabled] .i-checks input + i:before {
   animation: fadeOutLeftBig 0.5s;
 }
 
-
+ 
 
 .fade-in-left-big.ng-enter {
   -webkit-animation: fadeInLeftBig 0.5s;
@@ -2654,7 +2654,7 @@ fieldset[disabled] .i-checks input + i:before {
 .fade-in-up.ng-leave {
   -webkit-animation: fadeOutUp 0.5s;
   animation: fadeOutUp 0.5s;
-}
+} 
 .fade-in-down.ng-enter {
   -webkit-animation: fadeInDown 0.5s;
   animation: fadeInDown 0.5s;
@@ -2663,6 +2663,8 @@ fieldset[disabled] .i-checks input + i:before {
   -webkit-animation: fadeOutDown 0.5s;
   animation: fadeOutDown 0.5s;
 }
+
+
 
 
 /*jjw background*/
@@ -3655,6 +3657,14 @@ a.text-black:hover {
 .active > .auto .text-active {
   display: inline-block !important;
 }
+
+
+
+.text-active
+
+
+
+
 .box-shadow {
   box-shadow: 0 2px 2px rgba(0,0,0,0.05), 0 1px 0 rgba(0,0,0,0.05);
 }
