@@ -670,8 +670,7 @@ angular.module('app.system.prop', [])
 
     $scope.$popNav($scope.station.name + "(变量)", $state);
 
-    $scope.systags = $scope.Sta_Data.tags;
-
+ 
  
     $scope.getDevName = function( tag , scope ){
         var d_id =  tag.connect.replace(/(\d+).(\d+)/,"$1"); 
@@ -711,13 +710,13 @@ angular.module('app.system.prop', [])
     var station = $scope.station;
     $scope.$popNav($scope.station.name + "(触发器)", $state);
 
-    $scope.triggers = $scope.Sta_Data.triggers;
+  
  
-    $source.$sysProfTrigger.get({
-        profile: station.profile
-    }, function(resp) {
-        $scope.triggers = resp.ret;
-    })
+    // $source.$sysProfTrigger.get({
+    //     profile: station.profile
+    // }, function(resp) {
+    //     $scope.triggers = resp.ret;
+    // })
 
 
 }) 
@@ -727,8 +726,7 @@ angular.module('app.system.prop', [])
     var station = $scope.station;
     $scope.$popNav($scope.station.name + "(通知)", $state);
 
-    $scope.message = $scope.Sta_Data.messages;
-
+   
     station.profile && $source.$message.get({
         profile_id: station.profile
     }, function(resp) {

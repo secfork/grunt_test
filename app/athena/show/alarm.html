@@ -24,8 +24,8 @@
                             <span>区域</span>
                         </label>
                         <div class="col-sm-9">
-                            <select class="input input-sm form-control" ng-model="op.region" ng-options="p.id as p.name  for p in  regions" ng-change=" loadSys()" required>
-                                <option value="">请选择区域</option>
+                            <select class="input input-sm form-control" ng-model="op.region" ng-options="p.id as p.name  for p in  regions" ng-change=" loadSys()"  >
+                                <option value="">所有区域</option>
                             </select>
                         </div>
                     </div>
@@ -37,8 +37,8 @@
                             <span>系统</span>
                         </label>
                         <div class="col-sm-9">
-                            <select class="input input-sm form-control" ng-model=" od.uuid" ng-options="s.uuid as s.name  for s in systems" required>
-                                <option value="">请选择系统</option>
+                            <select class="input input-sm form-control" ng-model=" od.uuid" ng-options="s.uuid as s.name  for s in systems"  >
+                                <option value="">所有系统</option>
                             </select>
                         </div>
                     </div>

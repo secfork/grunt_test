@@ -156,8 +156,9 @@
                 <button class="btn btn-xs btn-primary  m-t-n-xs" ng-click="syncSystem( das )" ng-if=" das.needsync ">
                     同步
                 </button>
-                <span ng-show=" !sync_start && sync_err_msg " class=" m-t-xs text-danger">  {{ sync_err_msg }} </span>
-                    <span ng-show=" !sync_start && sync_ret_msg " class=" m-t-xs text-info">
+                <span ng-show=" !sync_start && sync_err_msg " class=" m-t-xs text-danger"> 
+                  {{ sync_err_msg }} </span>
+                <span ng-show=" !sync_start && sync_ret_msg " class=" m-t-xs text-info">
                              {{ sync_ret_msg }}
                         </span>
                 <i ng-show=" sync_start " class="fa fa-spin fa-spinner "></i>
@@ -170,7 +171,7 @@
             </td>
             <td>
                 {{das.desc}}
-                {{das.create_time |date:"hh-dd HH:MM"}}
+               <!--  {{das.create_time |date:"hh-dd HH:MM"}} -->
             </td>
             <!--替换 失效 移除-->
             <td ng-if=" !isShowModul ">

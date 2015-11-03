@@ -840,12 +840,7 @@ angular.module("app.model.system", [])
         }
 
 
-        $scope.page = {} ;
-
-        $scope.loadPageData = function( pageNo ){
-
-
-        } 
+        $scope.page = {} ; 
         // 加载triger ; 
         // var lose_tag = { 'background-color':'grey' };
         $scope.loadPageData = function( pageNo ) {
