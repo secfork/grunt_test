@@ -1,5 +1,6 @@
 <!--jjw b-b-none no-padder-->
 <div class="panel-heading b-b-none no-padder">
+
     <form class="form-inline ">
         <!--jjw 添加div-->
         <div class="col-md-3 col-sm-4 col-xs-12 m-t-sm m-b-sm">
@@ -7,15 +8,18 @@
                 <div class="btn btn-sm    input-group-addon">搜索</div>
                 <input type="text" class="form-control input-sm" ng-model="f_name" ng-change="filterTags(f_name)">
             </div>
+
             <!--
 
             <button class="btn btn-sm btn-info  w-xs " ng-click="d_call( system   ,0)" token="5000" > 召唤实时 </button>
             <button class="btn btn-sm btn-info  w-xs " ng-click="d_call( system  , 1 )" token="5000" > 召唤参数 </button>
              -->
             <!--  over="xxxx" popover-trigger="mouseenter" -->
+
         </div>
         <!--jjw 添加div-->
         <div class="col-md-6 col-sm-8 col-xs-12 m-t-sm m-b-sm" style="line-height: 30px;min-width: 350px">
+
             <label class="checkbox inline i-checks col-sm-4" style="text-align: center">
                 <input type="checkbox" ng-model="auto_r">
                 <i></i><span>自动刷新</span>
@@ -28,20 +32,30 @@
         </div>
         <div class="col-md-3 col-sm-6 m-t-sm m-b-sm float-right">
             <!--jjw 召唤所有——>召唤-->
-            <!--     <button class="btn btn-sm btn-info  w-xs col-sm-6 float-right m-l m-t-xs" 
+        <!--     <button class="btn btn-sm btn-info  w-xs col-sm-6 float-right m-l m-t-xs" 
                     ng-click="d_call( system  , 2 )" pop token="5000"> 召唤 
             </button> -->
-            <button class="btn btn-sm btn-info  w-xs col-sm-6 float-right m-l m-t-xs  " ng-click="d_call( system  , 2 , $event )" token="5000">
+
+
+            <button class="btn btn-sm btn-info  w-xs col-sm-6 float-right m-l m-t-xs  "  
+                    ng-click="d_call( system  , 2 , $event )"   token="5000" >
                 召唤
             </button>
+
+
             <i class="fa fa-spin fa-spinner hide" id="spin"></i>
-            <button class="btn btn-sm btn-info  w-xs col-sm-6 float-right m-l m-t-xs" ng-click=" getCurrent() " token> 刷新</button>
+
+
+
+            <button class="btn btn-sm btn-info  w-xs col-sm-6 float-right m-l m-t-xs" 
+            ng-click=" getCurrent() " token> 刷新</button>
         </div>
     </form>
-    <br/>
+
 </div>
-<div class="panel-body table-responsive no-padder">
-    <table class=" table   table-bordered j_table">
+<div class="panel-body table-responsive no-padder ">
+ 
+    <table class=" table  table-hover    table-bordered j_table">
         <thead class="flip-content">
             <th class="w">变量</th>
             <th class="w">值</th>
@@ -49,31 +63,37 @@
             <th class="w" ng-show=" systemModel.mode ==1 ">下置</th>
             <th class="w"> </th>
         </thead>
-        <tbody id="current-table">
-            <tr ng-repeat="t in   filtTags " class="hover">
-                <td class="full-td ">
-                    {{t.name}}
-                </td>
-                <td id="_val_{{$index}}"> </td>
-                <td id="_time_{{$index}}">
-                    <!-- {{ |  date:"yyyy-MM-dd HH:mm"}} -->
-                </td>
-                <td ng-show=" systemModel.mode ==1 ">
-                    <!-- 输入框应该判断数据类型（布尔、数值、枚举、字符串等），
+      
+            <tbody id="current-table"> 
+                <tr ng-repeat="t in   filtTags "  class="hover">
+                    <td class="full-td "   >
+                        {{t.name}}
+                    </td>
+                    <td id="_val_{{$index}}"> </td>
+
+                    <td id="_time_{{$index}}">
+                        <!-- {{ |  date:"yyyy-MM-dd HH:mm"}} -->
+                    </td>
+                    <td ng-show=" systemModel.mode ==1 ">
+                        <!-- 输入框应该判断数据类型（布尔、数值、枚举、字符串等），
                          并做对应的输入框/下拉框等 -->
-                    <!--jjw 去掉h-30 input-s-->
-                    <input class="input input-s " ng-model="v">
-                    <!-- <tl-input    ></tl-input>-->
-                    <button class="btn btn-info btn-xs" ng-click="liveWrite( t, v , $event )" token="5000">下置</button>
-                    <span id="current_msg_{{t}}" class="w">  {{ msg }}</span>
-                </td>
-                <td>
-                    <button class="btn btn-info btn-xs" ng-click="goHis(t)">查看历史</button>
-                    <!-- 
+
+                        <!--jjw 去掉h-30 input-s-->
+                        <input class="input input-s " ng-model="v">
+                        <!-- <tl-input    ></tl-input>-->
+                        <button class="btn btn-info btn-xs" ng-click="liveWrite( t, v , $event )" token="5000">下置</button>
+                        <span id="current_msg_{{t}}" class="w">  {{ msg }}</span>
+                    </td>
+                    <td>
+                        <button class="btn btn-info btn-xs" ng-click="goHis(t)">查看历史</button>
+                        <!-- 
                     <button class="btn btn-info btn-xs" ng-show="t.save_log" ng-click="goHis(t)">查看历史</button>
                      -->
+  
                 </td>
             </tr>
         </tbody>
-    </table>
+     </table>
 </div>
+
+ 
