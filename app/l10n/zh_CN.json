@@ -140,7 +140,7 @@
         "search": "搜索"
     },
 
-    "desc": " 模版点 , 设备配置 参数!",
+    "desc": " 模版点 , 设备配置 参数!",  
     "params": {
         "driver_type": {
             "0": "modbus",
@@ -163,6 +163,10 @@
         "type": "类型",
         "type_ex":"扩展参数",
         "access": "读写属性",
+
+        "app_address":"公共地址",
+        "type_id":"类型标识",
+        "infor_address":"信息体地址",
 
 
         "int_order": "Int字节排序",

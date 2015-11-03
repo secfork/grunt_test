@@ -307,6 +307,13 @@ angular.module('app.sysconfig', [], function() {})
                 {k:"Minute" , v: 1} ,
                 {k:"Hour" , v: 2 } 
             ], 
+            "PI_SHCYA": {
+                entity: {
+                    params:{
+                        link_address:2
+                    }
+                }
+            },
 
             // device emodel 的 驱动Id ;  
             "FCS_MODBUS": {
@@ -405,6 +412,23 @@ angular.module('app.sysconfig', [], function() {})
                 {k:"False", v:0},
                 {k:"True", v:1}
             ],
+
+            "PI_SHCYA":{
+                
+                th:[   "app_address",  "type_id",  "infor_address" ],
+
+                entity:{
+                    params:{
+                        'app_address':1,
+                        'type_id':0,
+                        'infor_address':1
+                    }
+                } ,
+                type_id:[
+                    {v:0,k:"遥信"}
+                ]
+
+            },
 
             // devicemodel  驱动 Id ;   
             "FCS_MODBUS": { 
