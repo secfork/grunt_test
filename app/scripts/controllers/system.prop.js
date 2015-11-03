@@ -158,8 +158,6 @@ angular.module('app.system.prop', [])
 
     };
 
-
-
 })
 
 .controller("das_basic", function($scope, $filter, $state, $stateParams) {
@@ -172,9 +170,7 @@ angular.module('app.system.prop', [])
     //  堆叠 导航;
     $scope.$popNav($scope.station.name + "(状态)", $state);
 
-
 })
-
 
 
 .controller("das_config",
@@ -664,6 +660,7 @@ angular.module('app.system.prop', [])
     }
 )
  
+
 .controller('das_tag',   function($scope, $source, $state , $q) { 
 
     var station = $scope.station;
@@ -700,7 +697,6 @@ angular.module('app.system.prop', [])
             $scope.systags = argument.ret;
         })
     }
-
 
 })
 

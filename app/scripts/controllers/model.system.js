@@ -158,15 +158,19 @@ angular.module("app.model.system", [])
 
         // tags , triggers,  message 对应的 prifile ;
         $scope.odp = {};
- 
-
+  
 
         $scope.loadProfilePromise = $source.$sysProfile.get( {system_model: $scope.sysmodel.uuid }).$promise;
 
         $scope.loadProfilePromise.then( function( resp ){
             $scope.profiles = resp.ret,
-            $scope.hasProfile = !!resp.ret.length;
+            $scope.hasProfile = !!resp.ret.length; 
+
+            $scope.odp.puuid = resp.ret[0] && resp.ret[0].uuid ; 
         })  
+
+
+
         // 控控制 tag , 触发器, 通知  在 systemodel ,
         $scope.isModelState = true;
 
@@ -207,6 +211,91 @@ angular.module("app.model.system", [])
  
 
 })
+
+.controller("sysmodel_profile",
+    function($scope, $source, $modal, $filter, $state) {
+        $scope.$popNav($scope.sysmodel.name + "(Profile)", $state);
+        //@if  append
+
+        console.log(" sysmodel_profile");
+        //@endif 
+        var sysmodel = $scope.sysmodel,
+            t = $scope;
+
+        $scope.addSysProfile = function() {
+            $modal.open({
+                templateUrl: "athena/sysmodel/add_sysprofile.html",
+                controller: function($scope, $modalInstance) {
+                    $scope.$modalInstance = $modalInstance,
+                        $scope.__proto__ = t,
+                        $scope.P = {},
+                        $scope.isAdd = true;
+
+                    $scope.done = function() {
+                        // 验证表格;
+                        $scope.validForm();
+                        $scope.P.system_model = sysmodel.uuid;
+
+                        $source.$sysProfile.save($scope.P, function(resp) {
+                            $scope.P.uuid = resp.ret;
+                            //$scope.p.create_time = $filter("date")( new Date() , '2015-07-07T00:33:54.000Z' )  ;
+                            // $scope.p.create_time =  $filter("date")( new Date() , 'yyyy-MM-07T00:33:54.000Z' )  ;
+                            $scope.profiles.push($scope.P); 
+                            $scope.__proto__.$parent.hasProfile = true ; 
+                            $scope.cancel();
+                        })
+                    }
+                }
+            })
+        }
+
+        $scope.updateSysProfile = function(s, i, p) {
+            $modal.open({
+                templateUrl: "athena/sysmodel/add_sysprofile.html",
+                controller: function($scope, $modalInstance) {
+                    $scope.__proto__ = t,
+                        $scope.$modalInstance = $modalInstance,
+                        $scope.P = {
+                            uuid: p.uuid,
+                            name: p.name,
+                            desc: p.desc
+                        };
+                    var d = $scope.P;
+                    $scope.done = function() {
+                        $source.$sysProfile.put(d, function(resp) {
+                            p.name = d.name,
+                                p.desc = d.desc;
+                            $scope.cancel();
+                        })
+
+                    }
+                }
+            });
+        }
+
+        $scope.deleteSysProfile = function(s, i, p) {
+            $scope.confirmInvoke({ 
+                title: "删除配置项: " + p.name + " ?" 
+            }, function(n) {
+                $source.$sysProfile.delete({
+                    uuid: p.uuid
+                }, function() {
+                    $scope.profiles.splice(i, 1); 
+
+                    // 删除的是当前操作的 profile ; 
+                    if( $scope.odp.puuid == p.uuid ){
+                        $scope.odp.puuid = $scope.profiles[0] && $scope.profiles[0].uuid ; 
+                    }
+
+                    $scope.$parent.hasProfile = !!$scope.profiles.length ; 
+                    n();
+
+                }, n)
+            })
+        }
+    }
+)
+
 
 .controller("sysmodel_device",
     function($scope, $sessionStorage, $source, $modal, $sys, $state) {
@@ -457,11 +546,8 @@ angular.module("app.model.system", [])
             }
         }
 
-        // 加载 点; 
-        $scope.odp = {};
-  
+        // 加载 点;   
         $scope.loadProfilePromise.then(function() {
-            $scope.odp.puuid = $scope.odp.puuid || $scope.profiles[0] && $scope.profiles[0].uuid;
             $scope.loadSysTag($scope.odp.puuid);
         });
      
@@ -724,86 +810,7 @@ angular.module("app.model.system", [])
             });
         }
  
-
-
-    }
-)
-
-
-.controller("sysmodel_profile",
-    function($scope, $source, $modal, $filter, $state) {
-        $scope.$popNav($scope.sysmodel.name + "(Profile)", $state);
-        //@if  append
-
-        console.log(" sysmodel_profile");
-        //@endif 
-        var sysmodel = $scope.sysmodel,
-            t = $scope;
-
-        $scope.addSysProfile = function() {
-            $modal.open({
-                templateUrl: "athena/sysmodel/add_sysprofile.html",
-                controller: function($scope, $modalInstance) {
-                    $scope.$modalInstance = $modalInstance,
-                        $scope.__proto__ = t,
-                        $scope.P = {},
-                        $scope.isAdd = true;
-
-                    $scope.done = function() {
-                        // 验证表格;
-                        $scope.validForm();
-                        $scope.P.system_model = sysmodel.uuid;
-
-                        $source.$sysProfile.save($scope.P, function(resp) {
-                            $scope.P.uuid = resp.ret;
-                            //$scope.p.create_time = $filter("date")( new Date() , '2015-07-07T00:33:54.000Z' )  ;
-                            // $scope.p.create_time =  $filter("date")( new Date() , 'yyyy-MM-07T00:33:54.000Z' )  ;
-                            $scope.profiles.push($scope.P); 
-                            $scope.__proto__.$parent.hasProfile = true ; 
-                            $scope.cancel();
-                        })
-                    }
-                }
-            })
-        }
-
-        $scope.updateSysProfile = function(s, i, p) {
-            $modal.open({
-                templateUrl: "athena/sysmodel/add_sysprofile.html",
-                controller: function($scope, $modalInstance) {
-                    $scope.__proto__ = t,
-                        $scope.$modalInstance = $modalInstance,
-                        $scope.P = {
-                            uuid: p.uuid,
-                            name: p.name,
-                            desc: p.desc
-                        };
-                    var d = $scope.P;
-                    $scope.done = function() {
-                        $source.$sysProfile.put(d, function(resp) {
-                            p.name = d.name,
-                                p.desc = d.desc;
-                            $scope.cancel();
-                        })
-
-                    }
-                }
-            });
-        }
-
-        $scope.deleteSysProfile = function(s, i, p) {
-            $scope.confirmInvoke({ 
-                title: "删除配置项: " + p.name + " ?" 
-            }, function(n) {
-                $source.$sysProfile.delete({
-                    uuid: p.uuid
-                }, function() {
-                    $scope.profiles.splice(i, 1); 
-                    $scope.$parent.hasProfile = !!$scope.profiles.length ; 
-                    n();
-                }, n)
-            })
-        }
+ 
     }
 )
 
@@ -883,15 +890,9 @@ angular.module("app.model.system", [])
 
             }) 
         }
- 
   
-
-
-
-        $scope.odp = {} ; 
-        $scope.loadProfilePromise.then(function() {
-            $scope.odp.puuid = $scope.odp.puuid || $scope.profiles[0] && $scope.profiles[0].uuid;
-            // $scope.loadTriggers();
+ 
+        $scope.loadProfilePromise.then(function() { 
             $scope.loadPageData(1);
         });
 
@@ -1063,12 +1064,14 @@ angular.module("app.model.system", [])
         }
 
         // 加载 profile 下的 message ; 
-        $scope.odp = {};
+       // $scope.odp = {};
   
         $scope.loadProfilePromise.then(function() {
-            $scope.odp.puuid = $scope.odp.puuid || $scope.profiles[0] && $scope.profiles[0].uuid;
+           // $scope.odp.puuid = $scope.odp.puuid || $scope.profiles[0] && $scope.profiles[0].uuid;
             $scope.loadMessages($scope.odp.puuid);
         });
+
+
 
         // crate or  update ;
         $scope.createMessage = function(index, message) {
