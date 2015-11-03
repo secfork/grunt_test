@@ -157,8 +157,7 @@ angular.module("app.model.system", [])
         } 
 
         // tags , triggers,  message 对应的 prifile ;
-        $scope.odp = {};
-  
+        $scope.odp = {}; 
 
         $scope.loadProfilePromise = $source.$sysProfile.get( {system_model: $scope.sysmodel.uuid }).$promise;
 
@@ -173,7 +172,6 @@ angular.module("app.model.system", [])
 
         // 控控制 tag , 触发器, 通知  在 systemodel ,
         $scope.isModelState = true;
-
  
   
         var loadSystemDevicePromise  ;

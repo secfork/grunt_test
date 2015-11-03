@@ -701,13 +701,28 @@ angular.module('app.system.prop', [])
 })
 
 
-.controller('das_trigger',   function($scope, $source, $state) { 
+.controller('das_trigger',   function($scope, $source, $state , $sys) { 
 
     var station = $scope.station;
     $scope.$popNav($scope.station.name + "(触发器)", $state);
 
-  
- 
+    $scope.page = {};
+
+    var d  = {  itemsPerPage: $sys.itemsPerPage , profile: station.profile} ;
+
+    $scope.loadPageData = function( pageNo){
+        d.currentPage = pageNo ,
+        $source.$sysProfTrigger.get( d , function(resp) {
+            //$scope.triggers = resp.ret;
+            $scope.page.currentTarget = pageNo ;
+            $scope.page.data = resp.data ; 
+            $scope.page.total = resp.total ; 
+        })
+    }
+
+    
+    $scope.loadPageData( 1 );
+
     // $source.$sysProfTrigger.get({
     //     profile: station.profile
     // }, function(resp) {
