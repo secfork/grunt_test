@@ -96,6 +96,7 @@
     "ER_ACCOUNT_NOT_EXIST":"Account用户不存在",
     "ER_DUP_ENIRY": "_ ER_DUP_ENIRY _",
     "ER_AUTH_FAILURE":"无权限",
+    "ER_SYSTEM_REF":"被系统引用,无法删除",
 
 
 

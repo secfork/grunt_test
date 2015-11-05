@@ -108,9 +108,10 @@
 
                 <div class="col-md-4 col-xs-12 m-t-sm padder-md float-right">
                     <div class="form-group m-t-xs float-right">
-                    <span class="btn btn-info btn-sm w-xs m-l  " ng-click="loadPageData(1)" >
+                    <button class="btn btn-info btn-sm w-xs m-l  " 
+                            ng-click="loadPageData(1)"  token >
                          查询
-                    </span>
+                    </button>
                     </div>
                 </div>
 
@@ -172,12 +173,12 @@
         </div>
 
         <!--jjw 添加div-->
-        <div class="row bg-white m-t-sm text-xs b-t" ng-init=" op.active = '0' ">
+        <div class="row bg-white m-t-sm text-xs b-t" >
 
             <!--jjw margin-top margin-bottom-->
             <div class="radio     float-right  w-xxm m-t-md m-b-md m-l m-r">
                 <label class="i-checks">
-                    <input type="radio"   value="0" checked="" ng-model="op.active ">
+                    <input type="radio"   value="b" checked="" ng-model="op.active ">
                     <i></i>
                     <span>全部报警</span>
                 </label>
@@ -186,7 +187,9 @@
             <div class="radio      float-right  w-xxm m-t-md m-b-md m-l m-r" 
                  style="margin-top: 20px">
                 <label class="i-checks">
-                    <input type="radio"   value="1" ng-init="op.active='1'" ng-model="op.active">
+
+                    <input type="radio"   value="a" ng-model="op.active">
+
                     <i></i>
                     <span>活跃报警</span>
                 </label>
@@ -227,7 +230,8 @@
                 <td translate="alarm_active.{{ a.active}}" > "活跃":"关闭"  </td>
                 <td style="padding-right: 20px" >
                     <a class="text-info" ng-click="showAlarmMsg(a , od.uuid)">详细信息</a>
-                    <a  ng-show=" a.active " class="text-info m-l" ng-click="conformAlarm( page,  a , $idnex , od.uuid )">确认报警</a>
+                    <a  ng-show=" a.active " class="text-info m-l" 
+                    ng-click="conformAlarm( page,  a , $idnex , od.uuid , op.active )">确认报警</a>
 
                 </td>
             </tr>

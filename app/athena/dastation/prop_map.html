@@ -30,13 +30,15 @@
             </div>
             <!--jjw div-->
             <div class="col-md-3 col-sm-6 col-xs-12 m-t m-b float-right">
-                <button class="btn btn-success btn-sm m-r-sm float-right" ng-click=" locatedStation()" token>
+                <button class="btn btn-success btn-sm m-r-sm " ng-click=" locatedStation()" token>
                     定位 {{ station.name }}
                 </button>
+                <button class="btn btn-success btn-sm    " ng-click=" removePostion()" token> 
+                    删除定位 
+                </button>
             </div>
-        </div>
-
-
+        </div> 
+ 
     </form>
 </div>
 

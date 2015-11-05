@@ -38,23 +38,6 @@ module.exports = function(grunt) {
         // Project settings
         yeoman: appConfig,
 
-        // processhtml : 不要用! 不会用!
-        // processhtml: {
-        //     options: {
-        //         process:true,
-        //         commentMarker: 'process'
-        //     },
-        //     sourceHtml:{
-        //         expand:true,
-        //         dot:false,
-        //         cwd: '<%= yeoman.app %>',
-        //         src: 'athena/{**/,}*.html',
-        //         dest:".tmp/html"
-        //     } ,
-        //     dist:{ '<%= yeoman.dist %>/index.html':'<%= yeoman.dist %>/index.html'  }
-        // },
-
-
         preprocess: {
             options: {
                 context: {
@@ -99,6 +82,7 @@ module.exports = function(grunt) {
                 dest: '.tmp/concat/<%= yeoman.thing %>app.js'
             }
         },
+
         uncss: {
             dist: {
                 files: {
@@ -299,56 +283,7 @@ module.exports = function(grunt) {
             server: '.tmp'
         },
 
-        // Add vendor prefixed styles
-        autoprefixer: {
-            options: {
-                browsers: ['last 1 version']
-            },
-            server: {
-                options: {
-                    map: true
-                },
-                files: [{
-                    expand: true,
-                    cwd: '.tmp/styles/',
-                    src: '{,*/}*.css',
-                    dest: '.tmp/styles/'
-                }]
-            },
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: '.tmp/styles/',
-                    src: '{,*/}*.css',
-                    dest: '.tmp/styles/'
-                }]
-            }
-        },
-
-        // Automatically inject Bower components into the app
-        wiredep: {
-            app: {
-                src: ['<%= yeoman.app %>/index.html'],
-                ignorePath: /\.\.\//
-            },
-            test: {
-                devDependencies: true,
-                src: '<%= karma.unit.configFile %>',
-                ignorePath: /\.\.\//,
-                fileTypes: {
-                    js: {
-                        block: /(([\s\t]*)\/{2}\s*?bower:\s*?(\S*))(\n|\r|.)*?(\/{2}\s*endbower)/gi,
-                        detect: {
-                            js: /'(.*\.js)'/gi
-                        },
-                        replace: {
-                            js: '\'{{filePath}}\','
-                        }
-                    }
-                }
-            }
-        },
-
+     
         // Renames files for browser caching purposes
         filerev: {
             dist: {
@@ -397,57 +332,9 @@ module.exports = function(grunt) {
                     ]
                 }
             }
-        },
-
-        // The following *-min tasks will produce minified files in the dist folder
-        // By default, your `index.html`'s <!-- Usemin block --> will take care of
-        // minification. These next options are pre-configured if you do not wish
-        // to use the Usemin blocks.
-        // cssmin: {
-        //   dist: {
-        //     files: {
-        //       '<%= yeoman.dist %>/styles/main.css': [
-        //         '.tmp/styles/{,*/}*.css'
-        //       ]
-        //     }
-        //   }
-        // },
-        // uglify: {
-        //   dist: {
-        //     files: {
-        //       '<%= yeoman.dist %>/scripts/scripts_temp.js': [
-        //         //'<%= yeoman.dist %>/scripts/scripts.js'
-        //         '.tmp/templateCache.js'
-        //       ]
-        //     }
-        //   }
-        // },
-
-        // concat: {
-        //   dist: {}
-        // },
-
-        imagemin: {
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= yeoman.app %>/img',
-                    src: '{,*/}*.{png,jpg,jpeg,gif}',
-                    dest: '<%= yeoman.dist %>/images'
-                }]
-            }
-        },
-
-        svgmin: {
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= yeoman.app %>/images',
-                    src: '{,*/}*.svg',
-                    dest: '<%= yeoman.dist %>/images'
-                }]
-            }
-        },
+        }, 
+ 
+   
 
         htmlmin: {
             dist: {
@@ -527,12 +414,7 @@ module.exports = function(grunt) {
             }
         },
 
-        // Replace Google CDN references
-        cdnify: {
-            dist: {
-                html: ['<%= yeoman.dist %>/*.html']
-            }
-        },
+   
 
         // Copies remaining files to places other tasks can use
         copy: {
@@ -601,7 +483,23 @@ module.exports = function(grunt) {
                 configFile: 'test/karma.conf.js',
                 singleRun: true
             }
+        },
+
+        babel: {
+            options: {
+                sourceMap: false,
+                presets: ['babel-preset-es2015']
+            },
+            dist: {
+                files: {
+                    '.tmp/babel.js': 'app/a.js'
+                }
+            }
         }
+
+
+
+
     });
 
 
@@ -639,10 +537,9 @@ module.exports = function(grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
-        'wiredep',
+
         'useminPrepare',
         'concurrent:dist',
-        'autoprefixer',
 
         "preprocess:html", //
         'ngtemplates',
@@ -650,10 +547,10 @@ module.exports = function(grunt) {
         'copy:dist', // 拷贝  thinglinx_boot.js 到 .tmp/boot 目录 ;
 
         'concat',
+
         'ngAnnotate',
         "preprocess:js",
 
-        //'cdnify',
         'cssmin',
         'uglify',
 
@@ -663,27 +560,7 @@ module.exports = function(grunt) {
         // 'htmlmin',
     ]);
 
-    grunt.registerTask('default', [
-        // 'newer:jshint',
-        // 'test',
-        // 'build'
 
-        'clean:dist',
-        'wiredep',
-        'useminPrepare',
-    ]);
-
-
-    grunt.registerTask('temp', [
-        'clean',
-        'ngtemplates'
-    ]);
-    grunt.registerTask('process', [
-        //'clean',
-        // 'processhtml:sourceHtml'
-        "processhtml:dist"
-    ]);
-
-
+   grunt.registerTask('default', ['babel']);
 
 };

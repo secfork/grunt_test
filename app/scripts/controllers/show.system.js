@@ -40,7 +40,7 @@ angular.module('app.show.system', [])
     }
 
     $scope.op = {
-        active: "0",
+        active: "a",
         region: undefined
     };
     $scope.od = {
@@ -73,7 +73,7 @@ angular.module('app.show.system', [])
         var promise;
         // 活跃报警; 
 
-        if ($scope.op.active =="1") {
+        if ($scope.op.active =="a") {
             $show.alarm.get(od, function(resp) {
                 $scope.page.data = resp.data;
                 $scope.page.total = resp.total;
@@ -147,7 +147,7 @@ angular.module('app.show.system', [])
         num: 50, // 查询点历史 返回条数;  
         end: new Date(),
         start: new Date(new Date() - 86400000),
-        ala: "b", // a: 实时报警; b: 历史报警;
+        ala: "a", // a: 实时报警; b: 历史报警;
         pointSize: 60, // 曲线上的点数;
         c_int: 10000, // 实时数据 interval 时间;
         a_int: 10000, // 实时报警; interva 时间;
@@ -391,7 +391,7 @@ angular.module('app.show.system', [])
                 df = [];
  
             $.each(data, function(i, v, t) {
-                df.push([v[timekey], v.pv]);
+                v.pv !==null && df.push([v[timekey], v.pv]);
             })
 
             plot = $.plot("#show_live_data", [{

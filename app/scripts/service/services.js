@@ -342,9 +342,19 @@ angular.module('app.services', ["ngResource"], function() {
 
 .factory("$utils", function() {
     var a, b, c, d, e, f;
+
     return {
         // 展示 触发器 触发条件; 
-        triggerConditions : function( conditions ){
+        triggerConditions : function( c ){
+            
+            var  conditions = angular.copy( c );
+
+            if(angular.isString( conditions) ){
+               
+                conditions = angular.fromJson( conditions );
+                console.log( conditions )
+            }
+ 
             var arr =[] , exp  ;
             $.each( conditions , function(i , v ){ 
                 exp = v.exp ; 
