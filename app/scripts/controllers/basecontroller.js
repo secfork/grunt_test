@@ -624,10 +624,10 @@ angular.module('app.basecontroller', ['ng'])
                 // } 
                 conformMsg: function($show) {
                     return $show.alarm.getConformMsg({
-                        alarm_id: alarm.id,
+                        ack_id: alarm.ack_id,
                         system_id: system_id
                     }).$promise;
-                }
+                } 
             },
             controller: function($scope, $modalInstance, conformMsg) {
                 $scope.__proto__ = S;
@@ -635,11 +635,16 @@ angular.module('app.basecontroller', ['ng'])
                 // $scope.done = $scope.cancel;
                 $scope.alarm = alarm;
                 $scope.conformMsg = conformMsg.ret;
+
+                conformMsg.ret.user_id && $source.$user.get( { pk: conformMsg.ret.user_id} , function( resp ){
+                    $scope.conformMsg.username = resp.ret.username ;
+                })
+
             }
         });
     }
 
-    $scope.conformAlarm = function(page, alarm, index, system_id) {
+    $scope.conformAlarm = function(page, alarm, index, system_id , active ) {
         $modal.open({
             templateUrl: "athena/show/alarm_conform.html",
             controller: function($scope, $modalInstance, $show) {
@@ -660,14 +665,22 @@ angular.module('app.basecontroller', ['ng'])
                             alarm_id: alarm.id,
                             system_id: system_id
                         }, $scope.od),
-                        null,
+                        null, 
                         function(resp) {
                             $scope.cancel();
-                            alarm.active = 0;
+
+                            alarm.active = -1;
+                            alarm.ack_id = resp.ret ; 
+                            alarm.close_time = new Date();
+
                             angular.alert("确认报警成功");
                             page.total--;
-                            page.data.splice(index, 1);
 
+                            if(  "a" == active ){
+                                page.data.splice(index, 1);
+                            }
+
+                           
                         },
                         function() {
                             $scope.cancel();

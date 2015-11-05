@@ -7,14 +7,14 @@
             <div class="form-group float-right col-md-4 col-sm-4 m-t-sm j-radio-outer" ng-class="{'col-xs-12':op.ala=='b','col-xs-9':op.ala=='a'}" style="padding-top: 5px;text-align: right">
                 <div class="radio m-l float-right">
                     <label class="i-checks  ">
-                        <input type="radio" ng-model="op.ala" name="a" value="b">
+                        <input type="radio" ng-model="op.ala"   value="b">
                         <i></i> 全部报警
                     </label>
                 </div>
                 <!--jjw j-radio-->
                 <div class="radio float-right j-radio">
                     <label class="i-checks">
-                        <input type="radio" name="a" ng-model="op.ala" value="a" checked="true">
+                        <input type="radio"   ng-model="op.ala" value="a" checked="true">
                         <i></i> 活跃报警
                     </label>
                 </div>
@@ -104,7 +104,7 @@
                 <td> {{ a.class_id }} </td>
 
 
-                <!--    active status,default to 1 
+                <!--    active status, default to 1 
                     0:cleared 
                     -1 : closed 
                     1 : occured
@@ -112,7 +112,9 @@
                 <td translate="alarm_active.{{ a.active}}"  >    </td>
                 <td>
                   <a class="text-info" ng-click="showAlarmMsg(a , system.uuid)">详细信息</a>
-                  <a  ng-show=" a.active " class="text-info m-l" ng-click="conformAlarm( page, a , $index , system.uuid )">确认报警</a>
+                  <a    ng-show=" a.active == 1 " class="text-info m-l" 
+                        ng-click="conformAlarm( page, a , $index , system.uuid , op.ala )"
+                  >确认报警</a>
                 </td>
             </tr>
         </tbody>

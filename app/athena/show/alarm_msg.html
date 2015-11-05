@@ -21,14 +21,14 @@
           
           <div class="p-l">
             <!-- 触发器:{{ alarm.trigger_id }}<br> -->
-            活跃状态:{{ alarm.active?"活跃":"关闭"  }}<br/>
+            活跃状态:{{ alarm.active==1?"活跃":"关闭"  }}<br/>
 
             关闭时间: {{ alarm.close_time | date:"yyyy-MM-dd  HH:mm:ss"     }}<br>
 
-            确认信息: {{ conformMsg }}<br>
+            确认信息: {{ conformMsg.message }}<br>
            
             
-            确认人: {{ alarm.ack_id }}<br> 
+            确认人: {{ conformMsg.username }}<br> 
           </div>
         </div>
     
