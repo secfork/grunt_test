@@ -193,8 +193,8 @@
     </table>
     <div ng-switch-when="map" id="bdmap" ng-init=" initMap(); ">  </div>
 </div>
-
-<div class="panel-footer ">
+<!--jjw b-t-none ng-if-->
+<div class="panel-footer b-t-none" ng-if="lm=='list'">
     <!--jjw m-t m-d m-l-sm-->
     <button ng-if=" !isShowModul " class="btn btn-info  dker btn-sm   m-l-sm  pos-abt m-t m-b" ng-click=" goto('app.station.add' , null , project ) ">
         添加系统

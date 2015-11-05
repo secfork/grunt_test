@@ -4,7 +4,7 @@
 
 
 
-    <table class=" table   table-bordered  table-condensed "  ng-show="page.data.length">
+    <table class=" table  table-condensed table-striped j_table"  ng-show="page.data.length">
         <thead class="flip-content  ">
             <tr>
                 <th>用户名称</th>
@@ -12,7 +12,8 @@
                 <th> 邮件是否有效</th>
                 <th> 上次登录IP </th>
                 <th> 上次登录时间 </th>
-                <th>   </th>
+                <!--jjw-->
+                <th> 操作  </th>
 
             </tr>
         </thead>
@@ -35,7 +36,7 @@
                     {{ u.last_login_time }}
                 </td>
                 <td>
-                    <a   class="text-link" ng-click="removeUser(page.data , u , $index )">移除</a>
+                    <a   class="text-info" ng-click="removeUser(page.data , u , $index )">移除</a>
                 </td>
             </tr>
         </tbody>

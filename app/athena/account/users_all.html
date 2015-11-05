@@ -9,7 +9,7 @@
                     <th> 电子邮件有效 </th>
                     <th> 上次登录IP </th>
                     <th> 上次登录时间 </th>
-                    <th> </th>
+                    <th> 操作 </th>
                 </tr>
             </thead>
             <tbody>
@@ -35,14 +35,16 @@
                     <td> {{u.last_login_ip }}</td>
                     <td> {{u.last_login_time| date:'yyyy-MM-dd HH:mm:ss'}} </td>
                     <td>
-                      <a href="" class="text-link" ng-click="editUser( page.data, u , $index)" translate="edit"> 编辑</a>
-                      <a href="" class="text-link" ng-click="delUser( page.data, u , $index)" translate="del">  删除用户</a>
+                      <a href="" class="text-info" ng-click="editUser( page.data, u , $index)" translate="edit"> 编辑</a>
+                      <a href="" class="text-info" ng-click="delUser( page.data, u , $index)" translate="del">  删除用户</a>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="panel-footer  ">
+
+    <!--jjw b-t-none-->
+    <div class="panel-footer b-t-none">
         <!--jjw m-t m-b-->
         <div  class="text-center m-b m-t" ng-include src=" 'athena/debris/_pager.html'  "></div>
     </div>

@@ -6,27 +6,21 @@
 
 </div>
 
-<div class="modal-body  ">
+<div class="modal-body ">
 
     <form name="form" class=" form-validation form-horizontal   ">
 
         <input type="submit" class="hidden">
-
-        <input tl-wrap required ng-model="P.name" name="input"
-               label="系统配置名称"
-               >
-
-
+        <input tl-wrap required ng-model="P.name" name="input" label="系统配置名称">
         <textarea tl-wrap  ng-model="P.desc" label="备注" >  </textarea>
-
-
     </form>
 </div>
 
 <ng-include src=" 'athena/debris/_modal_footer.html' "></ng-include>
 
-<!--@if append -->
-   p = {{P}} <br>
-    isAdd = {{isAdd}}
-<!--@endif -->
+<!--jjw 注释-->
+<!--&lt;!&ndash;@if append &ndash;&gt;-->
+   <!--p = {{P}} <br>-->
+    <!--isAdd = {{isAdd}}-->
+<!--&lt;!&ndash;@endif &ndash;&gt;-->
  

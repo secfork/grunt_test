@@ -5,10 +5,7 @@
     <!--jjw 添加div-->
     <div class="form-group m-t-sm m-b-sm m-l-xs">
         <span style="margin-right: 30px">  配置项 </span>
-        <select ng-model="odp.puuid" class="input input-sm w " 
-                ng-options="p.uuid as p.name for p in profiles " 
-                ng-change="loadPageData( 1 )">
- 
+        <select ng-model="odp.puuid" class="input input-sm w form-control inline " ng-options="p.uuid as p.name for p in profiles  " ng-change="loadPageData( 1 )">
         </select>
     </div>
 </div>
@@ -46,15 +43,15 @@
                    
                     <td> {{t.desc }} </td>
                     <td ng-if="isModelState">
-                        <a class="text-link m-r-xs" ng-click="c_u_Trigger(  $index  , t   )">编辑</a>
-                        <a class="text-link m-r-xs" translate="bu.bu4" ng-click="deleteTrigger(  $index  , t   )">移除</a>
+                        <a class="text-info m-r-xs" ng-click="c_u_Trigger(  $index  , t   )">编辑</a>
+                        <a class="text-info m-r-xs" translate="bu.bu4" ng-click="deleteTrigger(  $index  , t   )">移除</a>
                     </td>
                 </tr>
             </tbody>
         </table>
 </div>
 <!--jjw b-b b-l b-r-->
- <div class="panel-footer  text-center b-t-none" >
+ <div class="panel-footer b-b b-l b-r text-center b-t-none" >
  
         <button class="btn btn-success btn-sm m-t-sm m-b-sm pull-left " 
             ng-if="isModelState"

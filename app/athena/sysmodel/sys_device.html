@@ -17,7 +17,7 @@
                 <th width="20%">配置参数</th>
                 <th width="20%"> 网络参数</th>
                 <th width="20%">  备注</th>
-                <th width="10%"> </th>
+                <th width="10%" style="padding-right: 20px"> 操作 </th>
             </tr>
         </thead>
         <tbody class="text-center ">
@@ -34,9 +34,9 @@
                     <i tip="sysd.network ">   </i>
                 </td>
                 <td>{{sysd.desc}}</td>
-                <td>
-                    <a class="text-link" ng-click="addOrEditDevice( sysdevices , $index , sysd )" translate="bu.bu3"></a>
-                    <a class="text-link" ng-click="deleteSysD( this , $index , sysd )" translate="bu.bu4"></a>
+                <td style="padding-right: 20px">
+                    <a class="text-info" ng-click="addOrEditDevice( sysdevices , $index , sysd )" translate="bu.bu3"></a>
+                    <a class="text-info" ng-click="deleteSysD( this , $index , sysd )" translate="bu.bu4"></a>
                 </td>
             </tr>
         </tbody>

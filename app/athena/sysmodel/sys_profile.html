@@ -21,7 +21,7 @@
                 <th>
                     备注
                 </th>
-                <th></th>
+                <th> 操作 </th>
             </tr>
         </thead>
         <tbody class="text-center ">
@@ -36,8 +36,8 @@
                 <td class="numeric "> {{ prof.last_modify_time| date:"yyyy-MM-dd HH:mm  Z" }} </td>
                 <td class="numeric "> {{ prof.desc }} </td>
                 <td>
-                    <a class="text-link" translate="bu.bu3" ng-click="updateSysProfile( this, $index, prof )">编辑</a>
-                    <a class="text-link" translate="bu.bu4" ng-click="deleteSysProfile( this, $index, prof)"> delete </a>
+                    <a class="text-info" translate="bu.bu3" ng-click="updateSysProfile( this, $index, prof )">编辑</a>
+                    <a class="text-info" translate="bu.bu4" ng-click="deleteSysProfile( this, $index, prof)"> delete </a>
                 </td>
             </tr>
         </tbody>

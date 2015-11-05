@@ -8,10 +8,12 @@
 
 <!--  isG 是否为 gateway 模式 -->
 
-<div class="modal-body  m-t-n "
+<!--jjw m-t-n去掉        -->
+<div class="modal-body  "
      ng-init="stepx={  step: 0 } ; isG = sysmodel.comm_type==2 ; "  >
 
-    <progressbar value="(stepx.step +1 )* ( isG?34:50) " class="progress-xs  m-b-xs " type="success"></progressbar>
+    <!--jjw m-b m-t-n-xs-->
+    <progressbar value="(stepx.step +1 )* ( isG?34:50) " class="progress-xs m-t-n-xs m-b" type="success"></progressbar>
 
  
 
@@ -136,11 +138,11 @@
    <!--  step 0 -->
     <div   ng-show="stepx.step == 0" >
           <button  ng-disabled="step0.$invalid"
-                  class="btn btn-default btn-sm btn-primary w-xs"
+                  class="btn btn-default btn-sm btn-primary w-60"
                   ng-click="validForm('step0') ;stepx.step = 1 ; ">下一步</button>
 
           <button
-              class="btn btn-default btn-sm btn-primary w-xs"
+              class="btn btn-default btn-sm btn-primary w-60"
               ng-click="cancel()">取消</button>
 
     </div>
@@ -148,15 +150,15 @@
 
     <!--  gateway 第二步 -->
     <div  ng-show="stepx.step == 1 && isG " >
-                <button  class="btn btn-primary btn-sm   w-xs"
+                <button  class="btn btn-primary btn-sm   w-60"
                         ng-click="stepx.step = 0 ;   "
                 >上一步</button>
 
                 <button   ng-disabled="step1.$invalid"
-                        class="btn btn-primary btn-sm   w-xs"
+                        class="btn btn-primary btn-sm   w-60"
                         ng-click=" validForm('step1') ; stepx.step = 2   ; "
                 >下一步</button>
-                <button  class="btn btn-default btn-sm btn-primary w-xs"
+                <button  class="btn btn-default btn-sm btn-primary w-60"
                       ng-click="cancel()">取消</button>
 
     </div>
@@ -164,48 +166,48 @@
  <!--  gateway 第三步 -->
     <div  ng-show="stepx.step == 2 && isG "  >
                 <button
-                        class="btn btn-primary btn-sm   w-xs"
+                        class="btn btn-primary btn-sm   w-60"
                         ng-click="stepx.step = 1 ;   "
                 >上一步</button>
 
                 <button ng-disabled="step2.$invalid"
-                        class="btn btn-primary btn-sm   w-xs"
+                        class="btn btn-primary btn-sm   w-60"
                         ng-click=" validForm('step2');done();"
                         ng-show="isAdd"
                 >创建</button>
 
                 <button ng-disabled="step2.$invalid"
                         ng-show="!isAdd"
-                        class="btn btn-primary btn-sm   w-xs"
+                        class="btn btn-primary btn-sm   w-60"
                         ng-click=" validForm('step2');done();"
                 >更新</button>
 
                  <button
-                      class="btn btn-default btn-sm btn-primary w-xs"
+                      class="btn btn-default btn-sm btn-primary w-60"
                       ng-click="cancel()">取消</button>
     </div>
 
     <!--  非 gate way  第二步  -->
     <div  ng-show="stepx.step == 1 && !isG "  >
                 <button
-                        class="btn btn-primary btn-sm   w-xs"
+                        class="btn btn-primary btn-sm   w-60"
                         ng-click="stepx.step = 0 ;   "
                 >上一步</button>
 
                 <button ng-disabled="step1.$invalid"
-                        class="btn btn-primary btn-sm   w-xs"
+                        class="btn btn-primary btn-sm   w-60"
                         ng-click=" validForm('step1');done();"
                         ng-show="isAdd"
                 >创建</button>
 
                 <button ng-disabled="step1.$invalid"
                         ng-show="!isAdd"
-                        class="btn btn-primary btn-sm   w-xs"
+                        class="btn btn-primary btn-sm   w-60"
                         ng-click=" validForm('step1');done();"
                 >更新</button>
 
                  <button
-                      class="btn btn-default btn-sm btn-primary w-xs"
+                      class="btn btn-default btn-sm btn-primary w-60"
                       ng-click="cancel()">取消</button>
     </div>
 
@@ -215,19 +217,19 @@
 </div>
 
 
+ <!--jjw 注释-->
+ <!--&lt;!&ndash;@if debug &ndash;&gt;-->
 
- <!--@if debug -->
+    <!--{{stepx.step}}-->
+    <!--<br/>-->
+    <!--D.network ={{D.network}}-->
 
-    {{stepx.step}}
-    <br/>
-    D.network ={{D.network}}
+    <!--<br/>-->
+    <!--form0.$invalid ={{step0.$invalid}}-->
+    <!--<br/>-->
+    <!--form1.$invalid ={{step1.$invalid}}-->
+    <!--<br/>-->
+    <!--form2.$invalid ={{step2.$invalid}}-->
+    <!--<br/>-->
 
-    <br/>
-    form0.$invalid ={{step0.$invalid}}
-    <br/>
-    form1.$invalid ={{step1.$invalid}}
-    <br/>
-    form2.$invalid ={{step2.$invalid}}
-    <br/>
-
- <!--@endif  -->
+ <!--&lt;!&ndash;@endif  &ndash;&gt;-->

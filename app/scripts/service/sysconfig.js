@@ -156,7 +156,8 @@ angular.module('app.sysconfig', [], function() {})
             origin_default: '0',
             origin: {
                 0: "ThingLinx Cloud",
-                1: "Remote Gateway"
+//                jjw 去掉Remote Gateway
+//                1: "Remote Gateway"
             },
 
             action_default: 'alarm',

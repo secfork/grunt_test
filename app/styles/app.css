@@ -18,8 +18,8 @@ input, select {
 }
 
 .logo{
-    width:300px; 
-    height:40px;
+    width:200px;
+    height:23px;
 }
 .input {
   border-color: #cfdadd;
@@ -186,6 +186,29 @@ tbody {
   margin-left: auto;
   margin-right:  auto;
   width: 500px;
+}
+/*jjw 添加modal-header*/
+.modal-header{
+    margin-bottom: 0 !important;
+}
+.modal-header>h4{
+    text-align: left;
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: 100;
+}
+/*jjw modal font-size-14*/
+.modal-body{
+    font-size: 14px;
+    padding-bottom: 0;
+}
+.modal-body form .form-group{
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+/*jjw modal-footer*/
+.modal-footer{
+    text-align: right;
 }
 
 .modal-body input, .modal-body button {
@@ -651,14 +674,21 @@ a.list-group-item:focus {
   border-radius: 2px 2px 0 0;
   border-bottom-color: #dee5e7;
 }
-.nav-tabs > li:hover > a,
+/*jjw hover active分开*/
+.nav-tabs > li:hover > a{
+  background-color: #f6f8f8;
+}
 .nav-tabs > li.active > a{
-  background-color: #fffefa;
+  background-color: #ffffff;
+}
+.nav-tabs > li > a:hover{
+    border-color: #DEE5E7 !important;
 }
 .nav-tabs > li.active > a:hover {
   border-color: #dee5e7;
 }
 .nav-tabs > li.active > a {
+  border-color: #DEE5E7 !important;
   border-bottom-color: #fff !important;
   /*border-top: 2px solid blue ;*/
 }
@@ -696,6 +726,8 @@ a.list-group-item:focus {
 }
 .panel {
   border-radius: 2px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
 }
 
 .panel-grid {
@@ -3636,6 +3668,11 @@ a.text-black:hover {
 .text-xsm{
   font-size: 10px;
 }
+.color-5{
+    color: #555;
+}
+
+
 .text-xxs {
   text-indent: -9999px;
 }
@@ -4194,7 +4231,9 @@ a.text-black:hover {
 .w-30{
    width: 30px;
 }
-
+.w-60{
+    width: 60px;
+}
 .w-xxx {
   width: 55px;
 }

@@ -1,14 +1,12 @@
 
-
-
-
-
 <div class="modal-header ">
     <h4 ng-if="isAdd">新建触发器</h4>
     <h4 ng-if="!isAdd">编辑触发器</h4>
 </div>
-<div class="modal-body  m-t-n " ng-init="stepx={  step:0}">
-    <progressbar value="(stepx.step+1)*34" class="progress-xs  m-b-xs " type="success"> </progressbar>
+<!--jjw m-t-n去掉        -->
+<div class="modal-body" ng-init="stepx={  step:0}">
+    <!--jjw m-b-sm-->
+    <progressbar value="(stepx.step+1)*34" class="progress-xs  m-b m-t-n-xs " type="success"> </progressbar>
     <form name="step0" ng-show="stepx.step == 0" class=" form-validation form-horizontal " ng-init="_config = $sys.trigger ">
 
         <input tl-wrap ng-model="T.name" label="text.name" required>
@@ -142,25 +140,26 @@
 
     <!--  step 1 -->
     <div ng-show="stepx.step == 0">
-        <button type="submit" class="btn btn-default btn-sm btn-primary w-xs" ng-click="validForm('step0') ;stepx.step = 1 ; ">下一步</button>
-        <button type="submit" class="btn btn-default btn-sm btn-primary w-xs" ng-click="cancel()">取消</button>
+        <button type="submit" class="btn btn-default btn-sm btn-primary w-60" ng-click="validForm('step0') ;stepx.step = 1 ; ">下一步</button>
+        <button type="submit" class="btn btn-default btn-sm btn-primary w-60" ng-click="cancel()">取消</button>
     </div>
     <!--  step 2 ng-disabled="step1.$invalid"  -->
     <div ng-show="stepx.step == 1">
-        <button class="btn btn-primary btn-sm   w-xs" ng-click="stepx.step = 0 ;   ">上一步</button>
-        <button class="btn btn-primary btn-sm   w-xs" ng-disabled="form.$invalid" ng-click=" validForm('step1') ; stepx.step = 2   ; ">下一步</button>
-        <button class="btn btn-default btn-sm btn-primary w-xs" ng-click="cancel()">取消</button>
+        <button class="btn btn-primary btn-sm   w-60" ng-click="stepx.step = 0 ;   ">上一步</button>
+        <button class="btn btn-primary btn-sm   w-60" ng-disabled="form.$invalid" ng-click=" validForm('step1') ; stepx.step = 2   ; ">下一步</button>
+        <button class="btn btn-default btn-sm btn-primary w-60" ng-click="cancel()">取消</button>
     </div>
     <!--  step 3 -->
     <div ng-show="stepx.step == 2">
-        <button class="btn btn-primary btn-sm   w-xs" ng-click="stepx.step = 1 ;   ">上一步</button>
-        <button ng-disabled="step1.$invalid" class="btn btn-primary btn-sm   w-xs" ng-click=" validForm('step2');done();" ng-show="isAdd">创建</button>
-        <button ng-disabled="step1.$invalid" ng-show="!isAdd" class="btn btn-primary btn-sm   w-xs" ng-click=" validForm('step2');done();">更新</button>
-        <button class="btn btn-default btn-sm btn-primary w-xs" ng-click="cancel()">取消</button>
+        <button class="btn btn-primary btn-sm   w-60" ng-click="stepx.step = 1 ;   ">上一步</button>
+        <button ng-disabled="step1.$invalid" class="btn btn-primary btn-sm   w-60" ng-click=" validForm('step2');done();" ng-show="isAdd">创建</button>
+        <button ng-disabled="step1.$invalid" ng-show="!isAdd" class="btn btn-primary btn-sm   w-60" ng-click=" validForm('step2');done();">更新</button>
+        <button class="btn btn-default btn-sm btn-primary w-60" ng-click="cancel()">取消</button>
     </div>
 </div>
-<!--@if append -->
-T = {{T}}
-<!--@endif -->
+<!--jjw 注释-->
+<!--&lt;!&ndash;@if append &ndash;&gt;-->
+<!--T = {{T}}-->
+<!--&lt;!&ndash;@endif &ndash;&gt;-->
 
 
