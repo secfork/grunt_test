@@ -1,4 +1,5 @@
-<table class=" table   table-bordered  bg-white " ng-init="  initGatewayDevs()">
+<!--jjw j_table b-b-none-->
+<table class=" table  j_table j_table2 b-b-none b-t-none" ng-init="  initGatewayDevs()">
     <thead class="flip-content">
         <tr>
             <th width="15%"> device_id </th>
@@ -7,7 +8,7 @@
             <th width="15%"> Ip </th>
             <th width="15%"> Port </th>
             <th width="15%"> proto </th>
-            <th width="10%"></th>
+            <th width="10%"> 操作 </th>
         </tr>
     </thead>
     <tbody class="text-center ">
@@ -19,13 +20,14 @@
             <td> {{ dev.params.port }} </td>
             <td> {{ dev.params.proto }} </td>
             <td>
-                <a class="text-link m-r-xs" ng-click="c_u_dev( gatewayDevs,  $index , dev   )">编辑</a>
-                <a class="text-link m-r-xs" translate="bu.bu4" ng-click="delete_dev( gatewayDevs , $index , dev   )">移除</a>
+                <a class="text-info m-r-xs" ng-click="c_u_dev( gatewayDevs,  $index , dev   )">编辑</a>
+                <a class="text-info m-r-xs" translate="bu.bu4" ng-click="delete_dev( gatewayDevs , $index , dev   )">移除</a>
             </td>
         </tr>
         <tr>
             <td colspan=7 class="text-left"   >
-                <button class="btn btn-success btn-sm m-l w-xs " 
+                <!--jjw m-l-lmg m-t m-b-xs-->
+                <button class="btn btn-success btn-sm m-l-lmg w-xs "
                     ng-show=" gatewayDevs.length !=  sysmodel.devices.length "
                     ng-click=" c_u_dev(  gatewayDevs  ) ">
                     添加设备
@@ -50,7 +52,10 @@
     </tbody>
 </table>
 
-<!--@if append -->
-gatewayDevs = {{gatewayDevs}}
+<!--jjw dashed-->
+<div class="line b-b line-dashed m-t-md"></div>
 
-<!--@endif -->
+<!--&lt;!&ndash;@if append &ndash;&gt;-->
+<!--gatewayDevs = {{gatewayDevs}}-->
+
+<!--&lt;!&ndash;@endif &ndash;&gt;-->

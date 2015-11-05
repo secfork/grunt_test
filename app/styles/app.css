@@ -201,6 +201,7 @@ tbody {
 .modal-body{
     font-size: 14px;
     padding-bottom: 0;
+
 }
 .modal-body form .form-group{
     margin-top: 5px;
@@ -209,6 +210,9 @@ tbody {
 /*jjw modal-footer*/
 .modal-footer{
     text-align: right;
+}
+.modal-footer .btn{
+    height: 34px;
 }
 
 .modal-body input, .modal-body button {
@@ -838,12 +842,25 @@ a.list-group-item:focus {
     height: 30px;
     line-height: 30px !important;
 }
-.j_table th{
+.j_table thead th,.j_table thead td{
     font-size: 14px;
     font-weight: bold !important;
     height: 49px;
     line-height: 49px !important;
     background-color: #FFFFFF;
+}
+.j_table tbody tr:nth-child(odd){
+    background-color: #f7f7f7;
+}
+.j_table tbody tr:nth-child(even){
+    background-color: #ffffff;
+}
+.j_table2 thead th,.j_table2 thead td{
+    height: 30px;
+    line-height: 30px !important;
+}
+.j_table2 td,.j_table2 th{
+    background-color: #f7f7f7 !important;
 }
 
 .well,
@@ -1053,6 +1070,12 @@ body {
   width: 100%;
   height: 100%;
 }
+/*jjw jbox*/
+.jbox{
+    height: 36px;
+    line-height: 36px;
+}
+
 .hbox .col {
   display: table-cell;
   vertical-align: top;
@@ -1705,6 +1728,13 @@ body {
     font-size: 14px;
     height:34px;
 }
+.j_addp{
+    background-color: #FFFFFF;
+    border: 1px solid #c7d3d6;
+}
+.j_addp:hover{
+    background-color: #edf1f2;
+}
 
 .btn-link {
   color: #58666e;
@@ -2261,6 +2291,10 @@ fieldset[disabled] .btn-black.active {
 }
 .tl-wrap-r span{
     float: right;
+}
+/*jjw wrap>span>margin-left*/
+.j_wrap_span_ml .form-group>label>span{
+    margin-left: 20px;
 }
 /*jjw span-30*/
 .wrap-label-span-30 label span{
@@ -3668,8 +3702,12 @@ a.text-black:hover {
 .text-xsm{
   font-size: 10px;
 }
+/*jjw color*/
 .color-5{
-    color: #555;
+    color: #555555;
+}
+.color-4{
+    color: #444444;
 }
 
 

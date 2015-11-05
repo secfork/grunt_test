@@ -1,6 +1,6 @@
 
-
-<table class=" table   table-bordered  bg-white " ng-init=" initGateWay() ">
+<!--jjw j_table b-b-none-->
+<table class=" table j_table j_table2 b-b-none b-t-none " ng-init=" initGateWay() ">
     <thead class="flip-content">
         <tr>
             <th> 类型 </th>
@@ -8,7 +8,7 @@
             <th> 是否可用 </th>
             <th> 参数 </th>
             <!--  <th   >组</th> -->
-            <th> </th>
+            <th> 操作 </th>
         </tr>
     </thead>
     <!--  sysmodel 下的 gateway default  -->
@@ -34,15 +34,16 @@
             <td> {{ $way.enable }} </td>
             <td> {{ $way }}</td>
             <td>
-                <a class="text-link m-r-xs" ng-click="c_u_way ( $T , $t,  $way   )">编辑</a>
-                <a class="text-link m-r-xs" translate="bu.bu4" ng-click="del_way ( $T , $t,  $way  )">移除</a>
+                <a class="text-info m-r-xs" ng-click="c_u_way ( $T , $t,  $way   )">编辑</a>
+                <a class="text-info m-r-xs" translate="bu.bu4" ng-click="del_way ( $T , $t,  $way  )">移除</a>
             </td>
         </tr>
     </tbody>
     <tbody>
         <tr>
             <td colspan=5 class="text-left">
-                <button class="btn btn-success btn-sm    " ng-click=" c_u_way( ) ">
+                <!--jjw m-l-lg-->
+                <button class="btn btn-success btn-sm m-l-lmg" ng-click=" c_u_way( ) ">
                     添加网络参数
                 </button>
                 <span class="text-danger" ng-show=" needUpdate.gateway ">
@@ -85,5 +86,5 @@
     </tbody>
 </table>
 
-
-gateway ={{gateway}}
+<!--jjw-->
+<!--gateway ={{gateway}}-->

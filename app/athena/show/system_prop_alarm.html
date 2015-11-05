@@ -14,7 +14,7 @@
                 <!--jjw j-radio-->
                 <div class="radio float-right j-radio">
                     <label class="i-checks">
-                        <input type="radio" name="a" ng-model="op.ala" value="a" checked="true">
+                        <input type="radio" name="a" ng-init="op.ala='a'" ng-model="op.ala" value="a" checked="true">
                         <i></i> 活跃报警
                     </label>
                 </div>
@@ -90,7 +90,7 @@
                 <th> 重要性 </th>
                 <th> 类别 </th>
                 <th> 活跃状态 </th>
-                <th class="w-xs"> 操作 </th>
+                <th class="w-xs" style="padding-right: 20px"> 操作 </th>
             </tr>
         </thead>
         <tbody class="text-center ">
@@ -110,7 +110,7 @@
                     1 : occured
                 -->
                 <td translate="alarm_active.{{ a.active}}"  >    </td>
-                <td>
+                <td style="padding-right: 20px">
                   <a class="text-info" ng-click="showAlarmMsg(a , system.uuid)">详细信息</a>
                   <a  ng-show=" a.active " class="text-info m-l" ng-click="conformAlarm( page, a , $index , system.uuid )">确认报警</a>
                 </td>

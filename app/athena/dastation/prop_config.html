@@ -1,9 +1,9 @@
 <!--jjw bg-white b-b b-r b-l text-base-->
 <div class=" bg-light panel-body no-padder bg-white b-b b-r b-l text-base">
     <!--jjw padder-->
-    <div class="col-md-8 col-xs-12   text-left   m-b m-t padder-md">
+    <div class="col-md-8 col-xs-12   text-left   m-b-sm m-t padder-md">
         <!--     <div class="form-group">      </div>   -->
-        <label class="col-md-3 col-md-offet-1 control-label m-t-xs">配置项</label>
+        <label class="col-md-3 col-md-offet-1 control-label m-t-xs color-4">配置项</label>
         <div class="col-md-9">
             <select ng-model="profile" class=" form-control    " ng-options="   p as p.name for p in profiles  " ng-change="toUpdate('profile')" required>
             </select>
@@ -17,10 +17,10 @@
                             <button  class=" btn btn-sm   w-xs btn-primary "
                                      ng-click = "  updateSystem( 'profile' );  "
                                      >
-                                  保存
+                                保存系统配置
                             </button>
                             <i class="fa  fa-exclamation-triangle  "></i>
-                             编辑完成后请保存网络参数
+                             编辑完成后请保存系统配置
             </span>
             <span ng-show=" hasSave.profile ">
                            <strong  class= "text-info    ">
@@ -29,7 +29,7 @@
         </div>
         <!--  就 托管的 daServer 不用  box ticket-->
         <div ng-if="  nT ">
-            <label class="col-md-3 col-lg-offet-1 control-label m-t-xs">SN</label>
+            <label class="col-md-3 col-lg-offet-1 control-label m-t-xs color-4">SN</label>
             <div class="col-md-8  ">
                 <div class="input-group">
                     <input type="text" class="form-control" ng-model="t.sn" ng-disabled="t.ticket">
@@ -40,32 +40,30 @@
                         </span>
                 </div>
             </div>
-            <label class="col-md-3 col-lg-offet-1 control-label m-t-xs">Ticket</label>
+            <label class="col-md-3 col-lg-offet-1 control-label m-t-xs color-4">Ticket</label>
             <div class="col-md-8 m-t-xs">
                 {{ t.ticket || "无Ticket !" }}
                 <!--  <a class = "fa fa-copy text-success"></a> -->
             </div>
 
             <!--jjw 注释-->
-            <!--@if append -->
-            t = {{t}}
-            <!--@endif -->
+            <!--&lt;!&ndash;@if append &ndash;&gt;-->
+            <!--t = {{t}}-->
+            <!--&lt;!&ndash;@endif &ndash;&gt;-->
         </div>
     </div>
     <!--jjw dashed-->
     <div class="line b-b line-dashed"></div>
+
+
+
     <!--   托管  daserver  模式   sysmodel.mode ==1 &&  sysmodel.comm_type == 1  -->
- 
-  
-    <div class="  text-left m-t-xs m-b   "
-         ng-if=" !nT ">
-        <!--jjw sm-->
-        <h5 class="m-l-xs wrapper-sm"> 网络参数 </h5> 
-
-
-
+    <div class="  text-left m-t-xs m-b" ng-if=" !nT ">
+        <!--jjw sm m-l-md-->
+        <h5 class="m-l-md wrapper-sm color-4"> 网络参数 </h5>
         <ng-include src="  'athena/dastation/_prop_daserver_network.html'  "></ng-include>
     </div>
+
     <!--
     
     <div class="line b-b " ng-if=" sysmodel.comm_type == 1   "></div>
@@ -74,12 +72,15 @@
     <!--  <div class="panel-body table-responsive no-padder">
     托管模式: ==>  daserver 类型;
 -->
-    <div class=" table-responsive m-t" ng-if=" sysmodel.mode ==1 && sysmodel.comm_type ==2   ">
-        <h5 class="m-l"> 网关配置</h5>
-        <ng-include src="  'athena/dastation/_prop_gateway_gateway.html'  "></ng-include>
+    <!--jjw no-border m-t去掉-->
+    <div class=" table-responsive no-border" ng-if=" sysmodel.mode ==1 && sysmodel.comm_type ==2   ">
+        <!--jjw m-l-lg m-b-->
+        <h5 class="m-l-lg m-b color-4"> 网关配置</h5>
+        <ng-include src=" 'athena/dastation/_prop_gateway_gateway.html'  "></ng-include>
     </div>
 
-
+    <!--jjw dashed m-t-md-->
+    <div class="line b-b line-dashed m-t-md"></div>
 
     <!--
     <div class="line b-b " ng-if="sysmodel.comm_type ==2   "></div>
@@ -87,22 +88,20 @@
  <!--@if append --> 
  <!--@endif -->
 
-    <div class=" table-responsive  m-t " 
+    <!--jjw no-border-->
+    <div class=" table-responsive no-border "
         ng-if=" sysmodel.devices.length && sysmodel.mode ==1 && sysmodel.comm_type ==2 ">
-        <h5 class="m-l"> 设备网络参数   </h5>
+        <!--jjw m-l-lg m-b-->
+        <h5 class="m-l-lg m-b color-4"> 设备网络参数   </h5>
         <ng-include src="  'athena/dastation/_prop_gateway_device.html'  "></ng-include>
     </div>
- 
- 
-    <!--jjw line-dashed-->
-    <div class="line b-b line-dashed"></div>
 
 
     <!--jjw 添加一个col-md-8的div
     子div全部添加col-md-？，m-t m-b
     -->
-    <div class="col-md-8 col-xs-12 text-left m-t padder-md">
-        <div class="col-md-3  col-xs-6   text-left m-t-sm m-b-sm ">
+    <div class="col-md-8 col-xs-12 text-left padder-md">
+        <div class="col-md-3  col-xs-6   text-left m-t-sm m-b-sm color-4">
             <span>上次配置更新</span>
         </div>
         <div class="col-md-9 col-xs-6 m-t-sm m-b-sm ">
@@ -111,7 +110,7 @@
     </div>
 
     <div class="col-md-8 col-xs-12 text-left padder-md">
-        <div class="col-md-3  col-xs-6 text-left m-t-xs m-t-sm m-b-sm ">
+        <div class="col-md-3  col-xs-6 text-left m-t-xs m-t-sm m-b-sm color-4">
             上次同步
         </div>
         <div class="col-md-9 col-xs-6 m-t-xs m-t-sm m-b-sm ">

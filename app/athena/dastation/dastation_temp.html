@@ -87,7 +87,7 @@
                 同步配置 </th>
 
             <th width="20%">备注</th>
-            <th width="15%" ng-if=" !isShowModul">操作</th>
+            <th width="15%" ng-if=" !isShowModul" style="padding-right: 20px">操作</th>
 
         </tr>
         </thead>
@@ -139,13 +139,11 @@
             <!--gps-->
             <td>
                 <a ng-click=" goto( _$mapState, das , das  )">
-                        <span ng-if="das.latitude" class="fa fa-location-arrow text-success">
-
-                             </span>
-                    <!--jjw btn btn-xs btn-info-->
+                        <span ng-if="das.latitude" class="fa fa-location-arrow text-success"></span>
+                        <!--jjw btn btn-xs btn-info-->
                         <span ng-if=" !das.latitude && !isShowModul  " class="btn btn-xs btn-info bg-info m-l-sm  ng-scope">
-                                   去定位
-                             </span>
+                            去定位
+                        </span>
                 </a>
             </td>
             <!--      <td ng-if = " !isShowModul "> {{ das.needsync?'是':'否'}}</td> -->
@@ -153,7 +151,7 @@
             <td ng-if=" !isShowModul   ">
                 <!--{{ das.needsync }}-->
                 <!-- <span >已同步 </span>-->
-                <button class="btn btn-xs btn-primary  m-t-n-xs" ng-click="syncSystem( das )" ng-if=" das.needsync ">
+                <button class="btn btn-xs btn-primary " ng-click="syncSystem( das )" ng-if=" das.needsync ">
                     同步
                 </button>
                 <span ng-show=" !sync_start && sync_err_msg " class=" m-t-xs text-danger"> 
@@ -174,7 +172,7 @@
                <!--  {{das.create_time |date:"hh-dd HH:MM"}} -->
             </td>
             <!--替换 失效 移除-->
-            <td ng-if=" !isShowModul ">
+            <td ng-if=" !isShowModul " style="padding-right: 20px">
                 <a class="text-info-dk m-r-xs" ng-if="das.state ==1 " translate="bu.bu2" ng-click=" effStation(page.data , das  ,$index ) ">失
                 </a>
                 <a class="text-info-dk m-r-xs" ng-if=" das.state ==0 " ng-click=" activateStation( this, page.data , das , $index  , true ) ">
