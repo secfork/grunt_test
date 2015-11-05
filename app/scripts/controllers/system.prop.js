@@ -158,8 +158,6 @@ angular.module('app.system.prop', [])
 
     };
 
-
-
 })
 
 .controller("das_basic", function($scope, $filter, $state, $stateParams) {
@@ -172,9 +170,7 @@ angular.module('app.system.prop', [])
     //  堆叠 导航;
     $scope.$popNav($scope.station.name + "(状态)", $state);
 
-
 })
-
 
 
 .controller("das_config",
@@ -664,14 +660,14 @@ angular.module('app.system.prop', [])
     }
 )
  
+
 .controller('das_tag',   function($scope, $source, $state , $q) { 
 
     var station = $scope.station;
 
     $scope.$popNav($scope.station.name + "(变量)", $state);
 
-    $scope.systags = $scope.Sta_Data.tags;
-
+ 
  
     $scope.getDevName = function( tag , scope ){
         var d_id =  tag.connect.replace(/(\d+).(\d+)/,"$1"); 
@@ -702,23 +698,30 @@ angular.module('app.system.prop', [])
         })
     }
 
-
 })
 
 
-.controller('das_trigger',   function($scope, $source, $state) { 
+.controller('das_trigger',   function($scope, $source, $state , $sys) { 
 
     var station = $scope.station;
     $scope.$popNav($scope.station.name + "(触发器)", $state);
 
-    $scope.triggers = $scope.Sta_Data.triggers;
- 
-    $source.$sysProfTrigger.get({
-        profile: station.profile
-    }, function(resp) {
-        $scope.triggers = resp.ret;
-    })
+    $scope.page = {};
 
+    var d  = {  itemsPerPage: $sys.itemsPerPage , profile: station.profile} ;
+
+    $scope.loadPageData = function( pageNo){
+        d.currentPage = pageNo ,
+        $source.$sysProfTrigger.get( d , function(resp) {
+            //$scope.triggers = resp.ret;
+            $scope.page.currentTarget = pageNo ;
+            $scope.page.data = resp.data ; 
+            $scope.page.total = resp.total ; 
+        })
+    }
+
+    
+    $scope.loadPageData( 1 ); 
 
 }) 
 
@@ -727,8 +730,7 @@ angular.module('app.system.prop', [])
     var station = $scope.station;
     $scope.$popNav($scope.station.name + "(通知)", $state);
 
-    $scope.message = $scope.Sta_Data.messages;
-
+   
     station.profile && $source.$message.get({
         profile_id: station.profile
     }, function(resp) {

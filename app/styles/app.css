@@ -5,6 +5,12 @@ hr {
   margin: 10px 0px;
 }
  
+
+.abt-left { 
+  position: absolute;
+  left: 10px;
+}
+
 input, select { 
   /*border-color: #cfdadd; */
     /*jjw*/
@@ -2332,7 +2338,7 @@ fieldset[disabled] .btn-black.active {
 .i-switch {
   cursor: pointer;
   position: relative;
-  display: inline-block;
+ /* display: inline-block;*/
   width: 35px;
   height: 20px;
   border-radius: 30px;

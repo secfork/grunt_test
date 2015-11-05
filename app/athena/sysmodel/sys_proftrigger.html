@@ -6,7 +6,6 @@
     <div class="form-group m-t-sm m-b-sm m-l-xs">
         <span style="margin-right: 30px">  配置项 </span>
         <select ng-model="odp.puuid" class="input input-sm w form-control inline " ng-options="p.uuid as p.name for p in profiles  " ng-change="loadPageData( 1 )">
- 
         </select>
     </div>
 </div>
@@ -33,8 +32,16 @@
                     <td> {{ _config.type[t.type] }}</td>
                     <td> {{ _config.action[t.action] }}</td>
                     <td> {{ _config.origin[t.origin] }}</td>
-                    <td ng-style="t.lose_tag"> <i class="fa fa-android  text-info-dker " ng-clcik="showCondi( t )"></i> </td>
-                    <td> {{t.desc}}</td>
+                   
+                    <td ng-style="t.lose_tag"> 
+                        <i class="fa fa-android  text-info-dker " ng-clcik="showCondi( t )"
+                            popover-trigger="mouseenter"
+                            popover="{{ conditions( t.conditions ) }}"
+                            popover-title="触发条件"
+                         ></i>
+                    </td>
+                   
+                    <td> {{t.desc }} </td>
                     <td ng-if="isModelState">
                         <a class="text-info m-r-xs" ng-click="c_u_Trigger(  $index  , t   )">编辑</a>
                         <a class="text-info m-r-xs" translate="bu.bu4" ng-click="deleteTrigger(  $index  , t   )">移除</a>
@@ -44,9 +51,11 @@
         </table>
 </div>
 <!--jjw b-b b-l b-r-->
- <div class="panel-footer  text-center b-t-none" ng-if="isModelState">
+ <div class="panel-footer b-b b-l b-r text-center b-t-none" >
  
-        <button class="btn btn-success btn-sm m-t-sm m-b-sm pull-left " ng-click=" c_u_Trigger('create') ">
+        <button class="btn btn-success btn-sm m-t-sm m-b-sm pull-left " 
+            ng-if="isModelState"
+            ng-click=" c_u_Trigger('create') ">
             添加触发器
         </button> 
         <div class=" text-center inline m-t-sm m-b-sm  m-l-n-xxl " ng-include src=" 'athena/debris/_pager.html'  "></div>

@@ -24,7 +24,7 @@
                             <span>区域</span>
                         </label>
                         <div class="col-sm-9">
-                            <select class="input input-sm form-control" ng-model="op.region" ng-options="p.id as p.name  for p in  regions" ng-change=" loadSys()" required>
+                            <select  required class="input input-sm form-control" ng-model="op.region" ng-options="p.id as p.name  for p in  regions" ng-change=" loadSys()"  >
                                 <option value="">请选择区域</option>
                             </select>
                         </div>
@@ -37,7 +37,7 @@
                             <span>系统</span>
                         </label>
                         <div class="col-sm-9">
-                            <select class="input input-sm form-control" ng-model=" od.uuid" ng-options="s.uuid as s.name  for s in systems" required>
+                            <select required class="input input-sm form-control" ng-model=" od.uuid" ng-options="s.uuid as s.name  for s in systems"  >
                                 <option value="">请选择系统</option>
                             </select>
                         </div>
@@ -172,20 +172,21 @@
         </div>
 
         <!--jjw 添加div-->
-        <div class="row bg-white m-t-sm text-xs b-t" ng-init=" op.active = false ">
+        <div class="row bg-white m-t-sm text-xs b-t" ng-init=" op.active = '0' ">
 
             <!--jjw margin-top margin-bottom-->
             <div class="radio     float-right  w-xxm m-t-md m-b-md m-l m-r">
                 <label class="i-checks">
-                    <input type="radio"   value="false" checked="" ng-model=" op.active ">
+                    <input type="radio"   value="0" checked="" ng-model="op.active ">
                     <i></i>
                     <span>全部报警</span>
                 </label>
             </div>
             <!--jjw margin-top margin-bottom-->
-            <div class="radio      float-right  w-xxm m-t-md m-b-md m-l m-r" style="margin-top: 20px">
+            <div class="radio      float-right  w-xxm m-t-md m-b-md m-l m-r" 
+                 style="margin-top: 20px">
                 <label class="i-checks">
-                    <input type="radio"   value="true" ng-model="op.active">
+                    <input type="radio"   value="1" ng-model="op.active">
                     <i></i>
                     <span>活跃报警</span>
                 </label>
@@ -195,6 +196,7 @@
 
     </div>
 
+<!--op ={{op}}-->
 
 
     <!--jjw no-border-->

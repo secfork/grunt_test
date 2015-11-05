@@ -40,7 +40,7 @@ angular.module('app.show.system', [])
     }
 
     $scope.op = {
-        active: false,
+        active: "0",
         region: undefined
     };
     $scope.od = {
@@ -73,7 +73,7 @@ angular.module('app.show.system', [])
         var promise;
         // 活跃报警; 
 
-        if ($scope.op.active) {
+        if ($scope.op.active =="1") {
             $show.alarm.get(od, function(resp) {
                 $scope.page.data = resp.data;
                 $scope.page.total = resp.total;
