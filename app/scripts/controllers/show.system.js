@@ -391,7 +391,7 @@ angular.module('app.show.system', [])
                 df = [];
  
             $.each(data, function(i, v, t) {
-                df.push([v[timekey], v.pv]);
+                v.pv !==null && df.push([v[timekey], v.pv]);
             })
 
             plot = $.plot("#show_live_data", [{

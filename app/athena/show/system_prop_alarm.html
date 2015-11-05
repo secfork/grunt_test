@@ -110,9 +110,11 @@
                     1 : occured
                 -->
                 <td translate="alarm_active.{{ a.active}}"  >    </td>
-                <td>
-                  <a class="text-info" ng-click="showAlarmMsg(a , system.uuid)">详细信息</a>
-                  <a    ng-show=" a.active == 1 " class="text-info m-l" 
+                <td> 
+                  <a class="text-info" ng-if=" a.active!=1 " 
+                    ng-click="showAlarmMsg(a , system.uuid)">详细信息</a>
+                  <a    ng-if=" a.active == 1 "
+                        class="text-link" 
                         ng-click="conformAlarm( page, a , $index , system.uuid , op.ala )"
                   >确认报警</a>
                 </td>
