@@ -701,7 +701,7 @@ angular.module('app.system.prop', [])
 })
 
 
-.controller('das_trigger',   function($scope, $source, $state , $sys) { 
+.controller('das_trigger',   function($scope, $source, $state , $sys , $utils ) { 
 
     var station = $scope.station;
     $scope.$popNav($scope.station.name + "(触发器)", $state);
@@ -720,6 +720,8 @@ angular.module('app.system.prop', [])
         })
     }
 
+    // 显示 触发器的 condition ; 
+    $scope.conditions = $utils.triggerConditions ; 
     
     $scope.loadPageData( 1 ); 
 
@@ -994,6 +996,24 @@ angular.module('app.system.prop', [])
 
             });
         };
+
+        // 删除位置; 
+        $scope.removePostion = function(){
+            var d = {
+                uuid: $scope.station.uuid ,
+                longitude:"undefined",
+                latitude:"undefined"
+            };
+            $source.$system.put( d, function(){
+                $scope.station.longitude = null ;
+                 $scope.station.latitude = null ;
+                map.clearOverlays();
+
+            })
+
+        } 
+    
+
 
         // 右键 定位 移动的 station  ;
         function locatedSation(p) {

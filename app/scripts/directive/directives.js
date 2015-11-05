@@ -183,15 +183,17 @@ angular.module('app.directives', ['pascalprecht.translate'])
             }
         };
     }])
-    .directive('uiScroll', ['$location', '$anchorScroll', function($location, $anchorScroll) {
+    .directive('uiScroll', ['$location', '$anchorScroll',   function($location, $anchorScroll) {
         return {
             restrict: 'AC',
             link: function(scope, el, attr) {
                 el.on('click', function(e) {
+                    console.log( attr.uiScroll);
                     $location.hash(attr.uiScroll);
                     $anchorScroll();
                 });
             }
+
         };
     }])
     .directive('uiFullscreen', ['uiLoad', function(uiLoad) {

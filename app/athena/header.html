@@ -1,6 +1,6 @@
 <!-- navbar header -->
 <!-- 小屏幕时  右上角 图标 -->
-<div class="navbar-header {{app.settings.navbarHeaderColor}}">
+<div class="navbar-header {{app.settings.navbarHeaderColor}}"  >
     <button class="pull-right visible-xs dk" ui-toggle-class="show" data-target=".navbar-collapse">
         <!-- <i class="glyphicon glyphicon-cog">1</i> -->
         <i class="icon-map"></i>
@@ -75,24 +75,28 @@
                     </p>
                 </li>
                 <li class="b-b ">
-                    <a ng-click="acceptEmail( user)"  >接收邮件通知  
-                        <label class="i-switch bg-info  ">
+                    <a ng-click="acceptEmail( user)"  >
+                        <label class="i-switch bg-info  pull-right  ">
                           <input type="checkbox"   ng-model="user.mail_notice" >
                           <i></i>
                         </label>
+                        接收邮件通知  
 
                     </a> 
                 </li>
                 <li class="b-b ">
-                     <a ng-click="acceptSMS( user )" >接收短信通知
-                            <label class="i-switch bg-info   ">
+                     <a ng-click="acceptSMS( user )" >
+                            <label class="i-switch bg-info  pull-right ">
                               <input type="checkbox"  ng-model="user.sms_notice" >
                               <i></i>
                             </label> 
+                            接收短信通知
                     </a>   
                           
                         
-                </li>
+                </li> 
+
+
                 <li class="  b-b ">
                     <a ng-click="ccPassWord()">修改密码</a>
                 </li>
