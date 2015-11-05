@@ -3,14 +3,16 @@
     <!--jjw padding-10-->
     <form class="form-inline  form-validation ng-pristine ng-valid padding-10" name="form">
         <div class="row">
-            <div class="form-group float-right col-md-4 col-sm-4 m-t-sm" ng-class="{'col-xs-12':op.ala=='b','col-xs-9':op.ala=='a'}" style="padding-top: 5px;text-align: right">
-                <div class="radio m-l float-right col-md-5 col-sm-12 col-xs-5">
+            <!--jjw j-radio-outer-->
+            <div class="form-group float-right col-md-4 col-sm-4 m-t-sm j-radio-outer" ng-class="{'col-xs-12':op.ala=='b','col-xs-9':op.ala=='a'}" style="padding-top: 5px;text-align: right">
+                <div class="radio m-l float-right">
                     <label class="i-checks  ">
                         <input type="radio" ng-model="op.ala" name="a" value="a">
                         <i></i> 活跃报警
                     </label>
                 </div>
-                <div class="radio float-right col-md-5 col-sm-12 col-xs-5 j-radio">
+                <!--jjw j-radio-->
+                <div class="radio float-right j-radio">
                     <label class="i-checks">
                         <input type="radio" name="a" ng-model="op.ala" value="b" checked="true">
                         <i></i> 全部报警
@@ -109,8 +111,8 @@
                 -->
                 <td translate="alarm_active.{{ a.active}}"  >    </td>
                 <td>
-                  <a class="text-link" ng-click="showAlarmMsg(a , system.uuid)">详细信息</a>
-                  <a  ng-show=" a.active " class="text-link m-l" ng-click="conformAlarm( page, a , $index , system.uuid )">确认报警</a>
+                  <a class="text-info" ng-click="showAlarmMsg(a , system.uuid)">详细信息</a>
+                  <a  ng-show=" a.active " class="text-info m-l" ng-click="conformAlarm( page, a , $index , system.uuid )">确认报警</a>
                 </td>
             </tr>
         </tbody>
@@ -128,6 +130,10 @@
    @media(max-width: 768px){
        .j-radio{
            margin-top: 10px !important;
+       }
+       .j-radio-outer{
+           margin-top: 0px;
+           margin-bottom: 0px;
        }
    }
 </style>

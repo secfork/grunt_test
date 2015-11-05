@@ -5,7 +5,7 @@
      <!--jjw 添加div-->
      <div class="form-group m-t-sm m-b-sm m-l-xs">
          <span style="margin-right: 30px"> 配置项 </span>
-         <select ng-model="odp.puuid" class=" input input-sm w" ng-options="   p.uuid as p.name for p in profiles  " ng-change="loadSysTag( odp.puuid  )"></select>
+         <select ng-model="odp.puuid" class=" input input-sm w form-control inline" ng-options="   p.uuid as p.name for p in profiles  " ng-change="loadSysTag( odp.puuid  )"></select>
      </div>
 </div>
  
@@ -48,9 +48,9 @@
                 <td> <span ng-show="tag.save_log"> {{ _$type[tag.log_type] ||'RAW' }}  </span> </td>
                 <td> {{ tag.desc||"" }} </td>
                 <td ng-if="isModelState">
-                    <a class="text-link m-r-xs" ng-click="updateTag(  $index  , tag , this  )">编辑</a>
-                    <a class="text-link m-r-xs" ng-click="add_update_Log(  $index  , tag   )"> 配置</a>
-                    <a class="text-link m-r-xs" translate="bu.bu4" ng-click="deleteTag(  $index  , tag   )">移除</a>
+                    <a class="text-info m-r-xs" ng-click="updateTag(  $index  , tag , this  )">编辑</a>
+                    <a class="text-info m-r-xs" ng-click="add_update_Log(  $index  , tag   )"> 配置</a>
+                    <a class="text-info m-r-xs" translate="bu.bu4" ng-click="deleteTag(  $index  , tag   )">移除</a>
                 </td>
             </tr>
         </tbody>

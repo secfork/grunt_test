@@ -1,11 +1,12 @@
 
-<div class="panel-body table-responsive   padding-5">
+<div class="panel-body table-responsive   padding-15">
     <div ng-repeat='g in  allgroups ' ng-init=" op ={} ">
 
-        <div class=' b-b temp-row  my-bg-info ' ng-click='op.show = !op.show '>
-            <i class="m-l-xs  fa"
-                ng-class="{ 'fa-plus-square-o': !op.show , 'fa-minus-square-o':op.show  }"></i>
-            {{g.name }}
+        <div class=' border temp-row ' ng-click='op.show = !op.show ' style="height: 40px;line-height: 2.5;border-radius: 2px;background-color: #F6F8F7;margin-top: 6px;">
+            <!--jjw i-->
+            <!--<i class="m-l-xs  fa" ng-class="{ 'fa-plus-square-o': !op.show , 'fa-minus-square-o':op.show  }"></i>-->
+            <i style="display: inline-block;width: 10px" class="fa m-l-sm" ng-class="{'fa-angle-down': op.show, 'fa-angle-right': !op.show}"></i>
+            <span>{{g.name }}</span>
         </div>
 
 
@@ -34,5 +35,6 @@
 </div>
 
 <div class="panel-footer">
-    <ng-include src=" 'athena/debris/_pager.html'  "></ng-include>
+    <!--jjw m-t m-b-->
+    <div  class="text-center m-t-sm m-b-sm" ng-include src=" 'athena/debris/_pager.html'  "></div>
 </div>

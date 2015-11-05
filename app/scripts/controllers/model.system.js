@@ -926,6 +926,7 @@ angular.module("app.model.system", [])
 
             $modal.open({
                 templateUrl: "athena/sysmodel/add_proftrigger.html",
+//                jjw
                 size: "lg",
                 controller: function($scope, $modalInstance, $source, $sys, $webWorker) {
                     var a, b, c, i;

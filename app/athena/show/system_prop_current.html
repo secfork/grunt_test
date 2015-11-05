@@ -4,9 +4,13 @@
     <form class="form-inline row m-l m-r">
         <!--jjw 添加div-->
         <div class="col-md-3 col-sm-4 col-xs-12 m-t-sm m-b-sm">
-            <div class="input-group col-sm-12">
-                <div class="btn btn-sm    input-group-addon">搜索</div>
-                <input type="text" class="form-control input-sm" ng-model="f_name" ng-change="filterTags(f_name)">
+            <div class="col-sm-12 no-padder" style="height: 30px;line-height: 30px">
+                <!--jjw 所有框样式改变-->
+                <!--<div class="btn btn-sm    input-group-addon">搜索</div>-->
+                <label class="col-xs-3 float-left"><span>搜索</span></label>
+                <div class="col-xs-9 no-padder float-right">
+                    <input type="text" class="form-control input-sm col-xs-12" ng-model="f_name" ng-change="filterTags(f_name)">
+                </div>
             </div>
 
             <!--

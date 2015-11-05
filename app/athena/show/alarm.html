@@ -211,7 +211,7 @@
                 <th> 重要性 </th>
                 <th> 类别 </th>
                 <th> 活跃状态 </th> 
-                <th class="w-xs"> 操作 </th>
+                <th class="w-xs" style="padding-right: 20px"> 操作 </th>
             </tr>
             </thead>
             <tbody class="text-center "> 
@@ -223,9 +223,9 @@
                 <td> {{ _config[a.severity] }} </td>
                 <td> {{ a.class_id }} </td> 
                 <td translate="alarm_active.{{ a.active}}" > "活跃":"关闭"  </td>
-                <td>  
-                    <a class="text-link" ng-click="showAlarmMsg(a , od.uuid)">详细信息</a>
-                    <a  ng-show=" a.active " class="text-link m-l" ng-click="conformAlarm( page,  a , $idnex , od.uuid )">确认报警</a>
+                <td style="padding-right: 20px" >
+                    <a class="text-info" ng-click="showAlarmMsg(a , od.uuid)">详细信息</a>
+                    <a  ng-show=" a.active " class="text-info m-l" ng-click="conformAlarm( page,  a , $idnex , od.uuid )">确认报警</a>
 
                 </td>
             </tr>
@@ -233,8 +233,8 @@
         </table>
     </div>
 
-
-    <div class="panel-footer ">
+    <!--jjw b-t-none-->
+    <div class="panel-footer b-t-none">
         <!--jjw m-t m-b-->
         <div class=" text-center m-t-sm m-b-sm" ng-include src=" 'athena/debris/_pager.html'  "></div>
     </div>

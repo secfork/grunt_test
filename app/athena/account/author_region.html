@@ -1,11 +1,12 @@
 <!-- <div class="panel-body bg-light   table-responsive no-padder no-border gap-5"> -->
-<div class="panel-body table-responsive   padding-5">
+<div class="panel-body table-responsive   padding-15">
     <div ng-repeat='r in page.data ' ng-init=" op ={} ">
         <!--jjw 去掉my-bg-info-->
-        <div class=' b-b temp-row ' ng-click='op.show = !op.show '>
-            <i class="m-l-xs  fa"
-                ng-class="{ 'fa-plus-square-o': !op.show , 'fa-minus-square-o':op.show  }"></i>
-            {{r.name }}
+        <div class=' b-b temp-row border' ng-click='op.show = !op.show ' style="height: 40px;line-height: 2.5;border-radius: 2px;background-color: #F6F8F7;margin-top: 6px;">
+            <!--jjw i-->
+            <!--<i class="m-l-xs  fa" ng-class="{ 'fa-plus-square-o': !op.show , 'fa-minus-square-o':op.show  }"></i>-->
+            <i style="display: inline-block;width: 10px" class="fa m-l-sm" ng-class="{'fa-angle-down': op.show, 'fa-angle-right': !op.show}"></i>
+            <span>{{r.name }}</span>
         </div>
 
 
@@ -47,7 +48,6 @@
     </div>
 </div>
 
- 
 <div class="panel-footer">
     <!--jjw m-t m-b-->
      <div  class="text-center m-t-sm m-b-sm" ng-include src=" 'athena/debris/_pager.html'  "></div>
