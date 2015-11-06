@@ -178,16 +178,13 @@ var app = angular.module('thinglinx', [
                     deps: ['uiLoad', function(uiLoad) {
                         return uiLoad.load([
                             'lib/flot/jquery.flot.min.js',
-                            'lib/flot/jquery.flot.navigate.min.js',
-                            'lib/flot/jquery.flot.time.min.js',
-                            'lib/flot/date.js',
-
-                            // 'lib/jquery/charts/flot/jquery.flot.errorbars.js',
-                            // 'lib/jquery/charts/flot/jquery.flot.resize.js',
-                            'lib/flot/jquery.flot.tooltip.min.js',
-                            'lib/flot/jquery.flot.spline.js',
-                            //    'lib/jquery/charts/flot/jquery.flot.orderBars.js',
-                            // 'lib/jquery/charts/flot/jquery.flot.pie.min.js'
+                            'lib/flot/jquery.flot.spline.js', 
+                            
+                          //  'lib/flot/jquery.flot.navigate.min.js',
+                           'lib/flot/jquery.flot.time.min.js',
+                           // 'lib/flot/date.js',
+ 
+                           'lib/flot/jquery.flot.tooltip.min.js',
                         ]);
                     }]
                 }
