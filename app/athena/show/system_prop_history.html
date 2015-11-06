@@ -42,10 +42,12 @@
                 <label class="text-right control-label col-sm-3 control-label m-b-none">
                     <span>点</span>
                 </label>
+
+
                 <div class="col-sm-9">
                     <select ng-model="op.his_tag" 
                             class="height-30  inline col-xs-12 form-control input-sm"
-                            ng-options=" t.name as t.name  for t in tags  "
+                            ng-options=" t as t.name  for t in tags  "
                             required
                             >
 

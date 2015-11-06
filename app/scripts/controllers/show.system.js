@@ -183,7 +183,7 @@ angular.module('app.show.system', [])
 
 
     $scope.goHis = function(t) {
-        $scope.op.his_tag = t.name;
+        $scope.op.his_tag = t;
         $state.go('app.show.system_prop.history');
     }
 
@@ -369,24 +369,18 @@ angular.module('app.show.system', [])
         }
 
         var d = {},
-            op = $scope.op ; 
-            // d1 = op.start.getTime(),
-            // d2 = op.end.getTime(); 
-            
+            op = $scope.op ;   
             d.start = op.start.getTime(),
             d.end   = op.end.getTime();
 
         if( d.start > d.end ){
             angular.alert( "起始时间不可超前与结束时间");
             return ; 
-        }
+        } 
 
-
-        d.uuid = $scope.system.uuid,
-            // d.start = d1 < d2 ? d1 : d2,
-            // d.end = d1 < d2 ? d2 : d1,
+        d.uuid = $scope.system.uuid, 
             d.num = op.num,
-            d.tag = op.his_tag; 
+            d.tag = op.his_tag.name ; 
 
         //  intervali =  ts ,  readRow  = rcv ;   
         $show.his.get(d, function(resp) {
@@ -394,25 +388,53 @@ angular.module('app.show.system', [])
             var  timekey = ( d.end - d.start )>86400000 ? "ts":"rcv" ;
  
 
-            var data = resp.ret[0],
-                df = [];
+            var data = resp.ret[0] ;
  
-            $.each(data, function(i, v, t) {
-                // v.pv !==null &&    
-                
-                df.push([v[timekey], v.pv]); 
-
-            })
+           
 
             plot = $.plot("#show_live_data", [{
-                data: df,
-                label: op.his_tag 
+                data:  formatFlotData( $scope.op.his_tag , data ,  timekey ),
+                label: op.his_tag.name 
 
             }], plot_config);
 
         });
 
     }
+
+
+//    如果变量数据类型为analog，绘制成趋势曲线
+//    如果变量数据类型为digital，绘制成阶越曲线 (  0 ,1 整型; )
+//     type: "Analog"
+//     type: "Digital" ;
+//      tag  : 点,  dataarr:rest数据;  key : ts|| rcv ; 
+     function formatFlotData ( tag , dataArr  , timekey  ){
+        var df = [] , val ;
+        if( tag.type ==="Digital"){
+            var  d = dataArr.shift();
+            val =  d;
+            df.push([ d[timekey] , val ]); 
+
+            $.each( dataArr , function( i , v ){
+                if( val  == v.pv){
+
+                }else{
+                    df.push( [ v[timekey ] , val  ] );
+                    df.push( [ v[timekey ] , v.pv ] );
+                    val = v.pv ;
+                }
+
+            }); 
+        }else{ 
+            $.each( dataArr , function(i, v, t) {
+                // v.pv !==null &&     
+                df.push([v[timekey], v.pv]);  
+            })
+        }
+
+        return  df ; 
+     }
+
 
 })
 
