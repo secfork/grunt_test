@@ -42,19 +42,29 @@
                 <label class="w-xxs no-padder m-t-xs text-right control-label col-sm-3 control-label m-b-none">
                     变量
                 </label>
+
+
                 <div class="col-sm-9">
-                    <select ng-model="op.his_tag" class="height-30  inline col-xs-12 form-control input-sm"
-                            ng-options=" t.name as t.name  for t in tags  ">
+                    <select ng-model="op.his_tag" 
+                            class="height-30  inline col-xs-12 form-control input-sm"
+                            ng-options=" t as t.name  for t in tags  "
+                            required
+                            >
 
                         <option value="">-请选择tag变量-</option>
                     </select>
                 </div>
             </div>
+ 
+
+
             <div class="form-group  col-md-4 col-sm-6 col-xs-12 float-right m-t-sm m-b-none">
                 <label class="w-xxs col-sm-3"></label>
                 <div class="col-sm-9">
-                    <span class="btn btn-info btn-sm w-xs m-l m-t-xs float-right" ng-disabled="!op.his_tag" ng-click="queryHistory()">查询</span>
+                    <button class="btn btn-info btn-sm w-xs m-l m-t-xs float-right"
+                       ng-click="queryHistory()" token=5000 >查询</button>
                 </div>
+ 
             </div>
         </div>
 

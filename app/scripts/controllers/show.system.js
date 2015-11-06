@@ -60,20 +60,21 @@ angular.module('app.show.system', [])
             d1 = od.start.getTime(),
             d2 = od.end.getTime();
 
-        if( d1 > d1){
+        if (d1 > d2) {
             angular.alert("起始时间不可超前与结束时间");
-            return; 
+            return;
         }
 
-        od.start = d1 < d2 ? d1 : d2;
-        od.end = d1 < d2 ? d2 : d1;
+
+
+
         od.itemsPerPage = $sys.itemsPerPage;
         od.currentPage = pageNo;
 
         var promise;
         // 活跃报警; 
 
-        if ($scope.op.active =="a") {
+        if ($scope.op.active == "a") {
             $show.alarm.get(od, function(resp) {
                 $scope.page.data = resp.data;
                 $scope.page.total = resp.total;
@@ -122,7 +123,7 @@ angular.module('app.show.system', [])
     //@if  append
     console.log("show_system_prop");
     //@endif 
- 
+
     $scope.system = $scope.$$cache[0];
 
 
@@ -144,7 +145,7 @@ angular.module('app.show.system', [])
 
     $scope.op = {
         start: "",
-        num: 50, // 查询点历史 返回条数;  
+        num: 100, // 查询点历史 返回条数;  
         end: new Date(),
         start: new Date(new Date() - 86400000),
         ala: "a", // a: 实时报警; b: 历史报警;
@@ -183,7 +184,7 @@ angular.module('app.show.system', [])
 
 
     $scope.goHis = function(t) {
-        $scope.op.his_tag = t.name;
+        $scope.op.his_tag = t;
         $state.go('app.show.system_prop.history');
     }
 
@@ -196,7 +197,7 @@ angular.module('app.show.system', [])
 })
 
 .controller('show_system_current', function($scope, $show, $interval, $sys, $state, $filter,
-   $timeout) {
+    $timeout) {
 
     $scope.$popNav($scope.system.name + "(实时数据)", $state);
 
@@ -296,13 +297,14 @@ angular.module('app.show.system', [])
 
 
     // 下置数据; 
-    $scope.liveWrite = function(t, v , e) {
+    $scope.liveWrite = function(t, v, e) {
         //console.log(arguments);  // String system_id , String name ,String value
         if (!t) return;
-        var d = {} , $button = $(e.currentTarget);;
+        var d = {},
+            $button = $(e.currentTarget);;
         d[t.name] = v;
 
-        $button.text( "下置中...");
+        $button.text("下置中...");
         $show.liveWrite.save({
             uuid: $scope.system.uuid
         }, d, function(resp) {
@@ -311,22 +313,22 @@ angular.module('app.show.system', [])
             console.log(resp);
             //@endif 
             $button.text("下置成功");
-            
-            $timeout( function(){
+
+            $timeout(function() {
                 $button.text("下置");
-            },2000)
-            
-        } , function(){
+            }, 2000)
+
+        }, function() {
             $button.text("下置失败").toggleClass("btn-danger");
-            $timeout( function(){
+            $timeout(function() {
                 $button.text("下置").toggleClass("btn-danger");
-            },2000) 
+            }, 2000)
         })
     }
 
 })
 
-.controller('show_system_history', function($scope, $show, $sys,$state) {
+.controller('show_system_history', function($scope, $show, $sys, $state) {
 
     // $scope.od = { 
     //  showS: false,
@@ -352,60 +354,95 @@ angular.module('app.show.system', [])
             $scope.op.end = new Date();
             $scope.queryHistory();
         } else {
-            plot = $.plot("#show_live_data", [{  data: [],  label: "未选择点" }], plot_config);
-        } 
+            plot = $.plot("#show_live_data", [{
+                    data: [],
+                    label: "未选择点"
+                }],
+                plot_config
+            );
+        }
     }
 
 
     $scope.queryHistory = function() {
         $scope.validForm();
 
-        if (!$scope.op.his_tag) return;
-
-        var d = {},
-            op = $scope.op ; 
-            // d1 = op.start.getTime(),
-            // d2 = op.end.getTime(); 
-            
-            d.start = op.start.getTime(),
-            d.end   = op.end.getTime();
-
-        if( d.start > d.end ){
-            angular.alert( "起始时间不可超前与结束时间");
-            return ; 
+        if (!$scope.op.his_tag) {
+            angular.alert("请选择要查询的点!");
+            return;
         }
 
+        var d = {},
+            op = $scope.op;
+        d.start = op.start.getTime(),
+            d.end = op.end.getTime();
+
+        if (d.start > d.end) {
+            angular.alert("起始时间不可超前与结束时间");
+            return;
+        }
 
         d.uuid = $scope.system.uuid,
-            // d.start = d1 < d2 ? d1 : d2,
-            // d.end = d1 < d2 ? d2 : d1,
             d.num = op.num,
-            d.tag = op.his_tag; 
+            d.tag = op.his_tag.name;
 
         //  intervali =  ts ,  readRow  = rcv ;   
-        $show.his.get(d, function(resp) {
-            var xx = d ; 
-            var  timekey = ( d.end - d.start )>86400000 ? "ts":"rcv" ;
+        $show.his.get(d, function(resp) { 
 
-            var data = resp.ret[0],
-                df = [];
- 
-            $.each(data, function(i, v, t) {
-                v.pv !==null && df.push([v[timekey], v.pv]);
-            })
+            var timekey = (d.end - d.start) > 86400000 ? "ts" : "rcv"; 
 
             plot = $.plot("#show_live_data", [{
-                data: df,
-                label: op.his_tag
+                data: formatFlotData($scope.op.his_tag, resp.ret[0], timekey),
+                label: op.his_tag.name
+
             }], plot_config);
 
         });
 
     }
 
+
+    //    如果变量数据类型为analog，绘制成趋势曲线
+    //    如果变量数据类型为digital，绘制成阶越曲线 (  0 ,1 整型; )
+    //     type: "Analog"
+    //     type: "Digital" ;
+    //      tag  : 点,  dataarr:rest数据;  key : ts|| rcv ; 
+    function formatFlotData(tag, dataArr, timekey) {
+        var df = [], val;
+
+        if (tag.type === "Digital") {
+            var d = dataArr.shift();
+            if(!d )  return df ; 
+
+            val = d.pv;
+
+            df.push([d[timekey], val]);
+
+            $.each(dataArr, function(i, v) {
+                if (val == v.pv) {
+
+
+                } else {
+                    df.push([v[timekey], val]);
+                    df.push([v[timekey], v.pv]);
+                    val = v.pv;
+                }
+
+            });
+        } else {
+            $.each(dataArr, function(i, v, t) {
+                // v.pv !==null &&     
+                df.push([v[timekey], v.pv]);
+            })
+        }
+
+        return df;
+    }
+
+
 })
 
-.controller('show_system_alarm', function($scope, $show, $interval, $modal, $sys,$state) {
+.controller('show_system_alarm', function($scope, $show, $interval, $modal, $sys, $state) {
 
 
     $scope.$popNav($scope.system.name + "(报警)", $state);
@@ -466,9 +503,11 @@ angular.module('app.show.system', [])
             d1 = op.start.getTime(),
             d2 = op.end.getTime();
 
+        if (d1 > d2) {
+            angular.alert("起始时间不可超前与结束时间!");
+            return;
+        }
 
-        d.start = d1 < d2 ? d1 : d2,
-            d.end = d1 < d2 ? d2 : d1;
         //@if  append
 
         console.log(d);
@@ -477,6 +516,8 @@ angular.module('app.show.system', [])
         d.uuid = $scope.system.uuid,
             d.currentPage = pageNo,
             d.itemsPerPage = $sys.itemsPerPage;
+
+
 
         $show.alarm.save(d, null, function(resp) {
             $scope.page.data = resp.data;
@@ -492,7 +533,7 @@ angular.module('app.show.system', [])
 
 })
 
-.controller('show_system_map', function($scope, $map , $state ) {
+.controller('show_system_map', function($scope, $map, $state) {
 
 
     $scope.$popNav($scope.system.name + "(地图)", $state);

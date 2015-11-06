@@ -51,8 +51,21 @@ angular.module('app.sysconfig', [], function() {})
                     ] ,      
 
         plotChartConfig: {
-            colors: ['#23b7e5'],
-            // series: { shadowSize: 1 },  
+
+            colors: ['#23b7e5'],  // 点外圈颜色; 
+           
+            series: {
+                points: {
+                    radius: 1,
+                    show: true,
+                    fill: true,
+                    fillColor: "red"
+                } , 
+                lines:{
+                    show:true 
+                }
+            }, 
+             
             grid: {
                 hoverable: true,
                 clickable: true,
@@ -61,22 +74,21 @@ angular.module('app.sysconfig', [], function() {})
             },
 
             tooltip: true,
-            zoom: {
-                // interactive: true
-            },
+              
             xaxis: {
                 mode: "time",
-                //  show: true
+                show: true
                 // zoomRange: [0.1, 10],  // 缩放范围; 
             },
+
             legend: {
                 position: "nw",
                 show: true
             },
 
             tooltipOpts: {
-                content: '%x  -- %y',
-                defaultTheme: false,
+                content: '%x -  %y',
+                defaultTheme: false  ,
                 shifts: {
                     x: 0,
                     y: 15
