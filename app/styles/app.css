@@ -4268,6 +4268,12 @@ a.text-black:hover {
 .w-30{
    width: 30px;
 }
+.w-46{
+    width: 46px;
+}
+.w-48{
+    width: 48px;
+}
 .w-60{
     width: 60px;
 }
@@ -4284,7 +4290,7 @@ a.text-black:hover {
   width: 65px;
 }
 
-.w-xxm {
+.w-xxm,.w-70 {
   width: 70px;
 }
 
@@ -4294,6 +4300,10 @@ a.text-black:hover {
 
 .w-xs {
   width: 90px;
+}
+/*jjw w-94*/
+.w-94{
+    width: 94px;
 }
 .w-xsl { 
   width: 130px; 
