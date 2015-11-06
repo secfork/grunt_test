@@ -178,7 +178,7 @@ var app = angular.module('thinglinx', [
                     deps: ['uiLoad', function(uiLoad) {
                         return uiLoad.load([
                             'lib/flot/jquery.flot.min.js',
-                            'lib/flot/jquery.flot.spline.js', 
+                           // 'lib/flot/jquery.flot.spline.js', 
                             
                           //  'lib/flot/jquery.flot.navigate.min.js',
                            'lib/flot/jquery.flot.time.min.js',
