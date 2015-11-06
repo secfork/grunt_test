@@ -50,6 +50,9 @@
     <!--jjw bg m-t text-xs-->
     <div class="row bg-white m-t-sm text-xs b-t" ng-init=" lm = 'list' ">
 
+        <!--jjw p-->
+        <p class="h4 float-left padder" style="height: 60px;line-height: 60px">系统详情</p>
+
         <!--jjw margin-top margin-bottom-->
         <div class="radio     float-right  w-xxm m-t-md m-b-md">
             <label class="i-checks">
@@ -76,17 +79,15 @@
     <table ng-switch-when="list" class=" table table-striped j_table">
         <thead class="flip-content">
         <tr>
-            <th width="5%" translate="th.th6">状态</th>
-            <th width="20%" translate="th.th7">系统名称</th>
-            <th width="10%">ID</th>
+            <th width="5%" translate="th.th6"> 状态 </th>
+            <th width="20%" translate="th.th7"> 系统名称 </th>
+            <th width="10%"> ID </th>
             <!--<th   translate="dastation_grid.deviceno"   >设备号</th>-->
-            <th width="10%" translate="th.th8">区域</th>
+            <th width="10%" translate="th.th8"> 区域 </th>
             <!--    <th   translate="dastation_grid.level"  >级别</th>-->
             <th width="10%" ttranslate="th.th9"> 定位</th>
-            <th width="15%" translate="th.th11" ng-if=" !isShowModul  ">
-                同步配置 </th>
-
-            <th width="20%">备注</th>
+            <th width="15%" translate="th.th11" ng-if=" !isShowModul  "> 同步配置 </th>
+            <th width="20%"> 备注 </th>
             <th width="15%" ng-if=" !isShowModul" style="padding-right: 20px">操作</th>
 
         </tr>
@@ -141,7 +142,7 @@
                 <a ng-click=" goto( _$mapState, das , das  )">
                         <span ng-if="das.latitude" class="fa fa-location-arrow text-success"></span>
                         <!--jjw btn btn-xs btn-info-->
-                        <span ng-if=" !das.latitude && !isShowModul  " class="btn btn-xs btn-info bg-info m-l-sm  ng-scope">
+                        <span ng-if=" !das.latitude && !isShowModul  " class="btn btn-xs btn-s btn-info bg-info m-l-sm  ng-scope">
                             去定位
                         </span>
                 </a>
@@ -151,7 +152,7 @@
             <td ng-if=" !isShowModul   ">
                 <!--{{ das.needsync }}-->
                 <!-- <span >已同步 </span>-->
-                <button class="btn btn-xs btn-primary " ng-click="syncSystem( das )" ng-if=" das.needsync ">
+                <button class="btn btn-xs btn-s btn-info" ng-click="syncSystem( das )" ng-if=" das.needsync ">
                     同步
                 </button>
                 <span ng-show=" !sync_start && sync_err_msg " class=" m-t-xs text-danger"> 
@@ -194,7 +195,7 @@
 <!--jjw b-t-none ng-if-->
 <div class="panel-footer b-t-none" ng-if="lm=='list'">
     <!--jjw m-t m-d m-l-sm-->
-    <button ng-if=" !isShowModul " class="btn btn-info  dker btn-sm   m-l-sm  pos-abt m-t m-b" ng-click=" goto('app.station.add' , null , project ) ">
+    <button ng-if=" !isShowModul " class="btn btn-primary  dker btn-sm   m-l-sm  pos-abt m-t m-b" ng-click=" goto('app.station.add' , null , project ) ">
         添加系统
     </button>
     <!--jjw m-t m-d-->

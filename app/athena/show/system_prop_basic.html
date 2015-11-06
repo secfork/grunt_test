@@ -4,47 +4,47 @@
     <div class="col-md-5  m-b padder-md">
         <div class=" b-b line-dashed  jbox hbox ">
             <div class="col w-sm  "> 系统Id </div>
-            <div class="col text-right r"> {{system.uuid }} </div>
+            <div class="col text-right r color-5"> {{system.uuid }} </div>
         </div>
         <div class=" b-b line-dashed  jbox hbox ">
             <div class="col w-sm  "> 系统名称 </div>
-            <div class="col text-right"> {{system.name }} </div>
+            <div class="col text-right color-5"> {{system.name }} </div>
         </div>
         <div class=" b-b line-dashed  jbox hbox ">
             <div class="col w-sm  "> 活跃状态 </div>
-            <div class="col text-right"> {{ system.state == 1 ? "激活":"未激活" }} </div>
+            <div class="col text-right color-5"> {{ system.state == 1 ? "激活":"未激活" }} </div>
         </div>
         <div class=" b-b line-dashed  jbox hbox ">
             <div class="col w-sm  "> 在线状态 </div>
-            <div class="col text-right"> {{ }} </div>
+            <div class="col text-right color-5"> {{ }} </div>
         </div>
         <div class=" b-b line-dashed  jbox hbox ">
             <div class="col w-sm  "> 时区 </div>
-            <div class="col text-right"> {{ }} </div>
+            <div class="col text-right color-5"> {{ }} </div>
         </div>
         <div class=" b-b line-dashed  jbox hbox ">
             <div class="col w-sm  "> 系统类型 </div>
-            <div class="col text-right"> {{$sys.sysModelMode.values[systemModel.mode] }} </div>
+            <div class="col text-right color-5"> {{$sys.sysModelMode.values[systemModel.mode] }} </div>
         </div>
         <div class=" b-b line-dashed  jbox hbox ">
             <div class="col w-sm  "> 通讯类型 </div>
-            <div class="col text-right"> {{ systemModel.comm_type == 1 ? 'DaServer':'GateWay' }} </div>
+            <div class="col text-right color-5"> {{ systemModel.comm_type == 1 ? 'DaServer':'GateWay' }} </div>
         </div>
         <div class=" b-b line-dashed  jbox hbox ">
             <div class="col w-sm  "> 数据最后更新时间 </div>
-            <div class="col text-right"> {{ system.last_modify_time | date:"yyyy-MM-dd HH:mm Z"}} </div>
+            <div class="col text-right color-5"> {{ system.last_modify_time | date:"yyyy-MM-dd HH:mm Z"}} </div>
         </div>
         <div class=" b-b line-dashed  jbox hbox ">
             <div class="col w-sm  "> 位置 </div>
-            <div class="col text-right"> {{ system.longitude +' , '+ system.latitude}} </div>
+            <div class="col text-right color-5"> {{ system.longitude +' , '+ system.latitude}} </div>
         </div>
         <div class=" b-b line-dashed  jbox hbox ">
             <div class="col w-sm  "> 最后活跃报警 </div>
-            <div class="col text-right"> {{  }} </div>
+            <div class="col text-right color-5"> {{  }} </div>
         </div>
         <div class="jbox hbox">
             <div class="col w-sm  "> 系统描述 </div>
-            <div class="col text-right"> {{system.desc }} </div>
+            <div class="col text-right color-5"> {{system.desc }} </div>
         </div>
     </div>
     <!--jjw float-right padding-0 -->
@@ -62,4 +62,4 @@
 <!--system = {{ system }}-->
 <!--<hr/> systemModel = {{systemModel}}-->
 <!--<hr/>-->
-<!--&lt;!&ndash;@endif &ndash;&gt;-->
+<!--@endif -->

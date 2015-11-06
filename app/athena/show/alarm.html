@@ -20,10 +20,10 @@
 
                 <div class="col-md-4 col-xs-6 m-t-sm tl-wrap-r wrap-label-span-30">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">
+                        <label class="col-sm-4 no-padder control-label">
                             <span>区域</span>
                         </label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-8">
                             <select  required class="input input-sm form-control" ng-model="op.region" ng-options="p.id as p.name  for p in  regions" ng-change=" loadSys()"  >
                                 <option value="">请选择区域</option>
                             </select>
@@ -33,10 +33,10 @@
 
                 <div class="col-md-4 col-xs-6 m-t-sm tl-wrap-r wrap-label-span-30">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">
+                        <label class="col-sm-4 no-padder control-label">
                             <span>系统</span>
                         </label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-8">
                             <select required class="input input-sm form-control" ng-model=" od.uuid" ng-options="s.uuid as s.name  for s in systems"  >
                                 <option value="">请选择系统</option>
                             </select>
@@ -46,10 +46,10 @@
 
                 <div class="col-md-4 col-xs-6 m-t-sm tl-wrap-r wrap-label-span-30">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">
+                        <label class="col-sm-4 no-padder control-label">
                             <span>起始时间</span>
                         </label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-8">
                             <input type="text" class=" input input-sm form-control col-xs-12"
                                    datetime-picker date-format='yyyy-MM-dd HH:mm'
                                    nofocus data-readonly-input='false' ng-model="od.start"
@@ -65,10 +65,10 @@
 
                 <div class="col-md-4 col-xs-6 m-t-sm tl-wrap-r wrap-label-span-30">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">
+                        <label class="col-sm-4 no-padder control-label">
                             <span>结束时间</span>
                         </label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-8">
                             <input type="text" class=" input input-sm float-left col-xs-12" datetime-picker date-format='yyyy-MM-dd HH:mm' nofocus ng-model="od.end" is-open='op.showE' />
                         <span class=" float-left">
                             <button type="button" style="position: absolute;top: 0;right: 10px" class="btn btn-default btn-sm"
@@ -82,10 +82,10 @@
 
                 <div class="col-md-4 col-xs-6 m-t-sm tl-wrap-r wrap-label-span-30">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">
+                        <label class="col-sm-4 no-padder control-label">
                             <span>严重性</span>
                         </label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-8">
                             <select class="input input-sm form-control" ng-model="od.severity" ng-options=" k as v for (k,v) in $sys.trigger.severity">
                                 <option value="">全部</option>
                             </select>
@@ -95,10 +95,10 @@
 
                 <div class="col-md-4 col-xs-6 m-t-sm tl-wrap-r wrap-label-span-30">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">
+                        <label class="col-sm-4 no-padder control-label">
                             <span>类别</span>
                         </label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-8">
                             <select class="input input-sm form-control" ng-model="od.class_id" ng-options=" v for v in [1,2,3,4,5,6,7,8,9,0]">
                                 <option value="">全部 </option>
                             </select>
@@ -174,6 +174,8 @@
 
         <!--jjw 添加div-->
         <div class="row bg-white m-t-sm text-xs b-t" >
+            <!--jjw p-->
+            <p class="h4 float-left padder" style="height: 60px;line-height: 60px">报警详情</p>
 
             <!--jjw margin-top margin-bottom-->
             <div class="radio     float-right  w-xxm m-t-md m-b-md m-l m-r">

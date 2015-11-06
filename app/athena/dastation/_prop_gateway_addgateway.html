@@ -6,10 +6,10 @@
 <div ng-init="   _type =  ['ETHERNET' ,'GPRS' , 'WIFI' ]  "></div>
 <div class="modal-body  ">
     <form name="form_gateway" class=" form-validation form-horizontal ">
-        <!--@if append -->
-        op = {{op }} <br/>
-        isAdd ={{isAdd }}
-        <!--@endif  -->
+        <!--&lt;!&ndash;@if append &ndash;&gt;-->
+        <!--op = {{op }} <br/>-->
+        <!--isAdd ={{isAdd }}-->
+        <!--&lt;!&ndash;@endif  &ndash;&gt;-->
         <select tl-wrap ng-if="isAdd" ng-model="op.T" ng-options=" t for t in  _type   " label="类型" ng-change="  op.t = undefined ; op.way = {} " required>
         </select>
 

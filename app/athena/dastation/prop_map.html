@@ -18,22 +18,24 @@
                 </div>
             </div>
             <!--jjw div-->
-            <div class="col-md-5 col-sm-6 col-xs-12 m-t">
-                <div class="inline col-xs-6 text-left">
-                    <label>纬度</label>
-                    <input ng-model=" station.latitude " class="form-control inline  input-sm w-map  border">
-                </div>
-                <div class="inline col-xs-6 text-right">
-                    <label>经度</label>
-                    <input ng-model=" station.longitude" class="form-control inline input-sm w-map  border">
+            <div class="col-md-4 col-sm-6 col-xs-12 m-t">
+                <div style="width: 270px">
+                    <div class="inline  text-left">
+                        <label>纬度</label>
+                        <input ng-model=" station.latitude " class="form-control inline  input-sm w-map  border">
+                    </div>
+                    <div class="inline  text-left">
+                        <label>经度</label>
+                        <input ng-model=" station.longitude" class="form-control inline input-sm w-map  border">
+                    </div>
                 </div>
             </div>
             <!--jjw div-->
-            <div class="col-md-3 col-sm-6 col-xs-12 m-t m-b float-right">
-                <button class="btn btn-success btn-sm m-r-sm " ng-click=" locatedStation()" token>
+            <div class="col-md-4 col-sm-6 col-xs-12 float-right">
+                <button class="btn btn-info btn-sm m-l-sm m-t m-b" ng-click=" locatedStation()" token>
                     定位 {{ station.name }}
                 </button>
-                <button class="btn btn-success btn-sm    " ng-click=" removePostion()" token> 
+                <button class="btn btn-info btn-sm m-l-sm m-t m-b" ng-click=" removePostion()" token>
                     删除定位 
                 </button>
             </div>

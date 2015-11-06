@@ -222,7 +222,7 @@ var app = angular.module('thinglinx', [
                 .state("app.show.proj_prop.attr", {
                     url: "/attr",
                     controller: "proj_prop_attr",
-                    templateUrl: "athena/region/project_add_temp.html"
+                    templateUrl: "athena/region/project_info.html"
                 })
 
 

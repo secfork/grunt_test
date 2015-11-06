@@ -5,57 +5,57 @@
         <!--jjw text-align-->
         <div class="b-b line-dashed  jbox  hbox ">
             <div class="col w-sm  "> 系统Id </div>
-            <div class="col  r " style="text-align: right"> {{station.uuid }} </div>
+            <div class="col text-right  color-5"> {{station.uuid }} </div>
         </div>
         <div class="b-b line-dashed  jbox  hbox ">
             <div class="col w-sm  "> 系统名称 </div>
-            <div class="col" style="text-align: right"> {{station.name }} </div>
+            <div class="col text-right  color-5"> {{station.name }} </div>
         </div>
         <div class="b-b line-dashed  jbox  hbox ">
             <div class="col w-sm  "> 活跃状态 </div>
-            <div class="col" style="text-align: right"> {{ station.state == 1 ? "激活":"未激活" }} </div>
+            <div class="col text-right  color-5"> {{ station.state == 1 ? "激活":"未激活" }} </div>
         </div>
         <div class="b-b line-dashed  jbox  hbox ">
             <div class="col w-sm  "> 在线状态 </div>
-            <div class="col" style="text-align: right"> {{s }} </div>
+            <div class="col text-right  color-5"> {{s }} </div>
         </div>
         <div class="b-b line-dashed  jbox  hbox ">
             <div class="col w-sm  "> 时区 </div>
-            <div class="col" style="text-align: right"> </div>
+            <div class="col text-right  color-5"> </div>
         </div>
         <div class="b-b line-dashed  jbox  hbox ">
             <div class="col w-sm  "> 创建时间 </div>
-            <div class="col" style="text-align: right"> {{ station.create_time | date:"yyyy-MM-dd HH:mm Z" }} </div>
+            <div class="col text-right  color-5"> {{ station.create_time | date:"yyyy-MM-dd HH:mm Z" }} </div>
         </div>
         <div class="b-b line-dashed  jbox  hbox ">
             <div class="col w-sm  "> 配置同步状态 </div>
-            <div class="col" style="text-align: right"> {{station.needsync }} </div>
+            <div class="col text-right  color-5"> {{station.needsync }} </div>
         </div>
         <div class="b-b line-dashed  jbox  hbox ">
             <div class="col w-sm  "> 上次同步时间 </div>
-            <div class="col" style="text-align: right"> {{ station.last_modify_time | date:"yyyy-MM-dd HH:mm Z" }} </div>
+            <div class="col text-right  color-5"> {{ station.last_modify_time | date:"yyyy-MM-dd HH:mm Z" }} </div>
         </div>
         <div class="b-b line-dashed  jbox  hbox ">
 
             <div class="col w-sm  "> 使用的模型 </div>
-            <div class="col" style="text-align: right"> {{ sysmodel.name }} </div>
+            <div class="col text-right  color-5"> {{ sysmodel.name }} </div>
         </div>
         <div class="b-b line-dashed  jbox  hbox ">
 
             <div class="col w-sm  "> 系统类型 </div>
-            <div class="col" style="text-align: right"> {{$sys.sysModelMode.values[sysmodel.mode] }} </div>
+            <div class="col text-right  color-5"> {{$sys.sysModelMode.values[sysmodel.mode] }} </div>
         </div>
         <div class="b-b line-dashed  jbox  hbox ">
             <div class="col w-sm  "> 通讯类型 </div>
-            <div class="col" style="text-align: right"> {{ sysmodel.comm_type == 1 ? 'DaServer':'GateWay' }} </div>
+            <div class="col text-right  color-5"> {{ sysmodel.comm_type == 1 ? 'DaServer':'GateWay' }} </div>
         </div>
         <div class="b-b line-dashed  jbox  hbox ">
             <div class="col w-sm  "> 系统描述 </div>
-            <div class="col" style="text-align: right"> {{station.desc }} </div>
+            <div class="col text-right  color-5"> {{station.desc }} </div>
         </div>
         <div class=" jbox  hbox ">
             <div class="col w-sm  "> 位置 </div>
-            <div class="col" style="text-align: right"> {{  (station.longitude ||'')  +' '+ (station.latitude || '') }} </div>
+            <div class="col text-right  color-5"> {{  (station.longitude ||'')  +' '+ (station.latitude || '') }} </div>
         </div>
         <!-- 
 
@@ -114,7 +114,7 @@
 
             </div>
             <!--jjw bottom移动-->
-            <button class="btn btn-primary btn-sm  btn-l m-l-md"  ng-click="uploadFile()" ng-disabled=" ! op.rightfile "> 上传 </button>
+            <button class="btn btn-info btn-sm  btn-l m-l-md"  ng-click="uploadFile()" ng-disabled=" ! op.rightfile "> 上传 </button>
         </form>
     </div>
 </div>
