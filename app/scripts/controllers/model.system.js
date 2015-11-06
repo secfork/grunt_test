@@ -142,11 +142,12 @@ angular.module("app.model.system", [])
                 state: "app.model.sysmodel_p.trigger"
             },
 
-            {
-                title: "tab.t14",
-                icon: "icon icon-flag",
-                state: "app.model.sysmodel_p.message"
-            }
+            // {
+            //     title: "tab.t14",
+            //     icon: "icon icon-flag",
+            //     state: "app.model.sysmodel_p.message"
+            // }
+            
         ]);
         if ($scope.sysmodel.mode == 1 && $scope.sysmodel.comm_type == 2) {
             $scope.tabs.push({
