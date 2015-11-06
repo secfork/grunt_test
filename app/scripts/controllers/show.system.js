@@ -144,7 +144,7 @@ angular.module('app.show.system', [])
 
     $scope.op = {
         start: "",
-        num: 50, // 查询点历史 返回条数;  
+        num: 500, // 查询点历史 返回条数;  
         end: new Date(),
         start: new Date(new Date() - 86400000),
         ala: "b", // a: 实时报警; b: 历史报警;
@@ -352,7 +352,10 @@ angular.module('app.show.system', [])
             $scope.op.end = new Date();
             $scope.queryHistory();
         } else {
-            plot = $.plot("#show_live_data", [{  data: [],  label: "未选择点" }], plot_config);
+            plot = $.plot("#show_live_data",
+                 [{  data: [],  label: "未选择点"  }], 
+                  plot_config
+                );
         } 
     }
 
@@ -360,7 +363,10 @@ angular.module('app.show.system', [])
     $scope.queryHistory = function() {
         $scope.validForm();
 
-        if (!$scope.op.his_tag) return;
+        if (!$scope.op.his_tag) {
+            angular.alert( "请选择要查询的点!");
+            return;
+        }
 
         var d = {},
             op = $scope.op ; 
@@ -386,18 +392,22 @@ angular.module('app.show.system', [])
         $show.his.get(d, function(resp) {
             var xx = d ; 
             var  timekey = ( d.end - d.start )>86400000 ? "ts":"rcv" ;
+ 
 
             var data = resp.ret[0],
                 df = [];
  
             $.each(data, function(i, v, t) {
-                 v.pv !==null && df.push([v[timekey], v.pv]);
-                //  v.pv !==null && df.push([ new Date(v[timekey]), v.pv]); 
+                // v.pv !==null &&    
+                
+                df.push([v[timekey], v.pv]); 
+
             })
 
             plot = $.plot("#show_live_data", [{
                 data: df,
-                label: op.his_tag
+                label: op.his_tag 
+
             }], plot_config);
 
         });

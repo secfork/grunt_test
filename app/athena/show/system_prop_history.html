@@ -43,15 +43,19 @@
                     <span>点</span>
                 </label>
                 <div class="col-sm-9">
-                    <select ng-model="op.his_tag" class="height-30  inline col-xs-12 form-control input-sm"
-                            ng-options=" t.name as t.name  for t in tags  ">
+                    <select ng-model="op.his_tag" 
+                            class="height-30  inline col-xs-12 form-control input-sm"
+                            ng-options=" t.name as t.name  for t in tags  "
+                            required
+                            >
 
                         <option value="">-请选择tag点-</option>
                     </select>
                 </div>
             </div>
             <div class="form-group  col-md-4 col-sm-6 col-xs-12 float-right padder-md m-t-sm m-b-none">
-                <span class="btn btn-info btn-sm w-xs m-l m-t-xs float-right" ng-disabled="!op.his_tag" ng-click="queryHistory()">查询</span>
+                <button class="btn btn-info btn-sm w-xs m-l m-t-xs float-right"
+                        ng-click="queryHistory()" token >查询</button>
             </div>
         </div>
 
