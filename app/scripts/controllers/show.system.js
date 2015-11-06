@@ -40,7 +40,7 @@ angular.module('app.show.system', [])
     }
 
     $scope.op = {
-        active: "b",
+        active: "a",
         region: undefined
     };
     $scope.od = {
@@ -148,7 +148,7 @@ angular.module('app.show.system', [])
         num: 100, // 查询点历史 返回条数;  
         end: new Date(),
         start: new Date(new Date() - 86400000),
-        ala: "b", // a: 实时报警; b: 历史报警;
+        ala: "a", // a: 实时报警; b: 历史报警;
         pointSize: 60, // 曲线上的点数;
         c_int: 10000, // 实时数据 interval 时间;
         a_int: 10000, // 实时报警; interva 时间;
