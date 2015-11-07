@@ -14,7 +14,9 @@
                 <!--jjw j-radio-->
                 <div class="radio float-right j-radio">
                     <label class="i-checks">
+
                         <input type="radio"   ng-model="op.ala" value="a" checked="true">
+
                         <i></i> 活跃报警
                     </label>
                 </div>
@@ -24,8 +26,8 @@
             <div ng-if=" op.ala == 'b' " class="inline col-md-8 col-sm-8 col-xs-12" >
                 <div class="form-group col-md-5 col-sm-6 m-t-sm" >
 
-                    <label class=" w-xxs text-right control-label m-t-xs col-sm-3 no-padder">起始时间:</label>
-                    <div class="col-sm-9 no-padder">
+                    <label class=" w-xxs text-right control-label m-t-xs col-sm-3 no-padder"> 起始时间 </label>
+                    <div class="col-sm-9">
                         <input type="text" class=" input input-sm col-xs-12" datetime-picker date-format='yyyy-MM-dd HH:mm' nofocus data-readonly-input='false' ng-model="op.start" is-open='od.showS' />
                         <span class=" float-left" style="position: absolute;top: 0px;right:0px">
                               <button type="button" class="btn btn-default btn-sm"
@@ -37,8 +39,8 @@
                 </div>
 
                 <div class="form-group col-md-5 col-sm-6 m-t-sm">
-                    <label class=" w-xxs text-right control-label m-t-xs col-sm-3 no-padder">结束时间:</label>
-                    <div class="col-sm-9 no-padder">
+                    <label class=" w-xxs text-right control-label m-t-xs col-sm-3 no-padder"> 结束时间 </label>
+                    <div class="col-sm-9">
                         <input type="text" class=" input input-sm col-xs-12"
                                datetime-picker date-format='yyyy-MM-dd HH:mm' nofocus ng-model="op.end" is-open='od.showE' />
 
@@ -57,17 +59,16 @@
                 </div>
                 <div class="form-group col-md-2 col-sm-6 float-right">
                     <!--jjw m-t-sm-->
-                    <span ng-if=" op.ala !='a' " class="btn btn-info btn-sm w-xs m-l m-t-sm float-right"
-                          ng-click="loadPageData(1)" token >
-                         查询
+                    <span ng-if=" op.ala !='a' " class="btn btn-info btn-sm w-xs m-l m-t-sm float-right" ng-click="loadPageData(1)" token >
+                        查询
                     </span>
                 </div>
             </div>
 
             <!--jjw m-l-lg去掉-->
             <div ng-if=" op.ala=='a' "  class="inline  p-t">
-                <!--jjw m-l-->
-            <span  class="btn btn-info btn-sm m-l-sm w-xs m-t-xs"
+                <!--jjw m-l m-t-sm-->
+            <span  class="btn btn-info btn-sm m-l-sm w-xs m-t-sm"
                    ng-click="loadPageData(1)" token >
                 刷新
             </span>
@@ -90,7 +91,7 @@
                 <th> 重要性 </th>
                 <th> 类别 </th>
                 <th> 活跃状态 </th>
-                <th class="w-xs"> 操作 </th>
+                <th class="w-xs" style="padding-right: 20px"> 操作 </th>
             </tr>
         </thead>
         <tbody class="text-center ">
@@ -110,11 +111,14 @@
                     1 : occured
                 -->
                 <td translate="alarm_active.{{ a.active}}"  >    </td>
-                <td>
-                  <a class="text-info" ng-click="showAlarmMsg(a , system.uuid)">详细信息</a>
-                  <a    ng-show=" a.active == 1 " class="text-info m-l" 
-                        ng-click="conformAlarm( page, a , $index , system.uuid , op.ala )"
-                  >确认报警</a>
+
+                <td style="padding-right: 20px">
+                  <a class="text-info" ng-if=" a.active!=1 " 
+                    ng-click="showAlarmMsg(a , system.uuid)">详细信息</a>
+                  <a    ng-if=" a.active == 1 "
+                        class="text-info"
+                        ng-click="conformAlarm( page, a , $index , system.uuid , op.ala )">确认报警</a>
+
                 </td>
             </tr>
         </tbody>

@@ -3,10 +3,11 @@
 </div>
 <div class="modal-body">
     <form name="form" class=" form-validation form-horizontal  padding-10 ">
-        <!--@if append -->
-        form.$valid = {{form.$valid}}
-        <br> das = {{das}}
-        <!--@endif -->
+        <!--jjw-->
+        <!--&lt;!&ndash;@if append &ndash;&gt;-->
+        <!--form.$valid = {{form.$valid}}-->
+        <!--<br> das = {{das}}-->
+        <!--&lt;!&ndash;@endif &ndash;&gt;-->
         <input tl-wrap label="采集站名称" required ng-model="das.name " ng-change=" ch( 'name' , das.name )">
  
         <select tl-wrap label="区域" ng-model="op._proj" 
