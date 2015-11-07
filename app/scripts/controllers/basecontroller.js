@@ -936,6 +936,8 @@ angular.module('app.basecontroller', ['ng'])
 
         })
     }
+
+    
 })
 
 .controller("access_fogpas", function($scope, $state, $sessionStorage, $source, $interval, $location) {

@@ -1,4 +1,3 @@
-
 angular.module('app.account', [])
 
 .controller("account_info", function($scope, $state, $source) {
@@ -41,11 +40,13 @@ angular.module('app.account', [])
         groups: []
     };
 
-    var  loadAllGroupsPromise = $source.$userGroup.query( {currentPage:1}).$promise ;
+    var loadAllGroupsPromise = $source.$userGroup.query({
+        currentPage: 1
+    }).$promise;
 
-    loadAllGroupsPromise.then( function( resp ){
-        $scope.groups = resp.data ;
-    }); 
+    loadAllGroupsPromise.then(function(resp) {
+        $scope.groups = resp.data;
+    });
 
     // 添加用户时 所属的 组;
 
@@ -79,14 +80,18 @@ angular.module('app.account', [])
     $scope.editUser = function(arr, user, index) {
         $modal.open({
             templateUrl: "athena/account/users_edit.html",
-            resolve:{   g:  function(){
-                                return $source.$user.get({pk:"groups" , user_id: user.id}).$promise ;
-                            }, 
-                        d:  function(){ 
-                                return loadAllGroupsPromise ;
-                        }
-                    } ,
-            controller: function($scope, $modalInstance , g ) {
+            resolve: {
+                g: function() {
+                    return $source.$user.get({
+                        pk: "groups",
+                        user_id: user.id
+                    }).$promise;
+                },
+                d: function() {
+                    return loadAllGroupsPromise;
+                }
+            },
+            controller: function($scope, $modalInstance, g) {
                 $scope.__proto__ = S;
                 $scope.isEdit = true;
                 $scope.$modalInstance = $modalInstance;
@@ -100,11 +105,15 @@ angular.module('app.account', [])
                 // 选择框重新进行渲染。  
                 //  $("#form-field-select").trigger("chosen:updated");   
                 //  在 ui-jq 库中修改, 调用chonse插件是 初始化选项; 
-                var  oldgroups =  ( g.ret || (g.ret = []) ).map( function(v){ return v.id +"" });
-                $scope.od = { groups: oldgroups };
-                
+                var oldgroups = (g.ret || (g.ret = [])).map(function(v) {
+                    return v.id + ""
+                });
+                $scope.od = {
+                    groups: oldgroups
+                };
+
                 $scope.user = angular.copy(user);
- 
+
                 delete $scope.user.password;
 
                 $scope.done = function() {
@@ -115,71 +124,70 @@ angular.module('app.account', [])
                         // 新就 groups 比较 来判断是否要 增 删 ; 
                         // old = []  ; 
                         // new = [] ; 
-                        var  toDel =[], 
-                             di;
+                        var toDel = [],
+                            di;
 
                         // 新组中有 老组的元素,移除; 
                         // 新组中 无 老组的元素 ; 加入 toDel ; 
                         // 新组新组中有剩余  ; 加入  toAdd ;     
-                        oldgroups.forEach( function( v , i ){
+                        oldgroups.forEach(function(v, i) {
                             di = $scope.od.groups.indexOf(v);
-                            if(di < 0){
+                            if (di < 0) {
                                 toDel.push(v);
-                            }else{
-                                $scope.od.groups.splice( di , 1); 
-                            } 
+                            } else {
+                                $scope.od.groups.splice(di, 1);
+                            }
                         });
 
 
-                        var  toAdd = $scope.od.groups;
-                        var  toAdd = $scope.od.groups; 
-                         //@if  append
-                            console.log(" 需删除---的组=", toDel);
-                            console.log(" 需添加+++的组=", $scope.od.groups);
-                         //@endif 
+                        var toAdd = $scope.od.groups;
+                        var toAdd = $scope.od.groups;
+                        //@if  append
+                        console.log(" 需删除---的组=", toDel);
+                        console.log(" 需添加+++的组=", $scope.od.groups);
+                        //@endif 
 
 
                         // toDel  ,  toADd = $scope.od.groups ;
                         // 删除项;
-                        toDel.forEach( function(v){
-                            $source.$userGroup.delete( {pk:v, userid: user.id});
+                        toDel.forEach(function(v) {
+                            $source.$userGroup.delete({
+                                pk: v,
+                                userid: user.id
+                            });
                         });
 
                         // 增加项 ;
-                        $scope.od.groups.forEach( function(v){
-                            $source.$userGroup.put( {pk:v ,  userid: user.id }, null);
+                        $scope.od.groups.forEach(function(v) {
+                            $source.$userGroup.put({
+                                pk: v,
+                                userid: user.id
+                            }, null);
                         });
- 
+
 
 
                         $scope.cancel();
-                    }, $scope.cancel) 
+                    }, $scope.cancel)
                 }
             }
         })
     };
- 
-    $scope.createUser = function() { 
-        $scope.validForm(); 
-        $source.$user.save( {groupids: $scope.od.groups } ,$scope.user,
-            function(resp) {  
+
+    $scope.createUser = function() {
+        $scope.validForm();
+        $source.$user.save({
+                groupids: $scope.od.groups
+            }, $scope.user,
+            function(resp) {
                 angular.alert("创建用户成功");
-            } 
+            }
         );
     };
 
-    $scope.sendNote = function( ){
 
-        $source.$note.get( {   op: "account",
-                                mobile_phone: $scope.user.mobile_phone } , function( resp ){
-                                        angular.alert("短信发送成功")
-                                })
-    }
 
-    $scope.sendEmail = function(){
-        
-        
-    }
+  
 
     $scope.delUser = function(arr, u, i) {
         $scope.confirmInvoke({
@@ -196,6 +204,72 @@ angular.module('app.account', [])
             );
         });
     };
+
+    // 验证联系方式; 
+    $scope.verifyUser = function(u, i) {
+        $modal.open({
+            templateUrl: "./athena/account/users_verify.html",
+            controller: function($scope, $modalInstance , $interval ) {
+                $scope.$modalInstance = $modalInstance;
+
+                $scope.__proto__ = S;
+                $scope.u = angular.copy(u);
+
+                var smsInterval, emailInterval;
+
+                var  text = "重新发送(%)";
+
+                function setInter ( btnDom ) {
+                    btnDom.disabled = true;
+                    var  times =120 ; 
+                    smsInterval = $interval( function(){ 
+                        $(btnDom).text( text.replace( "%",times));
+                        times--;
+                        if( times<0){
+                            btnDom.disabled=false ;
+                            $(btnDom).text("发送验证码");
+                            $interval.cancel( smsInterval );
+                        } 
+                    },1000)  
+                }
+
+                $scope.sendEmail = function( e ) {
+                    setInter(e.currentTarget);
+
+                    $source.$email.sen
+
+                }
+
+                $scope.sendNote = function( e ) {
+                    setInter(e.currentTarget);
+
+                    return ;
+                    $source.$note.get({
+                            op: "user",
+                            mobile_phone: $scope.u.mobile_phone
+                        },
+                        function() { 
+                            $interval(function() {
+
+
+                            }, 1000) 
+                        },
+                        function() {
+
+                        });
+
+                }
+
+                $scope.done = function() {
+
+                }
+
+
+
+            }
+        })
+    }
+
 
 })
 
@@ -240,8 +314,8 @@ angular.module('app.account', [])
     // 创建用户组;
     $scope.commit = function() {
         $source.$userGroup.save($scope.ug, function(resp) {
- 
-            angular.alert("创建成功!") 
+
+            angular.alert("创建成功!")
         })
     }
 
@@ -636,13 +710,13 @@ angular.module('app.account', [])
         //@if  append 
         console.log(e);
         //@endif 
-    } 
+    }
 
     $scope.saveAuthor = function(scope, group, e) {
 
         var promise = $(e.target).parent("form").serializeArray().map(function(v) {
             return v.name;
-        }) 
+        })
 
         $source.$permission.put({
             source: "account",

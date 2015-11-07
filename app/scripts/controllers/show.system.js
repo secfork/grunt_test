@@ -391,13 +391,23 @@ angular.module('app.show.system', [])
 
             var timekey = (d.end - d.start) > 86400000 ? "ts" : "rcv"; 
 
+            var arr =  formatFlotData ($scope.op.his_tag , resp.ret[0] , timekey );
+
+            // 解决 无数据时 , 前段时间轴不显示; 
+            
+            arr.unshift([ d.start , null]);
+            arr.push([ d.end , null]);
+
             plot = $.plot("#show_live_data", [{
-                data: formatFlotData($scope.op.his_tag, resp.ret[0], timekey),
+                data:  arr,
                 label: op.his_tag.name
 
             }], plot_config);
 
         });
+
+
+
 
     }
 
@@ -410,11 +420,13 @@ angular.module('app.show.system', [])
     function formatFlotData(tag, dataArr, timekey) {
         var df = [], val;
 
+
+
         if (tag.type === "Digital") {
             var d = dataArr.shift();
             if(!d )  return df ; 
 
-            val = d.pv;
+            val = d.pv;   
 
             df.push([d[timekey], val]);
 
@@ -436,6 +448,7 @@ angular.module('app.show.system', [])
             })
         }
 
+        console.log(df);
         return df;
     }
 

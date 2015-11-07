@@ -1,0 +1,58 @@
+<div class="modal-header "> 
+    <h4>验证联系方式</h4>
+</div>
+<div class="modal-body" style="padding:10px 12% 0;">
+    <form name="form" class="form-horizontal form-validation no-border   ">
+        <div class="form-group">
+            <label class="col-sm-2  control-label text-base">
+                手机号码
+            </label>
+            <div class="  col-sm-7">
+                <div class="input-group">
+                    <input  type="text" class="form-control  " 
+                    		name="phone" 
+                    	    ng-model="u.mobile_phone"
+                    	    ng-pattern="/^1\d{10}$/"
+                    	    >
+                    <span class="input-group-btn">
+
+                <button class="btn  w-xsm btn-default" type="button" 
+
+                		ng-click="sendNote( $event )" 
+                   		ng-disabled=" !form.phone.$valid "
+                    >发送验证码</button>
+              </span>
+ 
+                </div>
+            </div>
+            <div class="col-sm-3 ">
+                <input  class="form-control" 
+                 		ng-model="ver.phone" 
+                 		placeholder="验证码"  >
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2  control-label text-base">
+                电子信箱
+            </label>
+            <div class="  col-sm-7">
+                <div class="input-group">
+                    <input type="email" class="form-control  " 
+                    	name="email" ng-model="u.email"  >
+
+                    <span class="input-group-btn">
+                <button class="btn  w-xsm btn-default" type="button"  ng-click="sendEmail( $event )" 
+                    ng-disabled="!form.email.$valid   "
+                    >发送验证码</button>
+              </span>
+                </div>
+            </div>
+            <div class="col-sm-3 ">
+                <input class="form-control" 
+                ng-model="ver.email"
+                 placeholder="验证码"  >
+            </div>
+        </div>
+    </form>
+</div>
+<ng-include src=" 'athena/debris/_modal_footer.html' "></ng-include>

@@ -1034,7 +1034,8 @@ body {
   padding-bottom: 35px;
   float: left;
   width: 100%;
-  /*height: -webkit-calc(100vh - 90px);*/
+  
+  height: -webkit-calc(100vh - 90px);
 }
 
 /*jjw 卡片*/
@@ -4294,6 +4295,9 @@ a.text-black:hover {
 
 .w-xs {
   width: 90px;
+}
+.w-xsm {
+  width: 110px;
 }
 .w-xsl { 
   width: 130px; 
