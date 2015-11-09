@@ -308,8 +308,7 @@ angular.module('app.show.system', [])
         $show.liveWrite.save({
             uuid: $scope.system.uuid
         }, d, function(resp) {
-            //@if  append
-
+            //@if  append 
             console.log(resp);
             //@endif 
             $button.text("下置成功");
