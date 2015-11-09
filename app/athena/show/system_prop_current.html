@@ -41,7 +41,7 @@
             </button> -->
 
 
-            <button class="btn btn-sm btn-info  w-xs col-sm-6 float-right m-l m-t-xs  "  
+            <button class="btn btn-sm btn-info  w-46 col-sm-6 float-right m-l m-t-xs  "
                     ng-click="d_call( system  , 2 , $event )"   token="5000" >
                 召唤
             </button>
@@ -51,7 +51,7 @@
 
 
 
-            <button class="btn btn-sm btn-info  w-xs col-sm-6 float-right m-l m-t-xs" 
+            <button class="btn btn-sm btn-info  w-46 col-sm-6 float-right m-l m-t-xs"
             ng-click=" getCurrent() " token> 刷新</button>
         </div>
     </form>
@@ -59,7 +59,8 @@
 </div>
  
 <div class="panel-body table-responsive no-padder">
-    <table class=" table table-striped j_table"> 
+    <!--jjw j_table b-b-none-->
+    <table class=" table table-striped j_table b-b-none">
         <thead class="flip-content">
             <th class="w">变量</th>
             <th class="w">值</th>
@@ -85,11 +86,11 @@
                         <!--jjw 去掉h-30 input-s-->
                         <input class="input input-s " ng-model="v">
                         <!-- <tl-input    ></tl-input>-->
-                        <button class="btn btn-info btn-xs btn-s" ng-click="liveWrite( t, v , $event )" token="5000">下置</button>
+                        <button class="btn btn-info btn-xs btn-s w-48" ng-click="liveWrite( t, v , $event )" token="5000">下置</button>
                         <span id="current_msg_{{t}}" class="w">  {{ msg }}</span>
                     </td>
                     <td>
-                        <button class="btn btn-info btn-xs btn-s" ng-click="goHis(t)">查看历史</button>
+                        <button class="btn btn-info btn-xs btn-s w-60" ng-click="goHis(t)">查看历史</button>
                         <!-- 
                     <button class="btn btn-info btn-xs" ng-show="t.save_log" ng-click="goHis(t)">查看历史</button>
                      -->

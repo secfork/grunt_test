@@ -47,6 +47,19 @@
                 <div class="col-md-4 col-xs-6 m-t-sm tl-wrap-r wrap-label-span-30">
                     <div class="form-group">
                         <label class="col-sm-4 no-padder control-label">
+                            <span>严重性</span>
+                        </label>
+                        <div class="col-sm-8">
+                            <select class="input input-sm form-control" ng-model="od.severity" ng-options=" k as v for (k,v) in $sys.trigger.severity">
+                                <option value="">全部</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-xs-6 m-t-sm tl-wrap-r wrap-label-span-30">
+                    <div class="form-group">
+                        <label class="col-sm-4 no-padder control-label">
                             <span>起始时间</span>
                         </label>
                         <div class="col-sm-8">
@@ -80,18 +93,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4 col-xs-6 m-t-sm tl-wrap-r wrap-label-span-30">
-                    <div class="form-group">
-                        <label class="col-sm-4 no-padder control-label">
-                            <span>严重性</span>
-                        </label>
-                        <div class="col-sm-8">
-                            <select class="input input-sm form-control" ng-model="od.severity" ng-options=" k as v for (k,v) in $sys.trigger.severity">
-                                <option value="">全部</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
+
 
                 <div class="col-md-4 col-xs-6 m-t-sm tl-wrap-r wrap-label-span-30">
                     <div class="form-group">
@@ -108,7 +110,7 @@
 
                 <div class="col-md-4 col-xs-12 m-t-sm padder-md float-right">
                     <div class="form-group m-t-xs float-right">
-                    <button class="btn btn-info btn-sm w-xs m-l  " 
+                    <button class="btn btn-info btn-sm w-46 m-l  "
                             ng-click="loadPageData(1)"  token >
                          查询
                     </button>
@@ -173,12 +175,12 @@
         </div>
 
         <!--jjw 添加div-->
-        <div class="row bg-white m-t-sm text-xs b-t" >
+        <div class="row bg-white m-t-sm b-t" >
             <!--jjw p-->
-            <p class="h4 float-left padder" style="height: 60px;line-height: 60px">报警详情</p>
+            <p class="h4 float-left padder" style="height: 60px;line-height: 60px;font-weight: 100">报警详情</p>
 
             <!--jjw margin-top margin-bottom-->
-            <div class="radio     float-right  w-xxm m-t-md m-b-md m-l m-r">
+            <div class="radio     float-right  w-94 m-t-md m-b-md">
                 <label class="i-checks">
                     <input type="radio"   value="b" checked="" ng-model="op.active ">
                     <i></i>
@@ -186,7 +188,7 @@
                 </label>
             </div>
             <!--jjw margin-top margin-bottom-->
-            <div class="radio      float-right  w-xxm m-t-md m-b-md m-l m-r" 
+            <div class="radio      float-right  w-94 m-t-md m-b-md"
                  style="margin-top: 20px">
                 <label class="i-checks">
 

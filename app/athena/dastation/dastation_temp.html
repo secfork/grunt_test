@@ -34,8 +34,8 @@
         <!--jjw md-4 padder-md float-right-->
         <div class="col-xs-12 m-t-sm col-md-4 padder-md float-right">
             <!--jjw float-right btn-s-->
-            <button class="btn btn-sm btn-info m-l float-right " ng-click=" loadPageData(1)" token> 搜索</button>
-            <button class="btn btn-sm btn-info m-l float-right " ng-click="  reset() "> 复位 </button>
+            <button class="btn btn-sm btn-info m-l float-right w-46" ng-click=" loadPageData(1)" token> 搜索</button>
+            <button class="btn btn-sm btn-info m-l float-right w-46" ng-click="  reset() "> 复位 </button>
         </div>
         <!--
           <div class="col-md-4 col-xs-6 m-t-xs">
@@ -48,10 +48,10 @@
     </div>
 
     <!--jjw bg m-t text-xs-->
-    <div class="row bg-white m-t-sm text-xs b-t" ng-init=" lm = 'list' ">
+    <div class="row bg-white m-t-sm b-t" ng-init=" lm = 'list' ">
 
         <!--jjw p-->
-        <p class="h4 float-left padder" style="height: 60px;line-height: 60px">系统详情</p>
+        <p class="h4 float-left padder" style="height: 60px;line-height: 60px;font-weight: 100">系统详情</p>
 
         <!--jjw margin-top margin-bottom-->
         <div class="radio     float-right  w-xxm m-t-md m-b-md">
@@ -141,10 +141,10 @@
             <td>
                 <a ng-click=" goto( _$mapState, das , das  )">
                         <span ng-if="das.latitude" class="fa fa-location-arrow text-success"></span>
-                        <!--jjw btn btn-xs btn-info-->
-                        <span ng-if=" !das.latitude && !isShowModul  " class="btn btn-xs btn-s btn-info bg-info m-l-sm  ng-scope">
+                        <!--jjw btn btn-xs btn-info span变为button-->
+                        <button ng-if=" !das.latitude && !isShowModul  " class="btn btn-xs btn-s w-60 btn-info bg-info m-l-sm  ng-scope">
                             去定位
-                        </span>
+                        </button>
                 </a>
             </td>
             <!--      <td ng-if = " !isShowModul "> {{ das.needsync?'是':'否'}}</td> -->
@@ -152,7 +152,7 @@
             <td ng-if=" !isShowModul   ">
                 <!--{{ das.needsync }}-->
                 <!-- <span >已同步 </span>-->
-                <button class="btn btn-xs btn-s btn-info" ng-click="syncSystem( das )" ng-if=" das.needsync ">
+                <button class="btn btn-xs w-48 btn-s btn-info" ng-click="syncSystem( das )" ng-if=" das.needsync ">
                     同步
                 </button>
                 <span ng-show=" !sync_start && sync_err_msg " class=" m-t-xs text-danger"> 
@@ -195,7 +195,7 @@
 <!--jjw b-t-none ng-if-->
 <div class="panel-footer b-t-none" ng-if="lm=='list'">
     <!--jjw m-t m-d m-l-sm-->
-    <button ng-if=" !isShowModul " class="btn btn-primary  dker btn-sm   m-l-sm  pos-abt m-t m-b" ng-click=" goto('app.station.add' , null , project ) ">
+    <button ng-if=" !isShowModul " class="btn btn-primary  dker btn-sm w-70  m-l-sm  pos-abt m-t m-b" ng-click=" goto('app.station.add' , null , project ) ">
         添加系统
     </button>
     <!--jjw m-t m-d-->

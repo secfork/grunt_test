@@ -3,32 +3,32 @@
     <!--jjw m-t m-l-sm-->
     <div class="col-md-6  m-b m-t m-l-sm">
 
-        <div class=" b-b line-dashed  m-b  hbox ">
+        <div class=" b-b line-dashed  jbox  hbox ">
             <div class="col w-sm  "> 模型名称 </div>
             <div class="col text-right color-5"> {{ sysmodel.name }} </div>
         </div>
        
-        <div class=" b-b line-dashed  m-b  hbox ">
+        <div class=" b-b line-dashed  jbox  hbox ">
             <div class="col w-sm  "> 通信类型 </div>
             <div class="col text-right color-5"> {{ sysmodel.comm_type == 1 ? "DAServer":"Gateway"  }} </div>
         </div>
 
-   		<div class=" b-b line-dashed  m-b  hbox ">
+   		<div class=" b-b line-dashed  jbox  hbox ">
             <div class="col w-sm  "> 创建时间 </div>
             <div class="col text-right color-5"> {{ sysmodel.create_time | date:"yyyy-MM-dd HH:mm Z" }} </div>
         </div>
 
-        <div class=" b-b line-dashed  m-b  hbox ">
+        <div class=" b-b line-dashed  jbox  hbox ">
             <div class="col w-sm  "> 配置项数量 </div>
             <div class="col text-right color-5"> {{s }} </div>
         </div>
-        <div class=" b-b line-dashed  m-b  hbox ">
+        <div class=" b-b line-dashed  jbox  hbox ">
             <div class="col w-sm  ">  Tag 数量 </div>
             <div class="col text-right color-5"> </div>
         </div>
      
       
-        <div class=" b-b line-dashed  m-b  hbox ">
+        <div class=" b-b line-dashed  jbox  hbox ">
             <div class="col w-sm  "> 触发器数量 </div>
             <div class="col text-right color-5"> {{station.needsync }} </div>
         </div>
