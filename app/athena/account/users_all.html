@@ -35,6 +35,8 @@
                     <td> {{u.last_login_ip }}</td>
                     <td> {{u.last_login_time| date:'yyyy-MM-dd HH:mm:ss'}} </td>
                     <td>
+
+                      <a href="" class="text-info" ng-click="verifyUser( u , $index)"  > 验证 </a>
                       <a href="" class="text-info" ng-click="editUser( page.data, u , $index)" translate="edit"> 编辑</a>
                       <a href="" class="text-info" ng-click="delUser( page.data, u , $index)" translate="del">  删除用户</a>
                     </td>

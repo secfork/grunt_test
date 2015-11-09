@@ -118,8 +118,7 @@
  // ==========================================================================================
 
  // 加载 工程 采集站 属性; -- 默认
- .controller("proj_prop_station", function($scope, $state, $map, $source,
-     $window, $compile, $q, $sys) {
+ .controller("proj_prop_station", function($scope, $state, $map, $source,  $window, $compile, $q, $sys) {
      //@if  append
 
      console.log("proj_prop_station");
@@ -157,7 +156,10 @@
          var d = angular.extend({
              region_id: $scope.project.id,
              currentPage: pageNo,
-             itemsPerPage: $sys.itemsPerPage
+             itemsPerPage: $sys.itemsPerPage,
+             
+             isactive : $state.includes('app.show')?1:undefined 
+
          }, $scope.od);
 
          //  分页 加载 project 下的 system
@@ -235,9 +237,7 @@
 
      $scope.go2AddDas = function() {
          $state.go("app.proj.prop.addstation");
-     };
-
-
+     }; 
 
  })
 

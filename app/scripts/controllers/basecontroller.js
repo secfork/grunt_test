@@ -936,6 +936,8 @@ angular.module('app.basecontroller', ['ng'])
 
         })
     }
+
+    
 })
 
 .controller("access_fogpas", function($scope, $state, $sessionStorage, $source, $interval, $location) {
@@ -1025,6 +1027,33 @@ angular.module('app.basecontroller', ['ng'])
     };
 })
 
+
+.controller("verifyemail" , function( $scope , $state , $source , $sys , $location ){
+
+    $scope.op = {}; 
+    
+    var uuid = $location.$$search.uuid;
+    if (uuid) {
+        $source.$user.get( {pk:"verifyemail", uuid: uuid} , function( resp ){
+            $scope.op.verifyemail = true ; 
+
+        }, function(){
+            
+            $state.go("access.signin");
+        });
+ 
+
+    } else {
+        $scope.op.verifyemail = false ; 
+
+        $scope.op.step = "step1";
+    }
+
+
+
+
+
+})
 
 //========================================================================
 //========================================================================

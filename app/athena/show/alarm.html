@@ -233,7 +233,9 @@
                 <td> {{ a.class_id }} </td> 
                 <td translate="alarm_active.{{ a.active}}" > "活跃":"关闭"  </td>
                 <td style="padding-right: 20px" >
+
                     <a class="text-info" ng-click="showAlarmMsg(a , od.uuid)">详细信息</a>
+                   
                     <a  ng-show=" a.active " class="text-info m-l" 
                     ng-click="conformAlarm( page,  a , $idnex , od.uuid , op.active )">确认报警</a>
 
