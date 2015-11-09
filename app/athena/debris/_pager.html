@@ -1,4 +1,4 @@
-<!-- <pagination 
+ <pagination 
 class="pagination-sm  " 
 
 total-items="page.total" 
@@ -6,22 +6,48 @@ ng-model="page.currentPage"
  items-per-page=" $sys.itemsPerPage " 
  ng-change=" loadPageData( page.currentPage   ) " 
  num-pages=" page.numPages " max-size="10" 
- boundary-links="true" rotate="false" firstText="首页" previousText="上一页" nextText="下一页" lastText="尾页">
-</pagination>
- -->
 
-<pagination boundary-links="true" 
+ boundary-links="true" rotate="false" 
+
+ first-text="&laquo;" 
+ previous-text="&lsaquo;" 
+ next-text="&rsaquo;" 
+ last-text="&raquo;"
+
+  >
+</pagination>
+ 
+
+<!-- 
+
+<pagination 
+class="pagination-sm m-t-none m-b"
+
 total-items="page.total" 
 ng-model="page.currentPage"
 items-per-page=" $sys.itemsPerPage " 
 ng-change=" loadPageData( page.currentPage   ) "
+num-pages=" page.numPages " max-size="10" 
 
 
-class="pagination-sm m-t-none m-b"
  
 
+boundary-links="true" 
+
+
+  firstText="首页"
+  previousText="上一页" 
+  nextText="下一页" 
+  lastText="尾页"
+
+
+
+ first-text="&laquo;" 
  previous-text="&lsaquo;" 
  next-text="&rsaquo;" 
- first-text="&laquo;" 
- last-text="&raquo;">
+ last-text="&raquo;"
+
+
+ >
 </pagination>
+ -->

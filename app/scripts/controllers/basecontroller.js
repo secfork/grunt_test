@@ -547,7 +547,7 @@ angular.module('app.basecontroller', ['ng'])
 
 
     // resp_err , info , warn ; 
-    angular.alert = $scope.alert = function(msg, fun) {
+    angular.alert = $scope.alert = function(msg, fun , func) {
         $modal.open({
             templateUrl: "athena/debris/_alert.html",
             controller: function($scope, $modalInstance, $translate) {
@@ -572,7 +572,12 @@ angular.module('app.basecontroller', ['ng'])
 
 
                 $scope.cancel = function() {
+                     //@if  append
+                        console.log(" modal closed !");
+                     //@endif 
+
                     $modalInstance.dismiss('cancel');
+                    func && func();
                 };
                 $scope.done = function() {
                     $scope.cancel();
@@ -1028,25 +1033,33 @@ angular.module('app.basecontroller', ['ng'])
 })
 
 
-.controller("verifyemail" , function( $scope , $state , $source , $sys , $location ){
+.controller("verifyemail" , function( $scope , $state , $source , $timeout , $location ){
 
     $scope.op = {}; 
     
     var uuid = $location.$$search.uuid;
     if (uuid) {
         $source.$user.get( {pk:"verifyemail", uuid: uuid} , function( resp ){
-            $scope.op.verifyemail = true ; 
+            if( resp.ret){
+                $scope.op.verifyemail = 1 ; 
+                $timeout( function  (argument) {
+                    $state.go("access.signin");
+                },5000)
 
-        }, function(){
-            
-            $state.go("access.signin");
+
+
+            }else{
+                //$scope.op.verifyemail = 2 ;
+                $state.go("access.signin");
+            }
+
+
         });
  
 
     } else {
-        $scope.op.verifyemail = false ; 
-
-        $scope.op.step = "step1";
+        //$scope.op.verifyemail = false ; 
+        $state.go("access.signin");
     }
 
 
