@@ -31,8 +31,9 @@ angular.module('app.show.system', [])
         };
         $source.$system.query({
             currentPage: 1,
-            options: "of_proj",
-            proj_id: $scope.op.region
+          //  options: "of_proj",
+            isactive: 1,
+            region_id: $scope.op.region
         }, function(resp) {
             $scope.systems = resp.data;
 
@@ -43,6 +44,14 @@ angular.module('app.show.system', [])
         active: "a",
         region: undefined
     };
+
+    $scope.$watch("op.active" , function(){
+        $scope.page.data  = [];
+        $scope.page.total = 0 ;
+    })
+
+
+
     $scope.od = {
         class_id: null, //0,
         severity: null, //'0',
@@ -56,17 +65,14 @@ angular.module('app.show.system', [])
 
     $scope.loadPageData = function(pageNo) {
         $scope.validForm();
-        var od = angular.copy($scope.od),
-            d1 = od.start.getTime(),
-            d2 = od.end.getTime();
-
-        if (d1 > d2) {
-            angular.alert("起始时间不可超前与结束时间");
-            return;
+        var od = angular.copy($scope.od);
+        
+        od.start    =  od.start.getTime(),
+        od.end      = od.end.getTime();
+        if ( od.start  > od.end ) {
+                angular.alert("起始时间不可超前与结束时间");
+                return;
         }
-
-
-
 
         od.itemsPerPage = $sys.itemsPerPage;
         od.currentPage = pageNo;
@@ -85,7 +91,8 @@ angular.module('app.show.system', [])
                     })
                 }
             });
-        } else { // 全部报警; 
+        } else { // 全部报警;  
+ 
             $show.alarm.save(od, undefined, function(resp) {
                 $scope.page.data = resp.data;
                 $scope.page.total = resp.total;
@@ -386,19 +393,19 @@ angular.module('app.show.system', [])
             d.tag = op.his_tag.name;
 
         //  intervali =  ts ,  readRow  = rcv ;   
-        $show.his.get(d, function(resp) { 
+        $show.his.get(d, function(resp) {
 
-            var timekey = (d.end - d.start) > 86400000 ? "ts" : "rcv"; 
+            var timekey = (d.end - d.start) > 86400000 ? "ts" : "rcv";
 
-            var arr =  formatFlotData ($scope.op.his_tag , resp.ret[0] , timekey );
+            var arr = formatFlotData($scope.op.his_tag, resp.ret[0], timekey);
 
             // 解决 无数据时 , 前段时间轴不显示; 
-            
-            arr.unshift([ d.start , null]);
-            arr.push([ d.end , null]);
+
+            arr.unshift([d.start, null]);
+            arr.push([d.end, null]);
 
             plot = $.plot("#show_live_data", [{
-                data:  arr,
+                data: arr,
                 label: op.his_tag.name
 
             }], plot_config);
@@ -417,15 +424,16 @@ angular.module('app.show.system', [])
     //     type: "Digital" ;
     //      tag  : 点,  dataarr:rest数据;  key : ts|| rcv ; 
     function formatFlotData(tag, dataArr, timekey) {
-        var df = [], val;
+        var df = [],
+            val;
 
 
 
         if (tag.type === "Digital") {
             var d = dataArr.shift();
-            if(!d )  return df ; 
+            if (!d) return df;
 
-            val = d.pv;   
+            val = d.pv;
 
             df.push([d[timekey], val]);
 
@@ -476,6 +484,9 @@ angular.module('app.show.system', [])
 
         if (n == 'a') {
             $scope.loadPageData(1);
+        }else{
+            // $scope.page.data = [];
+            // $scope.page.total = 0 ;
         }
 
     });
@@ -511,11 +522,11 @@ angular.module('app.show.system', [])
     // 点击按钮 查询全部报警;  
     $scope.queryAlarm = function(pageNo) {
         var d = {},
-            op = $scope.op,
-            d1 = op.start.getTime(),
-            d2 = op.end.getTime();
+            op = $scope.op ; 
+            d.start  = op.start.getTime(),
+            d.end  = op.end.getTime();
 
-        if (d1 > d2) {
+        if ( d.start > d.end ) {
             angular.alert("起始时间不可超前与结束时间!");
             return;
         }
