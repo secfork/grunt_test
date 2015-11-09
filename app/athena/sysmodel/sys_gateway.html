@@ -51,13 +51,13 @@
                 <td ng-if="enbaleGPS " colspan=2>
                     <span> Distance</span>
                     <!--jjw m-t-sm m-b-sm-->
-                    <select ng-model="GateWay.GPS.distance" class="  input-sm w  inline m-t-sm m-b-sm" ng-options="  k for k  in $sys.gateway.gps_distance" ng-change=" cc() " label="Distance">
+                    <select ng-model="GateWay.GPS.distance" class="form-control  input-sm w  inline m-t-sm m-b-sm" ng-options="  k for k  in $sys.gateway.gps_distance" ng-change=" cc() " label="Distance">
                     </select>
                 </td>
                 <td ng-if="enbaleGPS " colspan=2>
                     <span> 波特率</span>
                     <!--jjw m-t-sm m-b-sm-->
-                    <select ng-model="GateWay.GPS.baud_rate" class="  input-sm w  inline m-t-sm m-b-sm" ng-change=" cc() " ng-options="  k for k  in $sys.gateway.gps_baud_rate">
+                    <select ng-model="GateWay.GPS.baud_rate" class="form-control  input-sm w  inline m-t-sm m-b-sm" ng-change=" cc() " ng-options="  k for k  in $sys.gateway.gps_baud_rate">
                     </select>
                 </td>
             </tr>

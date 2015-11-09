@@ -194,7 +194,7 @@ tbody {
 .modal-header>h4{
     text-align: left;
     margin-left: 10px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 100;
 }
 /*jjw modal font-size-14*/
@@ -213,6 +213,7 @@ tbody {
 }
 .modal-footer .btn{
     height: 34px;
+    width: 60px;
 }
 
 .modal-body input, .modal-body button {
