@@ -208,12 +208,13 @@ angular.module('app.account', [])
     // 验证联系方式; 
     $scope.verifyUser = function(u, i) {
         $modal.open({
-            templateUrl: "./athena/account/users_verify.html",
+            templateUrl: "athena/account/users_verify.html",
             controller: function($scope, $modalInstance , $interval ) {
                 $scope.$modalInstance = $modalInstance;
 
                 $scope.__proto__ = S;
                 $scope.u = angular.copy(u);
+                $scope.ver = {};
 
                 var smsInterval, emailInterval;
 
@@ -234,36 +235,51 @@ angular.module('app.account', [])
                 }
 
                 $scope.sendEmail = function( e ) {
+                    
+                    if( !$scope.u.email ){
+                        angular.alert("请输入邮箱!");
+                        return ;
+                    }
                     setInter(e.currentTarget);
+                    
+                    var d = { id: u.id , email: $scope.u.email};
 
-                    $source.$email.sen
+                    $source.$user.save( {pk:"sendverifyemail"}  , d );
+
+
 
                 }
 
                 $scope.sendNote = function( e ) {
-                    setInter(e.currentTarget);
+                     if( !$scope.u.mobile_phone){
+                        angular.alert("请输入手机号");
+                        return ;
+                    }
 
-                    return ;
-                    $source.$note.get({
-                            op: "user",
-                            mobile_phone: $scope.u.mobile_phone
-                        },
-                        function() { 
-                            $interval(function() {
+                    setInter(e.currentTarget); 
 
-
-                            }, 1000) 
-                        },
-                        function() {
-
+                    $source.$note.get({  op: "user",  mobile_phone: $scope.u.mobile_phone },
+                        function() {  
+                        
                         });
 
                 }
 
-                $scope.done = function() {
+                $scope.verifyPhone = function(){
+                    if( !$scope.u.mobile_phone){
+                        angular.alert("请输入手机号");
+                        return ;
+                    }
+                    if(! $scope.ver.phone ){
+                        angular.alert("请输入验证码");
+                        return ;
+                    }
 
-                }
-
+                    var d  = { id: u.id ,mobile_phone:$scope.u.mobile_phone , verifi:$scope.ver.phone };
+                    $source.$user.save( { pk:"verifyphone"} ,d, function( resp){
+                        u.mobile_phone_verified = true ;
+                    }) 
+                }           
 
 
             }
@@ -726,4 +742,8 @@ angular.module('app.account', [])
         })
     }
 
-});
+})
+
+
+
+;

@@ -574,6 +574,13 @@ var app = angular.module('thinglinx', [
                     controller: "access_fogpas",
                     templateUrl: 'athena/page_forgotpwd.html'
                 })
+
+                .state("access.verifyemail" , {
+                    url:"/verify_email" ,
+                    controller:"verifyemail",
+                    templateUrl:"athena/page_verifyemail.html"
+                })
+
                 .state('access.404', {
                     url: '/404',
                     templateUrl: 'tpl/page_404.html'
