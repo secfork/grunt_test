@@ -48,6 +48,7 @@ angular.module('app.show.system', [])
     $scope.$watch("op.active" , function(){
         $scope.page.data  = [];
         $scope.page.total = 0 ;
+        $scope.page.currentPage = 0 ;
     })
 
 
@@ -64,6 +65,10 @@ angular.module('app.show.system', [])
     // // 查询全部报警;   
 
     $scope.loadPageData = function(pageNo) {
+        if(!pageNo){
+            return ;
+        }
+
         $scope.validForm();
         var od = angular.copy($scope.od);
         
@@ -485,8 +490,9 @@ angular.module('app.show.system', [])
         if (n == 'a') {
             $scope.loadPageData(1);
         }else{
-            // $scope.page.data = [];
-            // $scope.page.total = 0 ;
+            $scope.page.data = [];
+            $scope.page.total = 0 ;
+            $scope.page.currentPage = 0 ;
         }
 
     });
@@ -511,6 +517,9 @@ angular.module('app.show.system', [])
     }
 
     $scope.loadPageData = function(pageNo) {
+        if(!pageNo ){
+            return ;
+        } 
         if ($scope.op.ala == "a") { // 活跃报警
             $scope.getActiveAlarm(pageNo);
         } else { //  全部活跃; 

@@ -113,6 +113,7 @@
                 <td translate="alarm_active.{{ a.active}}"  >    </td>
 
                 <td style="padding-right: 20px">
+                  
                   <a class="text-info" ng-if=" a.active!=1 " 
                     ng-click="showAlarmMsg(a , system.uuid)">详细信息</a>
                   <a    ng-if=" a.active == 1 "
