@@ -37,8 +37,8 @@ var app = angular.module('thinglinx', [
         $rootScope.fromJson = angular.fromJson ;
 
 
-        $rootScope.ossRoot = "http://thinglinx-net.oss-cn-beijing.aliyuncs.com/";
-
+        $rootScope.ossRoot = "@@oss" || "http://thinglinx-net.oss-cn-beijing.aliyuncs.com/";
+ 
 
         window.onbeforeunload = function() {
             alert("关闭窗口")
