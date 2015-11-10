@@ -33,17 +33,57 @@ module.exports = function(grunt) {
 
 
     // Define the configuration for all the tasks
+    
+    var  replace_js_test_nginx_console  = [
+        { match:"oss", replacement: "http://hinglinx-test.oss-cn-beijing.aliyuncs.com/"}
+
+    ];
+
+    var  replace_js_build = [
+        { match:"oss" , replacement: "http://thinglinx-net.oss-cn-beijing.aliyuncs.com/"}
+
+    ];
+    
     grunt.initConfig({
 
         // Project settings
         yeoman: appConfig,
+
+
+
+        replace: {
+
+          js_build: {
+                options: {
+                  patterns: replace_js_build  
+                },
+                files: [
+                    {expand: true, flatten: true, 
+                    src: ['.tmp/concat/thing/app.js'], dest: '.tmp/concat/thing/'}
+                ]
+          } ,
+
+          js_for_test_nginx_console: {
+                options:{
+                    patterns: replace_js_test_nginx_console
+                },
+                files: [
+                    {expand: true, flatten: true, 
+                    src: ['.tmp/concat/thing/app.js'], dest: '.tmp/concat/thing/'}
+                ]
+          }
+
+
+        },
+
 
         preprocess: {
             options: {
                 context: {
                     append: false, // 是否build  debug信息;
                     region_online: false, // 是否build  region 是否在线信息; 
-                    debug: false
+                    debug: false ,
+                    testbuild: false   // 是否为 test_nging_console 服务器 构建项目; 
                 }
             },
 
@@ -76,11 +116,13 @@ module.exports = function(grunt) {
                 // ]
 
             },
+ 
 
             js: {
                 src: '.tmp/concat/<%= yeoman.thing %>app.js',
                 dest: '.tmp/concat/<%= yeoman.thing %>app.js'
-            }
+            } ,
+          
         },
 
         uncss: {
@@ -425,7 +467,7 @@ module.exports = function(grunt) {
                         cwd: '<%= yeoman.app %>',
                         dest: '<%= yeoman.dist %>',
                         src: [
-                            '*.{ico,png,txt}',
+                            '*.{ico,png,txt,pdf}',
                             '.htaccess',
                             '*.html',
                             'images/{,*/}*.{webp}',
@@ -535,30 +577,44 @@ module.exports = function(grunt) {
         'karma'
     ]);
 
-    grunt.registerTask('build', [
-        'clean:dist',
+    grunt.registerTask('build', function( arg ){
 
-        'useminPrepare',
-        'concurrent:dist',
+        var  tasks = [ 'clean:dist',
+             'useminPrepare',
+             'concurrent:dist', 
+             "preprocess:html" ,  
+            'ngtemplates',
 
-        "preprocess:html", //
-        'ngtemplates',
+            'copy:dist', // 拷贝  thinglinx_boot.js 到 .tmp/boot 目录 ;
 
-        'copy:dist', // 拷贝  thinglinx_boot.js 到 .tmp/boot 目录 ;
+            'concat', 
+            'ngAnnotate',
+            "preprocess:js"
 
-        'concat',
+            ];
+  
+        if( arg == "test"){
+             tasks.push("replace:js_for_test_nginx_console");
+        }else{
+            tasks.push("replace:js_build");
+        }
+        
+        tasks = tasks.concat([ 
+                'cssmin',
+                'uglify',
 
-        'ngAnnotate',
-        "preprocess:js",
+                'filerev',
+                'usemin'
+                // "preprocess:dist_index",
+                // 'htmlmin',
+            ])
 
-        'cssmin',
-        'uglify',
+        console.log( tasks );
+       grunt.task.run( tasks );
 
-        'filerev',
-        'usemin',
-        // "preprocess:dist_index",
-        // 'htmlmin',
-    ]);
+       
+
+    });
 
 
    grunt.registerTask('default', ['babel']);

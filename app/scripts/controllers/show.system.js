@@ -396,18 +396,27 @@ angular.module('app.show.system', [])
         d.uuid = $scope.system.uuid,
             d.num = op.num,
             d.tag = op.his_tag.name;
+            d.type = op.his_tag.type ; 
 
+        // 第一个点的数据 ; readattime (); 
+          
+        
+        // 历史数据; 
         //  intervali =  ts ,  readRow  = rcv ;   
-        $show.his.get(d, function(resp) {
+        $show.his.getArr(d, function(resp) {
 
-            var timekey = (d.end - d.start) > 86400000 ? "ts" : "rcv";
+            var timekey = (d.end - d.start) > 86400000 ? "ts" : "rcv" ,
+                atTimedata = resp[0].ret[0][0] ,
+                arrData = resp[1].ret[0];
 
-            var arr = formatFlotData($scope.op.his_tag, resp.ret[0], timekey);
+            arrData.unshift( atTimedata );
+ 
+            var arr = formatFlotData($scope.op.his_tag, arrData , timekey);
 
             // 解决 无数据时 , 前段时间轴不显示; 
 
-            arr.unshift([d.start, null]);
-            arr.push([d.end, null]);
+            // arr.unshift([d.start, null]);
+            // arr.push([d.end, null]);
 
             plot = $.plot("#show_live_data", [{
                 data: arr,
