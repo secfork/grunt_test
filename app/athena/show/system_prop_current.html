@@ -47,12 +47,13 @@
             </button>
 
 
-            <i class="fa fa-spin fa-spinner hide" id="spin"></i>
-
+         
 
 
             <button class="btn btn-sm btn-info  w-xs col-sm-6 float-right m-l m-t-xs" 
-            ng-click=" getCurrent() " token> 刷新</button>
+                        ng-click=" getCurrent( $event ) " token> 刷新
+                <i class="fa fa-spin fa-spinner hide   pull-right "  ></i>
+            </button>
         </div>
     </form>
  

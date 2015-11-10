@@ -740,7 +740,7 @@ angular.module("app.model.system", [])
             //@endif 
             $scope.confirmInvoke({ 
                 title: "删除模型变量 : " + tag.name + " ?",
-                warn: "该点在各个配置项中的信息也将被删除!" 
+                warn:  "删除变量将会丢失此变量的全部历史数据!" 
             }, function(next) {
                 $source.$sysTag.delete({
                     system_model: sysmodel.uuid,

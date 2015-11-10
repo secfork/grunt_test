@@ -49,8 +49,7 @@
      $scope.delProject = function(proj, index) {
 
          $scope.confirmInvoke({ 
-                 title: "删除区域: " + proj.name + " ?", 
-                 note: "其下系统不会被删除!"
+                 title: "删除区域: " + proj.name + " ?"
              },
              function(next) {
 

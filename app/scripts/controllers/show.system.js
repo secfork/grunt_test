@@ -287,10 +287,17 @@ angular.module('app.show.system', [])
         },
         t;
 
-    function getCurrent() {
+    function getCurrent( $event ) {
         //@if  append 
         console.log(names);
         //@endif 
+        
+        var $dom ;
+        if( $event ){
+            $dom  = $($event.currentTarget).find("i");
+            $dom.toggleClass("show");
+        }
+         
 
         names.length && $show.live.get({
             uuid: $scope.system.uuid,
@@ -301,7 +308,11 @@ angular.module('app.show.system', [])
                 t = $filter("date")(d.src, 'MM-dd HH:mm:ss');
                 $("#_val_" + i).text(d.pv == null ? "" : d.pv);
                 t && $("#_time_" + i).text(t);
-            })
+            });
+            if($dom){
+                $dom.toggleClass("show");
+            }
+
         });
     }
 
@@ -375,8 +386,13 @@ angular.module('app.show.system', [])
     }
 
 
-    $scope.queryHistory = function() {
+    $scope.queryHistory = function( $event ) { 
+
         $scope.validForm();
+
+        var $dom = $( $event.currentTarget).find("i");
+        $dom.toggleClass("show");
+
 
         if (!$scope.op.his_tag) {
             angular.alert("请选择要查询的点!");
@@ -423,6 +439,8 @@ angular.module('app.show.system', [])
                 label: op.his_tag.name
 
             }], plot_config);
+
+            $dom.toggleClass("show");
 
         });
 
@@ -507,13 +525,17 @@ angular.module('app.show.system', [])
     });
 
     // 查询活跃 报警;  未确认的; 
-    $scope.getActiveAlarm = function(pageNo) { // 一般值 interval是, 切换是调用; 
+    $scope.getActiveAlarm = function(pageNo , $dom ) { // 一般值 interval是, 切换是调用; 
         var pg = {
             currentPage: pageNo,
             itemsPerPage: $sys.itemsPerPage
         };
 
         $show.alarm.get(angular.extend(od, pg), function(resp) {
+
+            if( $dom ){
+                $dom.toggleClass("show");
+            }
             $scope.page.data = resp.data;
             $scope.page.total = resp.total;
             $scope.page.currentPage = pageNo;
@@ -525,20 +547,31 @@ angular.module('app.show.system', [])
         })
     }
 
-    $scope.loadPageData = function(pageNo) {
+    $scope.loadPageData = function(pageNo , $event ) {
+
         if(!pageNo ){
             return ;
         } 
+        var  $dom ; 
+
+
+        if($event){
+            $dom = $($event.currentTarget).find("i");
+            $dom.toggleClass("show");
+
+        }
+
+
         if ($scope.op.ala == "a") { // 活跃报警
-            $scope.getActiveAlarm(pageNo);
+            $scope.getActiveAlarm(pageNo , $dom );
         } else { //  全部活跃; 
-            $scope.queryAlarm(pageNo);
+            $scope.queryAlarm(pageNo , $dom );
         }
     }
 
 
     // 点击按钮 查询全部报警;  
-    $scope.queryAlarm = function(pageNo) {
+    $scope.queryAlarm = function(pageNo , $dom ) {
         var d = {},
             op = $scope.op ; 
             d.start  = op.start.getTime(),
@@ -557,10 +590,12 @@ angular.module('app.show.system', [])
         d.uuid = $scope.system.uuid,
             d.currentPage = pageNo,
             d.itemsPerPage = $sys.itemsPerPage;
-
-
-
+ 
         $show.alarm.save(d, null, function(resp) {
+            if( $dom ){
+                $dom.toggleClass("show");
+            }
+
             $scope.page.data = resp.data;
             $scope.page.total = resp.total;
             $scope.page.currentPage = pageNo;

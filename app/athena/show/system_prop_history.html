@@ -62,7 +62,10 @@
                 <label class="w-xxs col-sm-3"></label>
                 <div class="col-sm-9">
                     <button class="btn btn-info btn-sm w-xs m-l m-t-xs float-right"
-                       ng-click="queryHistory()" token=5000 >查询</button>
+                       ng-click="queryHistory( $event )" token=3000 >查询
+
+                         <i class="fa fa-spin fa-spinner hide   pull-right "  ></i>
+                    </button>
                 </div>
  
             </div>

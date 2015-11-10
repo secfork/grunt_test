@@ -3,7 +3,9 @@
     <h4 class="font-bold text-base">账户角色</h4>
     <div    ng-repeat='r in accountRoles' ng-init=" op ={} ">
         <!--jjw style-->
-        <div class='row  border temp-row  ' ng-class=" {'bg-danger':  op.edit }" style="height: 40px;line-height: 2.5;border-radius: 2px;background-color: #F6F8F7;margin-top: 6px;box-shadow: 0 0 0 4px #f0f3f4;">
+        <div class='row  border temp-row  '
+            ng-class=" {'text-danger':  op.edit }" 
+            style="height: 40px;line-height: 2.5;border-radius: 2px;background-color: #F6F8F7;margin-top: 6px;box-shadow: 0 0 0 4px #f0f3f4;">
             <div class=" float-left col-xs-10 " ng-click='op.show = !op.show '>
                 <!--jjw a-->
                 <!--<a class="fa" ng-class="{  'fa-plus-square-o': !op.show ,'fa-minus-square-o':op.show  }"></a>-->
@@ -37,7 +39,7 @@
     <!--jjw p改为h4-->
     <h4 class="font-bold text-base">区域角色</h4>
     <div ng-repeat='r in regionRoles ' ng-init=" op ={} ">
-        <div class='row  border temp-row ' ng-class=" {' bg-danger':  op.edit }" style="height: 40px;line-height: 2.5;border-radius: 2px;background-color: #F6F8F7;margin-top: 6px;box-shadow: 0 0 0 4px #f0f3f4;">
+        <div class='row  border temp-row ' ng-class=" {' text-danger':  op.edit }" style="height: 40px;line-height: 2.5;border-radius: 2px;background-color: #F6F8F7;margin-top: 6px;box-shadow: 0 0 0 4px #f0f3f4;">
             <div class=" float-left col-xs-10 " ng-click=' op.showp = !op.showp '>
                 <!--jjw a-->
                 <!--<a class="fa" ng-class="{   'fa-plus-square-o': !op.showp ,'fa-minus-square-o':op.showp  }"></a>-->

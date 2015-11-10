@@ -352,7 +352,8 @@ angular.module('app.basecontroller', ['ng'])
     // 移除;
     $scope.delStation = function(dastations, station, index) {
         $scope.confirmInvoke({
-            title: "您是否要删除系统:" + station.name + " ?"
+            title: "您是否要删除系统:" + station.name + " ?",
+            warn:"删除系统将会丢失此系统的全部历史数据"
         }, function(next) {
             $source.$system.delete({
                 system_id: station.uuid
