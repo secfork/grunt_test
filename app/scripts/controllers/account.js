@@ -180,14 +180,17 @@ angular.module('app.account', [])
                 groupids: $scope.od.groups
             }, $scope.user,
             function(resp) {
-                angular.alert("创建用户成功");
+                angular.alert("创建用户成功" , function(){
+                    $scope.user = {
+                                        mail_notice: 1,
+                                        sms_notice: 1
+                                    }; 
+                    $scope.op.confirm_password=undefined;
+                });
             }
         );
     };
 
-
-
-  
 
     $scope.delUser = function(arr, u, i) {
         $scope.confirmInvoke({
@@ -566,6 +569,7 @@ angular.module('app.account', [])
             itemsPerPage: $sys.itemsPerPage
         },
         S = $scope;
+
     $q.all([$scope.gp, $scope.rp]).then(function(resp) {
         //过滤 roles 得到 区域角色;
         $scope.regionroles = $scope.allroles.filter(function(v, i) {
@@ -592,9 +596,17 @@ angular.module('app.account', [])
             $source.$permission.get({
                 source: "region",
                 source_id: region.id
-            }, function(resp) {
+            }, function(resp) {     
+                 //@if  append
+                    if( ! angular.isArray( resp.ret ) ){
+                        alert("rest查询 区域下的带权限的用户组的 数据格式不正确");
+                    }
+
+                 //@endif 
+
+
                 scope.groups = resp.ret;
-                scope.groupids = scope.groups.map(function(v, i) {
+                scope.groupids =   scope.groups.map(function(v, i) {
                     return v.id;
                 })
 
