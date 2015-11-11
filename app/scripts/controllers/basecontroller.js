@@ -374,7 +374,8 @@ angular.module('app.basecontroller', ['ng'])
 
 
         $scope.confirmInvoke({
-            title: "激活采集站 " + station.name + " ?"
+            // jjw 采集站->系统
+            title: "激活系统 " + station.name + " ?"
         }, function(next) {
             // 激活采集站; 
             $source.$system.active({

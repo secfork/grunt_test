@@ -17,7 +17,8 @@
         <textarea tl-wrap ng-model="T.desc" label="text.desc"></textarea>
     </form>
     <form name='step1' ng-show="stepx.step == 1" ng-init="_config = $sys.trigger " class=" form-validation   ">
-        <table class=" table m-b-n-xs ">
+        <!--jjw m-b-xs-->
+        <table class=" table m-b-xs j_table j_table2 j_table_n_b">
             <thead>
                 <tr>
                     <th width="10%">条件</th>
@@ -47,7 +48,7 @@
                         <input class="form-control" ng-model=" l.fn " readonly="">
                     </td>
 
-                    <td>
+                    <td style="padding-top:3px" class="a_30">
                         <select
                          ng-if=" l.fn  == 'PV' "
                          ng-model=" l.args "
@@ -81,7 +82,7 @@
                             <option value=''> 数值</option>
                         </select>
                     </td>
-                    <td  ng-if="  r.fn == 'PV' " >
+                    <td  ng-if="  r.fn == 'PV' " style="padding-top:3px" class="a_30">
                         <select
                          ng-model="r.args"
                          class="form-control  "
@@ -112,7 +113,7 @@
                          ng-click="delVerb( $index )"></a>
                     </td>
                 </tr>
-                <tr>
+                <tr class="b-t">
                     <td colspan=7 class="text-left">
                         <span class="btn btn-primary btn-sm w-46 dropdown-toggle" ng-click="appendVerb()">添加</span>
                     </td>
@@ -161,5 +162,3 @@
 <!--&lt;!&ndash;@if append &ndash;&gt;-->
 <!--T = {{T}}-->
 <!--&lt;!&ndash;@endif &ndash;&gt;-->
-
-

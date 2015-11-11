@@ -864,6 +864,13 @@ a.list-group-item:focus {
 .j_table2 td,.j_table2 th{
     background-color: #f7f7f7 !important;
 }
+.a_30 a.chosen-single{ 
+	height: 30px;
+}
+.j_table_n_b tbody td{	
+	border-style: none !important;
+}
+
 /*jjw j_form*/
 .j_form_15 .form-group{
     margin-bottom: 15px;

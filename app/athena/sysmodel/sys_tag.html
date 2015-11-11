@@ -36,7 +36,9 @@
                <!-- 
                 getDevname (); 1:看是否有连接; 若没有 则 type 设置为null ; 2:设置是否真的连接了设备; 3: 是否真的 连接了模版点;
                -->
-                <td style="background-color: {{  dev_name || 'grey' }}">{{ dev_name }} </td>
+                <!-- jjw td背景色 -->
+                <!-- <td style="background-color: {{  dev_name || 'grey' }}">{{ dev_name }} </td> -->
+                <td> {{ dev_name }} </td>
                 <td> {{tag.type}}</td>
                 <td> {{tag.scale}}</td>
                 <td> {{tag.deviation}}</td>
