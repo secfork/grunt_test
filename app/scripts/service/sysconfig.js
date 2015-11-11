@@ -3,14 +3,7 @@ angular.module('app.sysconfig', [], function() {})
 .service("$sys", function($translate) {
     
     return { 
-        
-        mailindex:{
-            "qq.com": "mail.qq.com",
-            "163.com":"mail.163.com",
-            "f":"mail.sunwayland.com.cn",
-            "yahoo":"mail.yahoo.com"
-        },
-
+         
         // systemo 模式: manage , unmanage ,unknown ; 
         manageMode: 1,
 
@@ -87,7 +80,7 @@ angular.module('app.sysconfig', [], function() {})
             },
 
             tooltipOpts: {
-                content: '%x -  %y',
+                content: '%x - %y',
                 defaultTheme: false  ,
                 shifts: {
                     x: 0,

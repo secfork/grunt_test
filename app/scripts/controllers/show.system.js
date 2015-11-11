@@ -85,8 +85,7 @@ angular.module('app.show.system', [])
         od.start    =  od.start.getTime(),
         od.end      = od.end.getTime();
 
-
-
+ 
 
         if ( od.start  > od.end ) {
                 angular.alert("起始时间不可超前与结束时间");
