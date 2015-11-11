@@ -248,9 +248,7 @@ angular.module('app.account', [])
                     var d = { id: u.id , email: $scope.u.email};
 
                     $source.$user.save( {pk:"sendverifyemail"}  , d );
-
-
-
+ 
                 }
 
                 $scope.sendNote = function( e ) {

@@ -14,7 +14,7 @@
         <thead class="flip-content">
             <tr class="background ">
                 <th> 名称 </th>
-                <th> 变量数目</th>
+             <!--    <th> 变量数目</th> -->
                 <th> 触发器数目</th>
                 <th> <a translate="th.th3">创建时间  </a> </th>
                 <th> <a> 最后更新时间 </a></th>
@@ -29,7 +29,10 @@
             <tr ng-repeat="  prof  in profiles  "  >
                 <!--jjw text-center-->
                 <td class="text-center"> {{ prof.name }} </td>
-                <td> {{ prof.tag_count || 0 }} </td>
+                
+               <!--  <td> {{ prof.tag_count || 0 }} </td> -->
+
+
                 <td> {{ prof.trigger_count || 0 }} </td>
                 <!--  | date:"yyyy-MM-dd HH:mm" -->
                 <td class="numeric "> {{ prof.create_time | date:"yyyy-MM-dd HH:mm  Z"}} </td>

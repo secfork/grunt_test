@@ -66,12 +66,15 @@
                 <li class="b-b   bg-light m-t-n-xs">
                 	<!--jjw text-base m-b-none padder p-t-15 p-b-10-->
                     <p class="text-base m-b-none wrapper ">上次登录IP:
-                        <span class="">
+                    <!-- pull-right -->
+                        <span class=" ">
                                 {{user.last_login_ip  }} 
                             </span>
                     </p>
                     <!--jjw text-base m-b-none  padder p-t-5 p-b-10-->
-                    <p class="text-base m-b-none  wrapper ">上次登录时间:
+                    <p class="text-base m-b-none  wrapper   ">上次登录时间:
+
+                    <!-- pull-right -->
                         <span class="">
                                 {{user.last_login_time |date :"yyyy-MM-dd HH:mm"}} 
                             </span>
