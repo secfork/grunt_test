@@ -32,7 +32,7 @@
             <tr>
                 <td colspan=7 class="text-left" ng-if="!canAddPort">
                     <!--jjw btn-sm m-t-sm m-b-sm-->
-                    <button class="btn btn-primary btn-sm  m-l m-t-sm m-b-sm " ng-click=" c_u_Gateway( ) ">
+                    <button class="btn btn-primary btn-sm w-70 m-l m-t-sm m-b-sm " ng-click=" c_u_Gateway( ) ">
                         添加串口
                     </button>
                 </td>
@@ -51,13 +51,13 @@
                 <td ng-if="enbaleGPS " colspan=2>
                     <span> Distance</span>
                     <!--jjw m-t-sm m-b-sm-->
-                    <select ng-model="GateWay.GPS.distance" class="  input-sm w  inline m-t-sm m-b-sm" ng-options="  k for k  in $sys.gateway.gps_distance" ng-change=" cc() " label="Distance">
+                    <select ng-model="GateWay.GPS.distance" class="form-control  input-sm w  inline m-t-sm m-b-sm" ng-options="  k for k  in $sys.gateway.gps_distance" ng-change=" cc() " label="Distance">
                     </select>
                 </td>
                 <td ng-if="enbaleGPS " colspan=2>
                     <span> 波特率</span>
                     <!--jjw m-t-sm m-b-sm-->
-                    <select ng-model="GateWay.GPS.baud_rate" class="  input-sm w  inline m-t-sm m-b-sm" ng-change=" cc() " ng-options="  k for k  in $sys.gateway.gps_baud_rate">
+                    <select ng-model="GateWay.GPS.baud_rate" class="form-control  input-sm w  inline m-t-sm m-b-sm" ng-change=" cc() " ng-options="  k for k  in $sys.gateway.gps_baud_rate">
                     </select>
                 </td>
             </tr>
@@ -69,7 +69,7 @@
 <div ng-show="enbaleGPS" class="panel-footer b-t-none b-b b-l b-r">
     <!--jjw m-t m-b-->
     <div ng-show="needUpdate" class="m-t-sm m-b-sm">
-        <button class="btn btn-success  btn-sm  w-xs m-l  " token ng-click=" saveGateWay( ) ">
+        <button class="btn btn-success  btn-sm  w-94 m-l  " token ng-click=" saveGateWay( ) ">
             保存网关设置
         </button>
         <strong class="text-danger m-l"><i class="fa fa-exclamation-triangle"></i><span > 网关配置需要保存!!</span> </strong>

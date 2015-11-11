@@ -42,7 +42,7 @@ input, select {
 .input-s{
     height: 24px;
     line-height: 24px;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: normal;
     padding: 0px;
 }
@@ -194,7 +194,7 @@ tbody {
 .modal-header>h4{
     text-align: left;
     margin-left: 10px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 100;
 }
 /*jjw modal font-size-14*/
@@ -213,6 +213,7 @@ tbody {
 }
 .modal-footer .btn{
     height: 34px;
+    width: 60px;
 }
 
 .modal-body input, .modal-body button {
@@ -347,7 +348,8 @@ body {
 
   font-family:  "Microsoft YaHei",  helvetica, arial, verdana, tahoma, sans-serif;
 
-  font-size: 15px;
+  /*jjw font-size*/
+  font-size: 14px;
   color: #58666e;
   background-color: transparent;
    /*background:   #3A3D3F;*/
@@ -862,6 +864,18 @@ a.list-group-item:focus {
 .j_table2 td,.j_table2 th{
     background-color: #f7f7f7 !important;
 }
+.a_30 a.chosen-single{ 
+	height: 30px;
+}
+.j_table_n_b tbody td{	
+	border-style: none !important;
+}
+
+/*jjw j_form*/
+.j_form_15 .form-group{
+    margin-bottom: 15px;
+}
+
 
 .well,
 pre {
@@ -1034,8 +1048,7 @@ body {
   padding-bottom: 35px;
   float: left;
   width: 100%;
-  
-  height: -webkit-calc(100vh - 90px);
+  height: calc(100vh - 88px);
 }
 
 /*jjw 卡片*/
@@ -1716,9 +1729,8 @@ body {
 }
 /*jjw button*/
 .btn-s{
-    font-size: 10px;
+    font-size: 12px;
     height:22px;
-    width: 60px;
 }
 .btn-m{
     font-size: 12px;
@@ -1727,6 +1739,7 @@ body {
 .btn-l{
     font-size: 14px;
     height:34px;
+    width: 60px !important;
 }
 .j_addp{
     background-color: #FFFFFF;
@@ -3786,6 +3799,8 @@ a.text-black:hover {
   padding-left: 20px;
   padding-right: 20px;
 }
+
+
 .padder {
   padding-left: 15px;
   padding-right: 15px;
@@ -4269,6 +4284,12 @@ a.text-black:hover {
 .w-30{
    width: 30px;
 }
+.w-46{
+    width: 46px;
+}
+.w-48{
+    width: 48px;
+}
 .w-60{
     width: 60px;
 }
@@ -4285,7 +4306,7 @@ a.text-black:hover {
   width: 65px;
 }
 
-.w-xxm {
+.w-xxm,.w-70 {
   width: 70px;
 }
 
@@ -4295,6 +4316,10 @@ a.text-black:hover {
 
 .w-xs {
   width: 90px;
+}
+/*jjw w-94*/
+.w-94 {
+  width: 94px;
 }
 .w-xsm {
   width: 110px;

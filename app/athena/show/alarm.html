@@ -6,14 +6,7 @@
         <!--jjw form-inne去掉-->
         <!--div.row-->
         <div class="row">
-            <form class=" form-validation   " name="form">
-                <!--<div class="form-group    m-t-xs">-->
-                <!--<label class="i-checks m-t-xs" style="padding-left:0">-->
-                <!--活跃报警-->
-                <!--<input type="checkbox" ng-model="op.active">-->
-                <!--<i style="margin-left:0"></i>-->
-                <!--</label>-->
-                <!--</div>-->
+            <form class=" form-validation   " name="form"> 
                 <div class="col-md-4 col-xs-6 m-t-sm tl-wrap-r wrap-label-span-30">
                     <div class="form-group">
                         <label class="col-sm-4 no-padder control-label">
@@ -34,6 +27,18 @@
                         <div class="col-sm-8">
                             <select required class="input input-sm form-control" ng-model=" od.uuid" ng-options="s.uuid as s.name  for s in systems">
                                 <option value="">请选择系统</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-6 m-t-sm tl-wrap-r wrap-label-span-30">
+                    <div class="form-group">
+                        <label class="col-sm-4 no-padder control-label">
+                            <span>严重性</span>
+                        </label>
+                        <div class="col-sm-8">
+                            <select class="input input-sm form-control" ng-model="od.severity" ng-options=" k as v for (k,v) in $sys.trigger.severity">
+                                <option value="">全部</option>
                             </select>
                         </div>
                     </div>
@@ -72,18 +77,6 @@
                 <div class="col-md-4 col-xs-6 m-t-sm tl-wrap-r wrap-label-span-30">
                     <div class="form-group">
                         <label class="col-sm-4 no-padder control-label">
-                            <span>严重性</span>
-                        </label>
-                        <div class="col-sm-8">
-                            <select class="input input-sm form-control" ng-model="od.severity" ng-options=" k as v for (k,v) in $sys.trigger.severity">
-                                <option value="">全部</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-xs-6 m-t-sm tl-wrap-r wrap-label-span-30">
-                    <div class="form-group">
-                        <label class="col-sm-4 no-padder control-label">
                             <span>类别</span>
                         </label>
                         <div class="col-sm-8">
@@ -95,71 +88,19 @@
                 </div>
                 <div class="col-md-4 col-xs-12 m-t-sm padder-md float-right">
                     <div class="form-group m-t-xs float-right">
-                        <button class="btn btn-info btn-sm w-xs m-l  " ng-click="loadPageData(1)" token>
+                        <button class="btn btn-info btn-sm w-46 m-l  " ng-click="loadPageData(1)" token>
                             查询
-                             <i class="fa fa-spin fa-spinner hide show pull-right "  ></i>
                         </button>
                     </div>
                 </div>
-
-                
-                <!--<div class="form-group     m-t-xs">-->
-                <!--<label>区域</label>-->
-                <!--<select class="input input-sm" ng-model="op.region" ng-options="p.id as p.name  for p in  regions" ng-change=" loadSys()" required>-->
-                <!--<option value="">请选择区域</option>-->
-                <!--</select>-->
-                <!--<label>系统</label>-->
-                <!--<select class="input input-sm" ng-model=" od.uuid" ng-options="s.uuid as s.name  for s in systems" required>-->
-                <!--<option value="">请选择系统</option>-->
-                <!--</select>-->
-                <!--</div>-->
-                <!--<div class="form-group    m-t-xs">-->
-                <!--<label class=" w-xxs text-right control-label float-left m-t-xs">-->
-                <!--起始时间:-->
-                <!--</label>-->
-                <!--<input type="text" class=" input input-sm  float-left w-xsl"-->
-                <!--datetime-picker date-format='yyyy-MM-dd HH:mm'-->
-                <!--nofocus data-readonly-input='false' ng-model="od.start"-->
-                <!--is-open='op.showS' />-->
-                <!--<span class=" float-left">-->
-                <!--<button type="button" class="btn btn-default btn-sm"-->
-                <!--ng-click="openCalendar($event, 'op.showS=true')">-->
-                <!--<i class="fa fa-calendar"></i></button>-->
-                <!--</span>-->
-                <!--<br class="visible-xs " />-->
-                <!--<label class=" w-xxs text-right control-label float-left  m-t-xs">结束时间:</label>-->
-                <!--<input type="text" class=" input input-sm float-left w-xsl" datetime-picker date-format='yyyy-MM-dd HH:mm' nofocus ng-model="od.end" is-open='op.showE' />-->
-                <!--<span class=" float-left">-->
-                <!--<button type="button" class="btn btn-default btn-sm"-->
-                <!--ng-click="openCalendar($event, 'op.showE=true')">-->
-                <!--<i class="fa fa-calendar"></i>-->
-                <!--</button>-->
-                <!--</span>-->
-                <!--</div>-->
-                <!--<div class="form-group m-t-xs">-->
-                <!--<label>严重性</label>-->
-                <!--<select class="input input-sm" ng-model="od.severity" ng-options=" k as v for (k,v) in $sys.trigger.severity">-->
-                <!--<option value="">全部</option>-->
-                <!--</select>-->
-                <!--<label>类别</label>-->
-                <!--<select class="input input-sm" ng-model="od.class_id" ng-options=" v for v in [1,2,3,4,5,6,7,8,9,0]">-->
-                <!--<option value="">全部 </option>-->
-                <!--</select>-->
-                <!--</div>-->
-                <!-- ng-if=" op.ala !='a' " -->
-                <!--<div class="form-group m-t-xs">-->
-                <!--<span class="btn btn-info btn-sm w-xs m-l  " ng-click="loadPageData(1)" >-->
-                <!--查询-->
-                <!--</span>-->
-                <!--</div>-->
             </form>
         </div>
         <!--jjw 添加div-->
-        <div class="row bg-white m-t-sm text-xs b-t">
+        <div class="row bg-white m-t-sm b-t">
             <!--jjw p-->
-            <p class="h4 float-left padder" style="height: 60px;line-height: 60px">报警详情</p>
+            <p class="h4 float-left padder" style="height: 60px;line-height: 60px;font-weight: 100">报警详情</p>
             <!--jjw margin-top margin-bottom-->
-            <div class="radio     float-right  w-xxm m-t-md m-b-md m-l m-r">
+            <div class="radio     float-right  w-94 m-t-md m-b-md">
                 <label class="i-checks">
                     <input type="radio" value="b" checked="" ng-model="op.active ">
                     <i></i>
@@ -167,7 +108,7 @@
                 </label>
             </div>
             <!--jjw margin-top margin-bottom-->
-            <div class="radio      float-right  w-xxm m-t-md m-b-md m-l m-r" style="margin-top: 20px">
+            <div class="radio      float-right  w-94 m-t-md m-b-md" style="margin-top: 20px">
                 <label class="i-checks">
                     <input type="radio" value="a" ng-model="op.active">
                     <i></i>
@@ -201,19 +142,9 @@
                     <td> {{ a.class_id }} </td>
                     <td translate="alarm_active.{{ a.active}}"> "活跃":"关闭" </td>
                     <td style="padding-right: 20px">
-
-                        <a class="text-info" ng-if=" a.active!=1 " 
-                           ng-click="showAlarmMsg(a , od.uuid)">详细信息</a>
-
-                        <a ng-if=" a.active == 1 " class="text-info" 
-                        ng-click="conformAlarm( page, a , $index , od.uuid , op.active )">
+                        <a class="text-info" ng-if=" a.active!=1 " ng-click="showAlarmMsg(a , od.uuid)">详细信息</a>
+                        <a ng-if=" a.active == 1 " class="text-info" ng-click="conformAlarm( page, a , $index , od.uuid , op.active )">
                         确认报警</a>
-
-                        <!--  <a class="text-info" ng-click="showAlarmMsg(a , od.uuid)">详细信息</a>
-                   
-                    <a  ng-show=" a.active " class="text-info m-l" 
-                    ng-click="conformAlarm( page,  a , $idnex , od.uuid , op.active )">确认报警</a>
- -->
                     </td>
                 </tr>
             </tbody>
@@ -222,12 +153,6 @@
     <!--jjw b-t-none-->
     <div class="panel-footer b-t-none">
         <!--jjw m-t m-b-->
-        <div class=" text-center m-t-sm m-b-sm" ng-include src=" 'athena/debris/_pager.html'  "></div>
+        <div class=" text-center m-t-sm m-b-sm height-30" ng-include src=" 'athena/debris/_pager.html'  "></div>
     </div>
-    <!--jjw 注释-->
-    <!--&lt;!&ndash;@if append &ndash;&gt;-->
-    <!--od = {{od}}-->
-    <!--<br/> op = {{op}}-->
-    <!--<hr/> -->
-    <!--&lt;!&ndash; @endif &ndash;&gt;-->
 </div>

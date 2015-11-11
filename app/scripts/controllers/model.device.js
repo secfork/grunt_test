@@ -10,7 +10,7 @@ angular.module('app.model.device', [])
         var tempScope = $scope;
 
         $scope.$rootNav("管理");
-        $scope.$moduleNav("设备模版", $state);
+        $scope.$moduleNav("设备模型", $state);
 
         var $window = $(window);
 

@@ -36,7 +36,9 @@
                <!-- 
                 getDevname (); 1:看是否有连接; 若没有 则 type 设置为null ; 2:设置是否真的连接了设备; 3: 是否真的 连接了模版点;
                -->
-                <td style="background-color: {{  dev_name || 'grey' }}">{{ dev_name }} </td>
+                <!-- jjw td背景色 -->
+                <!-- <td style="background-color: {{  dev_name || 'grey' }}">{{ dev_name }} </td> -->
+                <td> {{ dev_name }} </td>
                 <td> {{tag.type}}</td>
                 <td> {{tag.scale}}</td>
                 <td> {{tag.deviation}}</td>
@@ -60,7 +62,7 @@
 
 <div class="panel-footer b-t-none b-b b-l b-r">
     <!--jjw m-t-sm m-b-sm-->
-    <button class="btn btn-primary btn-sm m-t-sm m-b-sm" ng-click=" addTag('add') ">
+    <button class="btn btn-primary btn-sm w-70 m-t-sm m-b-sm" ng-click=" addTag('add') ">
         添加变量
     </button>
 </div>  

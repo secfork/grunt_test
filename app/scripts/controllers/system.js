@@ -86,7 +86,7 @@ angular.module('app.system', [])
 
                     // proj name ;
                     // 是否要 同步;
-                    promise_B = $source.$system.needSync(  ids  ).$promise;
+                    promise_B = ! $scope.isShowModul &&  $source.$system.needSync(  ids  ).$promise;
 
                 }
 

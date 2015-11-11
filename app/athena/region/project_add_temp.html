@@ -2,7 +2,7 @@
 <!--jjw bg-white card-->
 <div class="panel-body table-responsive no-padder bg-light bg-white" ng-class="{'card':$state.includes('app.proj') &&!($state.includes('app.proj.prop'))}">
     <h4 class="text-center" ng-show="$state.includes('app.proj')&&!($state.includes('app.proj.prop'))">添加区域</h4>
-    <form name="form" panelclass class="form-horizontal form-validation  ">
+    <form name="form" panelclass class="form-horizontal form-validation j_form_15">
         <!--    <div class="form-group  "  >
     <label class= " col-sm-3 control-label   "  >  <h4   >添加项目</h4> </label>
     </div>
@@ -44,8 +44,8 @@
     </form> 
 
     <!--jjw padder-->
-     <div panelclass class="text-center padder" ng-if=" !isShowModul ">
-        <button type="submit" class="btn  btn-success  btn-block-middle w-xs m-b col-sm-9 col-sm-offset-3"
+     <div panelclass class="text-center padder m-t-none" ng-if=" !isShowModul ">
+        <button type="submit" class="btn  btn-success w-60  btn-block-middle m-b col-sm-9 col-sm-offset-3"
            ng-click=" commit()" token> 保存 </button>
     </div>
 </div>

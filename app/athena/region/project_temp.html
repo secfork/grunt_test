@@ -1,20 +1,24 @@
 <!--jjw 添加卡片-->
 <div class="border card">
     <h4>区域管理</h4>
-    <div class="panel-heading   ">
+    <!--jjw no-padder-->
+    <div class="panel-heading  no-padder ">
 
         <!--jjw m-t m-b m-l 去掉col-push-->
-        <div class="input-group-sm col-md-5 col-xs-12 m-t-sm m-b-sm m-l-xs">
-            <label class="col-md-2 col-sm-12 text-base">
-                <span style="line-height: 30px"  ng-click=" loadPageData(1)">搜索</span>
-            </label>
+        <div class="input-group-sm col-md-5 col-xs-12 m-t m-b m-l-xs">
+            <!--<label class="col-md-2 col-sm-12 float-left text-base">-->
+                <!--<span style="line-height: 30px"  ng-click=" loadPageData(1)">搜索</span>-->
+            <!--</label>-->
             <div class="col-md-8 col-sm-12 col-xs-12">
                 <input style="border-radius: 2px" class="form-control input-sm" type="text"
                        ng-model="f_projname">
             </div>
             <!--<span class="input-group-btn">-->
-            <!--<span class="btn btn-default height-30 disabled"     translate="common.search"  ></span>-->
+                <!--<span class="btn btn-default height-30 disabled"     translate="common.search"  ></span>-->
             <!--</span>-->
+            <div class="col-md-4 col-sm-12 text-base">
+                <button class="btn btn-info btn-sm" ng-click=" loadPageData(1)">搜索</button>
+            </div>
         </div>
     </div>
     <!--jjw no-border-->
@@ -100,11 +104,11 @@
     <!--jjw b-t-none-->
     <div class="panel-footer b-t-none">
         <!--jjw m-t m-b m-l-sm-->
-        <button class="btn btn-primary btn-sm  pos-abt m-b m-t m-l-sm" ng-if=" !isShowModul" ng-click="  goto( 'app.proj.addproj' ) ">
+        <button class="btn btn-primary btn-sm w-70  pos-abt m-b m-t m-l-sm" ng-if=" !isShowModul" ng-click="  goto( 'app.proj.addproj' ) ">
             添加区域
         </button>
         <!--jjw m-t m-b-->
-        <div class="text-center m-b m-t" ng-include src=" 'athena/debris/_pager.html'  "></div>
+        <div class="text-center m-b m-t height-30" ng-include src=" 'athena/debris/_pager.html'  "></div>
     </div>
 </div>
 
