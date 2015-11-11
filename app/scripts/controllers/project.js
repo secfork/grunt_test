@@ -102,7 +102,8 @@
 
      //是否为 show 模块;
      $scope.isShowModul = $state.$current.data && $state.$current.data.isShowModul;
-     $scope._$mapState = $scope.isShowModul ? 'app.show.station_prop.map' : 'app.station.prop._map'
+ 
+     $scope._$mapState = $scope.isShowModul ? 'app.show.system_prop.map' : 'app.station.prop._map'  ;
      $scope._$stationState = $scope.isShowModul ? "app.show.system_prop.current" : "app.station.prop._basic";
 
 
@@ -257,17 +258,17 @@
 
      $scope.commit = function() {
 
-         $scope.validForm();
+        $scope.validForm();
 
-         // delete $scope.project.create_time;
+        // delete $scope.project.create_time;
 
-         $source.$region.put({
+        $source.$region.put({
              pk: $scope.project.id
-         }, $scope.proj, function(resp) { 
+        }, $scope.proj, function(resp) { 
              angular.alert("修改成功!") ;
 
              angular.extend($scope.project, $scope.proj);
-         })
+        })
 
 
      };

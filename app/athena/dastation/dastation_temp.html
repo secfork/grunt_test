@@ -140,11 +140,14 @@
             <!--gps-->
             <td>
                 <a ng-click=" goto( _$mapState, das , das  )">
-                        <span ng-if="das.latitude" class="fa fa-location-arrow text-success"></span>
+                        <span ng-if="das.latitude"
+                         class="fa fa-location-arrow text-success"></span>
                         <!--jjw btn btn-xs btn-info-->
-                        <span ng-if=" !das.latitude && !isShowModul  " class="btn btn-xs btn-s btn-info bg-info m-l-sm  ng-scope">
-                            去定位
+                        <span ng-if=" !das.latitude && !isShowModul  "
+                         class="btn btn-xs btn-s btn-info bg-info m-l-sm  ng-scope">
+                            去定位 
                         </span>
+                        {{_$mapState}}
                 </a>
             </td>
             <!--      <td ng-if = " !isShowModul "> {{ das.needsync?'是':'否'}}</td> -->
