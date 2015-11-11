@@ -632,7 +632,7 @@ angular.module('app.basecontroller', ['ng'])
                 conformMsg: function($show) {
                     return $show.alarm.getConformMsg({
                         ack_id: alarm.ack_id,
-                        system_id: system_id
+                        system_id: alarm.system_id
                     }).$promise;
                 } 
             },
@@ -670,7 +670,7 @@ angular.module('app.basecontroller', ['ng'])
                     $show.alarm.conform(
                         angular.extend({
                             alarm_id: alarm.id,
-                            system_id: system_id
+                            system_id: alarm.system_id
                         }, $scope.od),
                         null, 
                         function(resp) {

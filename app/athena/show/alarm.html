@@ -13,7 +13,10 @@
                             <span>区域</span>
                         </label>
                         <div class="col-sm-8">
-                            <select   class="input input-sm form-control" ng-model="op.region" ng-options="p.id as p.name  for p in  regions" ng-change=" loadSys()">
+                            <select   class="input input-sm form-control" 
+                            ng-model="od.region_id" 
+                            ng-options="p.id as p.name  for p in  regions" 
+                            ng-change=" loadSys()">
                                 <option value="">全部区域</option>
                             </select>
                         </div>
@@ -25,7 +28,8 @@
                             <span>系统</span>
                         </label>
                         <div class="col-sm-8">
-                            <select   class="input input-sm form-control" ng-model=" od.uuid" ng-options="s.uuid as s.name  for s in systems">
+                            <select   class="input input-sm form-control"
+                             ng-model=" od.system_id" ng-options="s.uuid as s.name  for s in systems">
                                 <option value="">全部系统</option>
                             </select>
                         </div>
@@ -49,7 +53,13 @@
                             <span>起始时间</span>
                         </label>
                         <div class="col-sm-8">
-                            <input type="text" class=" input input-sm form-control col-xs-12" datetime-picker date-format='yyyy-MM-dd HH:mm' nofocus data-readonly-input='false' ng-model="od.start" is-open='op.showS' />
+                            <input type="text" 
+                            class=" input input-sm form-control col-xs-12" 
+                            datetime-picker date-format='yyyy-MM-dd HH:mm'
+                             nofocus data-readonly-input='false' 
+                             ng-model="od.start" 
+                             is-open='op.showS' 
+                             />
                             <span class=" float-left">
                               <button type="button" style="position: absolute;top: 0;right: 10px" class="btn btn-default btn-sm"
                                       ng-click="openCalendar($event, 'op.showS=true')">
@@ -80,7 +90,8 @@
                             <span>类别</span>
                         </label>
                         <div class="col-sm-8">
-                            <select class="input input-sm form-control" ng-model="od.class_id" ng-options=" v for v in [1,2,3,4,5,6,7,8,9,0]">
+                            <select class="input input-sm form-control" 
+                                ng-model="od.class_id" ng-options=" v for v in [1,2,3,4,5,6,7,8,9,0]">
                                 <option value="">全部 </option>
                             </select>
                         </div>
@@ -142,8 +153,10 @@
                     <td> {{ a.class_id }} </td>
                     <td translate="alarm_active.{{ a.active}}"> "活跃":"关闭" </td>
                     <td style="padding-right: 20px">
-                        <a class="text-info" ng-if=" a.active!=1 " ng-click="showAlarmMsg(a , od.uuid)">详细信息</a>
-                        <a ng-if=" a.active == 1 " class="text-info" ng-click="conformAlarm( page, a , $index , od.uuid , op.active )">
+                        <a class="text-info" ng-if=" a.active!=1 " 
+                        ng-click="showAlarmMsg(a , od.system_id )">详细信息</a>
+                        <a ng-if=" a.active == 1 " class="text-info" 
+                        ng-click="conformAlarm( page, a , $index , od.system_id , op.active )">
                         确认报警</a>
                     </td>
                 </tr>
@@ -156,3 +169,6 @@
         <div class=" text-center m-t-sm m-b-sm height-30" ng-include src=" 'athena/debris/_pager.html'  "></div>
     </div>
 </div>
+
+
+od = {{od}}

@@ -24,16 +24,16 @@ angular.module('app.show.system', [])
 
     // 按需加载  system ; 
     $scope.loadSys = function() {
-        if (!$scope.op.region) {
+        if (!$scope.od.region_id) {
             $scope.systems = [];
-            $scope.od.system = undefined;
+            $scope.od.system_id = undefined;
             return;
         };
         $source.$system.query({
             currentPage: 1,
           //  options: "of_proj",
             isactive: 1,
-            region_id: $scope.op.region
+            region_id: $scope.od.region_id
         }, function(resp) {
             $scope.systems = resp.data;
 
@@ -41,8 +41,7 @@ angular.module('app.show.system', [])
     }
 
     $scope.op = {
-        active: "a",
-        region: undefined
+        active: "a"
     };
 
     $scope.$watch("op.active" , function(){
@@ -57,7 +56,9 @@ angular.module('app.show.system', [])
         class_id: null, //0,
         severity: null, //'0',
         end: new Date(),
-        start: new Date(new Date() - 86400000)
+        start: new Date(new Date() - 86400000), 
+        region_id: undefined,
+        system_id:undefined
     };
 
 
@@ -72,8 +73,21 @@ angular.module('app.show.system', [])
         $scope.validForm();
         var od = angular.copy($scope.od);
         
+        if(! od.start){
+            angular.alert( "请输入起始时间");
+            return ;
+        }
+        if(! od.end){
+            angular.alert( "请输入结束时间");
+            return ;
+        }
+
         od.start    =  od.start.getTime(),
         od.end      = od.end.getTime();
+
+
+
+
         if ( od.start  > od.end ) {
                 angular.alert("起始时间不可超前与结束时间");
                 return;
@@ -81,34 +95,31 @@ angular.module('app.show.system', [])
 
         od.itemsPerPage = $sys.itemsPerPage;
         od.currentPage = pageNo;
-
-        var promise;
-        // 活跃报警; 
-
-        if ($scope.op.active == "a") {
-            $show.alarm.get(od, function(resp) {
-                $scope.page.data = resp.data;
-                $scope.page.total = resp.total;
-                $scope.page.currentPage = pageNo;
-                if (!resp.data.length) {
-                    angular.alert({
-                        title: "无报警数据"
-                    })
-                }
-            });
-        } else { // 全部报警;  
  
-            $show.alarm.save(od, undefined, function(resp) {
-                $scope.page.data = resp.data;
-                $scope.page.total = resp.total;
-                $scope.page.currentPage = pageNo;
-                if (!resp.data.length) {
-                    angular.alert({
-                        title: "无报警数据"
-                    })
-                }
-            });
-        }
+        // 活跃报警;  
+        od.active = $scope.op.active=="a" ? "1":undefined ;
+         
+        od.uuid = "query";
+
+         od.offset =   (od.currentPage - 1 )* $sys.itemsPerPage  ;
+         od.limit =  $sys.itemsPerPage; 
+        
+        od.itemsPerPage = undefined ;
+        od.currentPage = undefined ;
+
+
+        $show.alarm.query (  od , function( resp ){
+            $scope.page.data = resp.data;
+            $scope.page.total = resp.total;
+            $scope.page.currentPage = pageNo;
+
+            if (!resp.data.length) {
+                angular.alert({
+                    title: "无报警数据"
+                })
+            }
+        })
+ 
     }
 
 
