@@ -5,7 +5,8 @@
     <form name="form" class="form-horizontal form-validation  tl-center-form   ">
         <input type="submit" class="hidden">
         <!-- 手机-->
-        <input tl-wrap-l label="采集站名称" required ng-model="station.name">
+        <!-- jjw 采集站->系统 -->
+        <input tl-wrap-l label="系统名称" required ng-model="station.name">
         <span ng-if="false" tl-wrap-l label="激活码" ng-model="dastation.activeno"> </span>
         <input tl-wrap-l label="项目" readonly ng-model="dastation.activeno">
         <input tl-wrap-l label="联系人" ng-model=" project.linkman ">
@@ -17,7 +18,7 @@
         <div class="line   line-dashed b-b line-chart m-l-n-sm   "></div>
         <div class="row m-t-xs">
             <div class="col-xs-12">
-                <button class="btn btn-success  btn-sm w-xs" ng-click="setNetWork()"> 保存</button>
+                <button class="btn btn-success  btn-sm w-46" ng-click="setNetWork()"> 保存</button>
             </div>
         </div>
     </form>

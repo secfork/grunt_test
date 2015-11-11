@@ -1,6 +1,6 @@
 <!--   激活采集站  窗口 ;  在   dastation controller 中 引用;  -->
 <div class="modal-header text-center">
-    <h4>  激活采集站采集站: {{ station.name }}  ? </h4>
+    <h4>  激活系统: {{ station.name }}  ? </h4>
 </div>
 <div class="modal-body">
     <form name="form" class="form-validation form-horizontal  padding-10 ">
@@ -9,7 +9,8 @@
         <!--form.$valid = {{form.$valid}}-->
         <!--&lt;!&ndash;@endif &ndash;&gt;-->
         <input type="submit" class="hidden">
-        <input tl-wrap label="采集站名称" ng-model=" station.name " disabled>
+        <!-- jjw 采集站->系统 -->
+        <input tl-wrap label="系统名称" ng-model=" station.name " disabled>
         <div class="line line-dashed b-b "></div>
         Select primary usage for this system This can be changed later.
         <div class="radio">

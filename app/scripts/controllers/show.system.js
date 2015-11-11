@@ -327,27 +327,27 @@ angular.module('app.show.system', [])
             $button = $(e.currentTarget);;
         d[t.name] = v;
 
-        $button.text("下置中...");
+//        jjw
+//        $button.text("下置中...");
         $show.liveWrite.save({
             uuid: $scope.system.uuid
         }, d, function(resp) {
-            //@if  append 
+            //@if  append
             console.log(resp);
             //@endif 
-            $button.text("下置成功");
+//            $button.text("下置成功");
 
-            $timeout(function() {
-                $button.text("下置");
-            }, 2000)
+//            $timeout(function() {
+//                $button.text("下置");
+//            }, 2000)
 
         }, function() {
-            $button.text("下置失败").toggleClass("btn-danger");
-            $timeout(function() {
-                $button.text("下置").toggleClass("btn-danger");
-            }, 2000)
+//            $button.text("下置失败").toggleClass("btn-danger");
+//            $timeout(function() {
+//                $button.text("下置").toggleClass("btn-danger");
+//            }, 2000)
         })
     }
-
 })
 
 .controller('show_system_history', function($scope, $show, $sys, $state) {

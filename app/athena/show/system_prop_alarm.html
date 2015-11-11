@@ -59,9 +59,10 @@
                 </div>
                 <div class="form-group col-md-2 col-sm-6 float-right">
                     <!--jjw m-t-sm-->
-                    <span ng-if=" op.ala !='a' " 
-                        class="btn btn-info btn-sm w-xs m-l m-t-sm float-right" 
-                        ng-click="loadPageData(1 , $event )" token >
+ 
+                    <span ng-if=" op.ala !='a' "    class="btn btn-info btn-sm w-46 m-l m-t-sm float-right" 
+                           ng-click="loadPageData(1 , $event  )" token > 
+
                         查询
                         <i class="fa fa-spin fa-spinner hide   pull-right "  ></i>
                     </span>
@@ -71,8 +72,9 @@
             <!--jjw m-l-lg去掉-->
             <div ng-if=" op.ala=='a' "  class="inline  p-t">
                 <!--jjw m-l m-t-sm-->
-            <span  class="btn btn-info btn-sm m-l-sm w-xs m-t-sm"
-                   ng-click="loadPageData(1 , $event )" token >
+ 
+            <span  class="btn btn-info btn-sm w-46 m-l-sm m-t-sm"
+                   ng-click="loadPageData(1 , $event )" token > 
                 刷新
                 <i class="fa fa-spin fa-spinner hide   pull-right "  ></i>
             </span>
@@ -133,7 +135,7 @@
 
 <div class="panel-footer ">
    <!--jjw m-t-sm m-b-sm-->
-    <div class=" text-center m-t-sm m-b-sm" ng-include src=" 'athena/debris/_pager.html'  "></div>
+    <div class=" text-center m-t-sm m-b-sm height-30" ng-include src=" 'athena/debris/_pager.html'  "></div>
     
 </div>
 

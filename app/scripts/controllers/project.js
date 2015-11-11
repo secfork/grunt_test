@@ -19,6 +19,7 @@
      // if ($scope.isShowModul) {
      //     $scope.$moduleNav("项目", $state);
      // } else {
+     //jjw 区域
      $scope.$moduleNav('全部区域', $state);
      // }
 
@@ -74,8 +75,8 @@
 
      console.log('manage_addproj');
      //@endif 
-
-     $scope.$moduleNav("添加项目", $state);
+     /*添加区域*/
+     $scope.$moduleNav("添加区域", $state);
 
 
      // 添加 工程
