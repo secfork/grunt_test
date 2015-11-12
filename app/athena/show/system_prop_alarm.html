@@ -59,13 +59,14 @@
                 </div>
                 <div class="form-group col-md-2 col-sm-6 float-right">
                     <!--jjw m-t-sm-->
- 
-                    <span ng-if=" op.ala !='a' "    class="btn btn-info btn-sm w-46 m-l m-t-sm float-right" 
+                    
+                    <span ng-if=" op.ala !='a' "    class="btn btn-info btn-sm w-46 m-l m-t-sm float-right pos-rlt" 
                            ng-click="loadPageData(1 , $event  )" token > 
 
                         查询
-                        <i class="fa fa-spin fa-spinner hide   pull-right "  ></i>
+                        <i class="fa fa-spin fa-spinner hide m-t  float-right pos-abt" style="right: -20px;top:5px;color: #333"></i>
                     </span>
+
                 </div>
             </div>
 
@@ -73,11 +74,12 @@
             <div ng-if=" op.ala=='a' "  class="inline  p-t">
                 <!--jjw m-l m-t-sm-->
  
-            <span  class="btn btn-info btn-sm w-46 m-l-sm m-t-sm"
+            <span  class="btn btn-info btn-sm w-46 m-l-sm m-t-sm pos-rlt"
                    ng-click="loadPageData(1 , $event )" token > 
                 刷新
-                <i class="fa fa-spin fa-spinner hide   pull-right "  ></i>
+                <i class="fa fa-spin fa-spinner hide  pull-right pos-abt" style="right: -20px;color: #333;top: 5px"></i>    
             </span>
+            
             </div>
         </div>
 
