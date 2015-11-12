@@ -31,7 +31,7 @@ angular.module('app.show.system', [])
         };
         $source.$system.query({
             currentPage: 1,
-          //  options: "of_proj",
+            //  options: "of_proj",
             isactive: 1,
             region_id: $scope.od.region_id
         }, function(resp) {
@@ -44,10 +44,10 @@ angular.module('app.show.system', [])
         active: "a"
     };
 
-    $scope.$watch("op.active" , function(){
-        $scope.page.data  = [];
-        $scope.page.total = 0 ;
-        $scope.page.currentPage = 0 ;
+    $scope.$watch("op.active", function() {
+        $scope.page.data = [];
+        $scope.page.total = 0;
+        $scope.page.currentPage = 0;
     })
 
 
@@ -56,9 +56,9 @@ angular.module('app.show.system', [])
         class_id: null, //0,
         severity: null, //'0',
         end: new Date(),
-        start: new Date(new Date() - 86400000), 
+        start: new Date(new Date() - 86400000),
         region_id: undefined,
-        system_id:undefined
+        system_id: undefined
     };
 
 
@@ -66,48 +66,48 @@ angular.module('app.show.system', [])
     // // 查询全部报警;   
 
     $scope.loadPageData = function(pageNo) {
-        if(!pageNo){
-            return ;
+        if (!pageNo) {
+            return;
         }
 
         $scope.validForm();
         var od = angular.copy($scope.od);
-        
-        if(! od.start){
-            angular.alert( "请输入起始时间");
-            return ;
+
+        if (!od.start) {
+            angular.alert("请输入起始时间");
+            return;
         }
-        if(! od.end){
-            angular.alert( "请输入结束时间");
-            return ;
+        if (!od.end) {
+            angular.alert("请输入结束时间");
+            return;
         }
 
-        od.start    =  od.start.getTime(),
-        od.end      = od.end.getTime();
+        od.start = od.start.getTime(),
+            od.end = od.end.getTime();
 
- 
 
-        if ( od.start  > od.end ) {
-                angular.alert("起始时间不可超前与结束时间");
-                return;
+
+        if (od.start > od.end) {
+            angular.alert("起始时间不可超前与结束时间");
+            return;
         }
 
         od.itemsPerPage = $sys.itemsPerPage;
         od.currentPage = pageNo;
- 
+
         // 活跃报警;  
-        od.active = $scope.op.active=="a" ? "1":undefined ;
-         
+        od.active = $scope.op.active == "a" ? "1" : undefined;
+
         od.uuid = "query";
 
-         od.offset =   (od.currentPage - 1 )* $sys.itemsPerPage  ;
-         od.limit =  $sys.itemsPerPage; 
-        
-        od.itemsPerPage = undefined ;
-        od.currentPage = undefined ;
+        od.offset = (od.currentPage - 1) * $sys.itemsPerPage;
+        od.limit = $sys.itemsPerPage;
+
+        od.itemsPerPage = undefined;
+        od.currentPage = undefined;
 
 
-        $show.alarm.query (  od , function( resp ){
+        $show.alarm.query(od, function(resp) {
             $scope.page.data = resp.data;
             $scope.page.total = resp.total;
             $scope.page.currentPage = pageNo;
@@ -118,7 +118,7 @@ angular.module('app.show.system', [])
                 })
             }
         })
- 
+
     }
 
 
@@ -297,33 +297,45 @@ angular.module('app.show.system', [])
         },
         t;
 
-    function getCurrent( $event ) {
+    function getCurrent($event) {
         //@if  append 
         console.log(names);
         //@endif 
-        
         var $dom ;
-        if( $event ){
-            $dom  = $($event.currentTarget).find("i");
-            $dom.toggleClass("show");
+     
+
+
+        if( names.length ){
+            if($event) {
+                $dom = $($event.currentTarget);
+                $dom.text("刷新中").attr("disabled" , true);
+     
+            } ;
+
+            $show.live.get({
+                uuid: $scope.system.uuid,
+                tag: names
+            }, function(resp) {
+                $.each(resp.ret, function(i, d) {
+                    d = d || x;
+                    t = $filter("date")(d.src, 'MM-dd HH:mm:ss');
+                    $("#_val_" + i).text(d.pv == null ? "" : d.pv);
+                    t && $("#_time_" + i).text(t);
+                });
+                if ($dom) {
+                    $dom.toggleClass("show");
+                }
+
+            } , function(){ 
+                if($dom){
+                    
+                    
+                }
+
+                $dom && $dom.text("刷新").attr("disabled" , false );
+            })
         }
-         
-
-        names.length && $show.live.get({
-            uuid: $scope.system.uuid,
-            tag: names
-        }, function(resp) {
-            $.each(resp.ret, function(i, d) {
-                d = d || x;
-                t = $filter("date")(d.src, 'MM-dd HH:mm:ss');
-                $("#_val_" + i).text(d.pv == null ? "" : d.pv);
-                t && $("#_time_" + i).text(t);
-            });
-            if($dom){
-                $dom.toggleClass("show");
-            }
-
-        });
+ 
     }
 
     $scope.getCurrent = getCurrent;
@@ -337,25 +349,25 @@ angular.module('app.show.system', [])
             $button = $(e.currentTarget);;
         d[t.name] = v;
 
-//        jjw
-//        $button.text("下置中...");
+        //        jjw
+        //        $button.text("下置中...");
         $show.liveWrite.save({
             uuid: $scope.system.uuid
         }, d, function(resp) {
             //@if  append
             console.log(resp);
             //@endif 
-//            $button.text("下置成功");
+            //            $button.text("下置成功");
 
-//            $timeout(function() {
-//                $button.text("下置");
-//            }, 2000)
+            //            $timeout(function() {
+            //                $button.text("下置");
+            //            }, 2000)
 
         }, function() {
-//            $button.text("下置失败").toggleClass("btn-danger");
-//            $timeout(function() {
-//                $button.text("下置").toggleClass("btn-danger");
-//            }, 2000)
+            //            $button.text("下置失败").toggleClass("btn-danger");
+            //            $timeout(function() {
+            //                $button.text("下置").toggleClass("btn-danger");
+            //            }, 2000)
         })
     }
 })
@@ -396,11 +408,11 @@ angular.module('app.show.system', [])
     }
 
 
-    $scope.queryHistory = function( $event ) { 
+    $scope.queryHistory = function($event) {
 
         $scope.validForm();
 
-        var $dom = $( $event.currentTarget).find("i");
+        var $dom = $($event.currentTarget).find("i");
         $dom.toggleClass("show");
 
 
@@ -422,22 +434,22 @@ angular.module('app.show.system', [])
         d.uuid = $scope.system.uuid,
             d.num = op.num,
             d.tag = op.his_tag.name;
-            d.type = op.his_tag.type ; 
+        d.type = op.his_tag.type;
 
         // 第一个点的数据 ; readattime (); 
-          
-        
+
+
         // 历史数据; 
         //  intervali =  ts ,  readRow  = rcv ;   
         $show.his.getArr(d, function(resp) {
 
-            var timekey = (d.end - d.start) > 86400000 ? "ts" : "rcv" ,
-                atTimedata = resp[0].ret[0][0] ,
+            var timekey = (d.end - d.start) > 86400000 ? "ts" : "rcv",
+                atTimedata = resp[0].ret[0][0],
                 arrData = resp[1].ret[0];
 
-            arrData.unshift( atTimedata );
- 
-            var arr = formatFlotData($scope.op.his_tag, arrData , timekey);
+            arrData.unshift(atTimedata);
+
+            var arr = formatFlotData($scope.op.his_tag, arrData, timekey);
 
             // 解决 无数据时 , 前段时间轴不显示; 
 
@@ -526,16 +538,16 @@ angular.module('app.show.system', [])
 
         if (n == 'a') {
             $scope.loadPageData(1);
-        }else{
+        } else {
             $scope.page.data = [];
-            $scope.page.total = 0 ;
-            $scope.page.currentPage = 0 ;
+            $scope.page.total = 0;
+            $scope.page.currentPage = 0;
         }
 
     });
 
     // 查询活跃 报警;  未确认的; 
-    $scope.getActiveAlarm = function(pageNo , $dom ) { // 一般值 interval是, 切换是调用; 
+    $scope.getActiveAlarm = function(pageNo, $dom) { // 一般值 interval是, 切换是调用; 
         var pg = {
             currentPage: pageNo,
             itemsPerPage: $sys.itemsPerPage
@@ -543,7 +555,7 @@ angular.module('app.show.system', [])
 
         $show.alarm.get(angular.extend(od, pg), function(resp) {
 
-            if( $dom ){
+            if ($dom) {
                 $dom.toggleClass("show");
             }
             $scope.page.data = resp.data;
@@ -557,15 +569,15 @@ angular.module('app.show.system', [])
         })
     }
 
-    $scope.loadPageData = function(pageNo , $event ) {
+    $scope.loadPageData = function(pageNo, $event) {
 
-        if(!pageNo ){
-            return ;
-        } 
-        var  $dom ; 
+        if (!pageNo) {
+            return;
+        }
+        var $dom;
 
 
-        if($event){
+        if ($event) {
             $dom = $($event.currentTarget).find("i");
             $dom.toggleClass("show");
 
@@ -573,21 +585,21 @@ angular.module('app.show.system', [])
 
 
         if ($scope.op.ala == "a") { // 活跃报警
-            $scope.getActiveAlarm(pageNo , $dom );
+            $scope.getActiveAlarm(pageNo, $dom);
         } else { //  全部活跃; 
-            $scope.queryAlarm(pageNo , $dom );
+            $scope.queryAlarm(pageNo, $dom);
         }
     }
 
 
     // 点击按钮 查询全部报警;  
-    $scope.queryAlarm = function(pageNo , $dom ) {
+    $scope.queryAlarm = function(pageNo, $dom) {
         var d = {},
-            op = $scope.op ; 
-            d.start  = op.start.getTime(),
-            d.end  = op.end.getTime();
+            op = $scope.op;
+        d.start = op.start.getTime(),
+            d.end = op.end.getTime();
 
-        if ( d.start > d.end ) {
+        if (d.start > d.end) {
             angular.alert("起始时间不可超前与结束时间!");
             return;
         }
@@ -600,9 +612,9 @@ angular.module('app.show.system', [])
         d.uuid = $scope.system.uuid,
             d.currentPage = pageNo,
             d.itemsPerPage = $sys.itemsPerPage;
- 
+
         $show.alarm.save(d, null, function(resp) {
-            if( $dom ){
+            if ($dom) {
                 $dom.toggleClass("show");
             }
 

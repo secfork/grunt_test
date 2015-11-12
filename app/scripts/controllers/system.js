@@ -53,6 +53,7 @@ angular.module('app.system', [])
 
         $scope.reset = function(){
             $scope.od = {};
+             $scope.loadPageData(1) ;
         }
 
         $scope.loadPageData = function(pageNo ) { 

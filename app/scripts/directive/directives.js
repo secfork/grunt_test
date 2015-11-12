@@ -320,19 +320,31 @@ angular.module('app.directives', ['pascalprecht.translate'])
 
 .directive("token", function($compile, $timeout) {
     // disabled
+    var  spinner =  '<i class="fa fa-spin hide fa-spinner" ></i>'; 
     return {
         restrict: "A",
         require: ["?^ngDisabled"],
         link: function(scope, $ele, attrs, fn) {
             //@if  append 
             //@endif 
+            //
+            
+            $ele.css({opacity:1});
+
+            console.log(attrs)
+            if ( attrs.spinner !=undefined  ){
+                $ele.append( spinner );
+            }
+ 
             $ele.on("click", function() {
                 var that = this;
+
                 that.disabled = true;
-                $(this).addClass("disabled");
+                $(that).find("i").toggleClass("show")
+
                 $timeout(function() {
                     that.disabled = false
-                    $(that).removeClass("disabled");
+                    $(that).find("i").toggleClass("show")
                 }, attrs.token || 1000)
             });
         }

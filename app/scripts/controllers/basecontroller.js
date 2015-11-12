@@ -525,8 +525,9 @@ angular.module('app.basecontroller', ['ng'])
         //@endif
         var $button = $(e.currentTarget) ;
  
+        $button.css({opacity:1});
        // var s = $animate.removeClass( button.children[1] ,"hide");
-       $button.text( "召唤中...");
+       $button.text( "召唤中...").attr("disabled" , true );
  
         $source.$system.call({
             pk: system.uuid,
@@ -536,13 +537,13 @@ angular.module('app.basecontroller', ['ng'])
             //                angular.alert("召唤成功"); 
             $button.text("召唤成功");
             $timeout( function(){
-                $button.text("召唤");
-            },2000);
+                $button.text("召唤").attr("disabled", false);
+            },5000);
         } , function(){
             $button.text("召唤失败").toggleClass("btn-danger");
             $timeout( function(){
-                $button.text("召唤").toggleClass("btn-danger");
-            },2000);
+                $button.text("召唤").toggleClass("btn-danger").attr("disabled" , false);
+            },5000);
         });
 
     };
@@ -896,8 +897,14 @@ angular.module('app.basecontroller', ['ng'])
 
     // 去缓存account,到 website ;
     // setp1
-    $scope.signup = function() {
+    $scope.signup = function( $event ) {
+
+
         $scope.validForm('form1');
+
+        var dom = $event.currentTarget ;
+        dom.disabled = true ;
+
 
         $source.$account.save($scope.comp, function(resp) {
 
@@ -910,6 +917,8 @@ angular.module('app.basecontroller', ['ng'])
             //     $state.go("access.signin");
             // })
 
+        } , function(){
+            dom.disabled = false ;
         })
     };
 
@@ -958,6 +967,7 @@ angular.module('app.basecontroller', ['ng'])
     $scope.admin = {};
 
 
+    $scope.t = 123111;
 
     var uuid = $location.$$search.uuid;
     if (uuid) {
@@ -968,51 +978,27 @@ angular.module('app.basecontroller', ['ng'])
             $scope.od.step = resp.ret ? 3 : 1;
         })
     } else {
-        $scope.od.step = 1;
+        $scope.od.step = 1 ;
     }
 
+ 
+    
+    $scope.setp1 = function( $event ) {
 
+        $event.currentTarget.disabled = true ;
 
-    //@if append
-    $scope.cc_cancel = function() {
-        $sessionStorage.cc_step = $scope.step = 1;
-    }
-
-    $scope.time = $sessionStorage.fog_time || 0; // 倒计时; 
-    if ($scope.time) {
-        wait_interval();
-    }
-    var inter;
-
-    function wait_interval() {
-        inter = $interval(function() {
-            $sessionStorage.fog_time = --$scope.time;
-            if ($scope.time == 0) {
-                $interval.cancel(inter);
-            }
-        }, 1000)
-    }
-    $scope.send_msg = function() {
-            $source.$note.get({
-                op: "admin",
-                mobile_phone: $scope.od.phone
-            }, function() {
-                $sessionStorage.fog_time = $scope.time = 60;
-                wait_interval();
-
-            })
-        }
-        //@endif 
-
-    $scope.setp1 = function() {
         //$scope.od.identi.length <4  return ; 
         $source.$common.get(
             $scope.account,
             function(resp) {
                 // $scope.od.phone = resp.ret;
                 $scope.od.step = 2;
+                $event.currentTarget.disabled = false ;
             },
-            function(resp) {}
+            function(resp) { 
+                $scope.t++;
+                $event.currentTarget.disabled = false ; 
+            }
         )
     };
 

@@ -9,7 +9,7 @@ angular.module('app.sysconfig', [], function() {})
 
         itemsPerPage: 20,
          //@if  append
-        itemsPerPage: 5,
+        itemsPerPage: 20,
          
          //@endif 
 

@@ -9,7 +9,8 @@
                 <!--<div class="btn btn-sm    input-group-addon">搜索</div>-->
                 <label class="col-xs-3 float-left"><span>搜索</span></label>
                 <div class="col-xs-9 no-padder float-right">
-                    <input type="text" class="form-control input-sm col-xs-12" ng-model="f_name" ng-change="filterTags(f_name)">
+                    <input type="text" class="form-control input-sm col-xs-12" 
+                      ng-model="f_name" ng-change="filterTags(f_name)">
                 </div>
             </div>
 
@@ -41,20 +42,20 @@
             </button> -->
 
 
-            <button class="btn btn-sm btn-info  w-46 col-sm-6 float-right m-l m-t-xs  "
-                    ng-click="d_call( system  , 2 , $event )"   token="5000" >
-                召唤
+            <button class="btn btn-sm btn-info  w-70 col-sm-6 float-right m-l m-t-xs  "
+                    ng-click="d_call( system  , 2 , $event )" >
+                召唤 
             </button>
 
 
          
 
  
-            <button class="btn btn-sm btn-info  w-46 col-sm-6 float-right m-l m-t-xs"
-                     ng-click=" getCurrent(  $event ) " token> 刷新
-                <i class="fa fa-spin fa-spinner hide   pull-right "  ></i>
-
+            <button class="btn btn-sm btn-info  w-70 col-sm-6 float-right m-l m-t-xs"
+                     ng-click=" getCurrent(  $event ) " style="opacity:1" > 刷新
+                 
             </button>
+ 
         </div>
     </form>
  
