@@ -56,7 +56,7 @@
                                               | orderBy    : predicate:reverse  "
                  >   -->
 
-            <tr ng-repeat="  proj  in page.data  "  >
+            <tr ng-repeat="  proj  in page.data  "  ng-init=" collectRegionId( proj , $last )" >
                 <!--
 
 
@@ -75,9 +75,19 @@
                     </a>
                 </td>
                 <td> {{ proj.create_time | date:"yyyy-MM-dd HH:mm Z" }}</td>
-                <td class="numeric "> {{ proj.active_sysno }} </td>
+                <td class="numeric "  id="act_{{proj.id}}">
+              <!--    {{ proj.active_sysno }} -->
+                 </td>
 
-                <td class="numeric " ng-if=" ! isShowModul "> {{ proj.unacitve_sysno }} </td>
+                <td class="numeric " ng-if=" ! isShowModul "
+                    id = "unact_{{proj.id}}"
+                    > 
+              <!--   {{ proj.unacitve_sysno }}  -->
+                </td>
+                
+
+
+
                 <td class="numeric" ng-if=" ! isShowModul ">
                     <a class="text-info-dk m-r-xs" ng-disabled="true"
                        ng-click="delProject( proj  , $index   )">移除</a>
