@@ -209,12 +209,35 @@ angular.module('app.show.system', [])
         $scope.op.his_tag = t;
         $state.go('app.show.system_prop.history');
     }
+  
+    //  var map = new BMap.Map("l-map");      
+    // map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);      
+    // // 创建地理编码实例      
+    if( $scope.system.latitude ){
+        var myGeo = new BMap.Geocoder();      
+        // // 根据坐标得到地址描述    
+        myGeo.getLocation(new BMap.Point( $scope.system.longitude ,  $scope.system.latitude ), function(result){      
+            if (result){   
+                console.log( result );   
+                $scope.$apply( function(){
+                    $scope.system.map_address = result.address ;    
+                })
+            }      
+        });
+
+    }
+
+    
+
 
 })
 
 .controller('show_system_basic', function($scope, $sys, $show, $state) {
     // 获取是否在线; 
     $scope.$popNav($scope.system.name + "", $state);
+
+
+
 
 })
 

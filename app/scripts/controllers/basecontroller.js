@@ -919,6 +919,7 @@ angular.module('app.basecontroller', ['ng'])
 
         } , function(){
             dom.disabled = false ;
+            $scope.op.t++;
         })
     };
 

@@ -678,11 +678,15 @@ angular.module("app.model.system", [])
                     $scope.true_conn = scope.true_conn; 
 
                     // dev , point 回显 待定;  conncet 是 id 还是那么;
-                    d = a.connect.split("."),
-                        dd = d[0],
-                        dt = d[1];
- 
+                
                     if (t.isManageMode) { // 托管模式;
+
+                        // 非托管的无 connect 字段; 
+                        d =  a.connect.split(".") ,
+                        dd = d[0] ,
+                        dt = d[1] ;
+ 
+
 
                         // ApplyDevPoint 会初始化第一个point名字; 
                         ApplyDevPoint($scope).then(function( ) { 
@@ -721,9 +725,11 @@ angular.module("app.model.system", [])
                         $scope.addConnect && $scope.addConnect(d);
 
                         $source.$sysTag.put(d, function(resp) {
-                            // 连接上了 设备; 
-                            scope.$parent.true_conn = true;  
-                            scope.$parent.dev_name =  $scope.devicesKV[ $scope.op.dev.id ].name ;
+                            if (t.isManageMode) {
+                                // 连接上了 设备; 
+                                scope.$parent.true_conn = true;  
+                                scope.$parent.dev_name =  $scope.devicesKV[ $scope.op.dev.id ].name ;
+                            }
  
                             angular.extend(tag, d);
                             $scope.cancel();
