@@ -616,7 +616,7 @@ angular.module("app.model.system", [])
                         $scope.isAdd = true,
 
                         $scope.T = {
-                            type: "Number"
+                            type: undefined
                         },
                         $scope.L = {};
 

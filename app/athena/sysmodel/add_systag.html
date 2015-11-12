@@ -14,8 +14,7 @@
             ng-change=" loadPoint( op.dev , true ) " 
              required>
                 <option value="">--请选择设备--</option> 
-
-
+ 
             </select>
 
             <!--jjw 注释-->
@@ -27,7 +26,8 @@
              ui-refresh="points" ng-change=" copyName() " 
              k="name" 
               v="id&name" 
-             required>
+             required
+             >
                 <option value="">--请选择点--</option>
             </select> 
         </div>
@@ -36,13 +36,18 @@
         <!--  <input tl-wrap   label="group"    ng-model="T.group"   >
                 ng-disabled = " true_conn "
          -->
-        <select tl-wrap ng-model="T.type" ng-options="  k  for k in $sys.tag.type" label="text.type" required>
+        <select tl-wrap ng-model="T.type" 
+           ng-options="  k  for k in $sys.tag.type" 
+           label="text.type" 
+           required
+           >
             <option value="">--选择点类型--</option>
         </select>
         <textarea tl-wrap ng-model="T.desc" label="备注"> </textarea>
     </form>
 
-    
+T = {{T}}
+
     <!--   <div ng-show="L && hasProfile"  class="text-left b-b  m-b  "  style=" after:'14123' " >
              <strang  class = "m-l-lg">  在配置项 {{profile.name}} 下配置点 </strang>
         </div>

@@ -532,7 +532,7 @@ angular.module('app.directives', ['pascalprecht.translate'])
             var tag = $ele[0].tagName,
                 cls;
 
-            cls = (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") ? "form-control" : " no-border";
+            cls =   //(tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") ? "form-control" : " no-border";
             //cls = (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") ?   "form-control"  :  "form-control no-border";
 
             $ele.addClass(cls).wrap($compile(wrap_input)($scope));
