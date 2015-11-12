@@ -54,7 +54,7 @@ angular.module('app.directives', ['pascalprecht.translate'])
                         var target = attr.target;
                         _el.hasClass('in') || _el[method](target).addClass('in');
                     });
-                }
+                } 
 
                 function md() {
                     parent && parent['prepend'](el);
