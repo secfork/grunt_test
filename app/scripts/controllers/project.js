@@ -35,11 +35,51 @@
 
          $source.$region.query(d, function(resp) {
 
-             $scope.page = resp;
-             $scope.page.currentPage = pageNo;
-             
+            $scope.page = resp;
+            $scope.page.currentPage = pageNo;
+ 
          });
-     }
+    };
+
+    var region_ids = [];
+    $scope.collectRegionId = function(  region, $last ){
+        region_ids.push( region.id );
+        
+        //@if  append
+        console.log( region , $last );
+        //@endif 
+        
+        
+        if( $last ){
+            getActiveSum( region_ids );
+            
+            !$scope.isShowModul &&  getUnActiveSum( region_ids );
+             
+        }
+    }
+
+
+
+
+    function getActiveSum ( region_ids ){
+        $source.$region.save( {pk:"sum" , state: 1} , region_ids , function(resp){
+            resp.ret.forEach( function( v, i ){
+                $("#act_"+v.region_id ).text(v.count);
+            })
+        })
+    }
+
+
+    function getUnActiveSum ( region_ids ){
+        $source.$region.save( {pk:"sum" , state:  0 } , region_ids , function(resp){
+            resp.ret.forEach( function( v, i ){
+                $("#unact_"+v.region_id ).text(v.count);
+            })
+        })
+    }
+
+
+
 
      $scope.loadPageData(1);
 

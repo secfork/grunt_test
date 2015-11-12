@@ -35,7 +35,7 @@ module.exports = function(grunt) {
     // Define the configuration for all the tasks
     
     var  replace_js_test_nginx_console  = [
-        { match:"oss", replacement: "http://hinglinx-test.oss-cn-beijing.aliyuncs.com/"}
+        { match:"oss", replacement: "http://thinglinx-test.oss-cn-beijing.aliyuncs.com/"}
 
     ];
 
