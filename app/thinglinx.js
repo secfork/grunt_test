@@ -157,8 +157,6 @@ var app = angular.module('thinglinx', [
 
             })
 
-
-
             .state("app.show", {
                 url: "/show",
  
