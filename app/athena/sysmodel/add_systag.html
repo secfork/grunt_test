@@ -36,9 +36,15 @@
         <!--  <input tl-wrap   label="group"    ng-model="T.group"   >
                 ng-disabled = " true_conn "
          -->
-        <select tl-wrap ng-model="T.type" ng-options="  k  for k in $sys.tag.type" label="text.type" required>
-            <option value="">--选择点类型--</option>
-        </select>
+        <!-- jjw -->
+        <div ng-show="isAdd">
+            <select tl-wrap ng-model="T.type"  ng-options="  k  for k in $sys.tag.type" label="text.type" required>
+                <option value="">--选择点类型--</option>
+            </select>
+        </div>
+        <div ng-show="!isAdd">
+            <input tl-wrap ng-model="T.type" ng-disabled=" !isAdd" label="text.type" required>    
+        </div>
         <textarea tl-wrap ng-model="T.desc" label="备注"> </textarea>
     </form>
 
@@ -58,10 +64,10 @@
 
 
 <!--jjw 注释-->
-<!--&lt;!&ndash;@if append &ndash;&gt;-->
+<!--@if append -->
 <!--T= {{T}}-->
 <!--<br> op.dev = {{ op.dev }}-->
 <!--<br> op.devModel = {{ op.devModel }}-->
 <!--<br> op.point = {{ op.point }}-->
 <!--<br> profile = {{profile}}-->
-<!--&lt;!&ndash;@endif &ndash;&gt;-->
+<!--@endif -->
