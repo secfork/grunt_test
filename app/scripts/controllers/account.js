@@ -208,10 +208,11 @@ angular.module('app.account', [])
         });
     };
 
-    // 验证联系方式; 
-    $scope.verifyUser = function(u, i) {
+    // 验证联系方式;
+//        jjw 添加参数temp，标记是phone还是email
+    $scope.verifyUser = function(u, i,temp) {
         $modal.open({
-            templateUrl: "athena/account/users_verify.html",
+            templateUrl: temp=='phone'?"athena/account/users_verify_phone.html":"athena/account/users_verify_email.html",
             controller: function($scope, $modalInstance , $interval ) {
                 $scope.$modalInstance = $modalInstance;
 

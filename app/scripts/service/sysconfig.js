@@ -258,13 +258,11 @@ angular.module('app.sysconfig', [], function() {})
 
         log_period: {
             desc: " prof pint 的 日志周期!",
-            default: 30,
+//            jjw
+            default: 300,
             values: [{
-                v: '30',
-                k: "30秒"
-            }, {
                 v: '60',
-                k: "60秒"
+                k: "1分钟"
             }, {
                 v: '300',
                 k: "5分钟"
@@ -283,10 +281,16 @@ angular.module('app.sysconfig', [], function() {})
             }]
         },
         log_type: {
-            default: "RAW",
+//            jjw
+            default: "",
             values: {
-                "RAW": "保存原始记录",
-                "CHANGED": "只在变化时存储"
+//                "RAW": "保存原始记录",
+//                "CHANGED": "只在变化时存储"
+//                jjw
+                "RAW": "周期保存",
+                "CHANGED": "变化时保存"
+
+
             }
         },
 
