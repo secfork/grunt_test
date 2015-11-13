@@ -102,7 +102,13 @@ angular.module('app.system', [])
                     $.each(resp.data, function(i, n) {
                         //  不是这个 系统状态(0:未激活,1:活跃,2:挂起)
                         // 而是系统在线在线状态; 
-                        n.online = sysStatus && sysStatus[i] && sysStatus[i].online;
+ 
+                        n.online = sysStatus && sysStatus[i] &&  
+                                    ( sysStatus[i].daserver? 
+                                        sysStatus[i].daserver.logon 
+                                        : sysStatus[i].online
+                                    )
+ 
                         n.needsync = sta2sync && sta2sync[n.uuid];
                     });
 
