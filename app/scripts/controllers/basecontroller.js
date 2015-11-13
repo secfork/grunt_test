@@ -760,7 +760,7 @@ angular.module('app.basecontroller', ['ng'])
 
     $scope.op = {
         t: 1,
-        b: false
+        b: false, 
     };
 
 
