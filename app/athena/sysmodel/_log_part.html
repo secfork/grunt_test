@@ -31,7 +31,7 @@
                 tl-default="$sys.log_type.default"
                 ng-model="L.log_type"
                 label="保存日志"
-                ng-change="(L.log_type=='RAW'|| L.log_type=='CHANGED')?L.save_his = 1:L.save_his = 0"
+                ng-change="(L.log_type=='RAW'|| L.log_type=='CHANGED')?(L.save_his = 1):(L.save_his = 0)"
                 >
             <!--jjw-->
             <option value=''> --不保存日志-- </option>

@@ -70,10 +70,8 @@
     "BAD_REQUEST": "请求参数错误",
 
     "SPACE_NOT_EXIST": "报警空间不存在",
-    "ACK_MESSAGE_NOT_EXIST": "报警信息不存在",
-
-    "ER_SENDMESSAGE_ERROR": "控制命令发送失败,原因可能为超时或者设备收到数据处理错误",
-    "ER_SEND_MESSAGE_ERROR": "控制命令发送失败,原因可能为超时或者设备收到数据处理错误",
+    "ACK_MESSAGE_NOT_EXIST": "报警信息不存在", 
+    
     "ER_INVALID_INVITATION_CODE": "邀请码无效",
 
 
@@ -97,6 +95,32 @@
     "ER_DUP_ENIRY": "_ ER_DUP_ENIRY _",
     "ER_AUTH_FAILURE":"无权限",
     "ER_SYSTEM_REF":"当前区域下存在系统，不能被删除",
+
+
+    "ER_SENDMESSAGE_ERROR": "_作废_控制命令发送失败,原因可能为超时或者设备收到数据处理错误",
+    "ER_TIME_OUT":"发送消息超时",
+    "ER_HTTP_OFFLINE":"网络繁忙",
+    "ER_DA_SVR_STOP":"DAServer停止",
+    "ER_DEV_NOT_EXIST":"设备不存在",
+    "ER_DEV_STOP":"设备停止",
+    "ER_DEV_OFFLINE":"设备离线",
+    "ER_TAG_NOT_EXIST":"点不存在",
+    "ER_TAG_READONLY":"点只读",
+    "ER_TAG_TYPE_ERR":"数据类型错误",
+    "ER_PARA_ERR":"参数错误",
+    "ER_WRITE_QUEUE_FULL":"下置队列满",
+    "ER_DEV_INACTIVE":"设备未激活",
+    "ER_DEV_COMM_TYPE_ERR":"设备通讯类型错误",
+    "ER_DEV_COUNT_ZERO":"设备数为空",
+    "ER_TAG_COUNT_ZERO":"设备点数为空",
+    "ER_LINK_COUNT_ZERO":"设备连接项为空",
+    "ER_DEV_NET_CFG_ERR":"设备网络参数错误",
+    "ER_DEV_SIMID_USED":"设备SIMID号被占用",
+    "ER_CODE_EXCEPTION":"代码异常",
+    "ER_JSON_PARSE_ERR":"下置命令串解析错误",
+    "ER_CMD_TYPE_ERR":"不支持的命令类型",
+    "ER_UNKNOWN_ERROR":"未知错误　",
+
 
 
 

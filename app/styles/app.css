@@ -3593,6 +3593,7 @@ a.text-black:hover {
 .pos-fix {
   position: fixed;
 }
+
 .float-left > div {
  /* margin-left: 10px;*/
   float: left;
