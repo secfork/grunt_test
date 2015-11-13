@@ -11,8 +11,8 @@
     "identify_err": "验证码无效",
     "sms_verify_err": "短信验证码无效",
 
-    "send_repetition": "验证码已经发送",
-    "rest_err":"服务器错误!",
+    "send_repetition": "验证码已经发送", 
+    "rest_err":"服务器错误!", 
     "no_account": "无此Account 帐号",
 
     "send_maill_err":"邮件发送失败",
