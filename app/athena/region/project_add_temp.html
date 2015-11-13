@@ -27,16 +27,18 @@
         <input tl-wrap-l label="地址" ng-model=" proj.address ">
         
         <!-- jjw 添加是否接受报警的checkbox -->
-        <div class="form-group  ">
+
+        <div class="form-group  "  ng-if="!isAdd">
             <label class="col-sm-3" style="padding-top: 7px">
                 <span>接收报警</span>
             </label>
             <div class="i-checks small col-sm-9 no-padder">
                 <label class="checkbox i-checks  inline m-r w-sl m-l-sm">
-                    <input type="checkbox" name="check" ng-model="proj.rec_alarm"><i></i> 
+                    <input type="checkbox" name="check" ng-model="od.sub"  ng-change = "editSub()"><i></i> 
                 </label>
             </div>
         </div>
+        od.sub = {{od.sub}}
 
         <div ng-if="more">
             <input tl-wrap-l label="邮编" ng-model=" proj.postcode " ng-pattern="/^[0-9]*$/">

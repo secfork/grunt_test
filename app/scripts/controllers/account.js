@@ -118,6 +118,10 @@ angular.module('app.account', [])
 
                 $scope.done = function() {
                     $scope.validForm();
+
+                    $scope.user.sms_notice = undefined ;
+                    $scope.user.mail_notice = undefined ;
+
                     $source.$user.put({}, $scope.user, function() {
                         angular.extend(user, $scope.user);
                         // 用户组 更改时 ; 
@@ -182,8 +186,8 @@ angular.module('app.account', [])
             function(resp) {
                 angular.alert("创建用户成功" , function(){
                     $scope.user = {
-                                        mail_notice: 1,
-                                        sms_notice: 1
+                                       // mail_notice: 1,
+                                       // sms_notice: 1
                                     }; 
                     $scope.op.confirm_password=undefined;
                 });

@@ -74,6 +74,7 @@
     
     "ER_INVALID_INVITATION_CODE": "邀请码无效",
 
+    "ER_MOBILE_PHONE_NOT_VERIFIED":"手机未验证",
 
     "ER_SYSTEM_NO_LOG_DATA": "无历史数据",
 
@@ -121,7 +122,7 @@
     "ER_CMD_TYPE_ERR":"不支持的命令类型",
     "ER_UNKNOWN_ERROR":"未知错误　",
 
-
+    "ER_SUBSCRIBE_EXIST":"订阅已经存在",
 
 
     "del": "删除",

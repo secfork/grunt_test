@@ -50,6 +50,7 @@ angular.module('app.services', ["ngResource"], function() {
     this.$account = $createSource( "account/:pk" );
     this.$role = $createSource("role/:pk");
     this.$driver = $createSource("driver/:type");
+    this.$sub    =  $createSource("subscribe/:pk/:op");
     
     //    sou: connent( sys联系人) , user( 用户) , 
     //  ? send : cell_phone , verify: code ;  
