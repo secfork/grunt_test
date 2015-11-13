@@ -27,23 +27,23 @@
             <div class="col text-right color-5"> {{$sys.sysModelMode.values[systemModel.mode] }} </div>
         </div>
         <div class=" b-b line-dashed  jbox hbox ">
-            <div class="col w-sm  "> 通讯类型 </div>
+            <div class="col w-sm "> 通讯类型 </div>
             <div class="col text-right color-5"> {{ systemModel.comm_type == 1 ? 'DaServer':'GateWay' }} </div>
         </div>
         <div class=" b-b line-dashed  jbox hbox ">
-            <div class="col w-sm  "> 数据最后更新时间 </div>
+            <div class="col w-sm "> 数据最后更新时间 </div>
             <div class="col text-right color-5"> {{ system.last_modify_time | date:"yyyy-MM-dd HH:mm Z"}} </div>
         </div>
         <div class=" b-b line-dashed  jbox hbox ">
-            <div class="col w-sm  "> 位置 </div>
+            <div class="col w-sm "> 位置 </div>
             <div class="col text-right color-5"> {{ system.map_address  }} </div>
         </div>
         <div class=" b-b line-dashed  jbox hbox ">
-            <div class="col w-sm  "> 最后活跃报警 </div>
+            <div class="col w-sm "> 最后活跃报警 </div>
             <div class="col text-right color-5"> {{ }} </div>
         </div>
         <div class="jbox hbox">
-            <div class="col w-sm  "> 系统描述 </div>
+            <div class="col w-sm "> 备注 </div>
             <div class="col text-right color-5"> {{system.desc }} </div>
         </div>
     </div>
