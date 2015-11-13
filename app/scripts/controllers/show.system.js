@@ -345,9 +345,17 @@ angular.module('app.show.system', [])
                     $("#_val_" + i).text(d.pv == null ? "" : d.pv);
                     t && $("#_time_" + i).text(t);
                 });
-                if ($dom) {
-                    $dom.toggleClass("show");
+
+                if( $dom ){
+                    $dom.text("刷新成功");
+
+                    $timeout( function(){
+                        $dom.text("刷新").attr("disabled" , false );
+                    },3000);
+
                 }
+
+                 
 
             } , function(){ 
                 if($dom){

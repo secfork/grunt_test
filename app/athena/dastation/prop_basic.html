@@ -15,9 +15,9 @@
             <div class="col w-sm  "> 活跃状态 </div>
             <div class="col text-right  color-5"> {{ station.state == 1 ? "激活":"未激活" }} </div>
         </div>
-        <div class="b-b line-dashed  jbox  hbox ">
+        <div class="b-b line-dashed  jbox  hbox "> 
             <div class="col w-sm  "> 在线状态 </div>
-            <div class="col text-right  color-5"> {{s }} </div>
+            <div class="col text-right  color-5"> {{ station.online ==1?"在线":"离线" }} </div>
         </div>
         <div class="b-b line-dashed  jbox  hbox ">
             <div class="col w-sm  "> 时区 </div>

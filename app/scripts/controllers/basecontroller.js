@@ -263,7 +263,7 @@ angular.module('app.basecontroller', ['ng'])
 
     // 关闭弹出 window
     $scope.cancel = function() {
-        this.$modalInstance.dismiss('cancel');
+        this.$modalInstance && this.$modalInstance.dismiss('cancel');
     };
 
     // 登出;
@@ -731,7 +731,9 @@ angular.module('app.basecontroller', ['ng'])
 
 
 .controller("access_signin", function($scope, $state, $timeout, $localStorage, $sys,
-    $sessionStorage, $compile, $source) {
+    $sessionStorage, $compile, $source   ) {
+
+ 
 
     // 获取登录次数; 
     $source.$common.get({
