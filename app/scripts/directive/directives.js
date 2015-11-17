@@ -777,3 +777,23 @@ angular.module('app.directives', ['pascalprecht.translate'])
         }
     }
 })
+
+
+.directive("loadMask" , function(){
+
+pos-rlt 
+    return {
+        restrict:"A",
+        link: function( $scope , $element , $attrs ){
+
+            var  maskDom =  '<i class="fa fa-spin fa-3x  text-info fa-spinner pos-abt"></i>'
+            
+            $scope.mask = function(){
+
+
+            }
+
+        }
+    }
+
+})

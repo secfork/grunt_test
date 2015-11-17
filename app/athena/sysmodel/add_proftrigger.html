@@ -127,7 +127,10 @@
         <div ng-if="T.action == _config.action_alarm ">
             <select tl-wrap ng-options=" k as v for (k,v) in _config.severity " ng-model="T.params.severity" tl-default="_config.severity_default" label="严重性"></select>
             <select tl-wrap ng-options=" k as v for (k,v) in $sys.trigger.class_id " ng-model="T.params.class_id" tl-default="_config.class_id_default" label="类别"></select>
-            <textarea tl-wrap ng-model="T.params.desc" ng-max=50 ng-maxlength='50' label="报警描述"></textarea>
+            <textarea tl-wrap ng-model="T.params.desc" 
+            ng-max=50 ng-maxlength='50' label="报警描述"
+            required
+            ></textarea>
         </div>
         <div ng-if="T.action == _config.action_event">
             Event Event Event Event Input .....
