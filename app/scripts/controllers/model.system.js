@@ -1,6 +1,6 @@
-angular.module("app.model.system", []) 
+angular.module("app.model.system", [])
     .controller("sysmodel", function($scope, $state, $modal, $source, $utils) {
-     // $source.$sysModel 
+        // $source.$sysModel 
 
 
         $scope.$moduleNav("系统模型", $state);
@@ -10,10 +10,13 @@ angular.module("app.model.system", [])
             page;
 
         // 加载所有 sysmodel ;
+        $scope.showMask = true ; 
         $source.$sysModel.get($scope.$sys.fristPage, function(resp) {
             $scope.page = page = {
                     data: resp.ret
                 } // $utils.page(resp);
+
+            $scope.showMask = false ; 
         });
 
 
@@ -33,9 +36,14 @@ angular.module("app.model.system", [])
                         $scope.validForm();
                         // 新建 sysmodel ;
                         $source.$sysModel.save($scope.sm, function(resp) {
-                            var  d = { uuid: resp.ret , create_time: new Date() , device_count:0 ,profile_count:1};
-                     
-                            page.data.push( angular.extend( d , $scope.sm ) );
+                            var d = {
+                                uuid: resp.ret,
+                                create_time: new Date(),
+                                device_count: 0,
+                                profile_count: 1
+                            };
+
+                            page.data.push(angular.extend(d, $scope.sm));
                             page.total++;
                             $scope.cancel();
                         });
@@ -45,8 +53,8 @@ angular.module("app.model.system", [])
         }
 
         $scope.deleteSM = function(index, sm) {
-            $scope.confirmInvoke({ 
-                title: "删除系统模型: " + sm.name + "?" 
+            $scope.confirmInvoke({
+                title: "删除系统模型: " + sm.name + "?"
             }, function(next) {
                 $source.$sysModel.delete({
                     uuid: sm.uuid
@@ -89,12 +97,12 @@ angular.module("app.model.system", [])
                     }
 
                 }
-            }) 
-        } 
+            })
+        }
 
     })
 
-.controller('sysmodelProp',   
+.controller('sysmodelProp',
     function($scope, $source, $q) {
 
 
@@ -128,9 +136,8 @@ angular.module("app.model.system", [])
                 state: "app.model.sysmodel_p.sysdevice"
             })
         }
- 
-        $scope.tabs = $scope.tabs.concat([
-            { 
+
+        $scope.tabs = $scope.tabs.concat([{
                 title: "tab.t11",
                 icon: "icon icon-tag",
                 state: "app.model.sysmodel_p.systag"
@@ -147,7 +154,7 @@ angular.module("app.model.system", [])
             //     icon: "icon icon-flag",
             //     state: "app.model.sysmodel_p.message"
             // }
-            
+
         ]);
         if ($scope.sysmodel.mode == 1 && $scope.sysmodel.comm_type == 2) {
             $scope.tabs.push({
@@ -155,59 +162,63 @@ angular.module("app.model.system", [])
                 icon: "glyphicon glyphicon-random",
                 state: "app.model.sysmodel_p.gateway"
             });
-        } 
+        }
 
         // tags , triggers,  message 对应的 prifile ;
-        $scope.odp = {}; 
+        $scope.odp = {};
 
-        $scope.loadProfilePromise = $source.$sysProfile.get( {system_model: $scope.sysmodel.uuid }).$promise;
+        $scope.loadProfilePromise = $source.$sysProfile.get({
+            system_model: $scope.sysmodel.uuid
+        }).$promise;
 
-        $scope.loadProfilePromise.then( function( resp ){
+        $scope.loadProfilePromise.then(function(resp) {
             $scope.profiles = resp.ret,
-            $scope.hasProfile = !!resp.ret.length; 
+                $scope.hasProfile = !!resp.ret.length;
 
-            $scope.odp.puuid = resp.ret[0] && resp.ret[0].uuid ; 
-        })  
+            $scope.odp.puuid = resp.ret[0] && resp.ret[0].uuid;
+        })
 
 
 
         // 控控制 tag , 触发器, 通知  在 systemodel ,
         $scope.isModelState = true;
- 
-  
-        var loadSystemDevicePromise  ;
-        $scope.loadSysDev = function(){ 
 
-            if( ! loadSystemDevicePromise ){
-              loadSystemDevicePromise =   $source.$sysDevice.get({system_model: $scope.sysmodel.uuid} ).$promise;
-              loadSystemDevicePromise.then( function( resp ){
-                    $scope.sysdevices = resp.ret ;   
-                }); 
-            }  
-            return  loadSystemDevicePromise ;
-        }  
- 
-        var loadAllDeviceModelsPromise ; 
-        $scope.loadDevModels = function(){
-            if(  !loadAllDeviceModelsPromise ){
-               loadAllDeviceModelsPromise =  $source.$deviceModel.get( ) .$promise;
-               loadAllDeviceModelsPromise.then(function( resp ){
-                    $scope.devmodels = resp.ret; 
+
+        var loadSystemDevicePromise;
+        $scope.loadSysDev = function() {
+
+            if (!loadSystemDevicePromise) {
+                loadSystemDevicePromise = $source.$sysDevice.get({
+                    system_model: $scope.sysmodel.uuid
+                }).$promise;
+                loadSystemDevicePromise.then(function(resp) {
+                    $scope.sysdevices = resp.ret;
+                });
+            }
+            return loadSystemDevicePromise;
+        }
+
+        var loadAllDeviceModelsPromise;
+        $scope.loadDevModels = function() {
+            if (!loadAllDeviceModelsPromise) {
+                loadAllDeviceModelsPromise = $source.$deviceModel.get().$promise;
+                loadAllDeviceModelsPromise.then(function(resp) {
+                    $scope.devmodels = resp.ret;
                 });
             }
             return loadAllDeviceModelsPromise;
 
         }
- 
+
 
     }
-) 
+)
 
 .controller("sysmodel_basic", function($scope, $source, $state) {
 
 
     $scope.$popNav($scope.sysmodel.name + "(信息)", $state);
- 
+
 
 })
 
@@ -239,8 +250,8 @@ angular.module("app.model.system", [])
                             $scope.P.uuid = resp.ret;
                             //$scope.p.create_time = $filter("date")( new Date() , '2015-07-07T00:33:54.000Z' )  ;
                             // $scope.p.create_time =  $filter("date")( new Date() , 'yyyy-MM-07T00:33:54.000Z' )  ;
-                            $scope.profiles.push($scope.P); 
-                            $scope.__proto__.$parent.hasProfile = true ; 
+                            $scope.profiles.push($scope.P);
+                            $scope.__proto__.$parent.hasProfile = true;
                             $scope.cancel();
                         })
                     }
@@ -273,20 +284,20 @@ angular.module("app.model.system", [])
         }
 
         $scope.deleteSysProfile = function(s, i, p) {
-            $scope.confirmInvoke({ 
-                title: "删除配置项: " + p.name + " ?" 
+            $scope.confirmInvoke({
+                title: "删除配置项: " + p.name + " ?"
             }, function(n) {
                 $source.$sysProfile.delete({
                     uuid: p.uuid
                 }, function() {
-                    $scope.profiles.splice(i, 1); 
+                    $scope.profiles.splice(i, 1);
 
                     // 删除的是当前操作的 profile ; 
-                    if( $scope.odp.puuid == p.uuid ){
-                        $scope.odp.puuid = $scope.profiles[0] && $scope.profiles[0].uuid ; 
+                    if ($scope.odp.puuid == p.uuid) {
+                        $scope.odp.puuid = $scope.profiles[0] && $scope.profiles[0].uuid;
                     }
 
-                    $scope.$parent.hasProfile = !!$scope.profiles.length ; 
+                    $scope.$parent.hasProfile = !!$scope.profiles.length;
                     n();
 
                 }, n)
@@ -300,60 +311,63 @@ angular.module("app.model.system", [])
     function($scope, $sessionStorage, $source, $modal, $sys, $state) {
 
         $scope.$popNav($scope.sysmodel.name + "(设备)", $state);
- 
-        var sysmodel = $scope.sysmodel ;
 
-        var  t = $scope;
+        var sysmodel = $scope.sysmodel;
+
+        var t = $scope;
 
         // 得到suoyou sysmode 下的 sysDevice ; 
-        $scope.loadSysDev().then( function( resp){ 
-             //@if  append 
-                console.log(" 该方法 使 父 scope 中 定义了  sysdevices  ");
-             //@endif 
-        }); 
- 
-        // 转换 devModel 为 kv 格式; 回显 sysdevice 因用的那个devicemodel; 
-        $scope.devModelKV = {};  // 用来列出 设备模版 下拉表;
+        $scope.showMask = true ;
+        $scope.loadSysDev().then(function(resp) {
+            //@if  append 
+            console.log(" 该方法 使 父 scope 中 定义了  sysdevices  ");
+            //@endif 
+        });
 
-        $scope.loadDevModels().then( function(){
-            $.each( $scope.devmodels , function(i, v, t) {
+        // 转换 devModel 为 kv 格式; 回显 sysdevice 因用的那个devicemodel; 
+        $scope.devModelKV = {}; // 用来列出 设备模版 下拉表;
+
+        $scope.loadDevModels().then(function() {
+            $scope.showMask = false ;
+            $.each($scope.devmodels, function(i, v, t) {
                 $scope.devModelKV[v.uuid] = v;
             });
         });
-  
 
         $scope.addOrEditDevice = function(devices, index, dev) {
             $modal.open({
                 templateUrl: "athena/sysmodel/add_sysdevice.html",
                 resolve: {
-                    data: function() { 
-                        return $scope.loadDevModels(); 
+                    data: function() {
+                        return $scope.loadDevModels();
                     }
                 },
                 controller: function($scope, $modalInstance, data) {
 
                     $scope.$modalInstance = $modalInstance;
 
-                    $scope.__proto__ = t, 
-                    $scope.isAdd = !dev  ,
-                    $scope.devModels =  $scope.devmodels ; 
+                    $scope.__proto__ = t,
+                        $scope.isAdd = !dev,
+                        $scope.devModels = $scope.devmodels;
 
                     // gateway 网络参数 过滤;  bool 是否初始化 params 值; 
                     $scope.filterChannel = function(type, bool) {
 
                         $scope._$channel = t.sysmodel.gateway_default[type];
-                        if (bool ) {
-                            var d ; 
-                            if( type == "ETHERNET"){
+                        if (bool) {
+                            var d;
+                            if (type == "ETHERNET") {
                                 d = "LAN_1";
-                            }else{
-                                if( $scope._$channel ){
+                            } else {
+                                if ($scope._$channel) {
                                     d = Object.keys($scope._$channel)[0];
-                                }else{
-                                    d = null ;
+                                } else {
+                                    d = null;
                                 }
                             }
-                            $scope.D.network.params = {  channel: d  };
+                            $scope.D.network.params = {
+                                channel: d
+                            };
                         }
                     }
 
@@ -361,12 +375,12 @@ angular.module("app.model.system", [])
                     if ($scope.isAdd) { // 新建; 
 
                         $scope.devModel = $scope.devModelKV[Object.keys($scope.devModelKV)[0]];
- 
+
                         if (!$scope.devModel) {
                             $scope.alert({
                                 type: "info",
                                 title: "请先创建设备模型!"
-                            }) 
+                            })
                             throw ("_Error: No Device Model !");
 
                         }
@@ -442,15 +456,14 @@ angular.module("app.model.system", [])
 
                             })
                         };
-                    }; 
+                    };
                 }
             })
         }
 
-
         $scope.deleteSysD = function(scope, index, sysd) {
-            $scope.confirmInvoke({ 
-                title: "删除系统设备: " + sysd.name + " ?" 
+            $scope.confirmInvoke({
+                title: "删除系统设备: " + sysd.name + " ?"
             }, function(next) {
                 $source.$sysDevice.delete({
                     system_model: sysmodel.uuid,
@@ -464,448 +477,467 @@ angular.module("app.model.system", [])
     }
 )
 
- 
-.controller("sysmodel_tag",  function($scope, $source, $modal, $q, $utils, $sys, $state ,
-        $timeout , $q) { 
-        $scope.$popNav($scope.sysmodel.name + "(Tags)", $state);
+
+.controller("sysmodel_tag", function($scope, $source, $modal, $q, $utils, $sys, $state,
+    $timeout, $q) {
+    $scope.$popNav($scope.sysmodel.name + "(Tags)", $state);
+
+
+    //@if  append
+
+    console.log(" sysmodel_tag");
+    //@endif   
+
+
+    var sysmodel = $scope.sysmodel, // $scope.$$cache[0],
+        t = $scope;
+    t.isManageMode = sysmodel.mode == $sys.manageMode;
+
+    // 拆分 connect 字段;
+    // connect 回显 ;  device id ( 整合成 kv形式)--> 得到 demodel( ) --> 再去加载point数据;
+    var cc;
+    $scope.splictC = function(tag, $last) {
+        cc = tag.connect.split('.');
+        tag.dev_id = cc[0],
+            tag.point_id = cc[0];
+    };
+
+
+
+    // 加载 tag ;  
+
+    var dev_id, dev_ref;
+    $scope.getDevName = function(tag, scope) {
+
+        dev_id = tag.connect.replace(/(\d+).(\d+)/, "$1");
+
+        dev_ref = $scope.devicesKV[dev_id],
+            // 是否真的连接了设备, dev_name 来判断; 
+            scope.dev_name = dev_ref && dev_ref.name;
+
+        // 不连接设备时 ,  Type 忽略显示; 
+        tag.type = scope.dev_name ? tag.type : null;
 
 
         //@if  append
+        console.log(" 查找 dev name =", scope.dev_name);
+        //@endif  
 
-        console.log(" sysmodel_tag"); 
-        //@endif   
- 
+    }
 
-        var sysmodel = $scope.sysmodel, // $scope.$$cache[0],
-            t = $scope;
-        t.isManageMode = sysmodel.mode == $sys.manageMode;
 
-        // 拆分 connect 字段;
-        // connect 回显 ;  device id ( 整合成 kv形式)--> 得到 demodel( ) --> 再去加载point数据;
-        var cc;
-        $scope.splictC = function(tag, $last) {
-            cc = tag.connect.split('.');
-            tag.dev_id = cc[0], 
-            tag.point_id = cc[0];
+
+
+    // 组织 device 的kv 形式;
+    $scope.loadSysDev().then(function() {
+        //  // 加载 sys device ;  放到下面发昂只 deivice 增删时, devKV 跟着改变; 
+        $scope.devicesKV = {};
+        $scope.sysdevices.forEach(function(v, i) {
+            $scope.devicesKV[v.id] = v;
+        });
+    })
+
+
+    // $scope.prof_uuid = 111
+    // profile ng-chage ;   tag 比较特殊 没profile 也可以创建; 
+    // 
+    
+    $scope.showMask = true ;
+    $scope.loadSysTag = function(prof_uuid) {
+        // { profile_id: $scope.profile } 
+        if (prof_uuid) {
+            // 有profile时 ; 去检索是否连接了设备; 
+            var promise_tag = $source.$sysLogTag.get({
+                profile: prof_uuid
+            }).$promise;
+            $q.all([promise_tag, $scope.loadSysDev()]).then(function(resp) {
+                $scope.systags = resp[0].ret;
+                
+                $scope.showMask = false ;
+            })
+        } else {
+            // query ; 无profile时 ;  跟定不连接  设备;  
+            $source.$sysTag.get({
+                system_model: sysmodel.uuid
+            }, function(argument) {
+                $scope.systags = argument.ret;
+
+                $scope.showMask = false ;
+            })
+        }
+    }
+
+    // 加载 点;   
+    $scope.loadProfilePromise.then(function() {
+        $scope.loadSysTag($scope.odp.puuid);
+    });
+
+    //  manage 模式时 ,  tag 的编辑, 新建; 增加 dev , devModelPoint 联动;
+    function ApplyDevPoint(scope) {
+        var oldDevModel;
+
+        scope.op = {};
+
+        //zai 父scope中添加 sysdevices ; 
+        var promise = $scope.loadSysDev();
+
+
+        // bool 是否去初始化point ; 
+        scope.loadPoint = function(dev, bool) {
+            if (!dev) return;
+            if (dev.device_model == oldDevModel) return;
+            oldDevModel = dev.device_model;
+
+
+
+            var promise;
+            promise = $source.$dmPoint.get({
+                device_model: oldDevModel
+            }).$promise;
+
+            promise.then(function(resp) {
+                scope.points = resp.ret;
+                if (bool) {
+                    var p = resp.ret[0];
+                    scope.op.point = p && (p.id + "&" + p.name);
+                    scope.T.name = p && p.name;
+                }
+            })
+            return promise;
         };
 
+        // 拼接  connnet  字段;
+        scope.addConnect = function(tag) {
+            // tag.connect = scope.op.dev.id + "." + scope.op.point.id; 
+            tag.connect = scope.op.dev.id + "." + scope.op.point.replace(/(.+)&(.+)/, '$1');
 
-       
-        // 加载 tag ;  
-       
-        var dev_id , dev_ref ;  
-        $scope.getDevName = function(tag , scope ){ 
-            
-                dev_id = tag.connect.replace(/(\d+).(\d+)/, "$1") ; 
+        };
 
-                dev_ref = $scope.devicesKV[dev_id],
-               // 是否真的连接了设备, dev_name 来判断; 
-                scope.dev_name = dev_ref && dev_ref.name ;
+        return promise;
+    }
 
-                // 不连接设备时 ,  Type 忽略显示; 
-                tag.type= scope.dev_name?tag.type:null ;
 
-                
-                //@if  append
-                  console.log(" 查找 dev name =" , scope.dev_name );
-                //@endif  
- 
+
+    // tag 的 创建, 编辑 , 删除;
+    $scope.addTag = function() {
+
+        if (!$scope.profiles.length) {
+            angular.alert("请先创建系统配置!");
+            // $state.go('app.model.sysprofile');
+            return;
         }
 
+        $modal.open({
+            templateUrl: "athena/sysmodel/add_systag.html",
+            controller: function($scope, $modalInstance) {
 
-   
+                if (t.isManageMode) { // 托管模式;  
+                    ApplyDevPoint($scope);
+                }
 
-        // 组织 device 的kv 形式;
-        $scope.loadSysDev().then( function(){
-                //  // 加载 sys device ;  放到下面发昂只 deivice 增删时, devKV 跟着改变; 
-                $scope.devicesKV={};
-                $scope.sysdevices.forEach( function(v,i){
-                    $scope.devicesKV[v.id] = v ; 
-                });
-        })
+                $scope.$modalInstance = $modalInstance,
+                    $scope.__proto__ = t,
+                    $scope.isAdd = true,
 
+                    $scope.T = {
+                        type: undefined
+                    },
+                    $scope.L = {};
 
-        // $scope.prof_uuid = 111
-        // profile ng-chage ;   tag 比较特殊 没profile 也可以创建; 
-        $scope.loadSysTag = function(prof_uuid) {
-            // { profile_id: $scope.profile } 
-            if (prof_uuid) {
-                // 有profile时 ; 去检索是否连接了设备; 
-                var    promise_tag    = $source.$sysLogTag.get({ profile: prof_uuid }).$promise ;
-                $q.all([ promise_tag , $scope.loadSysDev() ]).then( function( resp ){
-                    $scope.systags = resp[0].ret;
-                }) 
-            } else {
-                // query ; 无profile时 ;  跟定不连接  设备;  
-                $source.$sysTag.get({
-                    system_model: sysmodel.uuid
-                }, function(argument) {
-                    $scope.systags = argument.ret;
-                })
-            }
-        }
+                $scope.copyName = function() {
+                    $scope.T.name = $scope.op.point.replace(/(.+)&(.+)/, "$2");
+                    // isAdd && ( T.name = op.point.name )
+                }
 
-        // 加载 点;   
-        $scope.loadProfilePromise.then(function() {
-            $scope.loadSysTag($scope.odp.puuid);
-        });
-     
-        //  manage 模式时 ,  tag 的编辑, 新建; 增加 dev , devModelPoint 联动;
-        function ApplyDevPoint(scope) {
-            var oldDevModel ;
-
-            scope.op = {};
-
-            //zai 父scope中添加 sysdevices ; 
-            var promise =  $scope.loadSysDev() ; 
- 
-
-            // bool 是否去初始化point ; 
-            scope.loadPoint = function  (dev , bool ) {
-                if (!dev) return;
-                if (dev.device_model == oldDevModel) return;
-                oldDevModel = dev.device_model;
-
-                
-
-                var promise ; 
-                promise = $source.$dmPoint.get({ device_model: oldDevModel }).$promise;
-
-                promise.then(function  (resp) {
-                    scope.points = resp.ret; 
-                    if( bool){
-                        var p = resp.ret[0];
-                        scope.op.point = p && (p.id +"&"+p.name);
-                        scope.T.name   = p && p.name ; 
-                    }
-                }) 
-                return promise ; 
-            };
-
-            // 拼接  connnet  字段;
-            scope.addConnect = function(tag) { 
-                // tag.connect = scope.op.dev.id + "." + scope.op.point.id; 
-                tag.connect = scope.op.dev.id +"." + scope.op.point.replace(/(.+)&(.+)/, '$1');
-
-            };
-
-            return promise;
-        }
-
-
-
-        // tag 的 创建, 编辑 , 删除;
-        $scope.addTag = function() {
-
-            if (!$scope.profiles.length) { 
-                angular.alert("请先创建系统配置!"); 
-                // $state.go('app.model.sysprofile');
-                return;
-            }
-
-            $modal.open({
-                templateUrl: "athena/sysmodel/add_systag.html",
-                controller: function($scope, $modalInstance) {
- 
-                    if (t.isManageMode) {  // 托管模式;  
-                        ApplyDevPoint($scope);
-                    }
-
-                    $scope.$modalInstance = $modalInstance,
-                        $scope.__proto__ = t,
-                        $scope.isAdd = true,
-
-                        $scope.T = {
-                            type: undefined
-                        },
-                        $scope.L = {};
-
-                    $scope.copyName = function(){
-                        $scope.T.name = $scope.op.point.replace(/(.+)&(.+)/ ,"$2");
-                       // isAdd && ( T.name = op.point.name )
-                    } 
-
-                    $scope.done = function() {
-                        // 验证表格;
-                        $scope.validForm("form_tag"), 
+                $scope.done = function() {
+                    // 验证表格;
+                    $scope.validForm("form_tag"),
                         $scope.validForm("form_log"),
 
                         $scope.T.system_model = sysmodel.uuid;
 
-                        $scope.addConnect && $scope.addConnect($scope.T);
+                    $scope.addConnect && $scope.addConnect($scope.T);
 
-                        // 组装 connect 字段 的值;
-                        // 先保存点, 在保存log数据; 
-                        $source.$sysTag.save($scope.T, function(resp) {
- 
-
-                            function call() {
-                                var d;
-                                if (t.hasProfile) {
-                                    d = angular.extend($scope.T, $scope.L);
-                                } else { 
-                                    d = angular.extend($scope.T, { id: resp.ret }) 
-                                }
-                                $scope.systags.push(d);
-                                $scope.cancel();
-                            }
+                    // 组装 connect 字段 的值;
+                    // 先保存点, 在保存log数据; 
+                    $source.$sysTag.save($scope.T, function(resp) {
 
 
-                            if (t.hasProfile) { // 日志参数; 
-                                $scope.L.id = resp.ret, 
-                                $scope.L.profile = t.odp.puuid,
-                                $scope.L.save_log = $scope.L.log_cycle ? 1 : 0; 
-                                $source.$sysLogTag.save($scope.L, call);
+                        function call() {
+                            var d;
+                            if (t.hasProfile) {
+                                d = angular.extend($scope.T, $scope.L);
                             } else {
-                                call()
+                                d = angular.extend($scope.T, {
+                                    id: resp.ret
+                                })
                             }
-                        });
-                    };
-                }
-            });
-        }
- 
-        // 编辑点; 
-        $scope.updateTag = function(index, tag , scope ) {
-            $modal.open({
-                templateUrl: "athena/sysmodel/add_systag.html",
-                controller: function($scope, $modalInstance) {
-                    var a, b, c, d, dd, dt; 
+                            $scope.systags.push(d);
+                            $scope.cancel();
+                        }
 
-                    $scope.$modalInstance = $modalInstance,
+
+                        if (t.hasProfile) { // 日志参数; 
+                            $scope.L.id = resp.ret,
+                                $scope.L.profile = t.odp.puuid,
+                                $scope.L.save_log = $scope.L.log_cycle ? 1 : 0;
+                            $source.$sysLogTag.save($scope.L, call);
+                        } else {
+                            call()
+                        }
+                    });
+                };
+            }
+        });
+    }
+
+    // 编辑点; 
+    $scope.updateTag = function(index, tag, scope) {
+        $modal.open({
+            templateUrl: "athena/sysmodel/add_systag.html",
+            controller: function($scope, $modalInstance) {
+                var a, b, c, d, dd, dt;
+
+                $scope.$modalInstance = $modalInstance,
                     $scope.__proto__ = t,
                     $scope.T = a = angular.copy(tag);
-                    $scope.true_conn = scope.true_conn; 
+                $scope.true_conn = scope.true_conn;
 
-                    // dev , point 回显 待定;  conncet 是 id 还是那么;
-                
-                    if (t.isManageMode) { // 托管模式;
+                // dev , point 回显 待定;  conncet 是 id 还是那么;
 
-                        // 非托管的无 connect 字段; 
-                        d =  a.connect.split(".") ,
-                        dd = d[0] ,
-                        dt = d[1] ;
- 
+                if (t.isManageMode) { // 托管模式;
 
-
-                        // ApplyDevPoint 会初始化第一个point名字; 
-                        ApplyDevPoint($scope).then(function( ) { 
-
-                            $.each( $scope.sysdevices , function(i,v){
-                                if( v.id == dd ){
-                                    $scope.op.dev = v ; 
-                                    return false ; 
-                                }   
-                                return  true ;
-                            }) ;
- 
-                            $scope.op.dev && $scope.loadPoint($scope.op.dev).then( function(){
-                               
-                                $.each( $scope.points , function( i,v ){
-                                    if( dt == v.id){
-                                        $scope.op.point = v.id +"&"+ v.name ; 
-                                        return false ;
-                                    } 
-                                    return  true ;
-
-                                }) 
-                            }); 
-                             
-                        })
-                    }
+                    // 非托管的无 connect 字段; 
+                    d = a.connect.split("."),
+                        dd = d[0],
+                        dt = d[1];
 
 
 
-                    $scope.done = function() { 
-                        // 验证表格; 
-                        $scope.validForm("form_tag");
+                    // ApplyDevPoint 会初始化第一个point名字; 
+                    ApplyDevPoint($scope).then(function() {
 
-                        var d = $utils.copyProp(a, 'system_model', 'id', 'name', 'type', 'desc');
-
-                        $scope.addConnect && $scope.addConnect(d);
-
-                        $source.$sysTag.put(d, function(resp) {
-                            if (t.isManageMode) {
-                                // 连接上了 设备; 
-                                scope.$parent.true_conn = true;  
-                                scope.$parent.dev_name =  $scope.devicesKV[ $scope.op.dev.id ].name ;
+                        $.each($scope.sysdevices, function(i, v) {
+                            if (v.id == dd) {
+                                $scope.op.dev = v;
+                                return false;
                             }
- 
+                            return true;
+                        });
+
+                        $scope.op.dev && $scope.loadPoint($scope.op.dev).then(function() {
+
+                            $.each($scope.points, function(i, v) {
+                                if (dt == v.id) {
+                                    $scope.op.point = v.id + "&" + v.name;
+                                    return false;
+                                }
+                                return true;
+
+                            })
+                        });
+
+                    })
+                }
+
+
+
+                $scope.done = function() {
+                    // 验证表格; 
+                    $scope.validForm("form_tag");
+
+                    var d = $utils.copyProp(a, 'system_model', 'id', 'name', 'type', 'desc');
+
+                    $scope.addConnect && $scope.addConnect(d);
+
+                    $source.$sysTag.put(d, function(resp) {
+                        if (t.isManageMode) {
+                            // 连接上了 设备; 
+                            scope.$parent.true_conn = true;
+                            scope.$parent.dev_name = $scope.devicesKV[$scope.op.dev.id].name;
+                        }
+
+                        angular.extend(tag, d);
+                        $scope.cancel();
+                    })
+                }
+            }
+        })
+    }
+
+    $scope.deleteTag = function(index, tag) {
+        //@if  append
+
+        console.log("deleteTag");
+        //@endif 
+        $scope.confirmInvoke({
+            title: "删除模型变量 : " + tag.name + " ?",
+            warn: "删除变量将会丢失此变量的全部历史数据!"
+        }, function(next) {
+            $source.$sysTag.delete({
+                system_model: sysmodel.uuid,
+                id: tag.id
+            }, function(resp) {
+                $scope.systags.splice(index, 1);
+                next();
+            }, next)
+        })
+    }
+
+    //==================================================================
+
+    // profile Tag 的 创建 , 编辑 删除;
+    $scope.add_update_Log = function(index, tag) {
+
+        if (!t.hasProfile) {
+            angular.alert("请先创建 系统配置!");
+            $state.go('app.model.sysprofile');
+            return;
+        }
+
+        $modal.open({
+            templateUrl: "athena/sysmodel/add_log_tag.html",
+            controller: function($scope, $modalInstance) {
+
+                var a, b, c, d;
+
+                $scope.$modalInstance = $modalInstance,
+                    $scope.__proto__ = t,
+                    $scope.L = a = angular.copy(tag),
+                    $scope.hasLog = b = tag.profile;
+
+                $scope.done = function() {
+                    $scope.validForm("form_tag"),
+                        $scope.L.save_log = $scope.L.log_cycle ? 1 : 0;
+                    $scope.L.id = tag.id;
+
+                    d = {
+                        id: a.id,
+                        tp_desc: a.tp_desc,
+                        //profile: t.odp.puuid, //profile  read-only
+                        unit: a.unit,
+                        scale: a.scale,
+                        deviation: a.deviation,
+                        save_log: a.save_log,
+                        log_cycle: a.log_cycle,
+                        log_type: a.log_type
+                    };
+
+                    // 更新;
+                    if (b) {
+                        d.profile = a.profile;
+                        $source.$sysLogTag.put(d, function() {
                             angular.extend(tag, d);
-                            $scope.cancel();
+                        })
+                    } else { // 新建 log ;
+                        d.profile = t.odp.puuid;
+                        $source.$sysLogTag.save(d, function() {
+                            angular.extend(tag, d);
                         })
                     }
+                    $scope.cancel();
                 }
-            })
-        }
-
-        $scope.deleteTag = function(index, tag) {
-            //@if  append
-
-            console.log("deleteTag");
-            //@endif 
-            $scope.confirmInvoke({ 
-                title: "删除模型变量 : " + tag.name + " ?",
-                warn:  "删除变量将会丢失此变量的全部历史数据!" 
-            }, function(next) {
-                $source.$sysTag.delete({
-                    system_model: sysmodel.uuid,
-                    id: tag.id
-                }, function(resp) {
-                    $scope.systags.splice(index, 1);
-                    next();
-                }, next)
-            })
-        }
-
-        //==================================================================
-
-        // profile Tag 的 创建 , 编辑 删除;
-        $scope.add_update_Log = function(index, tag) {
-
-            if (!t.hasProfile) { 
-                angular.alert("请先创建 系统配置!"); 
-                $state.go('app.model.sysprofile');
-                return;
             }
-
-            $modal.open({
-                templateUrl: "athena/sysmodel/add_log_tag.html",
-                controller: function($scope, $modalInstance) {
-
-                    var a, b, c, d;
-
-                    $scope.$modalInstance = $modalInstance,
-                        $scope.__proto__ = t,
-                        $scope.L = a = angular.copy(tag),
-                        $scope.hasLog = b = tag.profile;
- 
-                    $scope.done = function() {  
-                          $scope.validForm("form_tag"), 
-                        $scope.L.save_log = $scope.L.log_cycle ? 1 : 0;
-                        $scope.L.id = tag.id;
-
-                        d = {
-                            id: a.id,
-                            tp_desc: a.tp_desc,
-                            //profile: t.odp.puuid, //profile  read-only
-                            unit: a.unit,
-                            scale: a.scale,
-                            deviation: a.deviation,
-                            save_log: a.save_log,
-                            log_cycle: a.log_cycle,
-                            log_type: a.log_type
-                        };
-
-                        // 更新;
-                        if (b) {
-                            d.profile = a.profile;
-                            $source.$sysLogTag.put(d, function() {
-                                angular.extend(tag, d);
-                            })
-                        } else { // 新建 log ;
-                            d.profile = t.odp.puuid;
-                            $source.$sysLogTag.save(d, function() {
-                                angular.extend(tag, d);
-                            })
-                        }
-                        $scope.cancel();
-                    }
-                }
-            });
-        }
- 
- 
+        });
     }
-)
+
+
+})
 
 
 .controller("sysmodel_prof_trigger",
-    function($scope, $source, $modal, $state , $q ,$sys , $utils) {
+    function($scope, $source, $modal, $state, $q, $sys, $utils) {
 
         $scope.$popNav($scope.sysmodel.name + "(触发器)", $state);
 
         var sysmodel = $scope.sysmodel,
             S = $scope;
-            // tags_nv,
-            // tags_arr;
+        // tags_nv,
+        // tags_arr;
 
 
         $scope.byte = 32; // 32 位 报警;
 
 
         // 加载 Tag 数据; ; 
-         
-        var loadTagPromise =  $source.$sysTag.get({ system_model: sysmodel.uuid }).$promise ;
-         
-        loadTagPromise.then( function( resp ){
-           $scope.tags_arr = resp.ret; 
-           $scope.tags_nv = {}; 
-           $scope.tags_arr.forEach(function(v, i, ar) {
-               $scope.tags_nv[v.name] = v;
-           }); 
+
+        var loadTagPromise = $source.$sysTag.get({
+            system_model: sysmodel.uuid
+        }).$promise;
+
+        loadTagPromise.then(function(resp) {
+            $scope.tags_arr = resp.ret;
+            $scope.tags_nv = {};
+            $scope.tags_arr.forEach(function(v, i, ar) {
+                $scope.tags_nv[v.name] = v;
+            });
         })
 
-        function  condition_parmas_tojson  ( x ){
+        function condition_parmas_tojson(x) {
             x.conditions = angular.fromJson(x.conditions);
-            x.params = angular.fromJson( x.params);
+            x.params = angular.fromJson(x.params);
         }
 
 
-        $scope.page = {} ; 
+        $scope.page = {};
         // 加载triger ; 
         // var lose_tag = { 'background-color':'grey' };
-        $scope.loadPageData = function( pageNo ) {
+        $scope.loadPageData = function(pageNo) {
             var prof_id = $scope.odp.puuid;
             if (!prof_id) return;
-            var d = { profile: prof_id } ;
-                d.currentPage = pageNo, 
-                d.itemsPerPage =  $sys.itemsPerPage  ;
+            var d = {
+                profile: prof_id
+            };
+            d.currentPage = pageNo,
+                d.itemsPerPage = $sys.itemsPerPage;
+
+            $scope.showMask = true ; 
+
             $q.all([
-                $source.$sysProfTrigger.get(d).$promise ,
+                $source.$sysProfTrigger.get(d).$promise,
                 loadTagPromise
-            ]).then( function( resp ){  
-                var p =  resp[0] ;
-                p.data.forEach( function( t ){ 
+            ]).then(function(resp) {
+                var p = resp[0];
+                p.data.forEach(function(t) {
 
 
                     condition_parmas_tojson(t);
                     // 检查tag是否存在; 
-                    
-                    angular.isArray( t.conditions ) && t.conditions.forEach( function( v ){
-                        var left = v.exp.left ,
-                            right = v.exp.right ; 
-                        if( left.fn =="PV" && !$scope.tags_nv[left.args]){
-                           left.args = null ; 
-                          // t.lose_tag = lose_tag ;
 
-                        }   
-                        if(right.fn =="PV" && !$scope.tags_nv[ right.args]){
-                            right.args = null ; 
+                    angular.isArray(t.conditions) && t.conditions.forEach(function(v) {
+                        var left = v.exp.left,
+                            right = v.exp.right;
+                        if (left.fn == "PV" && !$scope.tags_nv[left.args]) {
+                            left.args = null;
+                            // t.lose_tag = lose_tag ;
+
+                        }
+                        if (right.fn == "PV" && !$scope.tags_nv[right.args]) {
+                            right.args = null;
                             // t.lose_tag = true ;
                         }
 
-                    }) 
-                }) 
+                    })
+                })
 
-                $scope.page.data = p.data ,
-                $scope.page.currentPage = pageNo,
-                $scope.page.total = p.total ;
+                $scope.page.data = p.data,
+                    $scope.page.currentPage = pageNo,
+                    $scope.page.total = p.total;
 
-
-            }) 
+                $scope.showMask = false ; 
+            })
         }
-  
- 
-        $scope.loadProfilePromise.then(function() { 
+
+
+        $scope.loadProfilePromise.then(function() {
             $scope.loadPageData(1);
         });
 
 
 
         $scope.deleteTrigger = function(i, t) {
-            $scope.confirmInvoke({ 
-                title: "删除触发器: " + t.name + " ?" 
+            $scope.confirmInvoke({
+                title: "删除触发器: " + t.name + " ?"
             }, function(n) {
                 $source.$sysProfTrigger.delete({
                     profile: t.profile,
@@ -919,15 +951,15 @@ angular.module("app.model.system", [])
 
         // 创建 , 编辑 触发器; 
         $scope.c_u_Trigger = function(add_OR_i, trigger) {
-            if (!$scope.profiles.length) { 
-                angular.alert("请先创建 系统配置!"); 
+            if (!$scope.profiles.length) {
+                angular.alert("请先创建 系统配置!");
                 $state.go('app.model.sysprofile');
                 return;
             }
 
             $modal.open({
                 templateUrl: "athena/sysmodel/add_proftrigger.html",
-//                jjw
+                //                jjw
                 size: "lg",
                 controller: function($scope, $modalInstance, $source, $sys, $webWorker) {
                     var a, b, c, i;
@@ -936,17 +968,17 @@ angular.module("app.model.system", [])
                         $scope.$modalInstance = $modalInstance;
 
                     if (i) { // 创建;
-                        $scope.T =a = {
+                        $scope.T = a = {
                             profile: S.odp.puuid,
                             conditions: [angular.copy($sys.trigger_c)],
                             params: {}
                         };
                     } else {
-                        $scope.T =a = angular.copy(trigger);  
+                        $scope.T = a = angular.copy(trigger);
                     }
-  
+
                     $scope.done = function() {
-                        var x = angular.copy( $scope.T ),
+                        var x = angular.copy($scope.T),
                             l, r,
                             tags = {};
 
@@ -964,9 +996,9 @@ angular.module("app.model.system", [])
 
                         });
 
-                        x.conditions = angular.toJson(x.conditions), 
-                        x.params.tags = Object.keys(tags),
-                        x.params = angular.toJson(x.params);
+                        x.conditions = angular.toJson(x.conditions),
+                            x.params.tags = Object.keys(tags),
+                            x.params = angular.toJson(x.params);
 
 
 
@@ -974,7 +1006,7 @@ angular.module("app.model.system", [])
                             $source.$sysProfTrigger.save(x, function(resp) {
                                 condition_parmas_tojson(x);
 
-                                x.id = resp.ret; 
+                                x.id = resp.ret;
                                 $scope.page.data.unshift(x);
                                 $scope.cancel();
                             })
@@ -1006,9 +1038,9 @@ angular.module("app.model.system", [])
         }
 
         // 显示 触发器的 condition ; 
-        $scope.conditions = $utils.triggerConditions ; 
+        $scope.conditions = $utils.triggerConditions;
 
-      
+
 
 
         // prof alarm  params  为报警时! 验证十六进制 数;
@@ -1061,10 +1093,10 @@ angular.module("app.model.system", [])
         }
 
         // 加载 profile 下的 message ; 
-       // $scope.odp = {};
-  
+        // $scope.odp = {};
+
         $scope.loadProfilePromise.then(function() {
-           // $scope.odp.puuid = $scope.odp.puuid || $scope.profiles[0] && $scope.profiles[0].uuid;
+            // $scope.odp.puuid = $scope.odp.puuid || $scope.profiles[0] && $scope.profiles[0].uuid;
             $scope.loadMessages($scope.odp.puuid);
         });
 
@@ -1073,8 +1105,8 @@ angular.module("app.model.system", [])
         // crate or  update ;
         $scope.createMessage = function(index, message) {
             //无配置项 不能创建;
-            if (!$scope.profiles.length) { 
-                angular.alert("请先创建 系统配置!"); 
+            if (!$scope.profiles.length) {
+                angular.alert("请先创建 系统配置!");
                 // $state.go('app.model.sysprofile');
                 return;
             }
@@ -1254,8 +1286,8 @@ angular.module("app.model.system", [])
         }
 
         S.deleteGateway = function(T, t, data) {
-            $scope.confirmInvoke({ 
-                warn: "删除串口: " + t + " ?" 
+            $scope.confirmInvoke({
+                warn: "删除串口: " + t + " ?"
             }, function(next) {
                 delete S.GateWay[T][t];
                 //S.sysmodel.gateway_default = S.GateWay ;

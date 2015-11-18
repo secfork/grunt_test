@@ -779,20 +779,35 @@ angular.module('app.directives', ['pascalprecht.translate'])
 })
 
 
-.directive("loadMask" , function(){
-
-pos-rlt 
+.directive("loadMask" , function( $timeout){
+ 
     return {
         restrict:"A",
         link: function( $scope , $element , $attrs ){
 
-            var  maskDom =  '<i class="fa fa-spin fa-3x  text-info fa-spinner pos-abt"></i>'
-            
-            $scope.mask = function(){
+            $element.addClass("pos-rlt");
+            var  $maskDom =  $('<i class="fa fa-spin fa-3x  text-info fa-spinner hide pos-abt" style="top:50%;left:50%" ></i>');
+ 
 
+            $element.append(  $maskDom );
 
+            $scope.$watch("showMask" , function(n ){
+                 //@if  append
+                    console.log( "showMask =" , n);
+                 
+                 //@endif 
+                
+
+                (n ? show:hide )();
+
+            })
+
+            function show(){
+                $maskDom.addClass("show");
             }
-
+             function hide (){
+                $maskDom.removeClass("show");
+            } 
         }
     }
 

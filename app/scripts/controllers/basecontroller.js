@@ -705,6 +705,11 @@ angular.module('app.basecontroller', ['ng'])
     $scope.acceptSMS = function(user) {
         //"mail_notice":0,"sms_notice":0  
 
+        if( !user.email_verifi){
+            angular.alert("您的手机未通过验证,不可接收短信通知!");
+            return ;
+        }
+
         $source.$user.put({
             id: user.id,
             sms_notice: user.sms_notice ? 0 : 1
@@ -715,6 +720,11 @@ angular.module('app.basecontroller', ['ng'])
 
 
     $scope.acceptEmail = function(user) {
+
+        if( !user.email_verified){
+            angular.alert("您的邮箱未通过验证,不可接收邮件通知!");
+            return ;
+        }
 
         $source.$user.put({
             id: user.id,
@@ -733,14 +743,24 @@ angular.module('app.basecontroller', ['ng'])
 .controller("access_signin", function($scope, $state, $timeout, $localStorage, $sys,
     $sessionStorage, $compile, $source   ) {
 
- 
+    
+    $source.$common.get({op:"islogined"} , function(resp){
 
-    // 获取登录次数; 
-    $source.$common.get({
-        op: 'logintimes'
-    }, function(resp) {
-        $scope.logintimes = resp.ret || 0;
+        if( resp.ret){
+           $state.go("app");
+        }else{
+                // 获取登录次数; 
+            $source.$common.get({
+                op: 'logintimes'
+            }, function(resp) {
+                $scope.logintimes = resp.ret || 0;
+            }); 
+        }
+
     });
+
+
+
 
 
     //@if  append 
@@ -800,21 +820,21 @@ angular.module('app.basecontroller', ['ng'])
                 //@if  append 
                 console.log(resp.ret);
                 //@endif 
-
-                //alert(1);
+ 
 
                 if (resp.ret) {
                     resp.ret.sms_notice = !!resp.ret.sms_notice;
                     resp.ret.mail_notice = !!resp.ret.mail_notice;
 
+ 
+                     //@if  append
+                         console.log("log in ok ");
+                     
+                     //@endif 
 
-                    $sessionStorage.user = resp.ret;
-                    //@if  append
-
-                    console.log("log in ok ");
-                    //@endif 
+ 
                     //$state.go( $sys.rootState );
-                    $state.go("app");
+                     $state.go("app");
                     //$state.go("app.template");
                 } else {
                     $scope.op.b = false;

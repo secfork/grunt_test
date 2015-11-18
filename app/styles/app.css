@@ -17,6 +17,10 @@ input, select {
     border-color: #CCCCCC;
 }
 
+.panel-body{
+  min-height: 100px;
+}
+
 .logo{
     width:200px;
     height:23px;

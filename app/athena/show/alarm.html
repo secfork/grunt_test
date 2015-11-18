@@ -130,7 +130,9 @@
     </div>
     <!--op ={{op}}-->
     <!--jjw no-border-->
-    <div class="panel-body table-responsive no-padder no-border" ng-init=" _$A = $sys.trigger.op">
+    <div class="panel-body table-responsive no-padder no-border"
+        load-mask
+        ng-init=" _$A = $sys.trigger.op">
         <!--jjw table-striped j_table-->
         <table class="table  table-hover table-striped j_table " ng-init="_config = $sys.trigger.severity">
             <thead class="flip-content">

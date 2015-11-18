@@ -58,6 +58,8 @@ angular.module('app.system', [])
 
         $scope.loadPageData = function(pageNo ) { 
 
+            $scope.showMask = true ;
+
             $scope.page.currentPage = pageNo; 
             // 分页加载 系统数据;
             var d = angular.extend({
@@ -120,6 +122,8 @@ angular.module('app.system', [])
                     if ($scope.lm == "map") {
                         $map.flushMarkers(map, $scope.page.data);
                     }
+
+                    $scope.showMask = false ;
                 })
 
             })
@@ -145,7 +149,7 @@ angular.module('app.system', [])
 
 //添加系统;
 .controller("dastation_add",
-    function($state, $scope, $stateParams, $source) {
+    function($state, $scope, $stateParams, $source , $q ) {
         //@if  append
             console.log("dastation_add");
             // 由系统 转来 无 projid= nudifund ,  由 project 转来有projid ;
@@ -159,30 +163,58 @@ angular.module('app.system', [])
         }
 
 
-         //var  proj_id =  $scope.$$cache[0];  // 确保 cache 是 project ?? ;
+        //var  proj_id =  $scope.$$cache[0];  // 确保 cache 是 project ?? ;
 
         
-
+        $scope.showMask = true ;
  
         $scope.system = {};
 
         var a =  $scope.$$cache && $scope.$$cache[0] && $scope.$$cache[0].id ; 
+
+
+
         // 加载可操作的 project ;
-        $source.$region.query({
-            currentPage: 1,
-            itemsPerPage: 5000
-        }, function(resp) {
-            $scope.projects = resp.data;
-            $scope.system.region_id = a ? a :(resp.data[0] && resp.data[0].id);
+        $q.all([
+            $source.$region.query({
+                currentPage: 1,
+                itemsPerPage: 5000
+            }).$promise,
+
+             $source.$sysModel.get().$promise
+
+
+        ]).then( function( resp ){
+            $scope.projects = resp[0].data ; 
+            $scope.system.region_id = a ? a :($scope.projects[0] && $scope.projects[0].id);
+
+            $scope.sysmodels = resp[1].ret,
+            $scope.systemModel = resp[1].ret[0];
+
+            $scope.showMask = false ; 
+
+
         })
 
 
+        // $source.$region.query({
+        //     currentPage: 1,
+        //     itemsPerPage: 5000
+        // }, function(resp) {
+        //     $scope.projects = resp.data;
+        //     $scope.system.region_id = a ? a :(resp.data[0] && resp.data[0].id);
+        // });
 
-        // 加载 所有 systemModel ;
-        $source.$sysModel.get(function(resp) {
-            $scope.sysmodels = resp.ret,
-                $scope.systemModel = resp.ret[0];
-        });
+        // // 加载 所有 systemModel ;
+        // $source.$sysModel.get(function(resp) {
+        //     $scope.sysmodels = resp.ret,
+        //         $scope.systemModel = resp.ret[0];
+        // });
+
+
+
+
+
 
         $scope.$watch("systemModel", function(n, o) {
             if (!n) return;
@@ -197,24 +229,24 @@ angular.module('app.system', [])
                 delete $scope.system.network;
             }
 
+            $scope.showMask = true ;
             $source.$sysProfile.get({
                 system_model: n.uuid
             }, function(resp) {
                 $scope.profiles = resp.ret;
                 $scope.system.profile = resp.ret[0] && resp.ret[0].uuid;
+                $scope.showMask = false ; 
             })
 
         })
-
-
  
         $scope.dastation = {};
-
-      
 
         // 提交系统
         $scope.commit = function() {
             $scope.validForm();
+
+            $scope.showMask = true ;
 
            // $scope.system.network = angular.toJson($scope.system.network);
             var sys =  angular.extend({
@@ -229,9 +261,10 @@ angular.module('app.system', [])
                     $scope.goto( "app.station.prop._config" ,  sys , sys );
                     next();
                 }) 
+                $scope.showMask= false ;
+            } , function(){
+                $scope.showMask  = false ; 
             }) 
         }
-
-
 
     });

@@ -107,6 +107,8 @@ angular.module('app.show.system', [])
         od.currentPage = undefined;
 
 
+         $scope.showMask = true ;
+
         $show.alarm.query(od, function(resp) {
             $scope.page.data = resp.data;
             $scope.page.total = resp.total;
@@ -117,6 +119,8 @@ angular.module('app.show.system', [])
                     title: "无报警数据"
                 })
             }
+
+            $scope.showMask  = false ; 
         })
 
     }
@@ -417,7 +421,8 @@ angular.module('app.show.system', [])
     })
 
 
-    var polt, plot_config = angular.copy($sys.plotChartConfig);
+    var polt, 
+        plot_config = angular.copy($sys.plotChartConfig);
 
     $scope.initFlotChart = function(_plot_data) {
         //@if  append
@@ -442,10 +447,10 @@ angular.module('app.show.system', [])
     $scope.queryHistory = function($event) {
 
         $scope.validForm();
-
-        var $dom = $($event.currentTarget).find("i");
-        $dom.toggleClass("show");
-
+        
+         //@if  append
+            console.log("查询点历史" , $scope.op.his_tag);
+         //@endif 
 
         if (!$scope.op.his_tag) {
             angular.alert("请选择要查询的点!");
@@ -472,6 +477,8 @@ angular.module('app.show.system', [])
 
         // 历史数据; 
         //  intervali =  ts ,  readRow  = rcv ;   
+        
+        $scope.showMask = true ;
         $show.his.getArr(d, function(resp) {
 
             var timekey = (d.end - d.start) > 86400000 ? "ts" : "rcv",
@@ -485,16 +492,16 @@ angular.module('app.show.system', [])
             // 解决 无数据时 , 前段时间轴不显示; 
 
             // arr.unshift([d.start, null]);
-            // arr.push([d.end, null]);
-
+            // arr.push([d.end, null]); 
+            plot_config.yaxis.tickDecimals = $scope.op.his_tag.type == "Analog"?6:0 ;
+             
             plot = $.plot("#show_live_data", [{
                 data: arr,
                 label: op.his_tag.name
 
             }], plot_config);
-
-            $dom.toggleClass("show");
-
+ 
+            $scope.showMask = false ;
         });
 
 
@@ -558,6 +565,8 @@ angular.module('app.show.system', [])
     //     $interval.cancel(interval);
     // });
 
+  
+
     var od = {
         uuid: $scope.system.uuid
     };
@@ -584,6 +593,7 @@ angular.module('app.show.system', [])
             itemsPerPage: $sys.itemsPerPage
         };
 
+        $scope.showMask = true ;
         $show.alarm.get(angular.extend(od, pg), function(resp) {
 
             if ($dom) {
@@ -593,10 +603,11 @@ angular.module('app.show.system', [])
             $scope.page.total = resp.total;
             $scope.page.currentPage = pageNo;
             if (!resp.data.length) {
-                angular.alert({
-                    title: "无活跃报警数据"
-                })
-            }
+                // angular.alert({
+                //     title: "无活跃报警数据"
+                // })
+            };
+            $scope.showMask = false ;
         })
     }
 
@@ -635,8 +646,7 @@ angular.module('app.show.system', [])
             return;
         }
 
-        //@if  append
-
+        //@if  append 
         console.log(d);
         //@endif  
         //var  pg = { currentPage: pageNo ,  itemsPerPage : $sys.itemsPerPage  };
@@ -644,6 +654,7 @@ angular.module('app.show.system', [])
             d.currentPage = pageNo,
             d.itemsPerPage = $sys.itemsPerPage;
 
+        $scope.showMask = true ; 
         $show.alarm.save(d, null, function(resp) {
             if ($dom) {
                 $dom.toggleClass("show");
@@ -657,6 +668,7 @@ angular.module('app.show.system', [])
                     title: "无报警数据"
                 })
             }
+            $scope.showMask  = false ; 
         })
     }
 

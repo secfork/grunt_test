@@ -17,6 +17,8 @@
 
     "send_maill_err":"邮件发送失败",
     "page_expire":"页面失效",
+    "login_yet":"已经登录,无需重复登录",
+    "no_send_smg":"未发送验证码",
 
 
 
@@ -123,6 +125,10 @@
     "ER_UNKNOWN_ERROR":"未知错误　",
 
     "ER_SUBSCRIBE_EXIST":"订阅已经存在",
+    "ER_EMAIL_NOT_VERIFIED":"邮箱未通过验证",
+    "ER_MOBILE_PHONE_NOT_VERIFIED":"手机未通过验证",
+
+
 
 
     "del": "删除",

@@ -54,9 +54,10 @@ var app = angular.module('thinglinx', [
         window.test = function() {
             alert("test  function !")
         };
+
         $rootScope.test = function() {
                 alert("test  function !")
-            }
+        }
             //@endif  
 
         // $rootScope.validate = function(data, msg) {
@@ -118,6 +119,41 @@ var app = angular.module('thinglinx', [
 
 
 
+
+        // $provide.decorator('$rootScope', ['$delegate', function($delegate) {
+        //   // ['$delegate',
+        //   // 为 所有的 scope 注册  $destroy 事件; !!
+        //   var $new_proxy = $delegate.$new;
+        //   $delegate.$new = function() {
+        //     var $scope = $new_proxy.apply(this);
+        //     var _s // this = ?
+        //     $scope.$on("$destroy", function($event) {
+        //       console._log("$scope $destroy event  ", "清除controller 缓存;");
+
+        //       _s = $event.targetScope;
+
+        //       if (_s.hasOwnProperty('$cache')) {
+        //         _s.$cache.destroy();
+        //         console._log(" 清除controller 缓存; ");
+        //       }
+
+
+        //     });
+        //     return $scope;
+        //   };
+
+
+
+
+
+
+
+
+
+
+
+
+
             $urlRouterProvider
             //.otherwise('/access/signin');
             //.otherwise('/app/template');
@@ -128,7 +164,12 @@ var app = angular.module('thinglinx', [
                 //abstract: true,
                 url: '/app',
                 templateUrl: 'athena/app.html',
-                controller: function($scope, $state, $sys, $sessionStorage) {
+                resolve: {
+                    $user : function( $source ){
+                        return $source.$common.get( {op:"islogined"}).$promise ;
+                    }
+                },
+                controller: function($scope, $state, $sys,  $user  ) {
                     //@if  append
 
                     console.log("appxxxxxxxxx");
@@ -136,8 +177,15 @@ var app = angular.module('thinglinx', [
 
 
                     // jsorder go2long 要清除sessionstorage 的user ;
-                    var user = $sessionStorage.user; 
+                    
+                   // $source.$common.get({op:"islogined"})
+                   //console.log( user ,22222222222);
 
+                                    
+                    //后台判断是否已经登录; 
+                    var user =  $user.ret ;
+
+ 
                     if (user) {
                         $scope.user = user;
                         //@if  append 
@@ -147,6 +195,8 @@ var app = angular.module('thinglinx', [
                         // 是 app 路由转到 rootState ;
                         // rootstate = app.prpj.namage ;
                         $state.is("app") ? $state.go($sys.rootState) : undefined;
+
+                        $scope.user = user ; 
 
                     } else {
                         //  if( !$sys.$debug ){
@@ -562,6 +612,8 @@ var app = angular.module('thinglinx', [
                     controller: "access_signin",
                     templateUrl: 'athena/page_signin.html'
                 })
+
+
                 .state('access.signup', {
                     url: '/signup',
                     controller: "access_signup",

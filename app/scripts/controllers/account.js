@@ -50,14 +50,19 @@ angular.module('app.account', [])
 
     // 添加用户时 所属的 组;
 
+
     $scope.loadPageData = function(pageNo) {
         var d = {
             currentPage: pageNo || 1,
             itemsPerPage: $sys.itemsPerPage
         };
+
+        $scope.showMask = true;
+
         $source.$user.query(d, function(resp) {
             $scope.page = resp;
             $scope.page.currentPage = pageNo;
+            $scope.showMask = false;
         });
     };
 
@@ -116,11 +121,23 @@ angular.module('app.account', [])
 
                 delete $scope.user.password;
 
+
+
+
+
                 $scope.done = function() {
                     $scope.validForm();
 
-                    $scope.user.sms_notice = undefined ;
-                    $scope.user.mail_notice = undefined ;
+                    $scope.user.sms_notice = undefined;
+                    $scope.user.mail_notice = undefined;
+
+
+                    //1 : 用户未验证手机和或邮件时，不能打开短信报警或邮件报警的开关
+                    //2 : 当用户更改邮件或手机时，对应的报警接收开关
+                    //     自动关闭，必须重新开启才能收到通知 (后台已经做处理)
+                   // $scope.user.email_verified = 
+                    
+                 
 
                     $source.$user.put({}, $scope.user, function() {
                         angular.extend(user, $scope.user);
@@ -184,12 +201,12 @@ angular.module('app.account', [])
                 groupids: $scope.od.groups
             }, $scope.user,
             function(resp) {
-                angular.alert("创建用户成功" , function(){
+                angular.alert("创建用户成功", function() {
                     $scope.user = {
-                                       // mail_notice: 1,
-                                       // sms_notice: 1
-                                    }; 
-                    $scope.op.confirm_password=undefined;
+                        // mail_notice: 1,
+                        // sms_notice: 1
+                    };
+                    $scope.op.confirm_password = undefined;
                 });
             }
         );
@@ -212,12 +229,14 @@ angular.module('app.account', [])
         });
     };
 
+    
+
     // 验证联系方式;
-//        jjw 添加参数temp，标记是phone还是email
-    $scope.verifyUser = function(u, i,temp) {
+    //        jjw 添加参数temp，标记是phone还是email
+    $scope.verifyUser = function(u, i, temp) {
         $modal.open({
-            templateUrl: temp=='phone'?"athena/account/users_verify_phone.html":"athena/account/users_verify_email.html",
-            controller: function($scope, $modalInstance , $interval ) {
+            templateUrl: temp == 'phone' ? "athena/account/users_verify_phone.html" : "athena/account/users_verify_email.html",
+            controller: function($scope, $modalInstance, $interval) {
                 $scope.$modalInstance = $modalInstance;
 
                 $scope.__proto__ = S;
@@ -226,66 +245,81 @@ angular.module('app.account', [])
 
                 var smsInterval, emailInterval;
 
-                var  text = "重新发送(%)";
+                var text = "重新发送(%)";
 
-                function setInter ( btnDom ) {
+                function setInter(btnDom) {
                     btnDom.disabled = true;
-                    var  times =120 ; 
-                    smsInterval = $interval( function(){ 
-                        $(btnDom).text( text.replace( "%",times));
+                    var times = 120;
+                    smsInterval = $interval(function() {
+                        $(btnDom).text(text.replace("%", times));
                         times--;
-                        if( times<0){
-                            btnDom.disabled=false ;
+                        if (times < 0) {
+                            btnDom.disabled = false;
                             $(btnDom).text("发送验证码");
-                            $interval.cancel( smsInterval );
-                        } 
-                    },1000)  
+                            $interval.cancel(smsInterval);
+                        }
+                    }, 1000)
                 }
 
-                $scope.sendEmail = function( e ) {
-                    
-                    if( !$scope.u.email ){
+                $scope.sendEmail = function(e) {
+
+                    if (!$scope.u.email) {
                         angular.alert("请输入邮箱!");
-                        return ;
+                        return;
                     }
                     setInter(e.currentTarget);
-                    
-                    var d = { id: u.id , email: $scope.u.email};
 
-                    $source.$user.save( {pk:"sendverifyemail"}  , d );
- 
+                    var d = {
+                        id: u.id,
+                        email: $scope.u.email
+                    };
+
+                    $source.$user.save({
+                        pk: "sendverifyemail"
+                    }, d);
+
                 }
 
-                $scope.sendNote = function( e ) {
-                     if( !$scope.u.mobile_phone){
+                $scope.sendNote = function(e) {
+                    if (!$scope.u.mobile_phone) {
                         angular.alert("请输入手机号");
-                        return ;
+                        return;
                     }
 
-                    setInter(e.currentTarget); 
+                    setInter(e.currentTarget);
 
-                    $source.$note.get({  op: "user",  mobile_phone: $scope.u.mobile_phone },
-                        function() {  
-                        
+                    $source.$note.get({
+                            op: "user",
+                            mobile_phone: $scope.u.mobile_phone
+                        },
+                        function() {
+
                         });
 
                 }
 
-                $scope.verifyPhone = function(){
-                    if( !$scope.u.mobile_phone){
+                $scope.verifyPhone = function() {
+                    if (!$scope.u.mobile_phone) {
                         angular.alert("请输入手机号");
-                        return ;
+                        return;
                     }
-                    if(! $scope.ver.phone ){
+                    if (!$scope.ver.phone) {
                         angular.alert("请输入验证码");
-                        return ;
+                        return;
                     }
 
-                    var d  = { id: u.id ,mobile_phone:$scope.u.mobile_phone , verifi:$scope.ver.phone };
-                    $source.$user.save( { pk:"verifyphone"} ,d, function( resp){
-                        u.mobile_phone_verified = true ;
-                    }) 
-                }           
+                    var d = {
+                        id: u.id,
+                        mobile_phone: $scope.u.mobile_phone,
+                        verifi: $scope.ver.phone
+                    };
+                    $source.$user.save({
+                        pk: "verifyphone"
+                    }, d, function(resp) {
+                        u.mobile_phone_verified = true;
+                        $scope.cancel();
+                    })
+                }
 
 
             }
@@ -311,12 +345,13 @@ angular.module('app.account', [])
             itemsPerPage: $sys.itemsPerPage,
             currentPage: pageNo || 1
         };
-
+        $scope.showMask = true;
         $source.$userGroup.query(d, function(resp) {
             if (resp.data) {
                 $scope.page.data = resp.data;
                 $scope.page.total = resp.total;
                 $scope.page.currentPage = pageNo;
+                $scope.showMask = false;
             }
         })
 
@@ -400,6 +435,8 @@ angular.module('app.account', [])
     //无分页接口;
     ($scope.loadPageData = function(pageNo) {
         d.currentPage = pageNo || 1;
+
+        $scope.showMask = true;
         $source.$userGroup.queryUser(d, function(resp) {
             // if ($scope.loadPageData === loadPageData_usersOfGroup && resp.data) {
 
@@ -409,6 +446,8 @@ angular.module('app.account', [])
             //angular.extend($scope.page, resp);
             //无分页接口;
             $scope.page.data = resp.ret;
+
+            $scope.showMask = false;
             // }
         })
     })(1);
@@ -454,9 +493,11 @@ angular.module('app.account', [])
     $scope.regionRoles = [];
     $scope.accountRoles = [];
 
+    $scope.showMask = true;
     $source.$role.get(function(resp) {
         angular.forEach(resp.ret, function(v, i) {
             (v.role_category ? $scope.regionRoles : $scope.accountRoles).push(v);
+            $scope.showMask = false;
         })
     })
 
@@ -545,7 +586,7 @@ angular.module('app.account', [])
 
 })
 
-.controller('acco_author', function($scope, $state, $source) {
+.controller('acco_author', function($scope, $state, $source, $q) {
     // 预先加载 所有组;
     $scope.$moduleNav("权限", $state);
 
@@ -557,13 +598,22 @@ angular.module('app.account', [])
     // 预先加载所有 角色 ;
     $scope.rp = $source.$role.get().$promise;
 
-    $scope.gp.then(function(resp) {
-        $scope.allgroups = resp.data;
+
+
+    $q.all([$scope.gp, $scope.rp]).then(function(resp) {
+        $scope.allgroups = resp[0].data;
+        $scope.allroles = resp[1].ret;
+
+
     })
 
-    $scope.rp.then(function(resp) {
-        $scope.allroles = resp.ret;
-    })
+    // $scope.gp.then(function(resp) {
+    //     $scope.allgroups = resp.data;
+    // })
+
+    // $scope.rp.then(function(resp) {
+    //     $scope.allroles = resp.ret;
+    // })
 
 })
 
@@ -585,9 +635,12 @@ angular.module('app.account', [])
     // 分页加载区域;
     $scope.loadPageData = function(pageNo) {
         d.currentPage = pageNo;
+        $scope.showMask = true;
+
         $source.$region.query(d, function(resp) {
             $scope.page = resp;
             $scope.page.currentPage = pageNo;
+            $scope.showMask = false;
         });
     }
 
@@ -599,17 +652,17 @@ angular.module('app.account', [])
             $source.$permission.get({
                 source: "region",
                 source_id: region.id
-            }, function(resp) {     
-                 //@if  append
-                    if( ! angular.isArray( resp.ret ) ){
-                        alert("rest查询 区域下的带权限的用户组的 数据格式不正确");
-                    }
+            }, function(resp) {
+                //@if  append
+                if (!angular.isArray(resp.ret)) {
+                    alert("rest查询 区域下的带权限的用户组的 数据格式不正确");
+                }
 
-                 //@endif 
+                //@endif 
 
 
                 scope.groups = resp.ret;
-                scope.groupids =   scope.groups.map(function(v, i) {
+                scope.groupids = scope.groups.map(function(v, i) {
                     return v.id;
                 })
 
@@ -726,15 +779,20 @@ angular.module('app.account', [])
 .controller("author_account", function($scope, $state, $source, $sys, $modal) {
 
     // 加载 组中的account 权限 ;
+
     $scope.loadPermission = function(scope, group) {
         if (!group.promise) {
+            $scope.showMask = true;
             $source.$permission.get({
                 source: "account",
                 group_id: group.id
             }, function(resp) {
                 scope.promise = resp.ret && resp.ret.privilege;
+                $scope.showMask = false;
             })
         }
+
+
     }
 
     $scope.ee = function(e) {

@@ -3,6 +3,7 @@
 angular.module('app.project', [])
 
 .controller("manage_projs", function($scope, $source, $state, $utils,
+    
     $filter, $timeout, $sys, $localStorage) {
 
     //@if  append
@@ -10,6 +11,8 @@ angular.module('app.project', [])
     // 加载 projects ;
     console.log("manage_projs"); // postcode
     //@endif 
+    //
+     
 
     //是否为 show 模块;
     $scope.isShowModul = $state.$current.data && $state.$current.data.isShowModul;
@@ -27,6 +30,8 @@ angular.module('app.project', [])
     var per = $sys.itemsPerPage;
     $scope.page = {};
     $scope.loadPageData = function(pageNo) {
+        $scope.showMask = true ;
+
         var d = {
             itemsPerPage: per,
             currentPage: pageNo,
@@ -34,7 +39,7 @@ angular.module('app.project', [])
         };
 
         $source.$region.query(d, function(resp) {
-
+            $scope.showMask = false ;
             $scope.page = resp;
             $scope.page.currentPage = pageNo;
 
@@ -129,8 +134,10 @@ angular.module('app.project', [])
 
     $scope.commit = function() {
         $scope.validForm();
+        $scope.showMask = true ;
         $source.$region.save($scope.proj, function(resp) {
             //resp.ret && $state.go("app.proj.manage");  
+            $scope.showMask = false ; 
             angular.alert("添加成功!");
         })
 
@@ -199,6 +206,7 @@ angular.module('app.project', [])
     $scope.loadPageData = function(pageNo) {
         // 分页加载 采集站数据;
         $scope.page.currentPage = pageNo;
+        $scope.showMask = true ;
 
         var d = angular.extend({
             region_id: $scope.project.id,
@@ -259,6 +267,7 @@ angular.module('app.project', [])
                     $map.flushMarkers(map, $scope.page.data);
                 }
 
+                $scope.showMask = false ;
             });
 
         });

@@ -70,9 +70,13 @@ angular.module('app.sysconfig', [], function() {})
               
             xaxis: {
                 mode: "time",
-                show: true
-                // zoomRange: [0.1, 10],  // 缩放范围; 
+               // show: true
+               // zoomRange: [0.1, 10],  // 缩放范围; 
             },
+
+            yaxis: { 
+                tickDecimals: 6
+            }, 
 
             legend: {
                 position: "nw",

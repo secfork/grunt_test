@@ -67,8 +67,10 @@ angular.module('app.model.device', [])
         });
 
         // 加载 device model ;
+        $scope.showMask =true ;
         $source.$deviceModel.get(function(resp) {
             $scope.deviceModels = resp.ret;
+            $scope.showMask = false ;
         });
 
 

@@ -1,5 +1,6 @@
 
-<div class="panel-body table-responsive   padding-15">
+<div class="panel-body table-responsive   padding-15"   load-mask >
+    
     <div ng-repeat='g in  allgroups ' ng-init=" op ={} ">
 
         <div class=' border temp-row ' ng-click='op.show = !op.show ' style="height: 40px;line-height: 2.5;border-radius: 2px;background-color: #F6F8F7;margin-top: 6px;">
@@ -37,5 +38,6 @@
 
 <div class="panel-footer">
     <!--jjw m-t m-b-->
-    <div  class="text-center m-t-sm m-b-sm height-30" ng-include src=" 'athena/debris/_pager.html'  "></div>
+    <div  class="text-center m-t-sm m-b-sm height-30" ng-include
+     src=" 'athena/debris/_pager.html'  "></div>
 </div>

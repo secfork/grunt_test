@@ -10,42 +10,64 @@
             <div class="col w-sm  "> 系统名称 </div>
             <div class="col text-right color-5"> {{system.name }} </div>
         </div>
+
         <div class=" b-b line-dashed  jbox hbox ">
             <div class="col w-sm  "> 活跃状态 </div>
             <div class="col text-right color-5"> {{ system.state == 1 ? "激活":"未激活" }} </div>
         </div>
+
         <div class=" b-b line-dashed  jbox hbox ">
             <div class="col w-sm  "> 在线状态 </div>
             <div class="col text-right color-5"> {{ station.online ==1?"在线":"离线" }} </div>
         </div>
+
         <div class=" b-b line-dashed  jbox hbox ">
             <div class="col w-sm  "> 时区 </div>
             <div class="col text-right color-5"> {{ }} </div>
         </div>
+
+
+
         <div class=" b-b line-dashed  jbox hbox ">
-            <div class="col w-sm  "> 系统类型 </div>
-            <div class="col text-right color-5"> {{$sys.sysModelMode.values[systemModel.mode] }} </div>
-        </div>
-        <div class=" b-b line-dashed  jbox hbox ">
-            <div class="col w-sm "> 通讯类型 </div>
-            <div class="col text-right color-5"> {{ systemModel.comm_type == 1 ? 'DaServer':'GateWay' }} </div>
-        </div>
-        <div class=" b-b line-dashed  jbox hbox ">
-            <div class="col w-sm "> 数据最后更新时间 </div>
+            <!-- <div class="col w-sm "> 数据最后更新时间 </div> -->
+            <div class="col w-sm "> 上次同步时间 </div>
             <div class="col text-right color-5"> {{ system.last_modify_time | date:"yyyy-MM-dd HH:mm Z"}} </div>
         </div>
-        <div class=" b-b line-dashed  jbox hbox ">
-            <div class="col w-sm "> 位置 </div>
-            <div class="col text-right color-5"> {{ system.map_address  }} </div>
-        </div>
+      
         <div class=" b-b line-dashed  jbox hbox ">
             <div class="col w-sm "> 最后活跃报警 </div>
             <div class="col text-right color-5"> {{ }} </div>
         </div>
+
+
+
+        <div class=" b-b line-dashed  jbox hbox ">
+            <div class="col w-sm  "> 系统类型 </div>
+            <div class="col text-right color-5"> {{$sys.sysModelMode.values[systemModel.mode] }} </div>
+        </div>
+
+        <div class=" b-b line-dashed  jbox hbox ">
+            <div class="col w-sm "> 通讯类型 </div>
+            <div class="col text-right color-5"> {{ systemModel.comm_type == 1 ? 'DaServer':'GateWay' }} </div>
+        </div>
+
+
+     
+
+
         <div class="jbox hbox">
             <div class="col w-sm "> 备注 </div>
             <div class="col text-right color-5"> {{system.desc }} </div>
         </div>
+
+
+        <div class=" b-b line-dashed  jbox hbox ">
+            <div class="col w-sm "> 位置 </div>
+            <div class="col text-right color-5"> {{ system.map_address  }} </div>
+        </div>
+
+
+
     </div>
     <!--jjw float-right no-padder-->
     <div class="col-md-6 gap-5  float-right no-padder" style="width: 500px;height: 400px;">

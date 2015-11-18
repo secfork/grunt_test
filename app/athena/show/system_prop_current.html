@@ -69,7 +69,7 @@
             <th class="w">值</th>
             <th class="w">时间戳</th>
             <th class="w" ng-show=" systemModel.mode ==1 ">下置</th>
-           <!--  <th>描述</th> -->
+            <th class="w" >描述</th> 
             <th class="w"> </th>
         </thead>
       
@@ -93,7 +93,7 @@
                         <button class="btn btn-info btn-xs btn-s w-48" ng-click="liveWrite( t, v , $event )" token="5000">下置</button>
                         <span id="current_msg_{{t}}" class="w">  {{ msg }}</span>
                     </td>
-                   <!--  <td>{{t.desc}}</td> -->
+                   <td>{{t.desc}}</td>  
                     <td>
                         <button class="btn btn-info btn-xs btn-s w-60" ng-click="goHis(t)">查看历史</button>
                         <!-- 
