@@ -194,6 +194,11 @@ angular.module('app.system.prop', [])
         // 生成 ticket ; //createTicket
         $scope.createTicket = function() {
 
+            if( ! $scope.t.sn ){
+                angular.alert( "请输入SN号");
+                return ; 
+            }
+
             // 先 写死 ticket 的 选前; 
             $scope.t.privilege = ['SYSTEM_MANAGE', 'SYSTEM_CONTROL'];
 
@@ -207,6 +212,16 @@ angular.module('app.system.prop', [])
                 }
             )
         }
+
+        // 删除ticket ; 
+        $scope.unBindTicket = function(){
+
+            $source.$ticket.delete( { system_id: $scope.station.uuid } , undefined ,function( resp ){
+                $scope.t.ticket = undefined ; 
+                $scope.t.sn = undefined ; 
+            })
+        }
+
 
         //  就 托管的 daServer 不用  box ticket 
         // <div ng-if=" !(sysmodel.mode ==1  && sysmodel.comm_type ==1 ) ">

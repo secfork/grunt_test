@@ -111,8 +111,9 @@ angular.module('app.account', [])
                 //  $("#form-field-select").trigger("chosen:updated");   
                 //  在 ui-jq 库中修改, 调用chonse插件是 初始化选项; 
                 var oldgroups = (g.ret || (g.ret = [])).map(function(v) {
-                    return v.id + ""
+                    return v.id + "";
                 });
+
                 $scope.od = {
                     groups: oldgroups
                 };
@@ -120,10 +121,6 @@ angular.module('app.account', [])
                 $scope.user = angular.copy(user);
 
                 delete $scope.user.password;
-
-
-
-
 
                 $scope.done = function() {
                     $scope.validForm();
@@ -137,9 +134,28 @@ angular.module('app.account', [])
                     //     自动关闭，必须重新开启才能收到通知 (后台已经做处理)
                    // $scope.user.email_verified = 
                     
-                 
+                   var  u = angular.copy( $scope.user );
+                        // delete u.mobile_phone_verified;
+                        // delete u.email_verified ;
 
-                    $source.$user.put({}, $scope.user, function() {
+                    if( u.email ===  user.email ){
+                        delete  u.email ;
+                    }else{
+                        $scope.user.email_verified = 0 ;
+                    }
+
+                    if( u.mobile_phone === user.mobile_phone ){
+                        delete u.mobile_phone ;
+                    }else{
+                        $scope.user.mobile_phone_verified = 0 ;
+                    }
+
+
+
+
+
+
+                    $source.$user.put({},  u , function() {
                         angular.extend(user, $scope.user);
                         // 用户组 更改时 ; 
                         // 新就 groups 比较 来判断是否要 增 删 ; 

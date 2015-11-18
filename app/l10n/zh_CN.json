@@ -127,7 +127,7 @@
     "ER_SUBSCRIBE_EXIST":"订阅已经存在",
     "ER_EMAIL_NOT_VERIFIED":"邮箱未通过验证",
     "ER_MOBILE_PHONE_NOT_VERIFIED":"手机未通过验证",
-
+    "ER_SYSTEM_HAS_BOUND":"系统已经绑定Ticket",
 
 
 

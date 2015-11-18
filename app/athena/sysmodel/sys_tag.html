@@ -48,6 +48,8 @@
                 </td>
                 <td> <span ng-show="tag.save_log">{{tag.log_cycle }}  </span> </td>
                 <td> <span ng-show="tag.save_log"> {{ _$type[tag.log_type] ||'RAW' }}  </span> </td>
+                
+
                 <td> {{ tag.desc||"" }} </td>
                 <td ng-if="isModelState">
                     <a class="text-info m-r-xs" ng-click="updateTag(  $index  , tag , this  )">编辑</a>

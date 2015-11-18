@@ -66,7 +66,7 @@ angular.module('app.services', ["ngResource"], function() {
         }
     });
 
-    this.$user = $createSource("user/:pk", {}, {
+    this.$user = $createSource("user/:pk/:op", {}, {
         login: {
             url: angular.rootUrl + "user/login",
             method: "POST"

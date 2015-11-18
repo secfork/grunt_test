@@ -508,6 +508,7 @@ angular.module("app.model.system", [])
 
     var dev_id, dev_ref;
     $scope.getDevName = function(tag, scope) {
+        if( !tag.connect) return ;
 
         dev_id = tag.connect.replace(/(\d+).(\d+)/, "$1");
 
@@ -618,7 +619,7 @@ angular.module("app.model.system", [])
 
 
 
-    // tag 的 创建, 编辑 , 删除;
+     
     $scope.addTag = function() {
 
         if (!$scope.profiles.length) {
@@ -640,9 +641,13 @@ angular.module("app.model.system", [])
                     $scope.isAdd = true,
 
                     $scope.T = {
-                        type: undefined
+                        type: undefined,
+
                     },
-                    $scope.L = {};
+                    $scope.L = { 
+                     deviation:0 ,
+                        scale:1 
+                    };
 
                 $scope.copyName = function() {
                     $scope.T.name = $scope.op.point.replace(/(.+)&(.+)/, "$2");
@@ -680,7 +685,7 @@ angular.module("app.model.system", [])
                         if (t.hasProfile) { // 日志参数; 
                             $scope.L.id = resp.ret,
                                 $scope.L.profile = t.odp.puuid,
-                                $scope.L.save_log = $scope.L.log_cycle ? 1 : 0;
+                               // $scope.L.save_log = $scope.L.log_cycle ? 1 : 0;
                             $source.$sysLogTag.save($scope.L, call);
                         } else {
                             call()
@@ -801,14 +806,18 @@ angular.module("app.model.system", [])
 
                 var a, b, c, d;
 
+                console.log( tag );
+
+
                 $scope.$modalInstance = $modalInstance,
                     $scope.__proto__ = t,
                     $scope.L = a = angular.copy(tag),
+
                     $scope.hasLog = b = tag.profile;
 
                 $scope.done = function() {
                     $scope.validForm("form_tag"),
-                        $scope.L.save_log = $scope.L.log_cycle ? 1 : 0;
+                       // $scope.L.save_log = $scope.L.log_cycle ? 1 : 0;
                     $scope.L.id = tag.id;
 
                     d = {

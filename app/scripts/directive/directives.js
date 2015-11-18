@@ -795,9 +795,7 @@ angular.module('app.directives', ['pascalprecht.translate'])
                  //@if  append
                     console.log( "showMask =" , n);
                  
-                 //@endif 
-                
-
+                 //@endif  
                 (n ? show:hide )();
 
             })

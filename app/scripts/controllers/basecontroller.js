@@ -710,8 +710,11 @@ angular.module('app.basecontroller', ['ng'])
             return ;
         }
 
-        $source.$user.put({
-            id: user.id,
+        $source.$user.save(
+        {
+            op:"notice"
+        },
+        { 
             sms_notice: user.sms_notice ? 0 : 1
         }, function() {
             user.sms_notice = !user.sms_notice;
@@ -726,8 +729,11 @@ angular.module('app.basecontroller', ['ng'])
             return ;
         }
 
-        $source.$user.put({
-            id: user.id,
+        $source.$user.save(
+        {
+            op:"notice"
+        },
+        { 
             mail_notice: user.mail_notice ? 0 : 1
         }, function() {
             user.mail_notice = !user.mail_notice;
@@ -741,9 +747,11 @@ angular.module('app.basecontroller', ['ng'])
 
 
 .controller("access_signin", function($scope, $state, $timeout, $localStorage, $sys,
-    $sessionStorage, $compile, $source   ) {
+    $compile, $source  , $modalStack  ) {
+ 
+    $modalStack.dismissAll();
+ 
 
-    
     $source.$common.get({op:"islogined"} , function(resp){
 
         if( resp.ret){
@@ -759,9 +767,7 @@ angular.module('app.basecontroller', ['ng'])
 
     });
 
-
-
-
+ 
 
     //@if  append 
     console.log("sign controller");
@@ -823,10 +829,7 @@ angular.module('app.basecontroller', ['ng'])
  
 
                 if (resp.ret) {
-                    resp.ret.sms_notice = !!resp.ret.sms_notice;
-                    resp.ret.mail_notice = !!resp.ret.mail_notice;
-
- 
+                 
                      //@if  append
                          console.log("log in ok ");
                      
@@ -841,6 +844,7 @@ angular.module('app.basecontroller', ['ng'])
                     $scope.resp = resp;
                 }
             },
+
             function(resp) { // {err:.. , ret: ... }
                 $scope.op.t++;
                 $scope.op.b = false;
