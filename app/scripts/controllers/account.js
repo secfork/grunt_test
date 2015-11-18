@@ -231,7 +231,8 @@ angular.module('app.account', [])
 
     $scope.delUser = function(arr, u, i) {
         $scope.confirmInvoke({
-            title: "删除用户:" + u.username + " ?"
+            title: "删除用户:" + u.username ,
+            note:"确认要删除该用户吗?"
         }, function(next) {
             $source.$user.delByPk({
                     pk: u.id
@@ -396,7 +397,8 @@ angular.module('app.account', [])
     // 删除组;
     $scope.delGroup = function(arr, g, i) {
         $scope.confirmInvoke({
-            title: "删除用户组:" + g.name + " ?"
+            title: "删除用户组:" + g.name ,
+            note:"确认要删除该用户组吗?"
         }, function(next) {
             $source.$userGroup.delByPk({
                 pk: g.id
@@ -472,8 +474,8 @@ angular.module('app.account', [])
     // 移除用户;
     $scope.removeUser = function(arr, u, i) {
         $scope.confirmInvoke({
-            title: "从组中移除用户:" + u.username + "?",
-            note: "用户不会被删除!"
+            title: "移除用户:" + u.username ,
+            note: "确认从组中移除该用户吗?用户不会被删除!"
         }, function(next) {
             $source.$userGroup.delete({
                 pk: $scope.usergroup.id,
@@ -586,7 +588,8 @@ angular.module('app.account', [])
 
     $scope.delRole = function(arr, r, index) {
         $scope.confirmInvoke({
-            title: '删除角色:' + r.name + " ?"
+            title: '删除角色:' + r.name ,
+            note:"确认要删除该角色吗?"
         }, function(next) {
 
             $source.$role.delByPk({
@@ -747,7 +750,8 @@ angular.module('app.account', [])
     $scope.delGroup = function(scope, r, arr, g, i) {
 
         $scope.confirmInvoke({
-            title: "移除权限组:" + g.name + "?"
+            title: "移除权限组:" + g.name ,
+            note:"确认要删除该组吗?"
         }, function(next) {
             $source.$permission.delete({
                 source: "region",

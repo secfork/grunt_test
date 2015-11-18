@@ -257,7 +257,11 @@ angular.module('app.system', [])
                 sys.uuid = resp.ret ;
                 sys.state = 0 ;
                  
-                $scope.confirmInvoke( { title:"创建成功,是否去配置系统"} , function( next ){
+                $scope.confirmInvoke( { 
+                    title:"配置系统",
+                    note:"创建成功,是否去配置该系统?", 
+
+                    } , function( next ){
                     $scope.goto( "app.station.prop._config" ,  sys , sys );
                     next();
                 }) 

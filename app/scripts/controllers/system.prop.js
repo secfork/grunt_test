@@ -392,7 +392,8 @@ angular.module('app.system.prop', [])
         // 删除 gatewway dev , 删除 devRef 引用  ;
         $scope.delete_dev = function(gateway_devs, idnex, dev) {
             $scope.confirmInvoke({ 
-                warn: "删除设备: " + $scope.deviceKV[dev.id] + "  的网络配置?" 
+                title:"删除设备网络配置:" + $scope.deviceKV[dev.id] ,
+                note: " 确认要删除该设备的网络配置吗?" 
             }, function(next) {
                 gateway_devs.splice(idnex, 1);
                 delete $scope.devRef[dev.id];
@@ -533,7 +534,8 @@ angular.module('app.system.prop', [])
         // 删除  gateway类型 中的 数据;
         $scope.del_way = function(T, t, way) {
             $scope.confirmInvoke({ 
-                warn: " 删除网关: " + t + "?" 
+                title: " 删除网关: " + t ,
+                note:"确认要删除该网关吗?"
             }, function(next) {
                 delete $scope.gateway[T][t]
                 toUpdate('gateway');
@@ -582,7 +584,8 @@ angular.module('app.system.prop', [])
                 // 未激活的话 提示激活;  
                 if (  $scope.station.state  == 0  ) { 
                     $scope.confirmInvoke({
-                        title: "该系统处于未激活状态, 是否现在激活!"
+                        title: "激活系统",
+                        note:"该系统处于未激活状态,确认要激活该系统吗?"
                     }, function(next) {
                       // 激活系统; 
                        $source.$system.active( { pk: $scope.station.uuid } ,
@@ -991,11 +994,17 @@ angular.module('app.system.prop', [])
 
         // 按钮定位;
         $scope.locatedStation = function() {
+ 
             var d = {
                 uuid: $scope.station.uuid,
                 longitude: $scope.station.longitude,
                 latitude: $scope.station.latitude
             }
+            if( ! (d.longitude && d.latitude) ){
+                angular.alert("请正确输入坐标数据");
+                return ; 
+            }
+
 
             $source.$system.put(d, function(resp) {
 
@@ -1005,6 +1014,7 @@ angular.module('app.system.prop', [])
                 addMoveMenu.apply(marker);
                 addMarkMouseUpHandler.apply(marker);
                 map.addOverlay(marker);
+                
                 map.centerAndZoom(marker.point);
 
 

@@ -211,10 +211,13 @@ angular.module('app.model.device', [])
         $scope.delTemp = function(index, obj) {
 
             var msg = {
-                title: "删除模版: " + obj.name + " ?"
+                title: "删除模版: " + obj.name ,
+                note:"确认要删除该设备模型吗?"
             };
+            
             if (obj.ref)
                 msg.warn = "该模版被" + obj.ref + "个设备使用! 不可删除!";
+
             $scope.confirmInvoke(msg, function(next) {
                 if (obj.ref) return;
                 $source.$deviceModel.delete({
@@ -234,7 +237,8 @@ angular.module('app.model.device', [])
             console.log("delPoint", p);
             //@endif 
             $scope.confirmInvoke({
-                title: "删除点: " + p.name + " ?"
+                title: "删除点: " + p.name ,
+                note:"确认要删除该点吗?"
             }, function(next) {
                 $source.$dmPoint.delete({
                     id: p.id,
@@ -262,6 +266,7 @@ angular.module('app.model.device', [])
                     $scope.__proto__ = scope;
                     $scope.$modalInstance = $modalInstance;
                     $scope.point = {};
+                    $scope.isAdd = !!p ; 
 
                     if (p) { //编辑; 
                         $scope.point = angular.copy(p);

@@ -101,7 +101,8 @@ angular.module('app.project', [])
     $scope.delProject = function(proj, index) {
 
         $scope.confirmInvoke({
-                title: "删除区域: " + proj.name + " ?"
+                title: "删除区域: " + proj.name  ,
+                note:"确认要删除该区域吗?"
             },
             function(next) {
 

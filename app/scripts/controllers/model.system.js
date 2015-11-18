@@ -54,7 +54,8 @@ angular.module("app.model.system", [])
 
         $scope.deleteSM = function(index, sm) {
             $scope.confirmInvoke({
-                title: "删除系统模型: " + sm.name + "?"
+                title: "删除系统模型: " + sm.name ,
+                note:"确认要删除该系统模型吗?"
             }, function(next) {
                 $source.$sysModel.delete({
                     uuid: sm.uuid
@@ -285,7 +286,8 @@ angular.module("app.model.system", [])
 
         $scope.deleteSysProfile = function(s, i, p) {
             $scope.confirmInvoke({
-                title: "删除配置项: " + p.name + " ?"
+                title: "删除配置项: " + p.name ,
+                note:"确认要删除该配置项吗?"
             }, function(n) {
                 $source.$sysProfile.delete({
                     uuid: p.uuid
@@ -463,7 +465,8 @@ angular.module("app.model.system", [])
 
         $scope.deleteSysD = function(scope, index, sysd) {
             $scope.confirmInvoke({
-                title: "删除系统设备: " + sysd.name + " ?"
+                title: "删除系统设备: " + sysd.name ,
+                note:"确认要删除该设备吗?"
             }, function(next) {
                 $source.$sysDevice.delete({
                     system_model: sysmodel.uuid,
@@ -850,9 +853,7 @@ angular.module("app.model.system", [])
         });
     }
 
-
 })
-
 
 .controller("sysmodel_prof_trigger",
     function($scope, $source, $modal, $state, $q, $sys, $utils) {
@@ -946,7 +947,8 @@ angular.module("app.model.system", [])
 
         $scope.deleteTrigger = function(i, t) {
             $scope.confirmInvoke({
-                title: "删除触发器: " + t.name + " ?"
+                title: "删除触发器: " + t.name ,
+                note:"确认要删除该触发器吗?"
             }, function(n) {
                 $source.$sysProfTrigger.delete({
                     profile: t.profile,
@@ -1182,7 +1184,8 @@ angular.module("app.model.system", [])
         $scope.deleteMessage = function(index, message) {
 
             $scope.confirmInvoke({
-                warn: "移除通知 " + message.name + "?"
+                title: "删除通知 " + message.name ,
+                note:"确认要删除通知吗?"
             }, function(next) {
 
                 $source.$message.delete({
@@ -1296,7 +1299,8 @@ angular.module("app.model.system", [])
 
         S.deleteGateway = function(T, t, data) {
             $scope.confirmInvoke({
-                warn: "删除串口: " + t + " ?"
+                title: "删除串口: " + t ,
+                note:"确认要删除该串口吗?"
             }, function(next) {
                 delete S.GateWay[T][t];
                 //S.sysmodel.gateway_default = S.GateWay ;

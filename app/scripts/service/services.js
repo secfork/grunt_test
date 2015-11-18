@@ -57,10 +57,7 @@ angular.module('app.services', ["ngResource"], function() {
     this.$note = $createSource("note/:op/:sou"); 
 
     this.$common = $createSource("common/:op", {}, {
-        cc_passWord: {
-            url: angular.rootUrl + "common/ccpassword",
-            method: "PUT"
-        },
+       
         verify: {
             url: angular.rootUrl +"common/verify"
         }
