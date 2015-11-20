@@ -170,7 +170,10 @@ var app = angular.module('thinglinx', [
                         return   window.loginUserPromise 
                     }
                 },
-                controller: function($scope, $state, $sys  ) {
+                controller: function($scope, $state, $sys  , $user ) {
+
+                    
+                    
                     
                 }
 

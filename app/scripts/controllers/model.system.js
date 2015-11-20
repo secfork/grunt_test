@@ -178,9 +178,7 @@ angular.module("app.model.system", [])
 
             $scope.odp.puuid = resp.ret[0] && resp.ret[0].uuid;
         })
-
-
-
+  
         // 控控制 tag , 触发器, 通知  在 systemodel ,
         $scope.isModelState = true;
 
@@ -494,8 +492,7 @@ angular.module("app.model.system", [])
 
     var sysmodel = $scope.sysmodel, // $scope.$$cache[0],
         t = $scope;
-    t.isManageMode = sysmodel.mode == $sys.manageMode;
-
+ 
     // 拆分 connect 字段;
     // connect 回显 ;  device id ( 整合成 kv形式)--> 得到 demodel( ) --> 再去加载point数据;
     var cc;
