@@ -165,14 +165,39 @@ var app = angular.module('thinglinx', [
                 url: '/app',
                 templateUrl: 'athena/app.html',
                 resolve: {
-                    $user : function(  ){
+                    $user : function( $source ){
                         
-                        return   window.loginUserPromise 
+                        return    $source.$common.get({  op: "islogined" }).$promise
                     }
                 },
                 controller: function($scope, $state, $sys  , $user ) {
 
+                     //后台判断是否已经登录; 
+                    var user =  $user.ret ;
+
                     
+                    
+                    if (user) {
+                        user.sms_notice = !!user.sms_notice;
+                        user.mail_notice = !!user.mail_notice;
+
+                        $scope.user = user;
+
+                        //@if  append 
+                        console.log("sessionStorage 含有user");
+                        //@endif 
+
+                        // 是 app 路由转到 rootState ;
+                        // rootstate = app.prpj.namage ;
+                        $state.is("app") ? $state.go($sys.rootState) : undefined;
+
+                        $scope.user = user ; 
+
+                    } else {
+                        //  if( !$sys.$debug ){
+                        $state.go('access.signin');
+                            //  }
+                    };
                     
                     
                 }
