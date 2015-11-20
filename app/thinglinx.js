@@ -174,7 +174,7 @@ var app = angular.module('thinglinx', [
 
                      //后台判断是否已经登录; 
                     var user =  $user.ret ;
-
+                    $('#preload').fadeOut('slow'); 
                     
                     
                     if (user) {
@@ -606,12 +606,13 @@ var app = angular.module('thinglinx', [
                     resolve: {
                         $user : function(  ){
                             
-                            return   window.loginUserPromise 
+                           //  return   window.loginUserPromise 
                         }
                     },
 
-                    controller:function(){
+                    controller:function( ){
 
+                         $('#preload').fadeOut('slow'); 
                     }
                 })
                 .state('access.signin', {

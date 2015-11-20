@@ -1071,13 +1071,15 @@ angular.module('app.basecontroller', ['ng'])
                 $scope.op.verifyemail = 1 ; 
                 $timeout( function  (argument) {
                     $state.go("access.signin");
-                },5000)
-
-
+                },5000) 
 
             }else{
                 //$scope.op.verifyemail = 2 ;
-                $state.go("access.signin");
+                 $scope.op.verifyemail = 2;
+                $timeout(function() {
+                    $state.go("access.signin");
+                    
+                }, 2000);
             }
 
 
