@@ -16,4 +16,8 @@
 		label="终端ID" 
 		required 
 		ng-model="daserver.params.simid"
-		ng-change=" toUpdate('daserver') "  >
+		ng-change=" toUpdate('daserver') "  
+		ng-maxlength=14
+		ng-minlength=14
+
+		>

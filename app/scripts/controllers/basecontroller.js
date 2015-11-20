@@ -4,7 +4,7 @@
 angular.module('app.basecontroller', ['ng'])
 
 .controller('AppCtrl', function($scope, $translate, $localStorage, $window, $modal, $state,
-    $timeout, $sessionStorage, $source, $q, $source , $animate) {
+    $timeout, $sessionStorage, $source, $q, $source , $animate , $location , $rootScope) {
 
     var S = $scope;
     //@if  append
@@ -711,29 +711,29 @@ angular.module('app.basecontroller', ['ng'])
     $scope.acceptSMS = function(user) {
         //"mail_notice":0,"sms_notice":0  
 
-        if( !user.email_verifi){
-            angular.alert("您的手机未通过验证,不可接收短信通知!");
-            return ;
-        }
+        // if( !user.mobile_phone_verified ){
+        //     angular.alert("您的手机未通过验证,不可接收短信通知!");
+        //     return ;
+        // }
 
-        $source.$user.save(
-        {
-            op:"notice"
-        },
-        { 
-            sms_notice: user.sms_notice ? 0 : 1
-        }, function() {
-            user.sms_notice = !user.sms_notice;
-        })
+        $source.$user.save(  
+            {  op:"notice"  },
+            {   sms_notice: user.sms_notice ? 0 : 1  },
+            function() {
+                user.sms_notice = !user.sms_notice;
+
+            }
+        )
     }
 
 
+    // 接收短信通知;  
     $scope.acceptEmail = function(user) {
 
-        if( !user.email_verified){
-            angular.alert("您的邮箱未通过验证,不可接收邮件通知!");
-            return ;
-        }
+        // if( !user.email_verified ){
+        //     angular.alert("您的邮箱未通过验证,不可接收邮件通知!");
+        //     return ;
+        // }
 
         $source.$user.save(
         {
@@ -745,15 +745,13 @@ angular.module('app.basecontroller', ['ng'])
             user.mail_notice = !user.mail_notice;
         })
     }
-
-    // 接收短信通知;  
-
+   
 
 })
 
 
 .controller("access_signin", function($scope, $state, $timeout, $localStorage, $sys,
-    $compile, $source  , $modalStack  ) {
+    $compile, $source  , $modalStack , $rootScope ) {
  
     $modalStack.dismissAll();
  
@@ -761,6 +759,12 @@ angular.module('app.basecontroller', ['ng'])
     $source.$common.get({op:"islogined"} , function(resp){
 
         if( resp.ret){
+            
+            // resp.ret.sms_notice = !!resp.ret.sms_notice;
+            // resp.ret.mail_notice = !!resp.ret.mail_notice; 
+            // $("body").scope().user = resp.ret ; 
+
+
            $state.go("app");
         }else{
                 // 获取登录次数; 
@@ -833,17 +837,19 @@ angular.module('app.basecontroller', ['ng'])
                 console.log(resp.ret);
                 //@endif 
  
+                resp.ret.sms_notice = !!resp.ret.sms_notice;
+                resp.ret.mail_notice = !!resp.ret.mail_notice; 
+
+                $("body").scope().user  = resp.ret ; 
 
                 if (resp.ret) {
                  
                      //@if  append
                          console.log("log in ok ");
                      
-                     //@endif 
-
- 
+                     //@endif  
                     //$state.go( $sys.rootState );
-                     $state.go("app");
+                     $state.go("app.proj.manage");
                     //$state.go("app.template");
                 } else {
                     $scope.op.b = false;
@@ -1065,13 +1071,15 @@ angular.module('app.basecontroller', ['ng'])
                 $scope.op.verifyemail = 1 ; 
                 $timeout( function  (argument) {
                     $state.go("access.signin");
-                },5000)
-
-
+                },5000) 
 
             }else{
                 //$scope.op.verifyemail = 2 ;
-                $state.go("access.signin");
+                 $scope.op.verifyemail = 2;
+                $timeout(function() {
+                    $state.go("access.signin");
+                    
+                }, 2000);
             }
 
 

@@ -43,7 +43,7 @@ angular.module('app.project', [])
             $scope.page = resp;
             $scope.page.currentPage = pageNo;
 
-        });
+        },function(){   $scope.showMask = false;  });
     };
 
     var region_ids = [];
@@ -140,7 +140,7 @@ angular.module('app.project', [])
             //resp.ret && $state.go("app.proj.manage");  
             $scope.showMask = false ; 
             angular.alert("添加成功!");
-        })
+        },function(){   $scope.showMask = false;  })
 
 
     }
@@ -255,7 +255,13 @@ angular.module('app.project', [])
                 $.each(resp.data, function(i, n) {
                     //  不是这个 系统状态(0:未激活,1:活跃,2:挂起)
                     // 而是系统在线在线状态; 
-                    n.online = sysStatus && sysStatus[i] && sysStatus[i].online;
+                   
+                    n.online = sysStatus && sysStatus[i] &&  
+                                    ( sysStatus[i].daserver? 
+                                        sysStatus[i].daserver.logon 
+                                        : sysStatus[i].online
+                                    )
+  
                     n.needsync = sta2sync && sta2sync[n.uuid];
                 });
 
@@ -271,7 +277,7 @@ angular.module('app.project', [])
                 $scope.showMask = false ;
             });
 
-        });
+        },function(){   $scope.showMask = false;  });
 
     }
 
@@ -322,10 +328,11 @@ angular.module('app.project', [])
 
         $source.$sub.get( {op:"select" , region: proj_id , user: $scope.user.id }  , function( resp ){
             $scope.od.sub_id = resp.ret[0] && resp.ret[0].id ;
-            $scope.od.issubed  = !!scope.od.sub_id ;
+            $scope.od.issubed  = !!$scope.od.sub_id ;
 
         }) 
     }
+    
     getSubOfRegion( $scope.proj.id );
 
     // 编辑区域的订阅; 
@@ -350,7 +357,8 @@ angular.module('app.project', [])
     }
 
     $scope.editSub = function(){
-        ( $scope.od.issubed ? delSubOfRegion : createSubOfRegion )();
+        // change 之后的 值,  逻辑正好反转; 
+        ( $scope.od.issubed ? createSubOfRegion : delSubOfRegion )();
     }
 
 

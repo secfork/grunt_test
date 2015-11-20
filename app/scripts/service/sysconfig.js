@@ -18,8 +18,8 @@ angular.module('app.sysconfig', [], function() {})
             {k:"是",v:1},
             {k:"否",v:0}
         ],
- 
 
+ 
         // 账户权限; 
         accountP:[
                       "REGION_MANAGE", // 区域管理
@@ -484,8 +484,9 @@ angular.module('app.sysconfig', [], function() {})
                     //if( point.params.area  > 1 ){   // 意思是  hr , ai 区  > 1 ;
                         
                         //  // k: 数据类型 , v: typeEx 值;   
-                        var cc = { 0:0 , 1:0 , 2:0 , 13:1 , 14:1}; 
-
+                        // var cc = { 0:0 , 1:0 , 2:0 , 13:1 , 14:1 }; 
+                         
+                        var cc = { 0:0 , 1:0 , 2:0 , 8:1, 12:1 , 13:1 }; 
                         point.params.type_ex = cc[ point.params.type ] || 0 ;
                     // }
 
@@ -501,13 +502,13 @@ angular.module('app.sysconfig', [], function() {})
                     {k:"Int" , v: 5},
                     {k:"DWord" , v:6 },
                     {k:"Float" , v: 7},
-                    {k:"BCD16" , v: 8},
-                    {k:"BCD32" , v: 9},
-                    {k:"Int64" , v: 10},
-                    {k:"UInt64" , v:11 },
-                    {k:"Double" , v:12 },
-                    {k:"String" , v:13 },
-                    {k:"Buffer" , v:14 },
+                    {k:"BCD码" , v: 8},
+                   // {k:"BCD32" , v: 9},
+                    {k:"Int64" , v: 9},
+                    {k:"UInt64" , v:10 },
+                    {k:"Double" , v:11 },
+                    {k:"String" , v:12 },
+                    {k:"Buffer" , v:13 },
                 ], 
                 // 数据区 
                 area: [

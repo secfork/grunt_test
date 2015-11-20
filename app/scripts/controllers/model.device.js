@@ -71,7 +71,7 @@ angular.module('app.model.device', [])
         $source.$deviceModel.get(function(resp) {
             $scope.deviceModels = resp.ret;
             $scope.showMask = false ;
-        });
+        }, function(){   $scope.showMask = false;  });
 
 
         // 加载 device model  下 的 points ;

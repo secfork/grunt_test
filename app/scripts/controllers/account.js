@@ -63,7 +63,9 @@ angular.module('app.account', [])
             $scope.page = resp;
             $scope.page.currentPage = pageNo;
             $scope.showMask = false;
-        });
+        },
+        function(){   $scope.showMask = false;  }
+        );
     };
 
     $scope.tabToUsers = function() {
@@ -125,16 +127,16 @@ angular.module('app.account', [])
                 $scope.done = function() {
                     $scope.validForm();
 
-                    $scope.user.sms_notice = undefined;
+                    $scope.user.sms_notice  = undefined;
                     $scope.user.mail_notice = undefined;
-
 
                     //1 : 用户未验证手机和或邮件时，不能打开短信报警或邮件报警的开关
                     //2 : 当用户更改邮件或手机时，对应的报警接收开关
                     //     自动关闭，必须重新开启才能收到通知 (后台已经做处理)
                    // $scope.user.email_verified = 
                     
-                   var  u = angular.copy( $scope.user );
+                   // 更新 email , mobile_phone , 自动关闭通知; 
+                   var  u = angular.copy( $scope.user ) , cc_e , cc_m; 
                         // delete u.mobile_phone_verified;
                         // delete u.email_verified ;
 
@@ -142,21 +144,25 @@ angular.module('app.account', [])
                         delete  u.email ;
                     }else{
                         $scope.user.email_verified = 0 ;
+                        cc_e = true ; 
                     }
 
                     if( u.mobile_phone === user.mobile_phone ){
                         delete u.mobile_phone ;
                     }else{
                         $scope.user.mobile_phone_verified = 0 ;
+                        cc_m = true ;
                     }
-
-
-
-
-
-
-                    $source.$user.put({},  u , function() {
+ 
+                    $source.$user.put({cc_e:cc_e , cc_m:cc_m },  u , function() {
+                        
                         angular.extend(user, $scope.user);
+
+                        cc_e && ( $("body").scope().user.mail_notice = false  ) ;
+                        cc_m && ( $("body").scope().user.sms_notice = false  ) ;
+
+
+
                         // 用户组 更改时 ; 
                         // 新就 groups 比较 来判断是否要 增 删 ; 
                         // old = []  ; 
@@ -335,6 +341,8 @@ angular.module('app.account', [])
                     }, d, function(resp) {
                         u.mobile_phone_verified = true;
                         $scope.cancel();
+                        
+                        $scope.user.mobile_phone_verified = true ;
                     })
                 }
 
@@ -370,7 +378,7 @@ angular.module('app.account', [])
                 $scope.page.currentPage = pageNo;
                 $scope.showMask = false;
             }
-        })
+        }, function(){   $scope.showMask = false;  })
 
     };
 
@@ -467,7 +475,7 @@ angular.module('app.account', [])
 
             $scope.showMask = false;
             // }
-        })
+        } , function(){   $scope.showMask = false;  })
     })(1);
     // $scope.loadPageData(1);
 
@@ -516,7 +524,7 @@ angular.module('app.account', [])
         angular.forEach(resp.ret, function(v, i) {
             (v.role_category ? $scope.regionRoles : $scope.accountRoles).push(v);
             $scope.showMask = false;
-        })
+        }, function(){   $scope.showMask = false;  })
     })
 
     //点击 确定 按钮 更新 role;
@@ -660,7 +668,7 @@ angular.module('app.account', [])
             $scope.page = resp;
             $scope.page.currentPage = pageNo;
             $scope.showMask = false;
-        });
+        }, function(){   $scope.showMask = false;  } );
     }
 
     $scope.loadPageData(1);
@@ -809,7 +817,7 @@ angular.module('app.account', [])
             }, function(resp) {
                 scope.promise = resp.ret && resp.ret.privilege;
                 $scope.showMask = false;
-            })
+            }, function(){   $scope.showMask = false;  })
         }
 
 

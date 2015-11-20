@@ -17,7 +17,7 @@ angular.module("app.model.system", [])
                 } // $utils.page(resp);
 
             $scope.showMask = false ; 
-        });
+        }, function(){   $scope.showMask = false;  });
 
 
         $scope.createSM = function() {
@@ -178,9 +178,7 @@ angular.module("app.model.system", [])
 
             $scope.odp.puuid = resp.ret[0] && resp.ret[0].uuid;
         })
-
-
-
+  
         // 控控制 tag , 触发器, 通知  在 systemodel ,
         $scope.isModelState = true;
 
@@ -334,7 +332,7 @@ angular.module("app.model.system", [])
             $.each($scope.devmodels, function(i, v, t) {
                 $scope.devModelKV[v.uuid] = v;
             });
-        });
+        }, function(){   $scope.showMask = false;  });
 
         $scope.addOrEditDevice = function(devices, index, dev) {
             $modal.open({
@@ -494,8 +492,7 @@ angular.module("app.model.system", [])
 
     var sysmodel = $scope.sysmodel, // $scope.$$cache[0],
         t = $scope;
-    t.isManageMode = sysmodel.mode == $sys.manageMode;
-
+ 
     // 拆分 connect 字段;
     // connect 回显 ;  device id ( 整合成 kv形式)--> 得到 demodel( ) --> 再去加载point数据;
     var cc;
@@ -558,7 +555,11 @@ angular.module("app.model.system", [])
                 $scope.systags = resp[0].ret;
                 
                 $scope.showMask = false ;
-            })
+            } 
+            //If any of the promises is resolved with a rejection,
+            // this resulting promise will be rejected with the same rejection value.
+            ,function(){   $scope.showMask = false;  }
+            )
         } else {
             // query ; 无profile时 ;  跟定不连接  设备;  
             $source.$sysTag.get({
@@ -567,7 +568,7 @@ angular.module("app.model.system", [])
                 $scope.systags = argument.ret;
 
                 $scope.showMask = false ;
-            })
+            },function(){   $scope.showMask = false;  })
         }
     }
 
@@ -590,10 +591,10 @@ angular.module("app.model.system", [])
         scope.loadPoint = function(dev, bool) {
             if (!dev) return;
             if (dev.device_model == oldDevModel) return;
+
+            scope.showMask = true ;
             oldDevModel = dev.device_model;
-
-
-
+ 
             var promise;
             promise = $source.$dmPoint.get({
                 device_model: oldDevModel
@@ -606,7 +607,8 @@ angular.module("app.model.system", [])
                     scope.op.point = p && (p.id + "&" + p.name);
                     scope.T.name = p && p.name;
                 }
-            })
+                scope.showMask = false ;
+            },function(){   $scope.showMask = false;  })
             return promise;
         };
 
@@ -935,7 +937,7 @@ angular.module("app.model.system", [])
                     $scope.page.total = p.total;
 
                 $scope.showMask = false ; 
-            })
+            } ,function(){   $scope.showMask = false;  })
         }
 
 

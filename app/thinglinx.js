@@ -41,7 +41,7 @@ var app = angular.module('thinglinx', [
  
 
         window.onbeforeunload = function() {
-            alert("关闭窗口")
+            alert("关闭窗口");
         };
 
         // $rootScope.$err = $err ;
@@ -166,26 +166,17 @@ var app = angular.module('thinglinx', [
                 templateUrl: 'athena/app.html',
                 resolve: {
                     $user : function( $source ){
-                        return $source.$common.get( {op:"islogined"}).$promise ;
+                        
+                        return    $source.$common.get({  op: "islogined" }).$promise
                     }
                 },
-                controller: function($scope, $state, $sys,  $user  ) {
-                    //@if  append
+                controller: function($scope, $state, $sys  , $user ) {
 
-                    console.log("appxxxxxxxxx");
-                    //@endif 
-
-
-                    // jsorder go2long 要清除sessionstorage 的user ;
-                    
-                   // $source.$common.get({op:"islogined"})
-                   //console.log( user ,22222222222);
-
-                                    
-                    //后台判断是否已经登录; 
+                     //后台判断是否已经登录; 
                     var user =  $user.ret ;
-
- 
+                    $('#preload').fadeOut('slow'); 
+                    
+                    
                     if (user) {
                         user.sms_notice = !!user.sms_notice;
                         user.mail_notice = !!user.mail_notice;
@@ -204,9 +195,11 @@ var app = angular.module('thinglinx', [
 
                     } else {
                         //  if( !$sys.$debug ){
-                        $state.go('access.signin')
+                        $state.go('access.signin');
                             //  }
                     };
+                    
+                    
                 }
 
             })
@@ -609,7 +602,18 @@ var app = angular.module('thinglinx', [
             //   access/signin
             .state('access', {
                     url: '/access',
-                    template: '<div ui-view class="   h-full smooth"></div>'
+                    template: '<div ui-view class="   h-full smooth"></div>',
+                    resolve: {
+                        $user : function(  ){
+                            
+                           //  return   window.loginUserPromise 
+                        }
+                    },
+
+                    controller:function( ){
+
+                         $('#preload').fadeOut('slow'); 
+                    }
                 })
                 .state('access.signin', {
                     url: '/signin',

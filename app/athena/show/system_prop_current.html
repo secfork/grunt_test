@@ -42,8 +42,10 @@
             </button> -->
 
 
-            <button class="btn btn-sm btn-info  w-70 col-sm-6 float-right m-l m-t-xs  "
-                    ng-click="d_call( system  , 2 , $event )" >
+            <button 
+                ng-if="systemModel.mode !=2 "
+                class="btn btn-sm btn-info  w-70 col-sm-6 float-right m-l m-t-xs  "
+                ng-click="d_call( system  , 2 , $event )" >
                 召唤 
             </button>
 

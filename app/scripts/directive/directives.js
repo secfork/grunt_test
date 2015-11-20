@@ -507,6 +507,14 @@ angular.module('app.directives', ['pascalprecht.translate'])
     if ($attrs.min) {
         v("min", $attrs.min);
     }
+
+    if( $attrs.ngMinlength ){
+        v("minlength" , $attrs.ngMinlength );
+    }
+    if( $attrs.ngMaxlength ){
+        v("maxlength" , $attrs.ngMaxlength );
+    }
+
     // ui-validate , 自定义的验证; 带完成; ( require:"uiValidate"); 
 })
 
