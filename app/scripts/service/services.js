@@ -167,11 +167,12 @@ angular.module('app.services', ["ngResource"], function() {
 //==========================================================================
 //==========================================================================
 // js 命令;
-.factory("jsorder", function($sys) {
+.factory("jsorder", function($sys , $cookies) {
     return {
         'login': function() {
             // 跳到登录界面;
             // if( !$sys.$debug ){
+            console.log( $cookies );
             window.location.hash = "#/access/signin";
             // }
         }

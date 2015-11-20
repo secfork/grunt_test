@@ -41,7 +41,7 @@ var app = angular.module('thinglinx', [
  
 
         window.onbeforeunload = function() {
-            alert("关闭窗口")
+            alert("关闭窗口");
         };
 
         // $rootScope.$err = $err ;
@@ -174,6 +174,8 @@ var app = angular.module('thinglinx', [
 
                     console.log("appxxxxxxxxx");
                     //@endif 
+
+                    $('#preload').fadeOut('slow'); 
 
 
                     // jsorder go2long 要清除sessionstorage 的user ;
@@ -609,7 +611,10 @@ var app = angular.module('thinglinx', [
             //   access/signin
             .state('access', {
                     url: '/access',
-                    template: '<div ui-view class="   h-full smooth"></div>'
+                    template: '<div ui-view class="   h-full smooth"></div>',
+                    controller: function(){
+                        $('#preload').fadeOut('slow'); 
+                    }
                 })
                 .state('access.signin', {
                     url: '/signin',

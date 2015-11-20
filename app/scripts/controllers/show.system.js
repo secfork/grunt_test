@@ -121,7 +121,7 @@ angular.module('app.show.system', [])
             }
 
             $scope.showMask  = false ; 
-        })
+        },function(){   $scope.showMask = false;  })
 
     }
 
@@ -171,7 +171,7 @@ angular.module('app.show.system', [])
 
     $scope.op = {
         start: "",
-        num: 100, // 查询点历史 返回条数;  
+        num: 400, // 查询点历史 返回条数;  
         end: new Date(),
         start: new Date(new Date() - 86400000),
         ala: "a", // a: 实时报警; b: 历史报警;
@@ -430,7 +430,7 @@ angular.module('app.show.system', [])
         console.log(_plot_data);
         //@endif 
         if ($scope.op.his_tag) {
-            $scope.op.start = new Date(new Date() - 86400000);
+            $scope.op.start = new Date(new Date() - 21600000);
             $scope.op.end = new Date();
             $scope.queryHistory();
         } else {
@@ -502,7 +502,7 @@ angular.module('app.show.system', [])
             }], plot_config);
  
             $scope.showMask = false ;
-        });
+        },function(){   $scope.showMask = false;  });
 
 
 
@@ -608,7 +608,7 @@ angular.module('app.show.system', [])
                 // })
             };
             $scope.showMask = false ;
-        })
+        },function(){   $scope.showMask = false;  })
     }
 
     $scope.loadPageData = function(pageNo, $event) {
@@ -669,7 +669,7 @@ angular.module('app.show.system', [])
                 })
             }
             $scope.showMask  = false ; 
-        })
+        },function(){   $scope.showMask = false;  })
     }
 
 })

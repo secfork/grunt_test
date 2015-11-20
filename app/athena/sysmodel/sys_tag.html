@@ -46,8 +46,9 @@
                 <td>
                     <i ng-if="tag.save_log" class="glyphicon glyphicon-ok text-success"></i>
                 </td>
-                <td> <span ng-show="tag.save_log">{{tag.log_cycle }}  </span> </td>
-                <td> <span ng-show="tag.save_log"> {{ _$type[tag.log_type] ||'RAW' }}  </span> </td>
+                <td> <span ng-show="tag.save_log">{{ tag.log_type=="RAW" ? tag.log_cycle : undefined }}  </span> </td>
+
+                <td> <span ng-show="tag.save_log"> {{ _$type[tag.log_type]   }}  </span> </td>
                 
 
                 <td> {{ tag.desc||"" }} </td>
@@ -64,7 +65,9 @@
 
 <div class="panel-footer b-t-none b-b b-l b-r">
     <!--jjw m-t-sm m-b-sm-->
-    <button class="btn btn-primary btn-sm w-70 m-t-sm m-b-sm" ng-click=" addTag('add') ">
+    <button class="btn btn-primary btn-sm w-70 m-t-sm m-b-sm" 
+     ng-if="isManageMode"
+        ng-click=" addTag('add') ">
         添加变量
     </button>
 </div>  

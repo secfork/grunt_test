@@ -711,26 +711,26 @@ angular.module('app.basecontroller', ['ng'])
     $scope.acceptSMS = function(user) {
         //"mail_notice":0,"sms_notice":0  
 
-        if( !user.email_verifi){
+        if( !user.mobile_phone_verified ){
             angular.alert("您的手机未通过验证,不可接收短信通知!");
             return ;
         }
 
-        $source.$user.save(
-        {
-            op:"notice"
-        },
-        { 
-            sms_notice: user.sms_notice ? 0 : 1
-        }, function() {
-            user.sms_notice = !user.sms_notice;
-        })
+        $source.$user.save(  
+            {  op:"notice"  },
+            {   sms_notice: user.sms_notice ? 0 : 1  },
+            function() {
+                user.sms_notice = !user.sms_notice;
+
+            }
+        )
     }
 
 
+    // 接收短信通知;  
     $scope.acceptEmail = function(user) {
 
-        if( !user.email_verified){
+        if( !user.email_verified ){
             angular.alert("您的邮箱未通过验证,不可接收邮件通知!");
             return ;
         }
@@ -746,7 +746,35 @@ angular.module('app.basecontroller', ['ng'])
         })
     }
 
-    // 接收短信通知;  
+    // var loginPromise ; 
+    // $scope.getSessionUser = function() {    
+
+    //     loginPromise =  $source.$common.get({  op: "islogined" }).$promise ; 
+ 
+    //     return  loginPromise ;
+    // }
+
+
+    // $scope.getSessionUser().then( function(resp) {
+
+    //         if (resp.ret) {
+
+    //             $scope.user = resp.ret ; 
+
+    //             $state.go("app.proj.manage");
+    //         } else {
+    //             // 获取登录次数; 
+    //             $source.$common.get({
+    //                 op: 'logintimes'
+    //             }, function(resp) {
+    //                 $scope.logintimes = resp.ret || 0;
+    //                 $state.go("access.signin");
+    //             });
+    //         }
+
+    //  });
+
+
 
 
 })

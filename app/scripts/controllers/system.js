@@ -124,9 +124,9 @@ angular.module('app.system', [])
                     }
 
                     $scope.showMask = false ;
-                })
+                },function(){   $scope.showMask = false;  })
 
-            })
+            },function(){   $scope.showMask = false;  })
         }
 
 
@@ -194,7 +194,7 @@ angular.module('app.system', [])
             $scope.showMask = false ; 
 
 
-        })
+        },function(){   $scope.showMask = false;  })
 
 
         // $source.$region.query({
@@ -236,7 +236,7 @@ angular.module('app.system', [])
                 $scope.profiles = resp.ret;
                 $scope.system.profile = resp.ret[0] && resp.ret[0].uuid;
                 $scope.showMask = false ; 
-            })
+            },function(){   $scope.showMask = false;  })
 
         })
  
