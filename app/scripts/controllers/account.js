@@ -154,12 +154,12 @@ angular.module('app.account', [])
                         cc_m = true ;
                     }
  
-                    $source.$user.put({},  u , function() {
+                    $source.$user.put({cc_e:cc_e , cc_m:cc_m },  u , function() {
                         
                         angular.extend(user, $scope.user);
 
-                        cc_e && ( $scope.$parent.user.mail_notice = false  ) ;
-                        cc_m && ( $scope.$parent.user.sms_notice = false  ) ;
+                        cc_e && ( $("body").scope().user.mail_notice = false  ) ;
+                        cc_m && ( $("body").scope().user.sms_notice = false  ) ;
 
 
 

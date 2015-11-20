@@ -68,6 +68,7 @@ mgModel 的权重为100 ; 该指令
 
 
   <!--  类型 扩展  字段 ;   -->
+
         <!-- 布尔（text） -->
         <div  ng-if="  point.params.area  >1  && point.params.type == 0    ">
               <input  tl-wrap
@@ -106,6 +107,25 @@ mgModel 的权重为100 ; 该指令
                 >
             </input>
         </div>
+
+
+        <!--  BCD数据扩展  -->
+
+        <div  ng-if = " point.params.area >1 && point.params.type == 8  ">
+              <input  tl-wrap
+                    required
+                    label="BCD码长度"
+
+                    type="number"
+                    max="63"
+                    min="1" 
+                    placeholder="1 - 63 "
+                    ng-model="point.params.type_ex"
+
+                >
+
+        </div>
+
 
 
  <!-- 固定长度ASCII字符串 -->
