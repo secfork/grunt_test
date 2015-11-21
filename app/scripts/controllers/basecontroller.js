@@ -485,8 +485,8 @@ angular.module('app.basecontroller', ['ng'])
             },
             function(resp) {
                 // that.sync_err_msg = resp.err; 
-                that.sync_ret_msg = "同步失败";
-                das.needsync = true;
+                that.sync_ret_msg = "同步失败"; 
+                das.needsync =  true ;
                 that.sync_start = false;
 
             });
@@ -837,10 +837,9 @@ angular.module('app.basecontroller', ['ng'])
                 console.log(resp.ret);
                 //@endif 
  
-                resp.ret.sms_notice = !!resp.ret.sms_notice;
-                resp.ret.mail_notice = !!resp.ret.mail_notice; 
-
-                $("body").scope().user  = resp.ret ; 
+                // resp.ret.sms_notice = !!resp.ret.sms_notice;
+                // resp.ret.mail_notice = !!resp.ret.mail_notice; 
+               // $("body").scope().user  = resp.ret ; 
 
                 if (resp.ret) {
                  
@@ -939,6 +938,8 @@ angular.module('app.basecontroller', ['ng'])
 
 
         $scope.validForm('form1');
+        $scope.showMask = true ; 
+
 
         var dom = $event.currentTarget ;
         dom.disabled = true ;
@@ -948,6 +949,7 @@ angular.module('app.basecontroller', ['ng'])
 
 
             $scope.op.step = "step2";
+            $scope.showMask = false ; 
 
             // 注册成功;
             //$localStorage.comp_name = $scope.comp.name;
@@ -956,6 +958,7 @@ angular.module('app.basecontroller', ['ng'])
             // })
 
         } , function(){
+            $scope.showMask = false ; 
             dom.disabled = false ;
             $scope.op.t++;
         })
@@ -976,16 +979,22 @@ angular.module('app.basecontroller', ['ng'])
 
     // 创建 account ; step3 ; 
     $scope.create = function() {
+
+        $scope.showMask = true ; 
         $source.$account.save({
             pk: 'admin',
             uuid: uuid
         }, $scope.comp.admin, function(resp) {
+            
+            $scope.showMask = false ;
             // 注册成功;
             $localStorage.comp_name = $scope.comp.name;
+
             $scope.alert({
                 type: 'info',
                 title: "注册成功!"
             }, function() {
+                $scope.showMask = false ;
                 $state.go("access.signin");
             })
 
@@ -995,6 +1004,8 @@ angular.module('app.basecontroller', ['ng'])
     
 })
 
+
+// 更改管理员密码; 
 .controller("access_fogpas", function($scope, $state, $sessionStorage, $source, $interval, $location) {
 
     $scope.od = {};
@@ -1014,10 +1025,13 @@ angular.module('app.basecontroller', ['ng'])
             pk: "admin",
             uuid: uuid
         }, function(resp) {
-            $scope.od.step = resp.ret ? 3 : 1;
+            $scope.od.step = resp.ret ? 3 : 4;
+
+
+
         })
     } else {
-        $scope.od.step = 1 ;
+        $scope.od.step = 1;
     }
 
  
@@ -1070,14 +1084,15 @@ angular.module('app.basecontroller', ['ng'])
             if( resp.ret){
                 $scope.op.verifyemail = 1 ; 
                 $timeout( function  (argument) {
-                    $state.go("access.signin");
+                   // $state.go("access.signin");
                 },5000) 
 
-            }else{
-                //$scope.op.verifyemail = 2 ;
-                 $scope.op.verifyemail = 2;
+            }else{ 
+
+                $scope.op.verifyemail = 2;
+                
                 $timeout(function() {
-                    $state.go("access.signin");
+                //    $state.go("access.signin");
                     
                 }, 2000);
             }

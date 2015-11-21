@@ -127,6 +127,14 @@ angular.module('app.account', [])
                 $scope.done = function() {
                     $scope.validForm();
 
+                    // 更改密码; 
+                    if($scope.op.ccpass){
+                        // $source.$use.
+
+                    }
+
+
+
                     $scope.user.sms_notice  = undefined;
                     $scope.user.mail_notice = undefined;
 
@@ -158,11 +166,9 @@ angular.module('app.account', [])
                         
                         angular.extend(user, $scope.user);
 
-                        cc_e && ( $("body").scope().user.mail_notice = false  ) ;
-                        cc_m && ( $("body").scope().user.sms_notice = false  ) ;
-
-
-
+                        cc_e && ( $scope.$$user.mail_notice = false  ) ;
+                        cc_m && ( $scope.$$user.sms_notice = false  ) ;
+ 
                         // 用户组 更改时 ; 
                         // 新就 groups 比较 来判断是否要 增 删 ; 
                         // old = []  ; 
@@ -182,8 +188,7 @@ angular.module('app.account', [])
                             }
                         });
 
-
-                        var toAdd = $scope.od.groups;
+ 
                         var toAdd = $scope.od.groups;
                         //@if  append
                         console.log(" 需删除---的组=", toDel);
@@ -207,6 +212,7 @@ angular.module('app.account', [])
                                 userid: user.id
                             }, null);
                         });
+
 
 
 

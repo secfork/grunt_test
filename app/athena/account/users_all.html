@@ -24,7 +24,10 @@
                         
                         <i class="fa {{ u.mobile_phone_verified?'fa-check text-success':'fa-times  text-danger' }}"></i>
                         <!--jjw a-->
-                        <a ng-show="!u.mobile_phone_verified" href="" class="text-info" ng-click="verifyUser( u , $index,'phone')"  > 验证 </a>
+                        <a ng-show=" u.id == $$user.id && !u.mobile_phone_verified"  
+                        class="text-info" 
+                        ng-click="verifyUser( u , $index,'phone')"  > 
+                        验证 </a> 
                     </td>
                     <td>
                         <!-- pull-right -->
@@ -32,7 +35,8 @@
                         
                         <i class="  fa {{ u.email_verified?'fa-check text-success':'fa-times  text-danger' }}"></i>
                         <!--jjw a-->
-                        <a ng-show="!u.email_verified" href="" class="text-info" ng-click="verifyUser( u , $index,'email')"  > 验证 </a>
+                        <a ng-show=" u.id == $$user.id && !u.email_verified" href="" class="text-info" 
+                            ng-click="verifyUser( u , $index,'email')"  > 验证 </a>
                     </td>
                     <td> {{u.last_login_ip }}</td>
                     <td> {{u.last_login_time| date:'yyyy-MM-dd HH:mm:ss'}} </td>

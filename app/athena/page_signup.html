@@ -3,94 +3,88 @@
     <!--  {{app.name}}   style="width: 150px;"   -->
     <img src="img/logo_2.png" class="logo">
 </div>
-
-
-<div ng-show=" op.step == 'step1' " class="m-b-lg container w-xxl w-auto-xs m-t-lg  ">
-    <div class="wrapper text-center">
-        <strong>1/3&nbsp;&nbsp;注册account用户</strong>
-    </div>
-    <form name="form1" class="form-validation">
-        <div class="list-group list-group-sm">
-            <div class="list-group-item">
-                <input name="username" ng-model="comp.name" placeholder="公司名称(2至20个字符)" class="form-control no-border" required ng-minlength="2" ng-maxlength="20">
-            </div>
-            <div class="list-group-item ">
-                <input name="invicode" ng-model="comp.invitation_code" placeholder="激活码" class="form-control no-border " required>
-            </div>
-            <div class="list-group-item ">
-                <input name="email" ng-model="comp.admin.email" type="email" placeholder="邮箱" class="form-control no-border " required>
-            </div>
-            <div class="list-group-item">
-                <input name="password" ng-model="comp.identifyCode" class="form-control inline   m-t-xs" style="width:50%" placeholder="请输入验证码" required>
-                <img ng-src="web/common/identify/account?t={{op.t||123}}" class="inline  m-l " style="width: 80px;height: 30px;">
-                <a class="fa fa-refresh text-info  " ng-click=" op.t = op.t+1"></a>
-            </div>
-        </div>
-        <div class="checkbox m-b-md m-t-none">
-            <label class="i-checks small">
-                <input type="checkbox" name="check" ng-model="agree" required><i></i> 我已阅读并同意
-                <a href="readme.html" target="_" style="text-decoration: underline;"> 
-                    &lt;&lt;ThingLinx工业云使用条款&gt;&gt;</a>
-            </label>
-        </div>
-        <button type="submit" class="btn btn-lg btn-primary btn-block"
-                 ng-click="signup( $event )" >
-        注册</button>
-        <a ui-sref="access.signin" class="btn btn-lg btn-default btn-block">返回登录</a>
-    </form>
-</div>
-
-
-
-
-
-<div ng-show=" op.step == 'step2' " class="m-g-lg  m-t-lg   ">
-    <div class="wrapper text-center">
-        <strong>2/3&nbsp;&nbsp;验证邮箱</strong>
-        <h4 class="m-t-lg">激活邮件已经发送至您的邮箱{{comp.admin.email}}</h4>
-        <h4>  请点击邮件中的连接完成注册 </h4>
-        <button class="btn btn-info  btn-lg  w-lg" ng-show="true" ng-click="openEmail()">登录邮箱</button>
-        <br/>
-        <i class="fa fa-check-circle text-success fa-3x" ng-show=""></i>
-    </div>
-    <!--jjw width margin-left b-t p-t-20-->
-    <div class="text-left b-t p-t-20 pos-abt color-5" style="bottom:130px;width: 80%;margin-left: 10%">
-        <div>
-            <span>没有收到邮件?</span>
-            <a href="" class="text-info" ng-click="reSendEmail();  op.showe=true" ng-show="!op.showe"> 点此重发邮件</a>
-        </div>
-        <!--jjw  m-t-xs -m-b-xs-->
-        <div class="m-l-lg m-t-xs m-b-xs">看看是否在邮箱的回收站, 垃圾邮件中</div>
-        <div class="m-l-lg">请尝试更换其他的邮箱注册</div>
-    </div>
-</div>
-<div ng-show=" op.step == 'step3' " class="m-b-lg  m-t-lg container w-xxl w-auto-xs   ">
-    <form name="form2" class="form-validation  m-t ">
+<div load-mask>
+    <div ng-show=" op.step == 'step1' " class="m-b-lg container w-xxl w-auto-xs m-t-lg  ">
         <div class="wrapper text-center">
-            <strong>3/3&nbsp;&nbsp;完成注册</strong>
+            <strong>1/3&nbsp;&nbsp;注册account用户</strong>
         </div>
-        <div class="list-group list-group-sm">
-            <div class="list-group-item ">
-                <input name="password" ng-model="comp.admin.username" placeholder="管理员帐号,至少2个字符" ng-minlength="2" ng-maxlength='16' class="form-control no-border " required>
-                <!--ng-minlength="6"   ng-maxlength="20" -->
-            </div>
-            <div class="list-group-item ">
-                <input name="password" ng-model="comp.admin.password" placeholder="管理员密码,至少6个字符" ng-minlength="6" ng-maxlength='16' onfocus="this.type='password'" class="form-control no-border " required>
-                <!--ng-minlength="6"   ng-maxlength="20" -->
-            </div>
-            <div class="list-group-item">
-                <input type="password" class="form-control  no-border " name="confirm_password" required ng-model="confirm_password" placeholder=" 确认密码 " ui-validate=" '$value==comp.admin.password' " ui-validate-watch=" 'comp.admin.password' ">
-                <div ng-show='form2.confirm_password.$error.validator' class="text-danger">
-                    密码输入不一致
+        <form name="form1" class="form-validation">
+            <div class="list-group list-group-sm">
+                <div class="list-group-item">
+                    <input name="username" ng-model="comp.name" placeholder="公司名称(2至20个字符)" class="form-control no-border" required ng-minlength="2" ng-maxlength="20">
+                </div>
+                <div class="list-group-item ">
+                    <input name="invicode" ng-model="comp.invitation_code" placeholder="激活码" class="form-control no-border " required>
+                </div>
+                <div class="list-group-item ">
+                    <input name="email" ng-model="comp.admin.email" type="email" placeholder="邮箱" class="form-control no-border " required>
+                </div>
+                <div class="list-group-item">
+                    <input name="password" ng-model="comp.identifyCode" class="form-control inline   m-t-xs" style="width:50%" placeholder="请输入验证码" required>
+                    <img ng-src="web/common/identify/account?t={{op.t||123}}" class="inline  m-l " style="width: 80px;height: 30px;">
+                    <a class="fa fa-refresh text-info  " ng-click=" op.t = op.t+1"></a>
                 </div>
             </div>
+            <div class="checkbox m-b-md m-t-none">
+                <label class="i-checks small">
+                    <input type="checkbox" name="check" ng-model="agree" required><i></i> 我已阅读并同意
+                    <a href="readme.html" target="_" style="text-decoration: underline;"> 
+                    &lt;&lt;ThingLinx工业云使用条款&gt;&gt;</a>
+                </label>
+            </div>
+            <button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="signup( $event )">
+                注册</button>
+            <a ui-sref="access.signin" class="btn btn-lg btn-default btn-block">返回登录</a>
+        </form>
+    </div>
+    <div ng-show=" op.step == 'step2' " class="m-g-lg  m-t-lg   ">
+        <div class="wrapper text-center">
+            <strong>2/3&nbsp;&nbsp;验证邮箱</strong>
+            <h4 class="m-t-lg">激活邮件已经发送至您的邮箱{{comp.admin.email}}</h4>
+            <h4>  请点击邮件中的连接完成注册 </h4>
+            <button class="btn btn-info  btn-lg  w-lg" ng-show="true" ng-click="openEmail()">登录邮箱</button>
+            <br/>
+            <i class="fa fa-check-circle text-success fa-3x" ng-show=""></i>
         </div>
-        <button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="create()">完成</button>
-        <a ui-sref="access.signin" class="btn btn-lg btn-default btn-block">返回登录</a>
-    </form>
-</div>
-<div ng-show="!op.step" class="wrapper text-center">
-    <i class="fa fa"></i>
+        <!--jjw width margin-left b-t p-t-20-->
+        <div class="text-left b-t p-t-20 pos-abt color-5" style="bottom:130px;width: 80%;margin-left: 10%">
+            <div>
+                <span>没有收到邮件?</span>
+                <a href="" class="text-info" ng-click="reSendEmail();  op.showe=true" ng-show="!op.showe"> 点此重发邮件</a>
+            </div>
+            <!--jjw  m-t-xs -m-b-xs-->
+            <div class="m-l-lg m-t-xs m-b-xs">看看是否在邮箱的回收站, 垃圾邮件中</div>
+            <div class="m-l-lg">请尝试更换其他的邮箱注册</div>
+        </div>
+    </div>
+    <div ng-show=" op.step == 'step3' " class="m-b-lg  m-t-lg container w-xxl w-auto-xs   ">
+        <form name="form2" class="form-validation  m-t ">
+            <div class="wrapper text-center">
+                <strong>3/3&nbsp;&nbsp;完成注册</strong>
+            </div>
+            <div class="list-group list-group-sm">
+                <div class="list-group-item ">
+                    <input name="password" ng-model="comp.admin.username" placeholder="管理员帐号,至少2个字符" ng-minlength="2" ng-maxlength='16' class="form-control no-border " required>
+                    <!--ng-minlength="6"   ng-maxlength="20" -->
+                </div>
+                <div class="list-group-item ">
+                    <input name="password" ng-model="comp.admin.password" placeholder="管理员密码,至少6个字符" ng-minlength="6" ng-maxlength='16' onfocus="this.type='password'" class="form-control no-border " required>
+                    <!--ng-minlength="6"   ng-maxlength="20" -->
+                </div>
+                <div class="list-group-item">
+                    <input type="password" class="form-control  no-border " name="confirm_password" required ng-model="confirm_password" placeholder=" 确认密码 " ui-validate=" '$value==comp.admin.password' " ui-validate-watch=" 'comp.admin.password' ">
+                    <div ng-show='form2.confirm_password.$error.validator' class="text-danger">
+                        密码输入不一致
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="create()">完成</button>
+            <a ui-sref="access.signin" class="btn btn-lg btn-default btn-block">返回登录</a>
+        </form>
+    </div>
+    <div ng-show="!op.step" class="wrapper text-center">
+        <i class="fa fa"></i>
+    </div>
 </div>
 <div class="pos-abt   w-full text-center" style="bottom:0">
     <div class="  " ng-include="'athena/page_footer.html'"></div>

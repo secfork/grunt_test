@@ -158,7 +158,9 @@
             <td ng-if=" !isShowModul   ">
                 <!--{{ das.needsync }}-->
                 <!-- <span >已同步 </span>-->
-                <button class="btn btn-xs w-48 btn-s btn-info" ng-click="syncSystem( das )" ng-if=" das.needsync ">
+                <button class="btn btn-xs w-48 btn-s btn-info"
+                 ng-click="syncSystem( das )"
+                  ng-if=" das.needsync ">
                     同步
                 </button>
                 <span ng-show=" !sync_start && sync_err_msg " class=" m-t-xs text-danger"> 

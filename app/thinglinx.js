@@ -182,6 +182,7 @@ var app = angular.module('thinglinx', [
                         user.mail_notice = !!user.mail_notice;
 
                         $scope.user = user;
+                        $scope.$$user = user ; 
 
                         //@if  append 
                         console.log("sessionStorage 含有user");
