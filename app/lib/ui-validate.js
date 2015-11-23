@@ -2,7 +2,8 @@
 
 /**
  * General-purpose validator for ngModel.
- * angular.js comes with several built-in validation mechanism for input fields (ngRequired, ngPattern etc.) but using
+ * angular.js comes with several built-in validation mechanism for input
+ *  fields (ngRequired, ngPattern etc.) but using
  * an arbitrary validation function requires creation of a custom formatters and / or parsers.
  * The ui-validate directive makes it easy to use any function(s) defined in scope as a validator function(s).
  * A validator function will trigger validation on both model and input changes.
