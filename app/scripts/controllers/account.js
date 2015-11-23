@@ -277,9 +277,9 @@ angular.module('app.account', [])
                 var text = "重新发送(%)";
 
 
+                var  cofText = { "email":"发送验证邮件" , "phone":'发送验证码'};
 
-
-                function setInter(btnDom) {
+                function setInter(btnDom , type ) {
                     btnDom.disabled = true;
                     var times = 120;
                     smsInterval = $interval(function() {
@@ -287,7 +287,9 @@ angular.module('app.account', [])
                         times--;
                         if (times < 0) {
                             btnDom.disabled = false;
-                            $(btnDom).text("发送验证码");
+                            
+                            $(btnDom).text(  cofText[ type || "phone" ] );
+
                             $interval.cancel(smsInterval);
                         }
                     }, 1000)
@@ -301,7 +303,7 @@ angular.module('app.account', [])
                         angular.alert("请输入邮箱!");
                         return;
                     }
-                    setInter(e.currentTarget);
+                    setInter(e.currentTarget , "email" );
 
                     var d = {
                         id: u.id,
@@ -320,7 +322,7 @@ angular.module('app.account', [])
                         return;
                     }
 
-                    setInter(e.currentTarget);
+                    setInter(e.currentTarget , "phone");
 
                     $source.$note.get({
                             op: "user",

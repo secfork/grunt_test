@@ -82,7 +82,8 @@ var app = angular.module('thinglinx', [
 .config(
     ['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider',
         '$filterProvider', '$provide', "$httpProvider", "$resourceProvider",
-        function($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvider,
+        function
+            ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvider,
             $filterProvider, $provide, $httpProvider, $resourceProvider) {
 
             // 自定义 ajax 拦截器;
@@ -92,7 +93,7 @@ var app = angular.module('thinglinx', [
 
             //@if  append
 
-            console.log(document.cookie, $resourceProvider);
+            console.log("vvvv",  $resourceProvider);
             //@endif 
 
 
@@ -108,52 +109,7 @@ var app = angular.module('thinglinx', [
             app.value = $provide.value;
 
 
-
-            //  $httpProvider.defaults.headers.common  ={
-            //    Accept: "application/json, text/plain, */*"
-            //    ,'Access-Control-Allow-Origin':'*'
-            //    ,'Access-Control-Allow-Credentials':true
-            //    ,'Access-Control-Allow-Methods':'GET,POST,OPTIONS'
-
-            // } ;
-
-
-
-
-        // $provide.decorator('$rootScope', ['$delegate', function($delegate) {
-        //   // ['$delegate',
-        //   // 为 所有的 scope 注册  $destroy 事件; !!
-        //   var $new_proxy = $delegate.$new;
-        //   $delegate.$new = function() {
-        //     var $scope = $new_proxy.apply(this);
-        //     var _s // this = ?
-        //     $scope.$on("$destroy", function($event) {
-        //       console._log("$scope $destroy event  ", "清除controller 缓存;");
-
-        //       _s = $event.targetScope;
-
-        //       if (_s.hasOwnProperty('$cache')) {
-        //         _s.$cache.destroy();
-        //         console._log(" 清除controller 缓存; ");
-        //       }
-
-
-        //     });
-        //     return $scope;
-        //   };
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
             $urlRouterProvider
             //.otherwise('/access/signin');
             //.otherwise('/app/template');

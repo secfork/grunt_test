@@ -5,76 +5,75 @@
 angular.module('app.directives', ['pascalprecht.translate'])
 
 .directive(
-        'uiModule', ['MODULE_CONFIG', 'uiLoad', '$compile',
-            function(MODULE_CONFIG, uiLoad, $compile) {
-                return {
-                    restrict: 'A',
-                    compile: function(el, attrs) {
-                        var contents = el.contents().clone();
-                        return function(scope, el, attrs) {
-                            el.contents().remove();
-                            uiLoad.load(MODULE_CONFIG[attrs.uiModule])
-                                .then(function() {
-                                    $compile(contents)(scope,
-                                        function(clonedElement, scope) {
+    'uiModule', ['MODULE_CONFIG', 'uiLoad', '$compile',
+        function(MODULE_CONFIG, uiLoad, $compile) {
+            return {
+                restrict: 'A',
+                compile: function(el, attrs) {
+                    var contents = el.contents().clone();
+                    return function(scope, el, attrs) {
+                        el.contents().remove();
+                        uiLoad.load(MODULE_CONFIG[attrs.uiModule])
+                            .then(function() {
+                                $compile(contents)(scope,
+                                    function(clonedElement, scope) {
 
-                                            if(attrs.to){
-                                              $(attrs.to).append( clonedElement)
-                                            }else{ 
-                                              el.append(clonedElement);
-                                            }
- 
-                                        });
-                                });
-                        }
+                                        if (attrs.to) {
+                                            $(attrs.to).append(clonedElement)
+                                        } else {
+                                            el.append(clonedElement);
+                                        }
+
+                                    });
+                            });
                     }
-                };
-            }
-        ])
-
-    
-
-
-    .directive('uiShift', ['$timeout', function($timeout) {
-        return {
-            restrict: 'A',
-            link: function(scope, el, attr) {
-                // get the $prev or $parent of this el
-                var _el = $(el),
-                    _window = $(window),
-                    prev = _el.prev(),
-                    parent, width = _window
-                    .width();
-
-                !prev.length && (parent = _el.parent());
-
-                function sm() {
-                    $timeout(function() {
-                        var method = attr.uiShift;
-                        var target = attr.target;
-                        _el.hasClass('in') || _el[method](target).addClass('in');
-                    });
-                } 
-
-                function md() {
-                    parent && parent['prepend'](el);
-                    !parent && _el['insertAfter'](prev);
-                    _el.removeClass('in');
                 }
+            };
+        }
+    ])
 
-                (width < 768 && sm()) || md();
+ 
 
-                _window.resize(function() {
-                    if (width !== _window.width()) {
-                        $timeout(function() {
-                            (_window.width() < 768 && sm()) || md();
-                            width = _window.width();
-                        });
-                    }
+.directive('uiShift', ['$timeout', function($timeout) {
+    return {
+        restrict: 'A',
+        link: function(scope, el, attr) {
+            // get the $prev or $parent of this el
+            var _el = $(el),
+                _window = $(window),
+                prev = _el.prev(),
+                parent, width = _window
+                .width();
+
+            !prev.length && (parent = _el.parent());
+
+            function sm() {
+                $timeout(function() {
+                    var method = attr.uiShift;
+                    var target = attr.target;
+                    _el.hasClass('in') || _el[method](target).addClass('in');
                 });
             }
-        };
-    }])
+
+            function md() {
+                parent && parent['prepend'](el);
+                !parent && _el['insertAfter'](prev);
+                _el.removeClass('in');
+            }
+
+            (width < 768 && sm()) || md();
+
+            _window.resize(function() {
+                if (width !== _window.width()) {
+                    $timeout(function() {
+                        (_window.width() < 768 && sm()) || md();
+                        width = _window.width();
+                    });
+                }
+            });
+        }
+    };
+}])
 
 .directive('uiToggleClass', ['$timeout', '$document', function($timeout, $document) {
         return {
@@ -183,12 +182,13 @@ angular.module('app.directives', ['pascalprecht.translate'])
             }
         };
     }])
-    .directive('uiScroll', ['$location', '$anchorScroll',   function($location, $anchorScroll) {
+    .directive('uiScroll', ['$location', '$anchorScroll', 
+        function($location, $anchorScroll) {
         return {
             restrict: 'AC',
             link: function(scope, el, attr) {
                 el.on('click', function(e) {
-                    console.log( attr.uiScroll);
+                    console.log(attr.uiScroll);
                     $location.hash(attr.uiScroll);
                     $anchorScroll();
                 });
@@ -226,6 +226,7 @@ angular.module('app.directives', ['pascalprecht.translate'])
 
 // state 切换是动作条; 
 .directive('uiButterbar', ['$rootScope', '$location', '$anchorScroll',
+      
         function($rootScope, $location, $anchorScroll) {
             return {
                 restrict: 'AC',
@@ -320,7 +321,7 @@ angular.module('app.directives', ['pascalprecht.translate'])
 
 .directive("token", function($compile, $timeout) {
     // disabled
-    var  spinner =  '<i class="fa fa-spin hide fa-spinner" ></i>'; 
+    var spinner = '<i class="fa fa-spin hide fa-spinner" ></i>';
     return {
         restrict: "A",
         require: ["?^ngDisabled"],
@@ -328,14 +329,16 @@ angular.module('app.directives', ['pascalprecht.translate'])
             //@if  append 
             //@endif 
             //
-            
-            $ele.css({opacity:1});
+
+            $ele.css({
+                opacity: 1
+            });
 
             console.log(attrs)
-            if ( attrs.spinner !=undefined  ){
-                $ele.append( spinner );
+            if (attrs.spinner != undefined) {
+                $ele.append(spinner);
             }
- 
+
             $ele.on("click", function() {
                 var that = this;
 
@@ -448,8 +451,8 @@ angular.module('app.directives', ['pascalprecht.translate'])
                 cls = "form-control";
                 $ele.addClass(cls).wrap($compile(wrap_input)($scope));
 
-//                jjw
-//                l = r ? ($compile(marklabel)($scope)) : ($compile(label)($scope));
+                //                jjw
+                //                l = r ? ($compile(marklabel)($scope)) : ($compile(label)($scope));
 
                 l = $compile(label)($scope);
                 $ele.parent().before(l);
@@ -508,11 +511,11 @@ angular.module('app.directives', ['pascalprecht.translate'])
         v("min", $attrs.min);
     }
 
-    if( $attrs.ngMinlength ){
-        v("minlength" , $attrs.ngMinlength );
+    if ($attrs.ngMinlength) {
+        v("minlength", $attrs.ngMinlength);
     }
-    if( $attrs.ngMaxlength ){
-        v("maxlength" , $attrs.ngMaxlength );
+    if ($attrs.ngMaxlength) {
+        v("maxlength", $attrs.ngMaxlength);
     }
 
     // ui-validate , 自定义的验证; 带完成; ( require:"uiValidate"); 
@@ -540,16 +543,16 @@ angular.module('app.directives', ['pascalprecht.translate'])
             var tag = $ele[0].tagName,
                 cls;
 
-            cls =  (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") ? "form-control" : " no-border";
+            cls = (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") ? "form-control" : " no-border";
             //cls = (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") ?   "form-control"  :  "form-control no-border";
 
             $ele.addClass(cls).wrap($compile(wrap_input)($scope));
-//            jjw
-//            if (r) {
-//                l = $compile(marklabel)($scope);
-//            } else {
-//                l = $compile(label)($scope);
-//            }
+            //            jjw
+            //            if (r) {
+            //                l = $compile(marklabel)($scope);
+            //            } else {
+            //                l = $compile(label)($scope);
+            //            }
             l = $compile(label)($scope);
 
             $ele.parent().before(l);
@@ -651,7 +654,7 @@ angular.module('app.directives', ['pascalprecht.translate'])
     return {
         restrict: "E",
         link: function($scope, $ele, $attr) {
-            /*  table-striped  */ 
+            /*  table-striped  */
             //$ele.addClass("   table  table-hover  table-bordered  "); 
         }
     }
@@ -787,33 +790,34 @@ angular.module('app.directives', ['pascalprecht.translate'])
 })
 
 
-.directive("loadMask" , function( $timeout){
- 
+.directive("loadMask", function($timeout) {
+
     return {
-        restrict:"A",
-        link: function( $scope , $element , $attrs ){
+        restrict: "A",
+        link: function($scope, $element, $attrs) {
 
             $element.addClass("pos-rlt");
-            var  $maskDom =  $('<i class="fa fa-spin fa-3x  text-info fa-spinner hide pos-abt" style="top:50%;left:50%;z-index:9999" ></i>');
- 
+            var $maskDom = $('<i class="fa fa-spin fa-3x  text-info fa-spinner hide pos-abt" style="top:50%;left:50%;z-index:9999" ></i>');
 
-            $element.append(  $maskDom );
 
-            $scope.$watch("showMask" , function(n ){
-                 //@if  append
-                    console.log( "showMask =" , n);
-                 
-                 //@endif  
-                (n ? show:hide )();
+            $element.append($maskDom);
+
+            $scope.$watch("showMask", function(n) {
+                //@if  append
+                console.log("showMask =", n);
+
+                //@endif  
+                (n ? show : hide)();
 
             })
 
-            function show(){
+            function show() {
                 $maskDom.addClass("show");
             }
-             function hide (){
+
+            function hide() {
                 $maskDom.removeClass("show");
-            } 
+            }
         }
     }
 
