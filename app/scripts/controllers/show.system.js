@@ -377,7 +377,7 @@ angular.module('app.show.system', [])
 
 
     // 下置数据; 
-    $scope.liveWrite = function(t, v, e) {
+    $scope.liveWrite = function(t, v, e , s ) {
         //console.log(arguments);  // String system_id , String name ,String value
         if (!t) return;
         var d = {},
@@ -386,9 +386,11 @@ angular.module('app.show.system', [])
 
         //        jjw
         //        $button.text("下置中...");
+        s.showSpinner = true ; 
         $show.liveWrite.save({
             uuid: $scope.system.uuid
         }, d, function(resp) {
+            s.showSpinner =  false ; 
             //@if  append
             console.log(resp);
             //@endif 
@@ -399,6 +401,7 @@ angular.module('app.show.system', [])
             //            }, 2000)
 
         }, function() {
+            s.showSpinner = false ; 
             //            $button.text("下置失败").toggleClass("btn-danger");
             //            $timeout(function() {
             //                $button.text("下置").toggleClass("btn-danger");

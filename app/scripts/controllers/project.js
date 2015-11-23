@@ -183,6 +183,7 @@ angular.module('app.project', [])
 
     $scope.updataORdel = "updata";
 
+    $scope.active2del  =  false ; 
 
     $source.$sysModel.get({
         currentPage: 1

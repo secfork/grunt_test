@@ -3,7 +3,7 @@
     <!--  {{app.name}}   style="width: 150px;"   -->
     <img src="img/logo_2.png" class="logo">
 </div>
-<div ng-show=" od.step == '1' " class="m-b-lg container w-xxl w-auto-xs m-t-lg  ">
+<div ng-show=" od.step == '1' "  load-mask class="m-b-lg container w-xxl w-auto-xs m-t-lg  ">
     <form name="step1" class="form-validation">
         <strong>请输入您要找回密码的账户名称</strong>
         <input ng-model="account.account" class="form-control   m-t-xs" required>
@@ -14,23 +14,26 @@
         <a ui-sref="access.signin" class="btn btn-lg btn-default btn-block  ">返回登录</a>
     </form>
 </div>
+
+
+
 <div ng-show=" od.step == '2' " class="m-g-lg  m-t-lg " >
     <div class="wrapper text-center">
-        <h4 class="m-t-lg">邮件已经发送至您的邮箱</h4>
-        <h4>  请点击邮件中的连接完成管理员帐号密码修改</h4>
+        <h4 class="m-t-lg">邮件已经发送至管理员的邮箱</h4>
+        <h4>  请点击邮件中的连接完成管理员用户密码修改</h4>
         <i class="fa fa-check-circle text-success fa-3x"></i>
         <br/>
         <a ui-sref="access.signin" class="btn btn-lg w btn-default  w-xxm">返回登录</a>
-    </div>
+    </div> 
 </div>
-<div ng-show=" od.step == '3' " class="m-b-lg  m-t-lg container w-xxl w-auto-xs   " >
+<div ng-show=" od.step == '3' "   load-mask class="m-b-lg  m-t-lg container w-xxl w-auto-xs   " >
     <form name="form2" class="form-validation  m-t ">
         <div class="wrapper text-center">
-            <strong>修改管理员帐号密码</strong>
+            <strong>修改管理员用户名及密码</strong>
         </div>
         <div class="list-group list-group-sm">
             <div class="list-group-item ">
-                <input name="password" ng-model="admin.username" placeholder="管理员帐号,至少2个字符" ng-minlength="2" ng-maxlength='16' class="form-control no-border " required>
+                <input name="password" ng-model="admin.username" placeholder="管理员用户名,至少2个字符" ng-minlength="2" ng-maxlength='16' class="form-control no-border " required>
                 <!--ng-minlength="6"   ng-maxlength="20" -->
             </div>
             <div class="list-group-item ">
@@ -48,6 +51,8 @@
         <a ui-sref="access.signin" class="btn btn-lg btn-default btn-block">返回登录</a>
     </form>
 </div>
+
+
 
 <div ng-show=" od.step == '4' "class="m-b-lg  m-t-lg container w-xxl w-auto-xs "  >
     

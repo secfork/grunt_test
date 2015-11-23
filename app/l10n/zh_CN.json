@@ -66,6 +66,8 @@
     "ER_GROUP_EXIST": "用户组名已被占用 ",
     "ER_USER_EXIST": "用户名已被占用",
 
+    "ER_USER_NOT_EXIST":"用户不存在",
+
 
     "ER_DASERVER_EXISTS": "数据采集服务器已经存在",
     "ER_DASERVER_NOT_EXIST": "数据采集服务器不存在",
@@ -89,6 +91,12 @@
     "ER_SYSTEM_NOT_ACTIVE": "系统尚未激活",
 
     "ER_DASERVER_HAS_NOT_ASSIGNED": "系统尚未指定数据采集服务器",
+    
+    "ER_INVALID_USER_OR_PASSWORD":"无效的用户名或密码",
+    "ER_INVALID_USER_OR_ACCOUNT":"无效的账户名",
+
+
+
     "ER_PROFILE_REF": "配置项使用中",
     "Er_ACCOUNT_EXIST": "该Account名已被占用",
     "ER_INVALID_ACCOUNT_NAME":"该Account名已被占用",
@@ -126,6 +134,10 @@
     "ER_PARSE_ERROR":"参数解析失败",
     "ER_CMD_TYPE_ERR":"不支持的命令类型",
     "ER_UNKNOWN_ERROR":"未知错误　",
+
+    "ER_SERVICE_UNAVAILABLE":"命令发送失败",
+
+
 
     "ER_SUBSCRIBE_EXIST":"订阅已经存在",
     "ER_EMAIL_NOT_VERIFIED":"邮箱未通过验证",
@@ -167,6 +179,7 @@
         "1": "活跃",
         "-1": "关闭"
     },
+
 
 
 
@@ -274,11 +287,12 @@
     "valid": {
         "required": "该字段不能为空!",
         "min": "该数值必须不小于X",
-        "minlengh": "该字段至少为X个字符!",
-        "maxlengh": "该字段不能不超过X个字符!",
+        "minlength": "该字段至少为X个字符!",
+        "maxlength": "该字段不能不超过X个字符!",
         "max": "该数值必须小于X",
         "email": "Email 格式不正确!",
-        "number": "该数值必须为数字格式!"
+        "number": "该数值必须为数字格式!",
+        "Number": "该数值必须为数字格式!"
 
 
     },

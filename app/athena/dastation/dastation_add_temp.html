@@ -6,10 +6,14 @@
     <h4 ng-show="$state.includes('app.station')">添加系统</h4>
     <form name="form" panelclass class="form-horizontal form-validation j_form_15">
         <input tl-wrap-l label="系统名称" required ng-model="system.name">
+       
+
         <select tl-wrap-l label="所属区域" ng-model="system.region_id"
            required ng-options="  proj.id  as  proj.name  for  proj   in projects ">
             <option value="">-请选择区域-</option>
         </select>
+
+
         <select tl-wrap-l ng-model="systemModel" ng-options=" s  as s.name for s in sysmodels" label="系统模型" required></select>
         <select tl-wrap-l ng-model="system.profile"
               ng-options="  p.uuid as p.name for  p  in  profiles " 
@@ -29,7 +33,9 @@
                         <span>DTU</span>
                     </label>
                 </div>
-                <div class="radio inline m-l ">
+
+
+            <!--     <div class="radio inline m-l ">
                     <label class="i-checks">
                         <input type="radio" value="TcpClient"   ng-model="system.network.daserver.type">
                         <i></i>
@@ -43,6 +49,8 @@
                         <span>TCP Server</span>
                     </label>
                 </div>
+ -->
+
             </div>
         </div>
         <textarea tl-wrap-l label="备注" ng-maxlength="100" placeholder=" 不应超过100字符" ng-model=" system.desc ">

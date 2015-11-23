@@ -276,6 +276,9 @@ angular.module('app.account', [])
 
                 var text = "重新发送(%)";
 
+
+
+
                 function setInter(btnDom) {
                     btnDom.disabled = true;
                     var times = 120;
@@ -289,6 +292,8 @@ angular.module('app.account', [])
                         }
                     }, 1000)
                 }
+
+
 
                 $scope.sendEmail = function(e) {
 
@@ -325,7 +330,10 @@ angular.module('app.account', [])
 
                         });
 
-                }
+                } 
+
+
+
 
                 $scope.verifyPhone = function() {
                     if (!$scope.u.mobile_phone) {
@@ -342,14 +350,19 @@ angular.module('app.account', [])
                         mobile_phone: $scope.u.mobile_phone,
                         verifi: $scope.ver.phone
                     };
+
                     $source.$user.save({
                         pk: "verifyphone"
-                    }, d, function(resp) {
+                    }, d , function(resp) {
                         u.mobile_phone_verified = true;
                         $scope.cancel();
                         
+                        u.mobile_phone = $scope.u.mobile_phone ; 
+
                         $scope.user.mobile_phone_verified = true ;
-                    })
+                    });
+
+
                 }
 
 

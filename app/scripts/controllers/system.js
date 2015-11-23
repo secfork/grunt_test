@@ -17,6 +17,8 @@ angular.module('app.system', [])
         $scope._$stationState = $scope.isShowModul ? "app.show.system_prop.basic" : "app.station.prop._basic";
 
 
+        $scope.active2del  =  true ;
+
         if ($scope.isShowModul) {
             $scope.$moduleNav("系统", $state);
         } else {
@@ -260,7 +262,8 @@ angular.module('app.system', [])
                 $scope.confirmInvoke( { 
                     title:"配置系统",
                     note:"创建成功,是否去配置该系统?", 
-
+                    todo:"是",
+                    undo:"不用了"
                     } , function( next ){
                     $scope.goto( "app.station.prop._config" ,  sys , sys );
                     next();

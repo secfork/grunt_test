@@ -26,7 +26,10 @@
        ng-maxlength="20"
        onfocus="this.type='password'" 
        ng-model=" user.password " required>
+
 </div> 
+
+
 
 <div class="form-group" ng-if="!op.isEdit">
     <label class="col-sm-3  control-label text-base">
@@ -101,7 +104,10 @@
   
  
 <input tl-wrap-l label="手机号码" ng-model="user.mobile_phone"   ng-pattern="/^1\d{10}$/" >
-<input tl-wrap-l label="电子信箱" ng-model="user.email"   type="email">
+<input tl-wrap-l label="电子信箱" ng-model="user.email"   type="email"
+    ng-disabled = " user.is_super_user"
+
+>
 
 
 <input tl-wrap-l label="地址" ng-model="user.address">

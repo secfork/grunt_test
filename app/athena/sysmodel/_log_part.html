@@ -6,7 +6,7 @@
         <input tl-wrap  ng-model="T.name"    label="text.name"  required >  
         <select  tl-wrap  ng-model="T.type" 
                  ng-options = "  k  for k in $sys.tag.type"
-                 tl-default="Number"
+                 tl-default="number"
                  label="text.type"
         >
         </select>
@@ -56,16 +56,16 @@
             ng-disabled = "true"
             required  
                     ></select> 
-            type="Number"
+            type="number"
     -->
         <!--jjw 添加div控制隐藏或者显示-->
         <div ng-if="!(T.type=='Digital')">
             <input ng-model="L.deviation" label="偏差 "  
-                   type="Number" tl-wrap
+                   type="number" tl-wrap
                   
                    required/>
 
-            <input ng-model="L.scale"  label="text.scale"  type="Number"   tl-wrap 
+            <input ng-model="L.scale"  label="text.scale"  type="number"   tl-wrap 
               
               required/>
         </div>

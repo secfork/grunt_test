@@ -40,14 +40,16 @@
                 <!--<button class="btn btn-info"  ng-click="verifyPhone()">验证手机</button>-->
             <!--</div>-->
         <!--</div>-->
-111
+ 
         <div class="form-group">
             <label class="col-sm-2  control-label text-base">
                 电子信箱
             </label>
             <div class="  col-sm-10">
                 <input type="email" class="form-control  "
-                       name="email" ng-model="u.email"  >
+                       name="email" ng-model="u.email" 
+                       ng-disabled = " u.is_super_user"
+                        >
             </div>
         </div>
 
@@ -56,11 +58,12 @@
             <div class="col-sm-10 col-sm-offset-2">
                 <button class="btn  w-xsm btn-info" type="button"
                         ng-click="sendEmail( $event )"
-                        ng-disabled="!form.email.$valid  "
+                        ng-disabled="!form.email.$valid  " 
 
                         popover="请在30分钟内完成您的邮箱验证!"
                         popover-trigger="mouseenter"
                         popover-placement="right"
+
                         >发送验证邮件</button>
             </div>
         </div>

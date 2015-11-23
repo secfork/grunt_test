@@ -557,7 +557,7 @@ angular.module('app.system.prop', [])
         //                gateway模式 -  gateway              ; ( $scope.gateway )
         //                 profile , ($scope.op.profile )
         // 字段;
-        $scope.updateSystem = function(field) {
+        $scope.updateSystem = function(field  , scope) {
             
 
             var d = {
@@ -580,7 +580,10 @@ angular.module('app.system.prop', [])
             }
 
             if (field == 'daserver') {
-                $scope.validForm("form_daserver");
+                // 此处 validForm 不好使;  故增加了个 scope 参数; 
+                 $scope.validForm("form_daserver" , scope );
+                
+
                 // 未激活的话 提示激活;  
                 if (  $scope.station.state  == 0  ) { 
                     $scope.confirmInvoke({

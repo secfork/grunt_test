@@ -9,10 +9,24 @@
     <object width="100%"     name="pdf">
         <param name="src" value="readme.pdf">
     </object>
-         
-   <script type="text/javascript">
-		 
-   	  pdf.height = document.documentElement.clientHeight - 20; 
+
+
+
+   <script type="text/javascript" src="vender/jquery.js"></script>
+
+
+   <script type="text/javascript"   src="lib/jquery.min.js" ></script>
+
+   <script type="text/javascript" >
+   		$("object").ready( function(){
+   			 window.pdf.height = document.documentElement.clientHeight - 20;
+   		})
+
+		 //  pdf.onload =  function(){
+		 // 	alert(1);
+   // 	  		 
+		 	
+		 // } 
 
    </script>
 

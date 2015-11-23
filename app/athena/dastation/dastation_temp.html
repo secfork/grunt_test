@@ -15,7 +15,8 @@
 
             </input>
         </div>
-        <div class="col-md-4 col-xs-6 m-t-sm tl-wrap-r wrap-label-span-30" ng-if=" $state.includes('app.station') || $state.includes('app.show.system') ">
+        <div class="col-md-4 col-xs-6 m-t-sm tl-wrap-r wrap-label-span-30" 
+            ng-if=" $state.includes('app.station') || $state.includes('app.show.system') ">
             <!--jjw height-->
             <select tl-wrap-l class="input-sm " label="区域" ng-model="od.region_id" ng-options="  r.id as r.name for r in  regions">
                 <option value="">-所有区域-</option>
@@ -182,9 +183,12 @@
             </td>
             <!--替换 失效 移除-->
             <td ng-if=" !isShowModul " style="padding-right: 20px">
-                <a class="text-info-dk m-r-xs" ng-if="das.state ==1 " translate="bu.bu2" ng-click=" effStation(page.data , das  ,$index ) ">失
+                <a class="text-info-dk m-r-xs" ng-if="das.state ==1 " translate="bu.bu2" 
+                    ng-click=" effStation(page.data , das  ,$index , active2del  ) ">
+                    失
                 </a>
-                <a class="text-info-dk m-r-xs" ng-if=" das.state ==0 " ng-click=" activateStation( this, page.data , das , $index  , true ) ">
+                <a class="text-info-dk m-r-xs" ng-if=" das.state ==0 " 
+                    ng-click=" activateStation( this, page.data , das , $index  ,  true  ) ">
                     激活
                 </a>
                 <a class="text-info-dk m-r-xs" ng-if="das.state ==2 " ng-click=" startSystem( das , page.data , $index ) ">启动

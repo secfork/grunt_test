@@ -75,7 +75,7 @@ angular.module('app.sysconfig', [], function() {})
             },
 
             yaxis: { 
-                tickDecimals: 6
+                tickDecimals: 4
             }, 
 
             legend: {

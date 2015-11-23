@@ -70,11 +70,12 @@ angular.module('app.basecontroller', ['ng'])
 
 
     //=========form 验证=====  默认 验证 form[ name = "form"] ;
-    $scope.validForm = function(formName) {
+    $scope.validForm = function(formName , scope ) {
         formName = formName || "form";
-        var valids = this[formName] || // 递归去找 ? 不了;
-            this.$$childTail[formName] ||
-            this.$$childTail.$$childTail[formName];
+        var  that =  scope || this ; 
+        var valids = that[formName] || // 递归去找 ? 不了;
+            that.$$childTail[formName] ||
+            that.$$childTail.$$childTail[formName];
 
         if (valids && valids.$invalid) {
             // 处理 form 的 validate ;
@@ -330,7 +331,7 @@ angular.module('app.basecontroller', ['ng'])
     };
 
     //  采集占失效   失败; effactive ;
-    $scope.effStation = function(dastations, station, index) {
+    $scope.effStation = function(dastations, station, index  , todel) {
         $scope.confirmInvoke({
             title: "失效系统 " + station.name  ,
             note:"确认要失效该系统吗?"
@@ -343,7 +344,10 @@ angular.module('app.basecontroller', ['ng'])
             $source.$system.deactive({
                 pk: station.uuid
             }, function() {
-                dastations.splice(index, 1);
+                station.state = 0 ;
+
+                todel && (  dastations.splice(index, 1)  ) ;
+
                 next();
             }, function() {
                 next();
@@ -597,7 +601,9 @@ angular.module('app.basecontroller', ['ng'])
     }
 
     /**
-     * msg = { title : '标题' , note:  注释 , warn: 警告  , todo: 确定按钮字符 }
+     * msg = { title : '标题' , note:  注释 , warn: 警告  ,
+     *     todo: 确定按钮字符 ,
+     *     undo : 取消按钮字符 }
      * handler : funcction  ;     handler 最好有 true false 返回值 , 以便derfer 处理 ;
      * @param msg
      * @param handler
@@ -613,6 +619,7 @@ angular.module('app.basecontroller', ['ng'])
                 };
 
                 $scope.todo = msg.todo || "do";
+                $scope.undo = msg.undo || "cancel"
 
 
                 $scope.done = function() {
@@ -748,10 +755,8 @@ angular.module('app.basecontroller', ['ng'])
    
 
 })
-
-
 .controller("access_signin", function($scope, $state, $timeout, $localStorage, $sys,
-    $compile, $source  , $modalStack , $rootScope ) {
+    $compile, $source  , $modalStack , $rootScope , $modalStack ) {
  
     $modalStack.dismissAll();
  
@@ -857,9 +862,21 @@ angular.module('app.basecontroller', ['ng'])
             },
 
             function(resp) { // {err:.. , ret: ... }
+                if( resp.err == "login_yet"){
+                    $timeout( function(){
+                        $state.go("app.proj.manage");
+                        $modalStack.dismissAll();
+
+                    },2000)
+                    
+                    return ;
+                }
+
                 $scope.op.t++;
                 $scope.op.b = false;
                 $scope.logintimes++;
+
+
 
             }
 
@@ -879,20 +896,24 @@ angular.module('app.basecontroller', ['ng'])
     var inter, time = 0;
 
     //@if  append
-    console.log($location.$$search.uuid)
+    console.log($location.$$search.v)
         //@endif 
 
     // 是否是 第三部; 
-    var uuid = $location.$$search.uuid;
+    var uuid = $location.$$search.v;
     if (uuid) {
         $source.$account.get({
             pk: "admin",
             uuid: uuid
         }, function(resp) {
-            $scope.op.step = resp.ret ? "step3" : "step1";
+            if( resp.ret){
+                $scope.op.step = "step3"
+            }else{
+                $state.go("access.signin");
+            } 
         })
     } else {
-        $scope.op.step = "step1";
+        $scope.op.step = "step1"; 
     }
 
     // 发送 account 验证码;  
@@ -937,9 +958,11 @@ angular.module('app.basecontroller', ['ng'])
     $scope.signup = function( $event ) {
 
 
-        $scope.validForm('form1');
-        $scope.showMask = true ; 
+       
 
+        $scope.validForm('form1');
+
+        $scope.showMask = true ; 
 
         var dom = $event.currentTarget ;
         dom.disabled = true ;
@@ -980,6 +1003,16 @@ angular.module('app.basecontroller', ['ng'])
     // 创建 account ; step3 ; 
     $scope.create = function() {
 
+        if( $scope.confirm_password != $scope.comp.admin.password ){
+            angular.alert("两次密码输入不一致");
+        }
+
+        $scope.validForm("form2");
+
+
+
+
+
         $scope.showMask = true ; 
         $source.$account.save({
             pk: 'admin',
@@ -1019,15 +1052,17 @@ angular.module('app.basecontroller', ['ng'])
 
     $scope.t = 123111;
 
-    var uuid = $location.$$search.uuid;
+    var uuid = $location.$$search.v;
     if (uuid) {
         $source.$account.get({
             pk: "admin",
             uuid: uuid
         }, function(resp) {
-            $scope.od.step = resp.ret ? 3 : 4;
-
-
+            if( resp.ret){
+                $scope.od.step = 3 ;
+            }else{
+                $state.go("access.signin");
+            } 
 
         })
     } else {
@@ -1038,6 +1073,11 @@ angular.module('app.basecontroller', ['ng'])
     
     $scope.setp1 = function( $event ) {
 
+        $scope.validForm("step1");
+
+
+        $scope.showMask = true ; 
+
         $event.currentTarget.disabled = true ;
 
         //$scope.od.identi.length <4  return ; 
@@ -1045,10 +1085,13 @@ angular.module('app.basecontroller', ['ng'])
             $scope.account,
             function(resp) {
                 // $scope.od.phone = resp.ret;
+                
+                $scope.showMask = false ;
                 $scope.od.step = 2;
                 $event.currentTarget.disabled = false ;
             },
             function(resp) { 
+                $scope.showMask = false ; 
                 $scope.t++;
                 $event.currentTarget.disabled = false ; 
             }
@@ -1058,14 +1101,20 @@ angular.module('app.basecontroller', ['ng'])
 
     // 更改密码; 
     $scope.cc_done = function() {
+
+        $scope.validForm("form2");
+
+        $scope.showMask = true ; 
         $source.$common.save({
             op: "admin",
             uuid: uuid
         }, $scope.admin, function(resp) {
+            $scope.showMask = false ; 
             $scope.alert({
                 title: "修改成功",
                 do: ""
             }, function() {
+                $scope.showMask = false ; 
                 $state.go('access.signin');
             })
 
@@ -1078,7 +1127,7 @@ angular.module('app.basecontroller', ['ng'])
 
     $scope.op = {}; 
     
-    var uuid = $location.$$search.uuid;
+    var uuid = $location.$$search.v;
     if (uuid) {
         $source.$user.get( {pk:"verifyemail", uuid: uuid} , function( resp ){
             if( resp.ret){
@@ -1103,7 +1152,7 @@ angular.module('app.basecontroller', ['ng'])
 
     } else {
         //$scope.op.verifyemail = false ; 
-        $state.go("access.signin");
+       //$state.go("access.signin");
     }
 
 

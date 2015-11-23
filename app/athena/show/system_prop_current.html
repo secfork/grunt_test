@@ -92,7 +92,11 @@
                         <!--jjw 去掉h-30 input-s-->
                         <input class="input input-s " ng-model="v">
                         <!-- <tl-input    ></tl-input>-->
-                        <button class="btn btn-info btn-xs btn-s w-48" ng-click="liveWrite( t, v , $event )" token="5000">下置</button>
+                        <button class="btn btn-info btn-xs btn-s w-48"
+                         ng-click="liveWrite( t, v , $event , this )" token="5000">下置</button>
+
+                        <i class="fa fa-spin  text-info fa-spinner"  ng-show="showSpinner" ></i>
+                       
                         <span id="current_msg_{{t}}" class="w">  {{ msg }}</span>
                     </td>
                    <td>{{t.desc}}</td>  

@@ -490,6 +490,8 @@ angular.module("app.model.system", [])
     //@endif   
 
 
+    $scope.isManageMode = 
+
     var sysmodel = $scope.sysmodel, // $scope.$$cache[0],
         t = $scope;
  

@@ -83,7 +83,10 @@ module.exports = function(grunt) {
                     append: false, // 是否build  debug信息;
                     region_online: false, // 是否build  region 是否在线信息; 
                     debug: false ,
-                    testbuild: false   // 是否为 test_nging_console 服务器 构建项目; 
+                    testbuild: false  , // 是否为 test_nging_console 服务器 构建项目; 
+
+                    
+
                 }
             },
 
