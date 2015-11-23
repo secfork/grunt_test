@@ -490,11 +490,11 @@ angular.module("app.model.system", [])
     //@endif   
 
 
-    $scope.isManageMode = 
 
     var sysmodel = $scope.sysmodel, // $scope.$$cache[0],
-        t = $scope;
- 
+        t = $scope;  
+        t.isManageMode = sysmodel.mode == $sys.manageMode;
+
     // 拆分 connect 字段;
     // connect 回显 ;  device id ( 整合成 kv形式)--> 得到 demodel( ) --> 再去加载point数据;
     var cc;
