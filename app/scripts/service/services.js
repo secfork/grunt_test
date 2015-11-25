@@ -21,7 +21,9 @@ angular.module('app.services', ["ngResource"], function() {
     };
 
     // angular.rootUrl = 'http://localhost:8082/thinglinx/web/' ;
-    angular.rootUrl = 'node/';
+   angular.rootUrl = 'node/';
+    // angular.rootUrl = 'web/';
+
 
 })
 
@@ -66,7 +68,7 @@ angular.module('app.services', ["ngResource"], function() {
 
     this.$user = $createSource("user/:pk/:op", {}, {
         login: {
-            url: angular.rootUrl + "user/login",
+            url: angular.rootUrl + "common/login",
             method: "POST"
         },
         logout: {
