@@ -34,11 +34,11 @@ var app = angular.module('thinglinx', [
         $rootScope.$translate = $translate;
         $rootScope.$sceHtml = $sce.trustAsHtml;
         $rootScope.$session = $sessionStorage;
-        $rootScope.fromJson = angular.fromJson ;
+        $rootScope.fromJson = angular.fromJson;
 
 
-        $rootScope.ossRoot = "@@oss" ;
- 
+        $rootScope.ossRoot = "@@oss";
+
 
         window.onbeforeunload = function() {
             alert("关闭窗口");
@@ -57,7 +57,7 @@ var app = angular.module('thinglinx', [
 
         $rootScope.test = function() {
                 alert("test  function !")
-        }
+            }
             //@endif  
 
         // $rootScope.validate = function(data, msg) {
@@ -82,8 +82,7 @@ var app = angular.module('thinglinx', [
 .config(
     ['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider',
         '$filterProvider', '$provide', "$httpProvider", "$resourceProvider",
-        function
-            ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvider,
+        function($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvider,
             $filterProvider, $provide, $httpProvider, $resourceProvider) {
 
             // 自定义 ajax 拦截器;
@@ -93,7 +92,7 @@ var app = angular.module('thinglinx', [
 
             //@if  append
 
-            console.log("vvvv",  $resourceProvider);
+            console.log("vvvv", $resourceProvider);
             //@endif 
 
 
@@ -109,7 +108,7 @@ var app = angular.module('thinglinx', [
             app.value = $provide.value;
 
 
- 
+
             $urlRouterProvider
             //.otherwise('/access/signin');
             //.otherwise('/app/template');
@@ -121,24 +120,26 @@ var app = angular.module('thinglinx', [
                 url: '/app',
                 templateUrl: 'athena/app.html',
                 resolve: {
-                    $user : function( $source ){
-                        
-                        return    $source.$common.get({  op: "islogined" }).$promise
+                    $user: function($source) {
+
+                        return $source.$common.get({
+                            op: "islogined"
+                        }).$promise
                     }
                 },
-                controller: function($scope, $state, $sys  , $user ) {
+                controller: function($scope, $state, $sys, $user) {
 
-                     //后台判断是否已经登录; 
-                    var user =  $user.ret ;
-                    $('#preload').fadeOut('slow'); 
-                    
-                    
+                    //后台判断是否已经登录; 
+                    var user = $user.ret;
+                    $('#preload').fadeOut('slow');
+
+
                     if (user) {
                         user.sms_notice = !!user.sms_notice;
                         user.mail_notice = !!user.mail_notice;
 
                         $scope.user = user;
-                        $scope.$$user = user ; 
+                        $scope.$$user = user;
 
                         //@if  append 
                         console.log("sessionStorage 含有user");
@@ -148,27 +149,27 @@ var app = angular.module('thinglinx', [
                         // rootstate = app.prpj.namage ;
                         $state.is("app") ? $state.go($sys.rootState) : undefined;
 
-                        $scope.user = user ; 
+                        $scope.user = user;
 
                     } else {
                         //  if( !$sys.$debug ){
                         $state.go('access.signin');
-                            //  }
+                        //  }
                     };
-                    
-                    
+
+
                 }
 
             })
 
             .state("app.show", {
                 url: "/show",
- 
-//                    jjw no-border
+
+                //                    jjw no-border
                 template: '<div ui-view class="gap-5  panel panel-default no-border  "></div>'
- 
-                    // , templateUrl:
-                    ,
+
+                // , templateUrl:
+                ,
                 data: {
                     isShowModul: true
                 },
@@ -180,13 +181,13 @@ var app = angular.module('thinglinx', [
                     deps: ['uiLoad', function(uiLoad) {
                         return uiLoad.load([
                             'lib/flot/jquery.flot.min.js',
-                           //  'lib/flot/jquery.flot.spline.js', 
-                            
-                          //  'lib/flot/jquery.flot.navigate.min.js',
-                           'lib/flot/jquery.flot.time.min.js',
-                           // 'lib/flot/date.js',
- 
-                           'lib/flot/jquery.flot.tooltip.min.js',
+                            //  'lib/flot/jquery.flot.spline.js', 
+
+                            //  'lib/flot/jquery.flot.navigate.min.js',
+                            'lib/flot/jquery.flot.time.min.js',
+                            // 'lib/flot/date.js',
+
+                            'lib/flot/jquery.flot.tooltip.min.js',
                         ]);
                     }]
                 }
@@ -279,7 +280,7 @@ var app = angular.module('thinglinx', [
 
             .state("app.model", {
                 url: "/model",
-//                    jjw no-border
+                //                    jjw no-border
                 template: '<div ui-view class=" gap-5 panel panel-default no-border"></div>'
                     //template:'<div ui-view class="fade-in-up smooth wrapper-xs"></div>'
             })
@@ -561,15 +562,15 @@ var app = angular.module('thinglinx', [
                     url: '/access',
                     template: '<div ui-view class="   h-full smooth"></div>',
                     resolve: {
-                        $user : function(  ){
-                            
-                           //  return   window.loginUserPromise 
+                        $user: function() {
+
+                            //  return   window.loginUserPromise 
                         }
                     },
 
-                    controller:function( ){
+                    controller: function() {
 
-                         $('#preload').fadeOut('slow'); 
+                        $('#preload').fadeOut('slow');
                     }
                 })
                 .state('access.signin', {
@@ -579,7 +580,7 @@ var app = angular.module('thinglinx', [
                 })
 
 
-                .state('access.signup', {
+            .state('access.signup', {
                     url: '/signup',
                     controller: "access_signup",
                     templateUrl: 'athena/page_signup.html'
@@ -590,16 +591,16 @@ var app = angular.module('thinglinx', [
                     templateUrl: 'athena/page_forgotpwd.html'
                 })
 
-                .state("access.verifyemail" , {
-                    url:"/verify_email" ,
-                    controller:"verifyemail",
-                    templateUrl:"athena/page_verifyemail.html"
-                })
+            .state("access.verifyemail", {
+                url: "/verify_email",
+                controller: "verifyemail",
+                templateUrl: "athena/page_verifyemail.html"
+            })
 
-                .state('access.404', {
-                    url: '/404',
-                    templateUrl: 'tpl/page_404.html'
-                })
+            .state('access.404', {
+                url: '/404',
+                templateUrl: 'tpl/page_404.html'
+            })
 
             //============ access  ===========================================================
             // 联系我们; 技术支持; 使用条款; 问题反馈; 帮助;

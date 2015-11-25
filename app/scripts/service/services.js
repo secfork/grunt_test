@@ -21,15 +21,14 @@ angular.module('app.services', ["ngResource"], function() {
     };
 
     // angular.rootUrl = 'http://localhost:8082/thinglinx/web/' ;
-    angular.rootUrl = 'web/';
+    angular.rootUrl = 'node/';
 
 })
 
  
 
 .service('$source', ['$resource', function($resource) {
-
-
+ 
 
      function $createSource ( url, config1 , config2){ 
         return  $resource( angular.rootUrl + url , config1 ,config2 );
@@ -51,6 +50,8 @@ angular.module('app.services', ["ngResource"], function() {
     this.$role = $createSource("role/:pk");
     this.$driver = $createSource("driver/:type");
     this.$sub    =  $createSource("subscribe/:pk/:op");
+
+    // http://faefae.com/:id/crate , { id:123}
     
     //    sou: connent( sys联系人) , user( 用户) , 
     //  ? send : cell_phone , verify: code ;  

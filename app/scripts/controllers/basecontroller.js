@@ -3,8 +3,10 @@
 
 angular.module('app.basecontroller', ['ng'])
 
-.controller('AppCtrl', function($scope, $translate, $localStorage, $window, $modal, $state,
-    $timeout, $sessionStorage, $source, $q, $source , $animate , $location , $rootScope) {
+.controller('AppCtrl', function(
+    $scope, $translate, $localStorage, $window, $modal, $state,
+    $timeout, $sessionStorage, $source, $q, $source , $animate , 
+    $location , $rootScope) {
 
     var S = $scope;
     //@if  append
