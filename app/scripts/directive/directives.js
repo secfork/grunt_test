@@ -4,6 +4,17 @@
 
 angular.module('app.directives', ['pascalprecht.translate'])
 
+
+// .directive("button" , function(){
+//     return {
+//         restrict:"A",
+//         link: function( scope , el ,attr){
+//             el.attr({id:Math.random()})
+//         }
+//     }
+// })
+
+
 .directive(
     'uiModule', ['MODULE_CONFIG', 'uiLoad', '$compile',
         function(MODULE_CONFIG, uiLoad, $compile) {
