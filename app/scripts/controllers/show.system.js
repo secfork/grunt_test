@@ -141,19 +141,20 @@ angular.module('app.show.system', [])
         })
     }
 })
+ 
 
-
-
-.controller('show_system_prop', function($scope, $state, $source, $q, $sys, $filter) {
+.controller('show_system_prop', function($scope, $state,  $stateParams, _$system , $source, $q, $sys, $filter) {
 
     //@if  append
     console.log("show_system_prop");
     //@endif 
 
-    $scope.system = $scope.$$cache[0];
-
-
-
+    // $scope.system = $scope.$$cache[0]; 
+    
+    $scope.system =  _$system.ret  ; 
+    $scope.tags = $scope.system.tags ;  
+ 
+    
     var sysModel = $scope.system.model,
         //td = $filter("date")(new Date(), "yyyy-MM-dd"),
         arr, d;
@@ -183,21 +184,6 @@ angular.module('app.show.system', [])
 
     // $scope.openCalendar = function(e, exp) {
 
-
-    $scope.loadTagPromise = $source.$system.get({
-        system_id: $scope.system.uuid,
-        tag: true
-    }).$promise;
-
-
-    // $scope.loadTagPromise = $source.$sysLogTag.get({
-    //     profile: $scope.system.profile
-    // }).$promise;
-
-
-    $scope.loadTagPromise.then(function(resp) {
-        $scope.tags = resp.ret.tags;
-    });
 
 
 
@@ -278,8 +264,7 @@ angular.module('app.show.system', [])
         });
         getCurrent();
     };
-
-    $scope.loadTagPromise.then(function() {
+ 
         $scope.filterTags("");
 
         $scope.$watch("auto_r", function(n) {
@@ -291,7 +276,7 @@ angular.module('app.show.system', [])
             }
         })
 
-    });
+    
 
 
 

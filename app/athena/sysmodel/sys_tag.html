@@ -46,9 +46,17 @@
                 <td>
                     <i ng-if="tag.save_log" class="glyphicon glyphicon-ok text-success"></i>
                 </td>
-                <td> <span ng-show="tag.save_log">{{ tag.log_type=="RAW" ? tag.log_cycle : undefined }}  </span> </td>
+                <td> 
+                    <span ng-show="tag.save_log">
+                        {{ tag.log_type=="RAW" ? tag.log_cycle : undefined }} 
+                     </span> 
+                 </td>
 
-                <td> <span ng-show="tag.save_log"> {{ _$type[tag.log_type]   }}  </span> </td>
+                <td> 
+                    <span ng-show="tag.save_log"> 
+                    {{ _$type[tag.log_type]   }} 
+                     </span> 
+                 </td>
                 
 
                 <td> {{ tag.desc||"" }} </td>

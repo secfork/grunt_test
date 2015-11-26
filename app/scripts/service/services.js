@@ -22,7 +22,7 @@ angular.module('app.services', ["ngResource"], function() {
 
     // angular.rootUrl = 'http://localhost:8082/thinglinx/web/' ;
    angular.rootUrl = 'node/'; 
-
+ 
 
 })
 

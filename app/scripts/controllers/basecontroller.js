@@ -801,7 +801,7 @@ angular.module('app.basecontroller', ['ng'])
     //@endif 
 
 
-    $scope.user.company_name = $localStorage.comp_name;
+    $scope.user.account = $localStorage.account;
 
     $scope.op = {
         t: 1,
@@ -818,7 +818,7 @@ angular.module('app.basecontroller', ['ng'])
         //@endif 
 
         var u = $scope.user;
-        if (!u.company_name) {
+        if (!u.account) {
             angular.alert("请输入公司名称");
             throw ("");
         }
@@ -836,7 +836,7 @@ angular.module('app.basecontroller', ['ng'])
 
         $scope.op.b = true;
 
-        $localStorage.comp_name = $scope.user.company_name;
+        $localStorage.account = $scope.user.account;
 
         $source.$user.login($scope.user,
             function(resp) {
