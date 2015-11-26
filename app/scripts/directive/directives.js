@@ -4,6 +4,10 @@
 
 angular.module('app.directives', ['pascalprecht.translate'])
 
+
+
+
+
 .directive(
     'uiModule', ['MODULE_CONFIG', 'uiLoad', '$compile',
         function(MODULE_CONFIG, uiLoad, $compile) {
