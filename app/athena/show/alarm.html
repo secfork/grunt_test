@@ -139,6 +139,7 @@
                 <tr class="background ">
                     <th> 报警ID </th>
                     <th width="10%"> 报警时间</th>
+                    <th>系统ID</th>
                     <th> 报警描述 </th>
                     <th> 重要性 </th>
                     <th> 类别 </th>
@@ -150,7 +151,14 @@
                 <tr ng-repeat="  a  in page.data  ">
                     <td> {{ a.id }} </td>
                     <td> {{ a.timestamp | date:"yyyy-MM-dd HH:mm:ss" }}</td>
-                    <td> {{ a.desc }}</td>
+
+                    <td> 
+                        <a  ui-sref='app.show.system_prop.basic({uuid: a.system_id })'  class="text-info" >  
+
+                                 {{ a.system_id }}  </a>  
+                    </td>
+
+                    <td>  {{ a.desc }}</td>
                     <td> {{ _config[a.severity] }} </td>
                     <td> {{ a.class_id }} </td>
                     <td translate="alarm_active.{{ a.active}}"> "活跃":"关闭" </td>

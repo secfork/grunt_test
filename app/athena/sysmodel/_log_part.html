@@ -25,8 +25,9 @@
         <input tl-wrap  ng-if=" !isAdd "   disabled   ng-model="L.name"  
             label="text.name"      >
 
-        <select tl-wrap
 
+        <select tl-wrap 
+                ng-init="L.log_type = L.save_log? L.log_type : undefined "
                 ng-options='  k as v for (k,v) in $sys.log_type.values'
                
                 ng-model="L.log_type"
@@ -34,11 +35,11 @@
                 ng-change=" L.save_log =  L.log_type ? 1: 0 "
                 >
             <!--jjw   (L.log_type=='RAW'|| L.log_type=='CHANGED')?(L.save_his = 1):(L.save_his = 0) -->
-            <option value=''> --不保存日志-- </option>
+            <option value=""> --不保存日志-- </option>
         </select>
 
 
-        <div ng-if="L.log_type=='RAW'"   ng-init=" L.log_cycle = '300' "  >
+        <div ng-if=" L.save_log && L.log_type=='RAW'"   ng-init=" L.log_cycle = '300' "  >
             <select ng-options="  o.v as o.k  for o in  $sys.log_period.values"
                     tl-wrap
                     ng-model="L.log_cycle"

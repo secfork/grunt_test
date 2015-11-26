@@ -232,8 +232,19 @@ var app = angular.module('thinglinx', [
                 controller: "dastation_ignore_active"
             })
 
+
             .state("app.show.system_prop", {
-                url: "/system_prop",
+                url: "/system_prop/:uuid",
+                resolve: {
+                    _$system : function( $source , $stateParams ){
+                        //$source.$system.getByPk( {pk: $stateParams.uuid}).$promise ;
+                        return $source.$system.get({
+                                        system_id: $stateParams.uuid,
+                                        tag: true
+                                    }).$promise
+
+                    }
+                },
                 controller: "show_system_prop",
                 templateUrl: "athena/show/system_prop.html"
             })
