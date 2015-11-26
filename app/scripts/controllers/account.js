@@ -152,22 +152,23 @@ angular.module('app.account', [])
                         delete  u.email ;
                     }else{
                         $scope.user.email_verified = 0 ;
-                        cc_e = true ; 
+                        //cc_e = true ; 
                     }
 
                     if( u.mobile_phone === user.mobile_phone ){
                         delete u.mobile_phone ;
                     }else{
                         $scope.user.mobile_phone_verified = 0 ;
-                        cc_m = true ;
+                        //cc_m = true ;
                     }
  
-                    $source.$user.put({cc_e:cc_e , cc_m:cc_m },  u , function() {
+                    $source.$user.put({},  u , function() {
                         
                         angular.extend(user, $scope.user);
 
-                        cc_e && ( $scope.$$user.mail_notice = false  ) ;
-                        cc_m && ( $scope.$$user.sms_notice = false  ) ;
+                        // cc_e && ( $scope.$$user.mail_notice = false  ) ;
+                        // cc_m && ( $scope.$$user.sms_notice = false  ) ;
+ 
  
                         // 用户组 更改时 ; 
                         // 新就 groups 比较 来判断是否要 增 删 ; 
