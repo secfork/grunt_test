@@ -243,6 +243,9 @@ var app = angular.module('thinglinx', [
                                         tag: true
                                     }).$promise
 
+                    },
+                    _$status : function(  $source , $stateParams ){
+                        return $source.$system.status( [ $stateParams.uuid ] ).$promise 
                     }
                 },
                 controller: "show_system_prop",
