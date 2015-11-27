@@ -459,10 +459,8 @@ angular.module('app.show.system', [])
             d.num = op.num,
             d.tag = op.his_tag.name;
         d.type = op.his_tag.type;
-
-        // 第一个点的数据 ; readattime (); 
-
-
+ 
+ 
         // 历史数据; 
         //  intervali =  ts ,  readRow  = rcv ;   
         
@@ -504,26 +502,29 @@ angular.module('app.show.system', [])
     //    如果变量数据类型为digital，绘制成阶越曲线 (  0 ,1 整型; )
     //     type: "Analog"
     //     type: "Digital" ;
-    //      tag  : 点,  dataarr:rest数据;  key : ts|| rcv ; 
+    //     tag  : 点,  dataarr:rest数据; 
+    //     timekey : ts|| rcv ; 
+    //     timekey 对第一个点无效;  但是第一个点又参与 digital , anglog 画图逻辑; 
+    //                    
     function formatFlotData(tag, dataArr, timekey) {
         var df = [],
-            val;
+            val; 
 
+        var d = dataArr.shift();
+        if (!d) return df;
 
+        val = d.pv;
 
-        if (tag.type === "Digital") {
-            var d = dataArr.shift();
-            if (!d) return df;
-
-            val = d.pv;
-
-            df.push([d[timekey], val]);
+        // 第一个点的值 必须为 ts , 更精确点为 od.start ; 
+        // df.push([d[timekey], val]);
+        df.push( [$scope.op.start , val]);
+ 
+        if (tag.type === "Digital" || tag.type = "digital") {
+           
+                
 
             $.each(dataArr, function(i, v) {
-                if (val == v.pv) {
-
-
-                } else {
+                if (val != v.pv ) { 
                     df.push([v[timekey], val]);
                     df.push([v[timekey], v.pv]);
                     val = v.pv;
