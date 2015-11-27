@@ -143,15 +143,26 @@ angular.module('app.show.system', [])
 })
  
 
-.controller('show_system_prop', function($scope, $state,  $stateParams, _$system , $source, $q, $sys, $filter) {
+.controller('show_system_prop', function($scope, $state,  $stateParams, _$system , _$status , $source, $q, $sys, $filter) {
 
     //@if  append
     console.log("show_system_prop");
     //@endif 
 
-    // $scope.system = $scope.$$cache[0]; 
+    // 用缓存可以得到 online ; 
+    // $scope.system = $scope.$$cache[0];    
     
+    // 用 请求数据 无法获取 onlin ;  
     $scope.system =  _$system.ret  ; 
+
+    // 获取在线状态;  
+    var  sysStatus = _$status.ret[0] ;  
+    $scope.system.online =   sysStatus &&  
+                                    ( sysStatus.daserver? 
+                                        sysStatus.daserver.logon 
+                                        : sysStatus.online
+                                    );  
+
     $scope.tags = $scope.system.tags ;  
  
     
@@ -519,8 +530,9 @@ angular.module('app.show.system', [])
         // df.push([d[timekey], val]);
         df.push( [$scope.op.start , val]);
  
-        if (tag.type === "Digital" || tag.type == "digital") {
-            
+ 
+        if ( tag.type === "Digital" || tag.type == "digital") {
+             
             $.each(dataArr, function(i, v) {
                 if (val != v.pv ) { 
                     df.push([v[timekey], val]);
