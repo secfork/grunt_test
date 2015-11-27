@@ -517,9 +517,8 @@ angular.module('app.show.system', [])
         // df.push([d[timekey], val]);
         df.push( [$scope.op.start , val]);
  
-        if (tag.type === "Digital" || tag.type = "digital") {
-           
-                
+        if ( tag.type === "Digital" || tag.type == "digital") {
+            
 
             $.each(dataArr, function(i, v) {
                 if (val != v.pv ) { 
