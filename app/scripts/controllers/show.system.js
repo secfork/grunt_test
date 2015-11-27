@@ -473,6 +473,7 @@ angular.module('app.show.system', [])
                 atTimedata = resp[0].ret[0][0],
                 arrData = resp[1].ret[0];
 
+            // 第一个点 数据; 
             arrData.unshift(atTimedata);
 
             var arr = formatFlotData($scope.op.his_tag, arrData, timekey);
@@ -481,6 +482,7 @@ angular.module('app.show.system', [])
 
             // arr.unshift([d.start, null]);
             // arr.push([d.end, null]); 
+            
             plot_config.yaxis.tickDecimals = $scope.op.his_tag.type == "Analog"?6:0 ;
              
             plot = $.plot("#show_live_data", [{
