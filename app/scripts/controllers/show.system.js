@@ -31,7 +31,7 @@ angular.module('app.show.system', [])
         };
         $source.$system.query({
             currentPage: 1,
-            //  options: "of_proj",
+            options: "query",
             isactive: 1,
             region_id: $scope.od.region_id
         }, function(resp) {

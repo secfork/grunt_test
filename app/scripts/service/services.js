@@ -47,7 +47,10 @@ angular.module('app.services', ["ngResource"], function() {
     this.$message = $createSource("sysmodel/messages/:pk");
     this.$contact = $createSource( "system/contacts/:pk" );
     this.$region = $createSource( "region/:pk" );
+        
+        // account/admin?uuid 来判断 uuid is Exist
     this.$account = $createSource( "account/:pk" );
+
     this.$role = $createSource("role/:pk");
     this.$driver = $createSource("driver/:type");
     this.$sub    =  $createSource("subscribe/:pk/:op");
@@ -59,10 +62,16 @@ angular.module('app.services', ["ngResource"], function() {
     this.$note = $createSource("note/:op/:sou"); 
 
     this.$common = $createSource("common/:op", {}, {
-       
+        // 验证 uuid ; 
+        verifyUuid:{
+            params:{op:"vuuid"}
+        } ,
+
+       // 验证 图片验证码; 
         verify: {
             url: angular.rootUrl +"common/verify"
         }
+
     });
 
     this.$user = $createSource("user/:pk/:op", {}, {
@@ -85,17 +94,20 @@ angular.module('app.services', ["ngResource"], function() {
 
     this.$system = $createSource("system/:pk/:options/:proj_id", {}, {
         sync: {
-            method: "PUT"
+            method: "GET", params:{ options:"sync" }
         },
         stop: {
-            method: "DELETE"
+            method: "GET" , params:{ cmd:"stop"}
         },
         start: {
+            method: "GET", params:{ cmd:"start"}
+
+        },
+
+        call: {
             method: "GET"
         },
-        call: {
-            method: "POST"
-        },
+
         active:{ 
             params:{options:"active"}
         },

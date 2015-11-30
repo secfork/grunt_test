@@ -65,6 +65,8 @@ angular.module('app.system', [])
             $scope.page.currentPage = pageNo; 
             // 分页加载 系统数据;
             var d = angular.extend({
+                options:"query",
+                
                 currentPage: pageNo, 
                 itemsPerPage: $sys.itemsPerPage  
             }, $stateParams , $scope.od );

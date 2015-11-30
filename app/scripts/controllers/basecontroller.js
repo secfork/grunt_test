@@ -482,7 +482,7 @@ angular.module('app.basecontroller', ['ng'])
         var that = this;
         $source.$system.sync({
                 pk: das.uuid
-            }, null,
+            },
             function(resp) {
                 that.sync_start = false;
                 das.needsync = false;
@@ -544,7 +544,7 @@ angular.module('app.basecontroller', ['ng'])
         $source.$system.call({
             pk: system.uuid,
             type: type
-        }, {}, function(resp) { 
+        }, function(resp) { 
             //                jjw 召唤成功不显示
             //                angular.alert("召唤成功"); 
             $button.text("召唤成功");
@@ -904,10 +904,15 @@ angular.module('app.basecontroller', ['ng'])
     // 是否是 第三部; 
     var uuid = $location.$$search.v;
     if (uuid) {
-        $source.$account.get({
-            pk: "admin",
-            uuid: uuid
-        }, function(resp) {
+
+        $source.$common.verifyUuid( {uuid:uuid} , function( resp ){
+
+        // verify uuid ; 
+        // $source.$account.get({
+        //     pk: "admin",
+        //     uuid: uuid
+        // }, function(resp) {
+
             if( resp.ret){
                 $scope.op.step = "step3"
             }else{
@@ -1016,6 +1021,7 @@ angular.module('app.basecontroller', ['ng'])
 
 
         $scope.showMask = true ; 
+
         $source.$account.save({
             pk: 'admin',
             uuid: uuid
@@ -1056,10 +1062,14 @@ angular.module('app.basecontroller', ['ng'])
 
     var uuid = $location.$$search.v;
     if (uuid) {
-        $source.$account.get({
-            pk: "admin",
-            uuid: uuid
-        }, function(resp) {
+        $source.$common.verifyUuid( {uuid:uuid} , function( resp ){
+        // })
+
+        // verify uuid ;
+        // $source.$account.get({
+        //     pk: "admin",
+        //     uuid: uuid
+        // }, function(resp) {
             if( resp.ret){
                 $scope.od.step = 3 ;
             }else{

@@ -197,6 +197,7 @@ angular.module('app.project', [])
     $scope.od = {};
     $scope.reset = function() {
         $scope.od = {};
+        $scope.loadPageData(1);
     }
 
     // 加载第一页数据;
@@ -211,6 +212,7 @@ angular.module('app.project', [])
         $scope.showMask = true ;
 
         var d = angular.extend({
+             options:"query",
             region_id: $scope.project.id,
             currentPage: pageNo,
             itemsPerPage: $sys.itemsPerPage,
