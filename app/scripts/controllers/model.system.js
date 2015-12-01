@@ -819,6 +819,7 @@ angular.module("app.model.system", [])
                 $scope.$modalInstance = $modalInstance,
                     $scope.__proto__ = t,
                     $scope.L = a = angular.copy(tag),
+                    $scope.T = angular.copy(tag);
 
                     $scope.hasLog = b = tag.profile;
 
