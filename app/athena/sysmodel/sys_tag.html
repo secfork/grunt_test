@@ -23,8 +23,8 @@
                 <th> 偏差 </th>
                 <th> 单位 </th>
                 <th> 保存日志 </th>
-                <th> 日志间隔(秒) </th>
                 <th> 日志类型 </th>
+                <th> 日志间隔(秒) </th>
                 <th width="15%"> 备注 </th>
                 <th ng-if="isModelState"> 操作 </th>
             </tr>
@@ -40,17 +40,12 @@
                 <!-- <td style="background-color: {{  dev_name || 'grey' }}">{{ dev_name }} </td> -->
                 <td> {{ dev_name }} </td>
                 <td> {{tag.type}}</td>
-                <td> {{tag.scale}}</td>
-                <td> {{tag.deviation}}</td>
+                <td > <span ng-show=" tag.type == 'Analog' " > {{tag.scale}} </span> </td>
+                <td> <span  ng-show=" tag.type == 'Analog' " > {{tag.deviation}} </span></td>
                 <td> {{tag.unit}}</td>
                 <td>
                     <i ng-if="tag.save_log" class="glyphicon glyphicon-ok text-success"></i>
                 </td>
-                <td> 
-                    <span ng-show="tag.save_log">
-                        {{ tag.log_type=="RAW" ? tag.log_cycle : undefined }} 
-                     </span> 
-                 </td>
 
                 <td> 
                     <span ng-show="tag.save_log"> 
@@ -58,6 +53,11 @@
                      </span> 
                  </td>
                 
+                <td> 
+                    <span ng-show="tag.save_log">
+                        {{ tag.log_type=="RAW" ? tag.log_cycle : undefined }} 
+                     </span> 
+                 </td>
 
                 <td> {{ tag.desc||"" }} </td>
                 <td ng-if="isModelState">
