@@ -102,7 +102,7 @@ angular.module('app.system.prop', [])
         var fd = new FormData();
         // for (var i in $scope.files) {
         fd.append("sys_picture", $scope.files[0]) ; 
-        fd.append("old_pic_url_" , $scope.Statoin.pic_url );
+        fd.append("old_pic_url_" , $scope.station.pic_url );
             // } ;
             // 添加参数;
             // fd.append("filename", $scope.files[0].name );
