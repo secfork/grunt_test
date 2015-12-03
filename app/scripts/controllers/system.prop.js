@@ -10,14 +10,14 @@ angular.module('app.system.prop', [])
     //@if  append
 
     console.log("dastation_prop");
-    //@endif 
+    //@endif
 
     // $stateParams.state =="unactive"  时  需要激活 station ;
 
     // 未激活的采集站 处理 ;
     // $scope.setActive = function() {
     //     $scope.activateStation($scope, null, $scope.station, null, "updata");
-    // }; 
+    // };
     // 改变 station 会自动存到 sessionStorage ; AppScope.$watch("$$cache", fun... ,  true)
     $scope.station = $scope.$$cache[0];
     $scope.Sta_Data = $scope.$$cache[1];
@@ -46,15 +46,15 @@ angular.module('app.system.prop', [])
     $scope.l_m_P.then(function(resp) {
         // sysmodel ;
         $scope.sysmodel = resp.ret;
- 
+
         // 转换 sysmodel Device = [{}], 为 k-v(name) 形式; 便于 回显;
-        $scope.deviceKV = {}; 
+        $scope.deviceKV = {};
 
         $scope.sysmodel.devices.forEach(function(v, i, t) {
             this[v.id] = v.name; }, $scope.deviceKV);
 
     });
-  
+
     // // ticket ;
     // $scope.t = {
     //     sn: undefined,
@@ -71,7 +71,7 @@ angular.module('app.system.prop', [])
             //@if  append
 
             console.log(element.files);
-            //@endif 
+            //@endif
             // Turn the FileList object into an Array   form 中家 multiple  就是多文件上传;
             $scope.files = [];
 
@@ -82,7 +82,7 @@ angular.module('app.system.prop', [])
             // 值上传 第一个; 单位 B ;  // 1G
             // $scope.rightfile = (element.files[0].size < 10240000);
             //   /.[png,jpg]$/.test( file.name ) &&
-            $scope.op.rightfile = (file.size < 1024 * 500); //2M ; 
+            $scope.op.rightfile = (file.size < 1024 * 500); //2M ;
 
 
 
@@ -101,7 +101,8 @@ angular.module('app.system.prop', [])
 
         var fd = new FormData();
         // for (var i in $scope.files) {
-        fd.append("uploadedFile", $scope.files[0])
+        fd.append("sys_picture", $scope.files[0]) ; 
+        fd.append("old_pic_url_" , $scope.Statoin.pic_url );
             // } ;
             // 添加参数;
             // fd.append("filename", $scope.files[0].name );
@@ -165,8 +166,8 @@ angular.module('app.system.prop', [])
 
     console.log(" das_basic ");
     console.log($stateParams, $state); // $stateParams.dastationid
-    //@endif 
- 
+    //@endif
+
     //  堆叠 导航;
     $scope.$popNav($scope.station.name + "(状态)", $state);
 
@@ -179,11 +180,11 @@ angular.module('app.system.prop', [])
 
         console.log("das_config");
         console.log($stateParams);
-        //@endif 
+        //@endif
 
            // // ticket ;
         $scope.t = {};
-        
+
         var S = $scope,
             needUpdate, hasSave;
 
@@ -196,10 +197,10 @@ angular.module('app.system.prop', [])
 
             if( ! $scope.t.sn ){
                 angular.alert( "请输入SN号");
-                return ; 
+                return ;
             }
 
-            // 先 写死 ticket 的 选前; 
+            // 先 写死 ticket 的 选前;
             $scope.t.privilege = ['SYSTEM_MANAGE', 'SYSTEM_CONTROL'];
 
             $source.$ticket.save({
@@ -213,17 +214,17 @@ angular.module('app.system.prop', [])
             )
         }
 
-        // 删除ticket ; 
+        // 删除ticket ;
         $scope.unBindTicket = function(){
 
             $source.$ticket.delete( { system_id: $scope.station.uuid } , undefined ,function( resp ){
-                $scope.t.ticket = undefined ; 
-                $scope.t.sn = undefined ; 
+                $scope.t.ticket = undefined ;
+                $scope.t.sn = undefined ;
             })
         }
 
 
-        //  就 托管的 daServer 不用  box ticket 
+        //  就 托管的 daServer 不用  box ticket
         // <div ng-if=" !(sysmodel.mode ==1  && sysmodel.comm_type ==1 ) ">
 
         $scope.l_m_P.then(function(resp) {
@@ -232,19 +233,19 @@ angular.module('app.system.prop', [])
 
             if ($scope.nT) {
                 $source.$ticket.get(
-                    { system_id: $scope.station.uuid }, 
-                    function(resp) { 
+                    { system_id: $scope.station.uuid },
+                    function(resp) {
                         //$scope.$parent.t = resp.ret;
-                        $scope.t = resp.ret || {} ; 
+                        $scope.t = resp.ret || {} ;
 
-                    }, 
-                    function() { // 无 ticket 时; 
+                    },
+                    function() { // 无 ticket 时;
                         $scope.t = {};
                     }
                 );
             }
         })
- 
+
 
         // 控制 编辑按钮 显隐 ;
         function toUpdate(field) {
@@ -292,13 +293,13 @@ angular.module('app.system.prop', [])
         $scope.initDaServer = function() {
             $scope.daserver = angular.copy(S.network.daserver || (S.network.daserver = {}));
 
-            // 加载  assign 的   dtu server  信息;  
-            $scope.l_m_P.then(function() { // 还要是激活的; 
+            // 加载  assign 的   dtu server  信息;
+            $scope.l_m_P.then(function() { // 还要是激活的;
                 if (
                     $scope.sysmodel.mode == 1  // 托管;
                     && $scope.sysmodel.comm_type == 1  // dtu ;
                     && $scope.daserver.params  // 指定了daserver ;
-                    && $scope.station.state   // 激活的; 
+                    && $scope.station.state   // 激活的;
                 ) {
                     var d = {
                         options: "getassign",
@@ -331,7 +332,7 @@ angular.module('app.system.prop', [])
             //@if  append
 
             console.log("--组装 DAServer ,  dtu network --");
-            //@endif 
+            //@endif
 
             params.port = undefined;
             params.cmway = undefined;
@@ -340,10 +341,10 @@ angular.module('app.system.prop', [])
                     //@if  append
 
                     console.log(" dtu 数据", i, v);
-                    //@endif 
+                    //@endif
                     params.port = v.port;
                     params.cmway = v.cmway;
-                    toUpdate('daserver'); // 
+                    toUpdate('daserver'); //
                     return false;
                 }
             })
@@ -364,7 +365,7 @@ angular.module('app.system.prop', [])
 
         $source.$sysProfile.get({
             system_model: $scope.station.model
-        }, function(resp) { 
+        }, function(resp) {
             $scope.profiles = resp.ret;
             var p_uuid = $scope.station.profile;
             $.each($scope.profiles, function(i, v, t) {
@@ -391,9 +392,9 @@ angular.module('app.system.prop', [])
         // 托管-- Gatwway类型 ;
         // 删除 gatewway dev , 删除 devRef 引用  ;
         $scope.delete_dev = function(gateway_devs, idnex, dev) {
-            $scope.confirmInvoke({ 
+            $scope.confirmInvoke({
                 title:"删除设备网络配置:" + $scope.deviceKV[dev.id] ,
-                note: " 确认要删除该设备的网络配置吗?" 
+                note: " 确认要删除该设备的网络配置吗?"
             }, function(next) {
                 gateway_devs.splice(idnex, 1);
                 delete $scope.devRef[dev.id];
@@ -438,7 +439,7 @@ angular.module('app.system.prop', [])
                         //@if  append
 
                         console.log("filte dev");
-                        //@endif 
+                        //@endif
                         var arr = S.sysmodel.devices.filter(function(v, i, t) {
                             return !$scope.devRef[v.id];
                         })
@@ -518,7 +519,7 @@ angular.module('app.system.prop', [])
                         if( !$scope.isAdd ){
                             delete $scope.gateway[op.T][t];
                         }
-                        
+
                         ($scope.gateway[op.T] || ($scope.gateway[op.T] = {}))[op.t] = $scope.op.way;
 
                         toUpdate('gateway');
@@ -533,7 +534,7 @@ angular.module('app.system.prop', [])
         // 托管 -- gateway 类型;
         // 删除  gateway类型 中的 数据;
         $scope.del_way = function(T, t, way) {
-            $scope.confirmInvoke({ 
+            $scope.confirmInvoke({
                 title: " 删除网关: " + t ,
                 note:"确认要删除该网关吗?"
             }, function(next) {
@@ -558,7 +559,7 @@ angular.module('app.system.prop', [])
         //                 profile , ($scope.op.profile )
         // 字段;
         $scope.updateSystem = function(field  , scope) {
-            
+
 
             var d = {
                 uuid: $scope.station.uuid
@@ -580,66 +581,66 @@ angular.module('app.system.prop', [])
             }
 
             if (field == 'daserver') {
-                // 此处 validForm 不好使;  故增加了个 scope 参数; 
+                // 此处 validForm 不好使;  故增加了个 scope 参数;
                  $scope.validForm("form_daserver" , scope );
-                
 
-                // 未激活的话 提示激活;  
-                if (  $scope.station.state  == 0  ) { 
+
+                // 未激活的话 提示激活;
+                if (  $scope.station.state  == 0  ) {
                     $scope.confirmInvoke({
                         title: "激活系统",
                         note:"该系统处于未激活状态,确认要激活该系统吗?"
                     }, function(next) {
-                      // 激活系统; 
+                      // 激活系统;
                        $source.$system.active( { pk: $scope.station.uuid } ,
                             function( resp ){
-                                $scope.station.state = 1 ; 
+                                $scope.station.state = 1 ;
                                 next();
                                 //assgin  系统;
                                 assignSystem().then( function(){
-                                    // 保存网络参数; 
+                                    // 保存网络参数;
                                     saveDaServer().then(next);
                                 })
                             },
                             next
-                        )  
+                        )
 
                     })
-                } else if( $scope.station.state == 1  &&  ( !$scope.cmway_port )   ) { 
-                    // 激活的话 , 但是没有指定 daserver( 没assign过的) ;   
+                } else if( $scope.station.state == 1  &&  ( !$scope.cmway_port )   ) {
+                    // 激活的话 , 但是没有指定 daserver( 没assign过的) ;
                     assignSystem().then( function(){
-                        // 保存网络参数; 
+                        // 保存网络参数;
                         saveDaServer();
-                    }) 
+                    })
                 } else{
                     // 激活 的 , 并且指定了 daserver ; (assign过的)
                     saveDaServer();
                 }
 
 
-                // 激活 , 指定 dtu system 的daserver ; 
+                // 激活 , 指定 dtu system 的daserver ;
                 function assignSystem() {
                     var d = {
                         pk: $scope.station.uuid,
                         driver_id: $scope.daserver.params.driverid
-                    }; 
+                    };
                     var b = $source.$system.assign(d).$promise;
                     b.then(function(resp) {
-                        $scope.cmway_port = resp.ret; // 数据中心 , 端口数据 ;  
+                        $scope.cmway_port = resp.ret; // 数据中心 , 端口数据 ;
                     })
                     return b;
                 }
 
-                // 为激活的system , 保存 systen 的 network 参数;  
-                function saveDaServer() { // resp  
+                // 为激活的system , 保存 systen 的 network 参数;
+                function saveDaServer() { // resp
                     d.network = angular.toJson({
                         daserver: $scope.daserver
                     });
-                    return update(d).then(function(resp) { 
+                    return update(d).then(function(resp) {
                         toSave("daserver");
                         $scope.station.network = d.network;
-                    }) 
-                } 
+                    })
+                }
             }
 
             if (field == 'gateway') {
@@ -657,7 +658,7 @@ angular.module('app.system.prop', [])
                     toSave("profile");
                     $scope.station.profile = d.profile;
                 }).then(function() {
-                    //  重新 获取下  sys_data ; 
+                    //  重新 获取下  sys_data ;
                     $scope.loadSystemData();
                 })
             }
@@ -672,41 +673,41 @@ angular.module('app.system.prop', [])
         $scope.d_stop = function() {
             $source.$system.stop({
                 pk: $scope.station.uuid
-            }, function(resp) { 
-                angular.alert(angular.toJson(resp)); 
+            }, function(resp) {
+                angular.alert(angular.toJson(resp));
             });
         }
 
 
     }
 )
- 
 
-.controller('das_tag',   function($scope, $source, $state , $q) { 
+
+.controller('das_tag',   function($scope, $source, $state , $q) {
 
     var station = $scope.station;
 
     $scope.$popNav($scope.station.name + "(变量)", $state);
 
- 
- 
+
+
     $scope.getDevName = function( tag , scope ){
-        var d_id =  tag.connect.replace(/(\d+).(\d+)/,"$1"); 
+        var d_id =  tag.connect.replace(/(\d+).(\d+)/,"$1");
         scope.dev_name =  $scope.deviceKV[ d_id]
         tag.type =  scope.dev_name?tag.type: null;
     }
 
-    if (station.profile) { 
- 
+    if (station.profile) {
+
         var loadProfileTagPromise = $source.$sysLogTag.get({
             profile: station.profile
-        } ).$promise; 
+        } ).$promise;
 
 
         $q.all([ loadProfileTagPromise ,$scope.l_m_P]).then(  function(resp){
 
             $scope.systags = resp[0].ret ;
-         
+
         } )
 
 
@@ -722,7 +723,7 @@ angular.module('app.system.prop', [])
 })
 
 
-.controller('das_trigger',   function($scope, $source, $state , $sys , $utils ) { 
+.controller('das_trigger',   function($scope, $source, $state , $sys , $utils ) {
 
     var station = $scope.station;
     $scope.$popNav($scope.station.name + "(触发器)", $state);
@@ -736,24 +737,24 @@ angular.module('app.system.prop', [])
         $source.$sysProfTrigger.get( d , function(resp) {
             //$scope.triggers = resp.ret;
             $scope.page.currentTarget = pageNo ;
-            $scope.page.data = resp.data ; 
-            $scope.page.total = resp.total ; 
+            $scope.page.data = resp.data ;
+            $scope.page.total = resp.total ;
         })
     }
 
-    // 显示 触发器的 condition ; 
-    $scope.conditions = $utils.triggerConditions ; 
-    
-    $scope.loadPageData( 1 ); 
+    // 显示 触发器的 condition ;
+    $scope.conditions = $utils.triggerConditions ;
 
-}) 
+    $scope.loadPageData( 1 );
+
+})
 
 .controller('das_message', function($scope, $source, $state) {
 
     var station = $scope.station;
     $scope.$popNav($scope.station.name + "(通知)", $state);
 
-   
+
     station.profile && $source.$message.get({
         profile_id: station.profile
     }, function(resp) {
@@ -799,7 +800,7 @@ angular.module('app.system.prop', [])
     }
 
 
-    // 获取 短信验证码; 
+    // 获取 短信验证码;
     $scope.sendVer = function() {
         $source.$note.get({
             op: "connect",
@@ -813,7 +814,7 @@ angular.module('app.system.prop', [])
     }
 
 
-    //验证 短信吗;   ui-validate 当前版本不支持 异步验证; 
+    //验证 短信吗;   ui-validate 当前版本不支持 异步验证;
     $scope.validVer = function(code) {
         return true;
         $timeout.cancel(timeout);
@@ -852,14 +853,14 @@ angular.module('app.system.prop', [])
             ($scope.isAdd ? createContact : updateContact)();
         }
 
-        // 更新联系人; 
+        // 更新联系人;
         function updateContact() {
- 
+
             $source.$contact.put({  pk: $scope.station.uuid  }, $scope.C, function(resp) {
-                angular.alert("修改成功!"); 
+                angular.alert("修改成功!");
             })
         }
-        // 创建联系人; 
+        // 创建联系人;
         function createContact() {
             $scope.C.system_id = $scope.station.uuid;
             $source.$contact.save({
@@ -867,8 +868,8 @@ angular.module('app.system.prop', [])
             }, $scope.C, function(resp) {
 
                 $scope.C.contact_id = resp.ret || $scope.C.contact_id;
-                $scope.isAdd = false; 
-                angular.alert('添加成功!'); 
+                $scope.isAdd = false;
+                angular.alert('添加成功!');
 
             })
         }
@@ -884,7 +885,7 @@ angular.module('app.system.prop', [])
         //@if  append
 
         console.log($state, $stateParams, $localStorage.active_das, $document, $window);
-        //@endif 
+        //@endif
 
         $scope.$popNav($scope.station.name + "(地图)", $state);
 
@@ -933,7 +934,7 @@ angular.module('app.system.prop', [])
             //@if  append
 
             console.log(this, arguments);
-            //@endif 
+            //@endif
 
             var d = {
                 uuid: $scope.station.uuid,
@@ -997,7 +998,7 @@ angular.module('app.system.prop', [])
 
         // 按钮定位;
         $scope.locatedStation = function() {
- 
+
             var d = {
                 uuid: $scope.station.uuid,
                 longitude: $scope.station.longitude,
@@ -1005,7 +1006,7 @@ angular.module('app.system.prop', [])
             }
             if( ! (d.longitude && d.latitude) ){
                 angular.alert("请正确输入坐标数据");
-                return ; 
+                return ;
             }
 
 
@@ -1017,7 +1018,7 @@ angular.module('app.system.prop', [])
                 addMoveMenu.apply(marker);
                 addMarkMouseUpHandler.apply(marker);
                 map.addOverlay(marker);
-                
+
                 map.centerAndZoom(marker.point);
 
 
@@ -1025,7 +1026,7 @@ angular.module('app.system.prop', [])
             });
         };
 
-        // 删除位置; 
+        // 删除位置;
         $scope.removePostion = function(){
             var d = {
                 uuid: $scope.station.uuid ,
@@ -1039,8 +1040,8 @@ angular.module('app.system.prop', [])
 
             })
 
-        } 
-    
+        }
+
 
 
         // 右键 定位 移动的 station  ;
@@ -1048,7 +1049,7 @@ angular.module('app.system.prop', [])
             //@if  append
 
             console.log(this, arguments); // this = marker ;
-            //@endif 
+            //@endif
             var that = this;
             var d = {
                 uuid: $scope.station.uuid,
@@ -1098,7 +1099,7 @@ angular.module('app.system.prop', [])
             console.log(map, e);
             console.log(e.point.lng, e.point.lat);
 
-            //@endif 
+            //@endif
             if ($scope.lock) return;
             map.clearOverlays();
             var x, y;

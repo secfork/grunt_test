@@ -28,22 +28,24 @@ module.exports = function(grunt) {
     var appConfig = {
         app: require('./bower.json').appPath || 'app',
         dist: 'dist',
-        thing: "thing/", // app.js , app.css 目录; 
+        thing: "thing/", // app.js , app.css 目录;
     };
 
 
     // Define the configuration for all the tasks
-    
-    var  replace_js_test_nginx_console  = [
-        { match:"oss", replacement: "http://thinglinx-test.oss-cn-beijing.aliyuncs.com/"}
 
+    var  replace_js_test_nginx_console  = [
+       // 用于显示鱼片;
+        { match:"oss", replacement: "http://thinglinx-test.oss-cn-beijing.aliyuncs.com/"},
+         
     ];
 
     var  replace_js_build = [
+        // 用于显示图片;
         { match:"oss" , replacement: "http://thinglinx-net.oss-cn-beijing.aliyuncs.com/"}
 
     ];
-    
+
     grunt.initConfig({
 
         // Project settings
@@ -55,10 +57,10 @@ module.exports = function(grunt) {
 
           js_build: {
                 options: {
-                  patterns: replace_js_build  
+                  patterns: replace_js_build
                 },
                 files: [
-                    {expand: true, flatten: true, 
+                    {expand: true, flatten: true,
                     src: ['.tmp/concat/thing/app.js'], dest: '.tmp/concat/thing/'}
                 ]
           } ,
@@ -68,7 +70,7 @@ module.exports = function(grunt) {
                     patterns: replace_js_test_nginx_console
                 },
                 files: [
-                    {expand: true, flatten: true, 
+                    {expand: true, flatten: true,
                     src: ['.tmp/concat/thing/app.js'], dest: '.tmp/concat/thing/'}
                 ]
           }
@@ -81,11 +83,11 @@ module.exports = function(grunt) {
             options: {
                 context: {
                     append: false, // 是否build  debug信息;
-                    region_online: false, // 是否build  region 是否在线信息; 
+                    region_online: false, // 是否build  region 是否在线信息;
                     debug: false ,
-                    testbuild: false  , // 是否为 test_nging_console 服务器 构建项目; 
+                    testbuild: false  , // 是否为 test_nging_console 服务器 构建项目;
 
-                    
+
 
                 }
             },
@@ -119,13 +121,13 @@ module.exports = function(grunt) {
                 // ]
 
             },
- 
+
 
             js: {
                 src: '.tmp/concat/<%= yeoman.thing %>app.js',
                 dest: '.tmp/concat/<%= yeoman.thing %>app.js'
             } ,
-          
+
         },
 
         uncss: {
@@ -328,7 +330,7 @@ module.exports = function(grunt) {
             server: '.tmp'
         },
 
-     
+
         // Renames files for browser caching purposes
         filerev: {
             dist: {
@@ -377,9 +379,9 @@ module.exports = function(grunt) {
                     ]
                 }
             }
-        }, 
- 
-   
+        },
+
+
 
         htmlmin: {
             dist: {
@@ -420,23 +422,23 @@ module.exports = function(grunt) {
 
                 cwd: ".tmp/html",
                 src: "{**/,}*.html",
-                // src: [ 
+                // src: [
                 //     "athena/*.html",
                 //    'athena/_device/{**/,}*.html',
                 //    'athena/_dtu/{**/,}*.html',
                 //     'athena/_point/{**/,}*.html',
                 //     'athena/account/{**/,}*.html',
                 //     'athena/dastation/{**/,}*.html',
-                //     'athena/debris/{**/,}*.html', 
-                //     'athena/region/{**/,}*.html', 
-                //     'athena/show/{**/,}*.html', 
-                //     'athena/support/{**/,}*.html', 
+                //     'athena/debris/{**/,}*.html',
+                //     'athena/region/{**/,}*.html',
+                //     'athena/show/{**/,}*.html',
+                //     'athena/support/{**/,}*.html',
 
-                //     'athena/sysmodel/{**/,*}.html', 
+                //     'athena/sysmodel/{**/,*}.html',
 
 
-                //     'athena/template/{**/,}*.html', 
-                //     'athena/user/{**/,}*.html', 
+                //     'athena/template/{**/,}*.html',
+                //     'athena/user/{**/,}*.html',
                 //     ],
 
 
@@ -459,7 +461,7 @@ module.exports = function(grunt) {
             }
         },
 
-   
+
 
         // Copies remaining files to places other tasks can use
         copy: {
@@ -584,25 +586,25 @@ module.exports = function(grunt) {
 
         var  tasks = [ 'clean:dist',
              'useminPrepare',
-             'concurrent:dist', 
-             "preprocess:html" ,  
+             'concurrent:dist',
+             "preprocess:html" ,
             'ngtemplates',
 
             'copy:dist', // 拷贝  thinglinx_boot.js 到 .tmp/boot 目录 ;
 
-            'concat', 
+            'concat',
             'ngAnnotate',
             "preprocess:js"
 
             ];
-  
+
         if( arg == "test"){
              tasks.push("replace:js_for_test_nginx_console");
         }else{
             tasks.push("replace:js_build");
         }
-        
-        tasks = tasks.concat([ 
+
+        tasks = tasks.concat([
                 'cssmin',
                 'uglify',
 
@@ -615,7 +617,7 @@ module.exports = function(grunt) {
         console.log( tasks );
        grunt.task.run( tasks );
 
-       
+
 
     });
 

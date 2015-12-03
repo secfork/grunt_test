@@ -5,14 +5,14 @@ angular.module('app.basecontroller', ['ng'])
 
 .controller('AppCtrl', function(
     $scope, $translate, $localStorage, $window, $modal, $state,
-    $timeout, $sessionStorage, $source, $q, $source , $animate , 
+    $timeout, $sessionStorage, $source, $q, $source , $animate ,
     $location , $rootScope) {
 
     var S = $scope;
     //@if  append
 
     console.log("app ctrl", $scope);
-    //@endif 
+    //@endif
     //"f7846f55cf23e14eebeab5b4e1550cad5b509e3348fbc4efa3a1413d393cb650";
 
     // add 'ie' classes to html
@@ -74,7 +74,7 @@ angular.module('app.basecontroller', ['ng'])
     //=========form 验证=====  默认 验证 form[ name = "form"] ;
     $scope.validForm = function(formName , scope ) {
         formName = formName || "form";
-        var  that =  scope || this ; 
+        var  that =  scope || this ;
         var valids = that[formName] || // 递归去找 ? 不了;
             that.$$childTail[formName] ||
             that.$$childTail.$$childTail[formName];
@@ -86,7 +86,7 @@ angular.module('app.basecontroller', ['ng'])
                 //@if  append
 
                 console.log(e);
-                //@endif 
+                //@endif
                 angular.forEach(e, function(modelCtrl, k1) {
 
                     modelCtrl.$setViewValue(modelCtrl.$viewValue);
@@ -129,7 +129,7 @@ angular.module('app.basecontroller', ['ng'])
                         //@if  append
 
                         console.log("修改成功!");
-                        //@endif 
+                        //@endif
                         $scope.cancel();
                     })
                 }
@@ -185,7 +185,7 @@ angular.module('app.basecontroller', ['ng'])
     //@if  append
 
     console.log($scope.navs);
-    //@endif 
+    //@endif
 
     function transState($title, $state, tab) {
         //var msg = $translate.instant("valid." + type);
@@ -281,7 +281,7 @@ angular.module('app.basecontroller', ['ng'])
                 console.log(ret);
 
                 console.log("注销!!");
-                //@endif 
+                //@endif
 
                 $scope.user = null;
 
@@ -310,7 +310,7 @@ angular.module('app.basecontroller', ['ng'])
 
                 console.log("changeDastation");
                 console.log($scope);
-                //@endif 
+                //@endif
 
                 $scope.station = station;
                 $scope.cancel = function() {
@@ -321,7 +321,7 @@ angular.module('app.basecontroller', ['ng'])
                     //@if  append
 
                     console.log(111);
-                    //@endif 
+                    //@endif
                     //$scope.checkModalForm(btn, $scope);
                     // if (!$scope.$$childTail.form.$valid) return;
                     $scope.validForm();
@@ -380,7 +380,7 @@ angular.module('app.basecontroller', ['ng'])
     };
 
     //激活采集站;
-    //  jump 是否 跳转; 
+    //  jump 是否 跳转;
     $scope.activateStation = function(scope, dastations, station, index, jump) {
 
 
@@ -389,7 +389,7 @@ angular.module('app.basecontroller', ['ng'])
             title: "激活系统 " + station.name ,
             note:"确认要激活该系统吗?"
         }, function(next) {
-            // 激活采集站; 
+            // 激活采集站;
             $source.$system.active({
                 pk: station.uuid
             }, function(resp) {
@@ -411,7 +411,7 @@ angular.module('app.basecontroller', ['ng'])
         //@if  append
 
         console.log("editStation");
-        //@endif 
+        //@endif
         $modal.open({
             templateUrl: "athena/dastation/station_edit.html",
             controller: function($scope, $source, $modalInstance) {
@@ -419,7 +419,7 @@ angular.module('app.basecontroller', ['ng'])
                 //@if  append
 
                 console.log(s, $scope);
-                //@endif 
+                //@endif
                 $scope.das = {
                     uuid: s.uuid,
                     name: s.name,
@@ -457,7 +457,7 @@ angular.module('app.basecontroller', ['ng'])
                             //@if  append
 
                             console.log(resp);
-                            //@endif 
+                            //@endif
                             $scope.das.region_name = region.name;
                             angular.extend(s, $scope.das);
                             $scope.cancel();
@@ -476,7 +476,7 @@ angular.module('app.basecontroller', ['ng'])
         //@if  append
 
         console.log(das, this);
-        //@endif 
+        //@endif
 
         this.sync_start = true;
         var that = this;
@@ -490,8 +490,8 @@ angular.module('app.basecontroller', ['ng'])
                 that.sync_ret_msg = "同步完成";
             },
             function(resp) {
-                // that.sync_err_msg = resp.err; 
-                that.sync_ret_msg = "同步失败"; 
+                // that.sync_err_msg = resp.err;
+                that.sync_ret_msg = "同步失败";
                 das.needsync =  true ;
                 that.sync_start = false;
 
@@ -530,23 +530,23 @@ angular.module('app.basecontroller', ['ng'])
         }
     }
 
-    // type => 召唤实时 : undefined ,  超换参数: 1  召唤 所有: 3   , 
+    // type => 召唤实时 : undefined ,  超换参数: 1  召唤 所有: 3   ,
     $scope.d_call = function(system, type, e) {
-        //@if append 
+        //@if append
         console.log("召唤实时 : undefined ,  超换参数: 1  召唤 所有: 3  ");
         //@endif
         var $button = $(e.currentTarget) ;
- 
+
         $button.css({opacity:1});
        // var s = $animate.removeClass( button.children[1] ,"hide");
        $button.text( "召唤中...").attr("disabled" , true );
- 
+
         $source.$system.call({
             pk: system.uuid,
             type: type
-        }, function(resp) { 
+        }, function(resp) {
             //                jjw 召唤成功不显示
-            //                angular.alert("召唤成功"); 
+            //                angular.alert("召唤成功");
             $button.text("召唤成功");
             $timeout( function(){
                 $button.text("召唤").attr("disabled", false);
@@ -561,7 +561,7 @@ angular.module('app.basecontroller', ['ng'])
     };
 
 
-    // resp_err , info , warn ; 
+    // resp_err , info , warn ;
     angular.alert = $scope.alert = function(msg, fun , func) {
         $modal.open({
             templateUrl: "athena/debris/_alert.html",
@@ -589,7 +589,7 @@ angular.module('app.basecontroller', ['ng'])
                 $scope.cancel = function() {
                      //@if  append
                         console.log(" modal closed !");
-                     //@endif 
+                     //@endif
 
                     $modalInstance.dismiss('cancel');
                     func && func();
@@ -625,7 +625,7 @@ angular.module('app.basecontroller', ['ng'])
 
 
                 $scope.done = function() {
-                    // handler ? handler($scope.cancel) : $scope.cancel(); 
+                    // handler ? handler($scope.cancel) : $scope.cancel();
                     handler ? handler($scope.cancel) : $scope.cancel();
                 };
                 $scope.msg = msg;
@@ -643,14 +643,14 @@ angular.module('app.basecontroller', ['ng'])
             templateUrl: "athena/show/alarm_msg.html",
             resolve: {
                 // triger: function(){
-                //    return  $source.$sysProfTrigger.get({pk:1}).$promise 
-                // } 
+                //    return  $source.$sysProfTrigger.get({pk:1}).$promise
+                // }
                 conformMsg: function($show) {
                     return $show.alarm.getConformMsg({
                         ack_id: alarm.ack_id,
                         system_id: alarm.system_id
                     }).$promise;
-                } 
+                }
             },
             controller: function($scope, $modalInstance, conformMsg) {
                 $scope.__proto__ = S;
@@ -688,12 +688,12 @@ angular.module('app.basecontroller', ['ng'])
                             alarm_id: alarm.id,
                             system_id: alarm.system_id
                         }, $scope.od),
-                        null, 
+                        null,
                         function(resp) {
                             $scope.cancel();
 
                             alarm.active = -1;
-                            alarm.ack_id = resp.ret ; 
+                            alarm.ack_id = resp.ret ;
                             alarm.close_time = new Date();
 
                             angular.alert("确认报警成功");
@@ -703,7 +703,7 @@ angular.module('app.basecontroller', ['ng'])
                                 page.data.splice(index, 1);
                             }
 
-                           
+
                         },
                         function() {
                             $scope.cancel();
@@ -716,16 +716,16 @@ angular.module('app.basecontroller', ['ng'])
 
     }
 
-    // 接收邮件通知 ; 
+    // 接收邮件通知 ;
     $scope.acceptSMS = function(user) {
-        //"mail_notice":0,"sms_notice":0  
+        //"mail_notice":0,"sms_notice":0
 
         // if( !user.mobile_phone_verified ){
         //     angular.alert("您的手机未通过验证,不可接收短信通知!");
         //     return ;
         // }
 
-        $source.$user.save(  
+        $source.$user.save(
             {  op:"notice"  },
             {   sms_notice: user.sms_notice ? 0 : 1  },
             function() {
@@ -736,7 +736,7 @@ angular.module('app.basecontroller', ['ng'])
     }
 
 
-    // 接收短信通知;  
+    // 接收短信通知;
     $scope.acceptEmail = function(user) {
 
         // if( !user.email_verified ){
@@ -748,64 +748,62 @@ angular.module('app.basecontroller', ['ng'])
         {
             op:"notice"
         },
-        { 
+        {
             mail_notice: user.mail_notice ? 0 : 1
         }, function() {
             user.mail_notice = !user.mail_notice;
         })
     }
-   
+
 
 })
 .controller("access_signin", function($scope, $state, $timeout, $localStorage, $sys,
     $compile, $source  , $modalStack , $rootScope , $modalStack ) {
- 
+
     $modalStack.dismissAll();
- 
+
 
     $source.$common.get({op:"islogined"} , function(resp){
 
         if( resp.ret){
-            
+
             // resp.ret.sms_notice = !!resp.ret.sms_notice;
-            // resp.ret.mail_notice = !!resp.ret.mail_notice; 
+            // resp.ret.mail_notice = !!resp.ret.mail_notice;
             // $("body").scope().user = resp.ret ; 
-
-
            $state.go("app");
         }else{
-                // 获取登录次数; 
+                // 获取登录次数;
             $source.$common.get({
                 op: 'logintimes'
             }, function(resp) {
-                $scope.logintimes = resp.ret || 0;
-            }); 
+                $scope.od.need_idenfity = !!resp.ret ;
+            });
         }
 
     });
 
- 
 
-    //@if  append 
+
+    //@if  append
     console.log("sign controller");
     console.log($scope);
-    //@endif 
+    //@endif
 
     $scope.user = {};
 
-    //@if  append 
+    //@if  append
     $scope.user = {
-        username: "111111",
-        password: "111111"
+        username: "123123",
+        password: "123123"
     };
-    //@endif 
+    //@endif
 
 
     $scope.user.account = $localStorage.account;
 
     $scope.op = {
-        t: 1,
-        b: false, 
+        t: 1,   // 图片验证码;
+        b: false, // 登录按钮是否可用; 
     };
 
 
@@ -813,9 +811,9 @@ angular.module('app.basecontroller', ['ng'])
 
     $scope.login = function() {
 
-        //@if  append 
+        //@if  append
         console.log($scope.user);
-        //@endif 
+        //@endif
 
         var u = $scope.user;
         if (!u.account) {
@@ -840,20 +838,20 @@ angular.module('app.basecontroller', ['ng'])
 
         $source.$user.login($scope.user,
             function(resp) {
-                //@if  append 
+                //@if  append
                 console.log(resp.ret);
-                //@endif 
- 
+                //@endif
+
                 // resp.ret.sms_notice = !!resp.ret.sms_notice;
-                // resp.ret.mail_notice = !!resp.ret.mail_notice; 
-               // $("body").scope().user  = resp.ret ; 
+                // resp.ret.mail_notice = !!resp.ret.mail_notice;
+               // $("body").scope().user  = resp.ret ;
 
                 if (resp.ret) {
-                 
+
                      //@if  append
                          console.log("log in ok ");
-                     
-                     //@endif  
+
+                     //@endif
                     //$state.go( $sys.rootState );
                      $state.go("app.proj.manage");
                     //$state.go("app.template");
@@ -870,14 +868,18 @@ angular.module('app.basecontroller', ['ng'])
                         $modalStack.dismissAll();
 
                     },2000)
-                    
+
                     return ;
                 }
+                if( resp.img ){
+                    $scope.op.need_idenfity = true ; 
+                    $("#login_identify").attr("src" , "data:image/jpg;base64,"+ resp.img)
+                }
 
-                $scope.op.t++;
-                $scope.op.b = false;
-                $scope.logintimes++;
+                $scope.op.t++;  
 
+                $scope.op.b = false;  
+                
 
 
             }
@@ -899,15 +901,15 @@ angular.module('app.basecontroller', ['ng'])
 
     //@if  append
     console.log($location.$$search.v)
-        //@endif 
+        //@endif
 
-    // 是否是 第三部; 
+    // 是否是 第三部;
     var uuid = $location.$$search.v;
     if (uuid) {
 
         $source.$common.verifyUuid( {uuid:uuid} , function( resp ){
 
-        // verify uuid ; 
+        // verify uuid ;
         // $source.$account.get({
         //     pk: "admin",
         //     uuid: uuid
@@ -917,14 +919,14 @@ angular.module('app.basecontroller', ['ng'])
                 $scope.op.step = "step3"
             }else{
                 $state.go("access.signin");
-            } 
+            }
         })
     } else {
-        $scope.op.step = "step1"; 
+        $scope.op.step = "step1";
     }
 
-    // 发送 account 验证码;  
-    //@if append 
+    // 发送 account 验证码;
+    //@if append
     $scope.sendNote = function() {
 
             var ph = $scope.comp.admin && $scope.comp.admin.mobile_phone;
@@ -957,7 +959,7 @@ angular.module('app.basecontroller', ['ng'])
                 }
             )
         }
-        //@endif 
+        //@endif
 
 
     // 去缓存account,到 website ;
@@ -965,11 +967,10 @@ angular.module('app.basecontroller', ['ng'])
     $scope.signup = function( $event ) {
 
 
-       
 
         $scope.validForm('form1');
 
-        $scope.showMask = true ; 
+        $scope.showMask = true ;
 
         var dom = $event.currentTarget ;
         dom.disabled = true ;
@@ -979,7 +980,7 @@ angular.module('app.basecontroller', ['ng'])
 
 
             $scope.op.step = "step2";
-            $scope.showMask = false ; 
+            $scope.showMask = false ;
 
             // 注册成功;
             //$localStorage.comp_name = $scope.comp.name;
@@ -988,7 +989,7 @@ angular.module('app.basecontroller', ['ng'])
             // })
 
         } , function(){
-            $scope.showMask = false ; 
+            $scope.showMask = false ;
             dom.disabled = false ;
             $scope.op.t++;
         })
@@ -1007,7 +1008,7 @@ angular.module('app.basecontroller', ['ng'])
     }
 
 
-    // 创建 account ; step3 ; 
+    // 创建 account ; step3 ;
     $scope.create = function() {
 
         if( $scope.confirm_password != $scope.comp.admin.password ){
@@ -1020,13 +1021,13 @@ angular.module('app.basecontroller', ['ng'])
 
 
 
-        $scope.showMask = true ; 
+        $scope.showMask = true ;
 
         $source.$account.save({
             pk: 'admin',
             uuid: uuid
         }, $scope.comp.admin, function(resp) {
-            
+
             $scope.showMask = false ;
             // 注册成功;
             $localStorage.comp_name = $scope.comp.name;
@@ -1042,18 +1043,18 @@ angular.module('app.basecontroller', ['ng'])
         })
     }
 
-    
+
 })
 
 
-// 更改管理员密码; 
+// 更改管理员密码;
 .controller("access_fogpas", function($scope, $state, $sessionStorage, $source, $interval, $location) {
 
     $scope.od = {};
     $scope.account = {
         op: "admin",
-        account: null, // account  name ; 
-        identify: null, // 图片验证码; 
+        account: null, // account  name ;
+        identify: null, // 图片验证码;
     }
     $scope.admin = {};
 
@@ -1074,59 +1075,59 @@ angular.module('app.basecontroller', ['ng'])
                 $scope.od.step = 3 ;
             }else{
                 $state.go("access.signin");
-            } 
+            }
 
         })
     } else {
         $scope.od.step = 1;
     }
 
- 
-    
+
+
     $scope.setp1 = function( $event ) {
 
         $scope.validForm("step1");
 
 
-        $scope.showMask = true ; 
+        $scope.showMask = true ;
 
         $event.currentTarget.disabled = true ;
 
-        //$scope.od.identi.length <4  return ; 
+        //$scope.od.identi.length <4  return ;
         $source.$common.get(
             $scope.account,
             function(resp) {
                 // $scope.od.phone = resp.ret;
-                
+
                 $scope.showMask = false ;
                 $scope.od.step = 2;
                 $event.currentTarget.disabled = false ;
             },
-            function(resp) { 
-                $scope.showMask = false ; 
+            function(resp) {
+                $scope.showMask = false ;
                 $scope.t++;
-                $event.currentTarget.disabled = false ; 
+                $event.currentTarget.disabled = false ;
             }
         )
     };
 
 
-    // 更改密码; 
+    // 更改密码;
     $scope.cc_done = function() {
 
         $scope.validForm("form2");
 
-        $scope.showMask = true ; 
+        $scope.showMask = true ;
         $source.$common.save({
             op: "admin",
             uuid: uuid
         }, $scope.admin, function(resp) {
-            $scope.showMask = false ; 
+            $scope.showMask = false ;
             $scope.alert({
                 title: "修改成功",
                 do: ""
             }, function() {
-                $scope.showMask = false ; 
+                $scope.showMask = false ;
                 $state.go('access.signin');
             })
 
@@ -1137,33 +1138,33 @@ angular.module('app.basecontroller', ['ng'])
 
 .controller("verifyemail" , function( $scope , $state , $source , $timeout , $location ){
 
-    $scope.op = {}; 
-    
+    $scope.op = {};
+
     var uuid = $location.$$search.v;
     if (uuid) {
         $source.$user.get( {pk:"verifyemail", uuid: uuid} , function( resp ){
             if( resp.ret){
-                $scope.op.verifyemail = 1 ; 
+                $scope.op.verifyemail = 1 ;
                 $timeout( function  (argument) {
                    // $state.go("access.signin");
-                },5000) 
+                },5000)
 
-            }else{ 
+            }else{
 
                 $scope.op.verifyemail = 2;
-                
+
                 $timeout(function() {
                 //    $state.go("access.signin");
-                    
+
                 }, 2000);
             }
 
 
         });
- 
+
 
     } else {
-        //$scope.op.verifyemail = false ; 
+        //$scope.op.verifyemail = false ;
        //$state.go("access.signin");
     }
 
