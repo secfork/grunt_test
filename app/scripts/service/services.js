@@ -31,9 +31,9 @@ angular.module('app.services', ["ngResource"], function() {
 .service('$source', ['$resource', function($resource) {
  
 
-     function $createSource ( url, config1 , config2){ 
+    function $createSource ( url, config1 , config2){ 
         return  $resource( angular.rootUrl + url , config1 ,config2 );
-     } 
+    } 
 
 
     this.$deviceModel = $createSource("devmodel/:pk");
@@ -129,8 +129,6 @@ angular.module('app.services', ["ngResource"], function() {
     this.$permission = $createSource( "permission/:source/:source_id/:group_id"  )
 
 }])
-
-
 
 .service('$show', ['$resource', function($resource) {
 

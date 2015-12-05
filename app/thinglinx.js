@@ -25,7 +25,8 @@ var app = angular.module('thinglinx', [
 ])
 
 .run(
-    function($rootScope, $state, $stateParams, $sys, $compile, $localStorage,
+    function($rootScope, $state, $stateParams, $sys, $compile,
+     $localStorage,
         $cacheFactory, $translate, $sce, $sessionStorage) {
 
         $rootScope.$state = $state;
