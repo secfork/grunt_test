@@ -1,9 +1,15 @@
   
+<div class="bg-light lter b-b wrapper-md ng-scope">
+  <h2 class="m-n font-thin h4">用户管理</h2>
+</div>
 
 
+<div class="wrapper-md">
 
+<div class="panel panel-default">
+     
     <div class="panel-heading   ">
-        <h5>用户管理</h5>
+        <h5>全部用户</h5>
     </div>
     <!--jjw no-border  table-responsive -->
     <div class="panel-body   no-padder  no-border b-t" load-mask  >
@@ -47,36 +53,10 @@
                 <tr ng-repeat=" u in page.data"  >
 
                     <td  class="dropdown"  style="text-align: left;padding-left: 30px">
-                       {{ u.username }}   
-                        <span class="dropdown">
-                            <i  class="dropdown-toggle glyphicon  glyphicon-edit text-info"   ></i>
-                            <div class="dropdown-menu w  row">
-
-                                    <form role="form" class="ng-pristine ng-valid">
-                                        <div class="form-group">
-                                          <label>Email address</label>
-                                          <input type="email" class="form-control" placeholder="Enter email">
-                                        </div>
-                                        <div class="form-group">
-                                          <label>Password</label>
-                                          <input type="password" class="form-control" placeholder="Password">
-                                        </div>
-                                        <div class="checkbox">
-                                          <label class="i-checks">
-                                            <input type="checkbox" checked="" disabled=""><i></i> Check me out
-                                          </label>
-                                        </div>
-                                        <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-                                    </form>
-
-
-                               
-                            </div>
-                        </span>
-
-
+                          <a  ui-sref = "app.account.userdetail({id: u.id })" class="text-info"> {{ u.username }} </a> 
+                   
                     </td>
- 
+
                     <td     >{{ u.username1 }}
 
                         <a  class="  glyphicon  glyphicon-edit text-info pos-rlt" 
@@ -107,10 +87,7 @@
                   <!--   <td> {{u.last_login_ip }}</td> -->
                     <td> {{u.last_login_time| date:'yyyy-MM-dd HH:mm:ss'}} </td>
                     <td>
-                        <!--jjw-->
-                      <!--<a href="" class="text-info" ng-click="verifyUser( u , $index)"  > 验证 </a>-->
-                      <a href="" class="text-info" ng-click="editUser( page.data, u , $index)" translate="edit"> 编辑</a>
-                      <a href="" class="text-info" ng-click="delUser( page.data, u , $index)" translate="del">  删除用户</a>
+                           <a href="" class="text-info" ng-click="delUser( page.data, u , $index)" translate="del">  删除用户</a>
                     </td>
                 </tr>
             </tbody>
@@ -126,7 +103,8 @@
 
     </div>
 
- 
+  </div>  
+</div>
  
  
 

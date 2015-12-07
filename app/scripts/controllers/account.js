@@ -87,6 +87,7 @@ angular.module('app.account', [])
                 $scope.__proto__ = S;
                 $scope.isEdit = true;
                 $scope.$modalInstance = $modalInstance;
+                
                 $scope.op = {
                     isEdit: true,
                     ccpass: false
@@ -215,20 +216,17 @@ angular.module('app.account', [])
             controller:function($scope , $modalInstance){
                 $scope.__proto__ = S ; 
                 $scope.$modalInstance = $modalInstance;
+                $scope.user = {} ; 
                 $scope.done = function(){
 
                     $scope.validForm();
-                    $source.$user.save({
-                            groupids: $scope.od.groups
-                        }, $scope.user,
-                        function(resp) {
-                            angular.alert("创建用户成功", function() {
-                                $scope.user = {
-                                    // mail_notice: 1,
-                                    // sms_notice: 1
-                                };
-                                $scope.op.confirm_password = undefined;
-                            });
+
+                    $source.$user.save( $scope.user,   function(resp) {
+ 
+                                $scope.user.id = resp.ret ; 
+                                $scope.page.data.unshift( $scope.user ) 
+                                $scope.cancel();
+                            
                         }
                     );
                 }
@@ -368,6 +366,287 @@ angular.module('app.account', [])
             }
         })
     }
+
+
+})
+
+.controller("account_userdetail" , function( $scope , $source , $stateParams, $modal){
+    var thatScope = $scope ; 
+    var user_id = $stateParams.id ; 
+    $scope.user = undefined; 
+
+    // 得 id 用户; 
+    $source.$user.get({  pk : user_id }, function(resp){
+        $scope.user = resp.ret ; 
+        $scope.user.sms_notice = !!$scope.user.sms_notice ;
+        $scope.user.mail_notice = !!$scope.user.mail_notice ;
+    })
+    
+    // 得到 所有权限; 
+    var  loadRolesPromise =  $source.$role.get(  function(resp) { 
+
+            $scope.roles = resp.ret || [] ;  
+
+    }).$promise ;
+
+ 
+ 
+    // 接收 报警;  // type = "sms_notice" || "mail_notice"
+    $scope.acceptAlarm = function acceptAlarm ( type ) {
+
+        var d = { };
+        d[ type ] = $scope.user[ type ]?1:0;
+
+
+        console.log( 1111111111, d )
+
+        $source.$user.save( {op:"notice"} , d ,
+            function() { 
+
+            },
+            function(){
+                $scope.user[ type ] = !$scope.user[ type ]
+            }
+        ) 
+    
+    }
+
+
+    // 得到用户的 账户权限; 
+    $source.$user.get({ pk:"getaccountrole" , op:user_id } , function( resp ){
+
+        //$scope.user.accountRoleId = req.ret.role_id ; 
+        var   id = resp.ret.role_id ; 
+
+        loadRolesPromise.then( function(){
+            id && $.each( $scope.roles , function( i , v ){
+                if( id == v.id ){
+                    $scope.user_accountRol = v ; 
+                    return false ; 
+                }
+                return true ; 
+            }) 
+        })
+
+    })
+    // 保存 account role 信息; 
+    $scope.addAccountRole = function(){
+        $source.$user.put({pk:"addrole", op: user_id  , isaccount:true} , { role_id: $scope.user_accountRol.id } , function(resp){
+
+        })
+
+    }
+
+
+
+
+    // 得到 所有 区域 权限;  ???
+    
+  
+
+    //addRegionAuthor()
+    $scope.regions = undefined ; 
+    $scope.addRegionAuthor = function(){
+        $modal.open({
+            templateUrl:"athena/account/author_region_add.html",
+            controller:function($scope , $modalInstance){
+                $scope.__proto__ =  thatScope;
+                $scope.$modalInstance = $modalInstance;
+
+                $scope.od = { region_id :undefined , role:undefined } ; 
+
+                if( !thatScope.regions ){
+                    $source.$region.query(  function( resp ){
+                        thatScope.regions  = resp.data ; 
+                    })
+                }
+
+
+                $scope.done = function(){
+
+                    $scope.validForm();
+
+                    // 添加  region role 信息; 
+                    $source.$user.put({pk:"addrole", op: user_id  , region_id: $scope.od.region_id } ,
+                                      { role_id: $scope.od.role.id } , function(resp){
+
+                    })  
+
+
+                    
+                }
+            }
+        })
+
+    }
+     
+
+
+    // editUser()
+    $scope.editUser = function(){
+        $modal.open({
+            templateUrl:"athena/account/users_edit.html",
+            controller:function($scope , $modalInstance){
+                $scope.__proto__ =  thatScope;
+                $scope.$modalInstance = $modalInstance;
+
+                $scope.done = function(){
+
+                }
+            }
+        })
+       
+    }
+     
+    
+    // resetPassword ()
+    $scope.reSetPW = function(){
+        $modal.open({
+            templateUrl: "athena/cc_password.html",
+            // size:"sm",
+            controller: function($scope, $modalInstance, $source) {
+                $scope.op = {},
+                    $scope.od = {},
+                    $scope.__proto__ = thatScope,
+                    $scope.$modalInstance = $modalInstance;
+ 
+                $scope.done = function() {
+                    $scope.validForm();
+
+                    $source.$user.save({ op:"pwdreset"} , $scope.op, function(resp) {
+                        if (resp.msg) {
+                            $scope.od.msg = resp.msg;
+                            return;
+                        }
+
+                        angular.alert("修改成功!");
+                        //@if  append
+
+                        console.log("修改成功!");
+                        //@endif
+                        $scope.cancel();
+                    })
+                }
+            }
+        })
+
+    }
+        
+
+    
+    // 验证联系方式;
+    //        jjw 添加参数temp，标记是phone还是email
+    $scope.verifyUser = function( temp) {
+        $modal.open({
+            templateUrl: temp == 'phone' ? "athena/account/users_verify_phone.html" : "athena/account/users_verify_email.html",
+            controller: function($scope, $modalInstance, $interval) {
+                $scope.$modalInstance = $modalInstance;
+
+                $scope.__proto__ = thatScope;
+
+                $scope.u = angular.copy( $scope.user );
+                $scope.ver = {};
+
+                var smsInterval, emailInterval;
+
+                var text = "重新发送(%)";
+
+
+                var  cofText = { "email":"发送验证邮件" , "phone":'发送验证码'};
+
+                function setInter(btnDom , type ) {
+                    btnDom.disabled = true;
+                    var times = 120;
+                    smsInterval = $interval(function() {
+                        $(btnDom).text(text.replace("%", times));
+                        times--;
+                        if (times < 0) {
+                            btnDom.disabled = false;
+                            
+                            $(btnDom).text(  cofText[ type || "phone" ] );
+
+                            $interval.cancel(smsInterval);
+                        }
+                    }, 1000)
+                }
+
+
+
+                $scope.sendEmail = function(e) {
+
+                    if (!$scope.u.email) {
+                        angular.alert("请输入邮箱!");
+                        return;
+                    }
+                    setInter(e.currentTarget , "email" );
+
+                    var d = {
+                        id: u.id,
+                        email: $scope.u.email
+                    };
+
+                    $source.$user.save({
+                        pk: "sendverifyemail"
+                    }, d);
+
+                }
+
+                $scope.sendNote = function(e) {
+                    if (!$scope.u.mobile_phone) {
+                        angular.alert("请输入手机号");
+                        return;
+                    }
+
+                    setInter(e.currentTarget , "phone");
+
+                    $source.$note.get({
+                            op: "user",
+                            mobile_phone: $scope.u.mobile_phone
+                        },
+                        function() {
+
+                        });
+
+                } 
+
+
+
+
+                $scope.verifyPhone = function() {
+                    if (!$scope.u.mobile_phone) {
+                        angular.alert("请输入手机号");
+                        return;
+                    }
+                    if (!$scope.ver.phone) {
+                        angular.alert("请输入验证码");
+                        return;
+                    }
+
+                    var d = {
+                        id: u.id,
+                        mobile_phone: $scope.u.mobile_phone,
+                        verifi: $scope.ver.phone
+                    };
+
+                    $source.$user.save({
+                        pk: "verifyphone"
+                    }, d , function(resp) {
+                        u.mobile_phone_verified = true;
+                        $scope.cancel();
+                        
+                        u.mobile_phone = $scope.u.mobile_phone ; 
+
+                        $scope.user.mobile_phone_verified = true ;
+                    });
+
+
+                }
+
+
+            }
+        })
+    }
+
 
 
 })

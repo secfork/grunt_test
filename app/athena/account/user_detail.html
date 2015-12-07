@@ -1,0 +1,140 @@
+<div class="bg-light lter b-b wrapper-md ng-scope">
+    <h2 class="m-n font-thin h4">username</h2>
+</div>
+<div class="wrapper-md  ">
+    <div class="row">
+        <div class="col-md-7 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <ul class="nav nav-pills pull-right">
+                        <li>
+                            <button class="btn btn-sm btn-default m-t-xs m-r-xs" ng-click="editUser()">修改用户</button>
+                        </li>
+                    </ul>
+                    用户信息
+                </div>
+                <div class="list-group no-radius alt">
+                    <span class="list-group-item">
+				                <span class="pull-right ">{{user.username}}</span> 用户名
+                    </span>
+                    <span class="list-group-item">
+				                <span class="pull-right ">41231231232</span> 昵称
+                    </span>
+                    <span class="list-group-item">
+				                <span class="pull-right ">
+                                      <button class="btn btn-xs btn-info" ng-click="verifyUser('phone')" >验证</button>
+                                {{user.mobile_phone}}
+                                </span> 电话
+                    </span>
+                    <span class="list-group-item">
+				                <span class="pull-right ">
+                                  <button class="btn btn-xs btn-info" ng-click="verifyUser('email')" >验证</button>
+                                {{user.email}}
+                                </span> 
+                                邮箱
+                    </span>
+                    <span class="list-group-item">
+				                <span class="pull-right ">{{user.address}}</span> 地址
+                    </span>
+                    <span class="list-group-item">
+				                	<label class="i-switch bg-info  pull-right " >
+		                              <input type="checkbox" ng-model="user.sms_notice"
+                                         ng-change = " acceptAlarm('sms_notice')" 
+		                              	class="ng-pristine ng-valid">
+		                              <i></i>
+		                            </label>
+
+				                接收短信报警
+				              </span>
+                    <span class="list-group-item">
+
+				              	<label class="i-switch bg-info  pull-right ">
+	                              <input type="checkbox" ng-model="user.mail_notice"
+                                   ng-change = " acceptAlarm('mail_notice')" 
+	                              	class="ng-pristine ng-valid">
+	                              <i></i>
+	                            </label>
+
+				                接收邮件报警
+				    </span>
+
+				    <span class="list-group-item">
+				         <button class="btn btn-info btn-sm" ng-click="reSetPW()">重设密码</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 col-xs-12">
+            <div class="panel panel-default    ">
+                <div class="panel-heading">
+                    账户权限
+                </div>
+                <div class="panel-body">
+
+                    <div class="form-group m-b ">
+                        <label class="col-sm-4 control-label m-t-xs">角色</label>
+
+                        <div class="col-sm-8"> 
+                            <select  class="form-control" ng-model ="user_accountRol"
+                             ng-options=" r as r.name for r  in roles |filter:{'role_category': 0 }  ">
+                             <option value="">--请选择账户角色--</option>
+                             </select>
+                        </div>
+                    </div>
+ 
+ 
+                    <div class="line line-lg b-b  " style="height:10px;"></div>
+                     <a  class="badge bg-info"  ng-repeat="p in  user_accountRol.privilege"  translate={{p}} >
+                        
+                    </a>
+
+                    <div class="line line-lg b-b  " style="height:10px;"></div>
+                    <button class="btn btn-info btn-sm" ng-click="addAccountRole()">保存</button>
+                        
+                </div>
+            </div>
+        </div>
+        <div class=" m-t col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    区域权限设置
+                </div>
+                <table class=" table  table-condensed j_table b-t-none ">
+                    <thead class="flip-content  ">
+                        <tr>
+                            <th>区域</th>
+                            <th>角色</th>
+                            <th> 权限</th>
+                            <th> 接收报警</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="  role in  roles">
+                            <td> {{role.name}}</td>
+                            <td class="text-left"> {{ toText (role.privilege) }} </td>
+                            <td> <a class="text-link" ng-click="addRole( role , $index)"> 修改</a></td>
+                            <td> <a class="text-link" ng-click="delRole( role, $index )"> 
+				                    删除</a></td>
+                        </tr>
+                        <tr>
+                            <td>111111</td>
+                            <td>111111</td>
+                            <td>111111</td>
+                            <td>
+                               <label class="checkbox i-checks m-t-none m-b-none" >
+                                    <input type="checkbox"   >
+                                    <i></i> 
+                                </label>
+
+                            </td> 
+                        </tr>
+                        
+                    </tbody>
+                </table>
+                <div class="panel-footer b-t-none">
+                    <button class="btn btn-info btn-sm"  ng-click="addRegionAuthor()">添加区域权限</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

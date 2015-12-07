@@ -53,6 +53,7 @@
  -->
         <!--@endif  -->
         <!-- 顶部  用户下拉 -->
+ 
         <li class="dropdown">
             <a href class="dropdown-toggle clear" data-toggle="dropdown">
                 <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
@@ -84,30 +85,12 @@
  
                     </p>
                 </li>
-                <li class="">
-                    <a ng-click="acceptEmail( user)" style="padding: 10px 15px">
-                        <label class="i-switch bg-info  pull-right  ">
-                          <input type="checkbox"   ng-model="user.mail_notice" >
-                          <i></i>
-                        </label>
-                        接收邮件通知
-                    </a> 
-                </li>
-                <li class="">
-                     <a ng-click="acceptSMS( user )" style="padding: 10px 15px">
-                            <label class="i-switch bg-info  pull-right ">
-                              <input type="checkbox"  ng-model="user.sms_notice" >
-                              <i></i>
-                            </label> 
-                            接收短信通知
-                    </a>   
-                          
-                        
-                </li> 
-
+             
 
                 <li class="  b-b " >
-                    <a ng-click="ccPassWord()" style="padding: 10px 15px">修改密码</a>
+             
+
+                    <a  ui-sref="app.account.userdetail({id: user.id})" style="padding: 10px 15px">用户设置</a>
                 </li>
                 <li class="text-center  ">
                     <a ng-click="logout()" style="padding: 10px 15px">注销</a>

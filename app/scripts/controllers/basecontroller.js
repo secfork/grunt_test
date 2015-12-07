@@ -733,6 +733,7 @@ angular.module('app.basecontroller', ['ng'])
 
             }
         )
+        
     }
 
 
@@ -793,8 +794,8 @@ angular.module('app.basecontroller', ['ng'])
 
     //@if  append
     $scope.user = {
-        username: "administrator",
-        password: "111111"
+        username: "123123",
+        password: "123123"
     };
     //@endif
 

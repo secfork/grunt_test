@@ -5,7 +5,7 @@
 
 
 <!-- 是否更改密码 -->
-<div class="form-group " ng-if="op.isEdit">
+<div class="form-group " >
     <label class="col-sm-3   control-label  ">
         <span>更改密码</span>
     </label>
@@ -58,24 +58,7 @@
 </div>
 
 
-<!--
-    <select  tl-wrap-l  label="组"  ng-model="user.group_id"
-        ng-options="g.id as g.name  for g in groups"
-        ></select>
- --> 
-<div class="form-group"  ng-if="!user.is_super_user " >
-    <label class="col-sm-3 control-label text-base">组  <mark/>
-    </label> 
-    <div class="col-sm-9"   ng-if="groups" >
-        <select ui-jq="chosen" multiple required   
-                ng-model="od.groups" class="w-md" >
-             <option ng-repeat=" g in  groups "   value={{g.id}} > {{g.name}} </option> 
-             
-        </select>
-    </div>
-</div> 
-
-  
+ 
 <!-- 
 <select   tl-wrap-l  label="接收邮件通知"  ng-model="user.mail_notice"
           ng-options =" o.v as o.k  for o in $sys.yesOrNo"   

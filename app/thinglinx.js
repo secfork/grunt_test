@@ -511,7 +511,7 @@ var app = angular.module('thinglinx', [
             .state('app.account', {
                 url: '/account',
                 //                    jjw no-border
-                template: '<div ui-view class=" panel panel-default  "></div>',
+                template: '<div ui-view ></div>',
                 controller: function($scope, $state) {
                     $scope.$rootNav("管理");
                 }
@@ -529,20 +529,14 @@ var app = angular.module('thinglinx', [
                 templateUrl: "athena/account/users.html",
                 controller: "account_users"
             })
+            .state("app.account.userdetail" , {
+                url:"/userdetail/:id",
+                templateUrl:"athena/account/user_detail.html",
+                controller:"account_userdetail"
+            })
 
 
-            .state("app.account.usergroup", {
-                    url: "/usergroup",
-                    // abstract:true,
-                    // templateUrl:"athena/views/debris/_tabs.html",
-                    templateUrl: "athena/account/usergroup.html",
-                    controller: "usergroup"
-                })
-                .state("app.account.usergroup_users", {
-                    url: "/group_users",
-                    templateUrl: "athena/account/usergroup_users.html",
-                    controller: "usergroup_users"
-                })
+     
 
             //app.account.author
             // 账户 -->编辑权限;

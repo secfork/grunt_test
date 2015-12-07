@@ -1,52 +1,54 @@
 <div class="modal-header ">
-    <h4>添加权限</h4>
+    <h4>添加区域权限</h4>
 </div>
 <div class="modal-body  ">
     <form name="form" class=" form-validation form-horizontal   ">
 
-        <select tl-wrap ng-model="au.group"
-        	label="组"
+        <select tl-wrap 
+            ng-model="od.region_id"
+        	label="区域"
         	required
-        	ng-options=" g as g.name for g in groups2add">
-            <option value="">-请选择组-</option>
+        	ng-options=" re.id as re.name for re in regions">
+            <option value="">-请选择区域-</option>
         </select>
 
-         <select tl-wrap ng-model="au.role"
-        	label="预定义的角色"
-        	ng-options = " r as r.name for r in  regionroles "
+         <select tl-wrap 
+            ng-model="od.role"
+        	label="角色"
+            required
+        	ng-options = " r as r.name for r in  roles| filter:{'role_category': 1 } "
         	>
             <option value="">-请选角色-</option>
         </select>
-
+ 
 
         <div class="form-group">
             <div class="col-sm-3 col-sm-offset-1">
-                权限 <mark/>
+                权限 
             </div>
-             <div class="col-sm-8">
-                <label class="checkbox i-checks inline w-sm m-l"
+             <div class="col-sm-8  ">
+
+                <a  class="badge bg-info"  ng-repeat="p in  od.role.privilege"  translate={{p}} >
+                            
+                </a> 
+
+
+               <!--  <label class="checkbox i-checks inline w-sm m-l"
                     ng-repeat =  " a in $sys.regionP  ">
                     <input type="checkbox"
                         name = {{a}}
+                        disabled=""  
                         ng-checked=" au.role.privilege.indexOf(a) + 1 "  >
                     <i></i>
                     <span  translate="{{a}}" ></span>
                 </label>
+ -->
+
+
             </div>
         </div>
 
-       <!--  <div class="row"    >
-            <div class="col-sm-8  col-sm-offset-4">
-                <label class="checkbox i-checks inline w-sm m-l"
-                    ng-repeat =  " a in $sys.regionP  ">
-                    <input type="checkbox"
-                        name = {{a}}
-                        ng-checked=" au.role.privilege.indexOf(a) + 1 "  >
-                    <i></i>
-                    <span  translate="{{a}}" ></span>
-                </label>
-            </div>
-        </div>   -->
+ 
 
 
     </form>
