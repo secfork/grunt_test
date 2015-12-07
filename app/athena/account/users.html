@@ -1,45 +1,135 @@
-<!--jjw bg-normal m-l m-r-->
-<tabset class="tab-container bg-normal m-l-none m-r-none">
-    <tab  select="tabToUsers()" >
-  		 <tab-heading >
-    			<i  class="icon icon-user " ></i>
-    		 	<span  translate= "所有用户"></span>
-  		 </tab-heading>
- 		   <ng-include src=" 'athena/account/users_all.html' "  ></ng-include>
-    </tab>
-
-
-    <tab>
-    	<tab-heading >
-			<i class=" icon icon-user-follow " ></i>
-		 	<span  translate= "添加用户"></span>
-		</tab-heading>
-
-     <!--jjw bg-white-->
-     <div class="panel-body table-responsive  bg-light bg-white  no-padder  no-border">
-            <!--jjw span-text-base-->
-          <form name="form" panelclass class="form-horizontal form-validation no-border span-text-base">
-
-            <ng-include src=" 'athena/account/_user_form.html' "></ng-include>
-
-          </form>
-          <div panelclass class="text-center m-t-sm padder">
-              <button type="submit" class="btn  btn-success  btn-block-middle w-60 m-b col-sm-9 col-sm-offset-3" ng-click=" createUser()" token> 保存 </button>
-          </div>
-      </div>
-
-
-    </tab>
-
-</tabset>
+  
 
 
 
+    <div class="panel-heading   ">
+        <h5>用户管理</h5>
+    </div>
+    <!--jjw no-border  table-responsive -->
+    <div class="panel-body   no-padder  no-border b-t" load-mask  >
+
+        <!--jjw m-t m-b m-l 去掉col-push-->
+        <div class="input-group-sm col-md-5 col-xs-12 m-t m-b m-l-xs">
+            <!--<label class="col-md-2 col-sm-12 float-left text-base">-->
+                <!--<span style="line-height: 30px"  ng-click=" loadPageData(1)">搜索</span>-->
+            <!--</label>-->
+            <div class="col-md-8 col-sm-12 col-xs-12">
+                <input style="border-radius: 2px" 
+                  class="form-control input-sm" type="text"
+                       ng-model="f_projname">
+            </div>
+            <!--<span class="input-group-btn">-->
+                <!--<span class="btn btn-default height-30 disabled"     translate="common.search"  ></span>-->
+            <!--</span>-->
+            <div class="col-md-4 col-sm-12 text-base">
+                <button class="btn btn-info btn-sm" 
+                ng-click=" loadPageData(1)">搜索</button>
+            </div>
+        </div>
+
+      
+
+        <!--jjw j_table b-t-none-->
+        <table class=" table  table-condensed j_table   ">
+            <thead class="flip-content  ">
+                <tr>
+                    <th style="text-align: left;padding-left: 30px" width="20%">名称</th>
+                    <th >昵称</th>
+                    <th> 手机有效 </th>
+                    <th> 电子邮件有效 </th>
+                 <!--    <th> 上次登录IP </th> -->
+                    <th> 上次登录时间 </th>
+                    <th> 操作 </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr ng-repeat=" u in page.data"  >
+
+                    <td  class="dropdown"  style="text-align: left;padding-left: 30px">
+                       {{ u.username }}   
+                        <span class="dropdown">
+                            <i  class="dropdown-toggle glyphicon  glyphicon-edit text-info"   ></i>
+                            <div class="dropdown-menu w  row">
+
+                                    <form role="form" class="ng-pristine ng-valid">
+                                        <div class="form-group">
+                                          <label>Email address</label>
+                                          <input type="email" class="form-control" placeholder="Enter email">
+                                        </div>
+                                        <div class="form-group">
+                                          <label>Password</label>
+                                          <input type="password" class="form-control" placeholder="Password">
+                                        </div>
+                                        <div class="checkbox">
+                                          <label class="i-checks">
+                                            <input type="checkbox" checked="" disabled=""><i></i> Check me out
+                                          </label>
+                                        </div>
+                                        <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                                    </form>
+
+
+                               
+                            </div>
+                        </span>
+
+
+                    </td>
+ 
+                    <td     >{{ u.username1 }}
+
+                        <a  class="  glyphicon  glyphicon-edit text-info pos-rlt" 
+                            popwin="editUserHtmlUrl"  popdone = ""  model="u.username" ></a>
+
+                   
+
+                    </td>
+                    <td>
+                       <!--  {{u.mobile_phone}} -->
+                        
+                        <i class="fa {{ u.mobile_phone_verified?'fa-check text-success':'fa-times  text-danger' }}"></i>
+                        <!--jjw a-->
+                        <a ng-show=" u.id == $$user.id && !u.mobile_phone_verified"  
+                        class="text-info" 
+                        ng-click="verifyUser( u , $index,'phone')"  > 
+                        验证 </a> 
+                    </td>
+                    <td>
+                        <!-- pull-right -->
+                       <!--  {{u.email}} -->
+                        
+                        <i class="  fa {{ u.email_verified?'fa-check text-success':'fa-times  text-danger' }}"></i>
+                        <!--jjw a-->
+                        <a ng-show=" u.id == $$user.id && !u.email_verified" href="" class="text-info" 
+                            ng-click="verifyUser( u , $index,'email')"  > 验证 </a>
+                    </td>
+                  <!--   <td> {{u.last_login_ip }}</td> -->
+                    <td> {{u.last_login_time| date:'yyyy-MM-dd HH:mm:ss'}} </td>
+                    <td>
+                        <!--jjw-->
+                      <!--<a href="" class="text-info" ng-click="verifyUser( u , $index)"  > 验证 </a>-->
+                      <a href="" class="text-info" ng-click="editUser( page.data, u , $index)" translate="edit"> 编辑</a>
+                      <a href="" class="text-info" ng-click="delUser( page.data, u , $index)" translate="del">  删除用户</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+          <!--jjw m-t m-b m-l-sm-->
+        <button class="btn btn-primary btn-sm w-70  pos-abt m-b m-t m-l-sm"
+              ng-click="  createUser() ">
+            添加用户
+        </button>
+        <!--jjw m-t m-b-->
+        <div class="text-center m-b m-t height-30" ng-include src=" 'athena/debris/_pager.html'  "></div>
+
+    </div>
+
+ 
+ 
+ 
 
 
 
-
-
-
-
-
+ 

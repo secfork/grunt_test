@@ -16,6 +16,29 @@ angular.module('app.directives', ['pascalprecht.translate'])
 // })
   
 
+// popwin = "templateUrl"
+.directive("popwin" , function($compile , $templateCache , $http){
+
+    return  {
+        restrict:"A", 
+        link: function($scope , $ele , $attrs  ){
+            $ele.click( function(){ 
+                $http.get("athena/account/edit_user_popwin.html").success( function(d){
+                      $ele.after(d);
+                });
+
+
+                //$ele.after( $templateCache.get( $scope[ $attrs.popwin ]) ) ; 
+
+            } )
+
+
+        }
+    }
+
+})
+
+
 .directive(
     'uiModule', ['MODULE_CONFIG', 'uiLoad', '$compile',
         function(MODULE_CONFIG, uiLoad, $compile) {

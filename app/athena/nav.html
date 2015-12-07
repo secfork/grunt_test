@@ -214,7 +214,7 @@
                 <i class="fa fa-fw fa-angle-down text-active"></i>
               </span>
         <i class=" icon icon-user text-info-dker"></i>
-        <span translate="nav.u">账户</span>
+        <span   >用户管理</span>
     </a>
 
     <ul class="nav nav-sub dk">
@@ -232,82 +232,41 @@
             </a>
         </li>
 
-        <li ui-sref-active="active">
+    <!--     <li ui-sref-active="active">
             <a ui-sref="app.account.usergroup">
                 <span >  用户组 </span>
             </a>
-        </li>
+        </li> -->
       
 
        <li ui-sref-active="active">
-            <a ui-sref="app.account.role">
+            <a ui-sref="app.account.role.region">
                 <span>角色</span>
             </a>
         </li>
  
 
-
+<!-- 
         <li ui-sref-active="active">
             <a ui-sref="app.account.author.region">
                 <span translate="nav.u4" >权限</span>
             </a>
-        </li>
+        </li> -->
  
  
     </ul>
 </li>
  
-
-<li ng-class="{active: $state.includes('app.model')} "  ng-if="false">
-
-    <a href class="auto">
-          <!--   fa  fa-question -->
-        <i class=" icon icon-question text-info-dker "></i>
-        <span  >支持</span>
-    </a>
-    <ul class="nav nav-sub dk">
-    
-    <li ui-sref-active="active">
-        <a  ui-sref=" "  > 
-            
-            <span    > 使用条款</span>
-        </a>
-    </li>
-    
-    <li ui-sref-active="active">
-        <a  ui-sref=" "> 
-            <span   > 技术支持</span>
-        </a>
-    </li>
-
-    <li ui-sref-active="active">
-        <a  ui-sref=" "  > 
-            
-            <span    > 联系我们</span>
-        </a>
-    </li>
+ <li ng-class="{active:$state.includes('app.proj') }">
 
 
-    <li ui-sref-active="active">
-        <a  ui-sref=" "  >   
-            
-            <span    > 问题反馈</span>
-        </a>
-    </li>
-    <li ui-sref-active="active">
-        <a  ui-sref=" "  >
-             
-            <span    > 帮助 </span>
-        </a>
-    </li>
+    <a  > 
+        <i class=" icon icon-grid  text-info-dk"></i>  
+        <span  >账户信息</span>
+    </a> 
+</li>
 
-
-    </ul>
-    
-</li>        
-
-
-    
+ 
 
 
 </ul>

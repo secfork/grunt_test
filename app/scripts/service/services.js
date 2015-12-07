@@ -84,7 +84,7 @@ angular.module('app.services', ["ngResource"], function() {
         }
     });
     
-/// {pk:"@pk", userid:"@userid"} ,
+    /// {pk:"@pk", userid:"@userid"} ,
     this.$userGroup = $createSource("usergroup/:pk/:userid" ,  {}, {
           queryUser :{ url: angular.rootUrl + "usergroup/:pk/users" },
 

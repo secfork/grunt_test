@@ -511,7 +511,7 @@ var app = angular.module('thinglinx', [
             .state('app.account', {
                 url: '/account',
                 //                    jjw no-border
-                template: '<div ui-view class="  gap-5 panel panel-default no-border"></div>',
+                template: '<div ui-view class=" panel panel-default  "></div>',
                 controller: function($scope, $state) {
                     $scope.$rootNav("管理");
                 }
@@ -548,24 +548,23 @@ var app = angular.module('thinglinx', [
             // 账户 -->编辑权限;
             .state("app.account.role", {
                 url: "/role",
-                controller: "acco_role",
+                // controller: "acco_role",
                 templateUrl: "athena/account/role.html"
             })
 
-            .state("app.account.author", {
-                    url: "/author",
-                    templateUrl: "athena/account/author.html",
-                    controller: "acco_author"
-                })
-                .state("app.account.author.region", {
+        
+
+                .state("app.account.role.region", {
                     url: "/region",
-                    templateUrl: "athena/account/author_region.html",
-                    controller: "author_region"
+                    data:{ role_category:1},
+                    templateUrl: "athena/account/role_panel.html",
+                    controller: "role_ctrl"
                 })
-                .state("app.account.author.account", {
+                .state("app.account.role.account", {
                     url: "/account",
-                    templateUrl: "athena/account/author_account.html",
-                    controller: "author_account"
+                    data:{ role_category:0},
+                    templateUrl: "athena/account/role_panel.html",
+                    controller: "role_ctrl"
                 })
 
 

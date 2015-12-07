@@ -25,7 +25,7 @@ angular.module('app.account', [])
 
 })
 
-.controller("account_users", function($scope, $state, $source, $sys, $q, $modal) {
+.controller("account_users", function($scope, $state, $source, $sys, $q, $modal , $modal) {
 
     //$scope.$moduleNav("用户pop", "_user");
     // $scope.$moduleNav("账户信息", $state);
@@ -40,16 +40,13 @@ angular.module('app.account', [])
         groups: []
     };
 
-    var loadAllGroupsPromise = $source.$userGroup.query({
-        currentPage: 1
-    }).$promise;
+    // var loadAllGroupsPromise = $source.$userGroup.query({
+    //     currentPage: 1
+    // }).$promise;
 
-    loadAllGroupsPromise.then(function(resp) {
-        $scope.groups = resp.data;
-    });
+    
 
-    // 添加用户时 所属的 组;
-
+    // 添加用户时 所属的 组; 
 
     $scope.loadPageData = function(pageNo) {
         var d = {
@@ -67,17 +64,8 @@ angular.module('app.account', [])
         function(){   $scope.showMask = false;  }
         );
     };
-
-    $scope.tabToUsers = function() {
-        //if( !$scope.page.data){
-        $scope.user = {
-            mail_notice: 1,
-            sms_notice: 1
-        };
-        $scope.op.confirm_password = undefined;
-        $scope.loadPageData(1);
-        //}
-    };
+    $scope.loadPageData(1);
+  
     // 加载所有 角色 信息;
 
 
@@ -93,9 +81,6 @@ angular.module('app.account', [])
                         pk: "groups",
                         user_id: user.id
                     }).$promise;
-                },
-                d: function() {
-                    return loadAllGroupsPromise;
                 }
             },
             controller: function($scope, $modalInstance, g) {
@@ -225,20 +210,31 @@ angular.module('app.account', [])
     };
 
     $scope.createUser = function() {
-        $scope.validForm();
-        $source.$user.save({
-                groupids: $scope.od.groups
-            }, $scope.user,
-            function(resp) {
-                angular.alert("创建用户成功", function() {
-                    $scope.user = {
-                        // mail_notice: 1,
-                        // sms_notice: 1
-                    };
-                    $scope.op.confirm_password = undefined;
-                });
+        $modal.open({
+            templateUrl:"athena/account/users_edit.html",
+            controller:function($scope , $modalInstance){
+                $scope.__proto__ = S ; 
+                $scope.$modalInstance = $modalInstance;
+                $scope.done = function(){
+
+                    $scope.validForm();
+                    $source.$user.save({
+                            groupids: $scope.od.groups
+                        }, $scope.user,
+                        function(resp) {
+                            angular.alert("创建用户成功", function() {
+                                $scope.user = {
+                                    // mail_notice: 1,
+                                    // sms_notice: 1
+                                };
+                                $scope.op.confirm_password = undefined;
+                            });
+                        }
+                    );
+                }
+
             }
-        );
+        }) 
     };
 
 
@@ -520,118 +516,8 @@ angular.module('app.account', [])
     }
 
 })
-
+ 
 .controller('acco_role', function($scope, $state, $stateParams, $sys, $source, $modal) {
-
-
-    $scope.$moduleNav("角色", $state);
-
-    var thatScope = $scope;
-
-
-    $scope.role2updata = [];
-
-
-
-    $scope.promise = [$sys.accountP, $sys.regionP]
-
-    // $scope.allpromise = arrayUi.concat(arrayProj);
-
-
-    $scope.regionRoles = [];
-    $scope.accountRoles = [];
-
-    $scope.showMask = true;
-    $source.$role.get(function(resp) {
-        angular.forEach(resp.ret, function(v, i) {
-            (v.role_category ? $scope.regionRoles : $scope.accountRoles).push(v);
-            $scope.showMask = false;
-        }, function(){   $scope.showMask = false;  })
-    })
-
-    //点击 确定 按钮 更新 role;
-    $scope.updateRole = function(e, r, arr, i) {
-        var d = [],
-            s = this;
-
-        angular.forEach($(e.currentTarget).parent('form').serializeArray(), function(v, i) {
-            d.push(v.name)
-        });
-        $source.$role.put({
-            pk: r.id
-        }, {
-            privilege: d
-        }, function(resp) {
-            s.op.edit = false;
-            r.privilege = d;
-        }, function() { // 恢复更改之钱的值;  闪回!
-            arr[i] = angular.copy(r);
-        });
-    }
-
-    $scope.addRole = function() {
-        $modal.open({
-            templateUrl: "athena/account/role_add.html",
-            controller: function($scope, $modalInstance) {
-                $scope.__proto__ = thatScope;
-                $scope.$modalInstance = $modalInstance;
-                $scope.op = {
-                    type: "ui"
-                };
-
-
-                $scope.r = {
-                    name: "",
-                    role_category: 0,
-                    authors: {}
-                };
-
-                $scope.done = function() {
-
-                    $scope.validForm();
-                    var privilege = [];
-                    angular.forEach($scope.r.authors, function(k, v) {
-                        v && (privilege.push(v))
-                    });
-
-                    delete $scope.r.authors;
-                    $scope.r.privilege = privilege;
-
-                    $source.$role.save(
-                        $scope.r,
-                        function(resp) {
-                            $scope.r.id = resp.ret;
-                            if ($scope.r.role_category) {
-                                $scope.regionRoles.push(angular.copy($scope.r));
-                            } else {
-                                $scope.accountRoles.push(angular.copy($scope.r));
-                            }
-
-                            $scope.cancel();
-                        },
-                        $scope.cancel
-                    )
-                }
-            }
-        })
-    }
-
-    $scope.delRole = function(arr, r, index) {
-        $scope.confirmInvoke({
-            title: '删除角色:' + r.name ,
-            note:"确认要删除该角色吗?"
-        }, function(next) {
-
-            $source.$role.delByPk({
-                pk: r.id
-            }, function(resp) {
-
-                arr.splice(index, 1)
-
-                next();
-            }, next)
-        })
-    }
 
 })
 
@@ -666,207 +552,144 @@ angular.module('app.account', [])
 
 })
 
-.controller("author_region", function($scope, $state, $source, $sys, $modal, $q) {
-    var d = {
-            itemsPerPage: $sys.itemsPerPage
-        },
-        S = $scope;
 
-    $q.all([$scope.gp, $scope.rp]).then(function(resp) {
-        //过滤 roles 得到 区域角色;
-        $scope.regionroles = $scope.allroles.filter(function(v, i) {
-            return v.role_category;
+
+.controller("role_ctrl", function($scope, $state, $stateParams, $source, $sys, $modal, $q ,$translate) {
+
+
+    var thatScope = $scope ; 
+    var role_category =  $state.$current.data.role_category ; 
+
+    $scope.promise =  role_category ==1 ?$sys.regionP : $sys.accountP ; 
+
+    var text_arr ; 
+    $scope.toText = function( privileges){
+        text_arr = [] ; 
+        angular.forEach( privileges ,function( k , v ){ 
+            text_arr.push( $translate.instant(k) )
         })
-    })
+        return  text_arr.join(";")
 
-    //{source: .. , group:..}
-    // source = region || app ;
-    // 分页加载区域;
+    }
+
+ 
+    // type = 1 , region ;  =0 , account ;
+    // add or update 
+    $scope.addRole = function(    role, index ) {
+        $modal.open({
+            templateUrl: "athena/account/role_add.html",
+            controller: function($scope, $modalInstance) {
+
+                $scope.__proto__ = thatScope;
+                $scope.$modalInstance = $modalInstance;
+                 
+
+                if( role ){
+                    var o = {  };
+                    $scope.r = angular.copy(role);
+
+                    angular.forEach( role.privilege , function( k , v ){
+                        o[k] = true ; 
+                    })
+
+                    $scope.r.authors = o ; 
+                } else{
+                    $scope.r = { 
+                        role_category:  role_category,
+                        authors: {}
+                    }
+                }
+ 
+
+                $scope.done = function() {
+
+
+
+                    $scope.validForm();
+
+                    var r = angular.copy( $scope.r );
+                        r.privilege = [];
+                    
+                    angular.forEach($scope.r.authors, function(v, i) {
+                        v && (r.privilege.push(i))
+                    });
+
+                    if( !r.privilege.length ){
+                        angular.alert("请选择权限!")
+                        return ; 
+                    }
+
+
+                    delete r.authors;
+ 
+                    if( role ){
+                        $source.$role.put( {pk:r.id}, r , function( resp ){
+                            $scope.roles[ index] = r ; 
+                            $scope.cancel();
+                        } , $scope.cancel )
+                    }else{
+                        $source.$role.save(
+                            r,
+                            function(resp) {
+                                r.id = resp.ret;
+                                thatScope.roles.unshift(r);
+                               
+                                $scope.cancel();
+                            },
+                            $scope.cancel
+                        )
+
+                    } 
+
+                }
+            }
+        })
+    }
+
+    $scope.delRole = function( r, index) {
+        $scope.confirmInvoke({
+            title: '删除角色:' + r.name ,
+            note:"确认要删除该角色吗?"
+        }, function(next) {
+
+            $source.$role.delete({
+                pk: r.id
+            }, function(resp) {
+
+                $scope.roles.splice(index, 1)
+
+                next();
+            }, next)
+        })
+    }
+
+
+
+    var d = { 
+            role_category: role_category 
+        } ; 
     $scope.loadPageData = function(pageNo) {
         d.currentPage = pageNo;
         $scope.showMask = true;
 
-        $source.$region.query(d, function(resp) {
-            $scope.page = resp;
-            $scope.page.currentPage = pageNo;
+        $source.$role.get(d, function(resp) {
+            // $scope.page = resp;
+            // $scope.page.currentPage = pageNo;
+            $scope.roles = resp.ret || [] ; 
             $scope.showMask = false;
+
         }, function(){   $scope.showMask = false;  } );
     }
 
     $scope.loadPageData(1);
 
-    // 按需加载区域下的角色;
-    $scope.loadPermission = function(scope, region) {
-        if (!scope.groups) {
-            $source.$permission.get({
-                source: "region",
-                source_id: region.id
-            }, function(resp) {
-                //@if  append
-                if (!angular.isArray(resp.ret)) {
-                    alert("rest查询 区域下的带权限的用户组的 数据格式不正确");
-                }
-
-                //@endif 
 
 
-                scope.groups = resp.ret;
-                scope.groupids = scope.groups.map(function(v, i) {
-                    return v.id;
-                })
-
-
-            })
-        }
-    }
-
-    function addGroup2Region() {
-        // body...
-    }
-
-
-
-    // 想区域中添加组; 附带权限;
-    $scope.addAuthor = function(scope, arr, r) {
-
-        $modal.open({
-            templateUrl: "athena/account/author_region_add.html",
-            controller: function($scope, $modalInstance) {
-                $scope.__proto__ = scope;
-                $scope.$modalInstance = $modalInstance;
-
-                // 过路分组; 得到;未添加过的组 , 初始化 au ;
-                $scope.done = function() {
-                    $scope.validForm();
-                    var permission = $(".modal-content")
-                        .find("input[type=checkbox]")
-                        .serializeArray()
-                        .map(function(v) {
-                            return v.name;
-                        })
-
-                    $source.$permission.save({
-                            source: "region",
-                            source_id: r.id,
-                            group_id: $scope.au.group.id
-                        },
-                        permission,
-                        function(resp) {
-                            // 添加组; , 添加id引用;
-                            var g = angular.copy($scope.au.group);
-                            g.privilege = permission;
-                            scope.groups.push(g);
-                            scope.groupids.push($scope.au.group.id);
-                            $scope.cancel();
-
-                        },
-                        $scope.cancel
-                    )
-                }
-
-                $scope.groups2add = $scope.allgroups.filter(function(v, i) {
-                    return !(scope.groupids.indexOf(v.id) + 1);
-                })
-
-                $scope.au = {
-                    role: $scope.regionroles[0],
-                    group: $scope.groups2add[0]
-                };
-            }
-        })
-    }
-
-    // 删除  权限组; , 删除本地id引用;
-    $scope.delGroup = function(scope, r, arr, g, i) {
-
-        $scope.confirmInvoke({
-            title: "移除权限组:" + g.name ,
-            note:"确认要删除该组吗?"
-        }, function(next) {
-            $source.$permission.delete({
-                source: "region",
-                source_id: r.id,
-                group_id: g.id
-            }, function(resp) {
-                // 删除数据;
-                arr.splice(i, 1);
-                // 删除 id 引用;
-                scope.groupids.splice(scope.groupids.indexOf(g.id), 1);
-
-                next();
-
-            }, next)
-        })
-    }
-
-    // 更新权限;    
-
-    $scope.updateProm = function(scope, r, g, dom) {
-        var permission = $(dom).parent()
-            .find("form")
-            .serializeArray()
-            .map(function(v) {
-                return v.name
-            });
-
-        $source.$permission.save({
-                source: "region",
-                source_id: r.id,
-                group_id: g.id
-            },
-            permission,
-            function(resp) {
-                scope.op.edit = false;
-                g.privilege = permission;
-
-            }
-        );
-
-    }
+   
 
 })
 
-.controller("author_account", function($scope, $state, $source, $sys, $modal) {
-
-    // 加载 组中的account 权限 ;
-
-    $scope.loadPermission = function(scope, group) {
-        if (!group.promise) {
-            $scope.showMask = true;
-            $source.$permission.get({
-                source: "account",
-                group_id: group.id
-            }, function(resp) {
-                scope.promise = resp.ret && resp.ret.privilege;
-                $scope.showMask = false;
-            }, function(){   $scope.showMask = false;  })
-        }
-
-
-    }
-
-    $scope.ee = function(e) {
-        //@if  append 
-        console.log(e);
-        //@endif 
-    }
-
-    $scope.saveAuthor = function(scope, group, e) {
-
-        var promise = $(e.target).parent("form").serializeArray().map(function(v) {
-            return v.name;
-        })
-
-        $source.$permission.put({
-            source: "account",
-            group_id: group.id
-        }, promise, function(resp) {
-            scope.op.edit = 0;
-        })
-    }
-
-})
-
+ 
 
 
 ;

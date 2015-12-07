@@ -7,42 +7,17 @@
 
     <form name="form" class=" form-validation form-horizontal   ">
 
-		<input  tl-wrap ng-model="r.name" required  label="角色名"  >
+		<input  tl-wrap ng-model="r.name" required  label="角色名称"  >
 
-<!--
- //0, 账户角色，1区域角色
- -->
-
- 		<select  tl-wrap ng-model="r.role_category"
- 		 		ng-options = " v as k for (k,v) in $sys.roleType"
- 		 		label="角色类型"
- 		 		ng-change="r.authors = {} "
- 		 		>
-
- 		</select>
-
+ 
+ 
         <!--jjw m-b-->
-		<div class="row m-b"  ng-if=" r.role_category =='0' " >
-
-			<div class=" col-sm-3 col-sm-offset-1" >
-				账户权限
-			</div>
-		    <div class="col-sm-8  ">
-		    	<label class="checkbox i-checks inline w-sm m-l"
-		    		ng-repeat =  " a in promise[0]  ">
-	              	<input type="checkbox"  ng-model="r.authors[ a]" ><i></i>
-	              	<span  translate="{{a}}" ></span>
-	            </label>
-	        </div>
-		</div>
-
-        <!--jjw m-b-->
-		<div class="row m-b"  ng-if="r.role_category=='1'">
+		<div class="row m-b"   >
 				<div class="col-sm-3 col-sm-offset-1">
-					区域权限
+					权限
 				</div>
 			    <div class="col-sm-8 ">
-			    	<label class="checkbox i-checks inline w-sm m-l"  ng-repeat =  " a in promise[1]">
+			    	<label class="checkbox i-checks inline w-sm m-l"  ng-repeat =  " a in promise">
 		              <input type="checkbox"  ng-model="r.authors[ a]" ><i></i>
 		              <span translate={{a}}></span>
 		            </label>
@@ -50,10 +25,13 @@
 		        </div>
 
 		</div>
-
-<!--
-		<textarea   tl-wrap  label="备注"  ng-model =" r.describtion"></textarea>
- -->
+		<!--@if append -->
+			r ={{r}}
+		
+		<!--@endif -->
+ 
+		<textarea   tl-wrap  label="权限说明"  ng-model =" r.desc"></textarea>
+ 
 
 
     </form>
