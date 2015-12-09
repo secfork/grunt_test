@@ -370,7 +370,8 @@ angular.module('app.account', [])
 
 })
 
-.controller("account_userdetail" , function( $scope , $source , $state , $stateParams, $modal , $sys , $translate ){
+.controller("account_userdetail" , function( $scope , $source , $state , $stateParams, $modal , $sys ,
+     $translate , $interval , $localStorage  ,$sessionStorage ){
     var thatScope = $scope ; 
     
     var user_id = $stateParams.id || $scope.user.id ; 
@@ -422,8 +423,6 @@ angular.module('app.account', [])
     // 编辑是否接收 某个 region 报警; 
     $scope.acceptRegionAlarm = function( region ){
         
-
-
     }
 
     // 编辑区域的订阅; 
@@ -466,6 +465,8 @@ angular.module('app.account', [])
         })
 
     })
+
+
     // 保存 account role 信息; 
     $scope.addAccountRole = function(){
         if( !$scope.user_accountRol){
@@ -477,8 +478,6 @@ angular.module('app.account', [])
         })
 
     }
-
-
 
     // 得到 所有 区域 权限;   /getpermissions/:user_id
     $source.$user.get( { pk:"getpermissions" , op: user_id } , function( resp ){
@@ -597,7 +596,129 @@ angular.module('app.account', [])
         })
 
     }
-        
+    
+    // sms , emial  xx秒后 重发;     
+    $scope.ot = {};
+
+    var  t_ = 10  ; 
+    var text = "重新发送(%)"; 
+        textCond = { smsInterval:"发送验证码" , emailInterval:"发送验证邮件"};
+
+    $scope.interval ={  smsInterval :undefined ,  emailInterval : undefined }
+    $scope.intervalTimes = { smsInterval :  $sessionStorage.smsInterval > 0? $sessionStorage.smsInterval  : t_ ,
+                             emailInterval: $sessionStorage.emailInterval > 0? $sessionStorage.emailInterval : t_ 
+                        };
+
+    //  type = smsInterval || emailInterval
+    function startInterval ( type ){
+
+        $scope.interval[ type ] = $interval( function(){            
+            //@if append 
+                console.log( type  , $scope.intervalTimes[type] , $scope.interval[type]);
+            //@endif
+         
+            $("#"+type).text( text.replace("%" , $scope.intervalTimes[type] ) );
+            $sessionStorage[type] =  --$scope.intervalTimes[ type] 
+
+            if ( $scope.intervalTimes[ type] < 0 ) {
+                $scope.intervalTimes[type] = t_ ; 
+                $interval.cancel( $scope.interval[type ] );
+                $scope.interval[ type ] = undefined ; 
+                $("#"+type).text( textCond[ type ] )
+            } 
+        },1000); 
+    } 
+ 
+    $sessionStorage.smsInterval > 0   && startInterval( "smsInterval" );
+    $sessionStorage.emailInterval > 0 &&  startInterval( "emailInterval" );
+
+ 
+
+    $scope.validPhone = function(){
+        $modal.open( {
+            templateUrl:"athena/account/users_verify_phone.html",
+            controller: function($scope , $modalInstance ){
+                $scope.$modalInstance = $modalInstance;
+                $scope.__proto__ = thatScope;
+
+                $scope.u = { mobile_phone : $scope.user.mobile_phone || $sessionStorage [ "user_phone_" + user_id ] }; 
+
+                $scope.$watch( 'u.mobile_phone' , function( u ){
+                    $sessionStorage[ "user_phone_" + user_id ] = u; 
+                }) 
+
+                $scope.sendNote = function(e) {
+                    if (!$scope.u.mobile_phone) {
+                        angular.alert("请输入手机号");
+                        return;
+                    } 
+                    startInterval( "smsInterval" ) ;  
+                    $source.$note.get({
+                            op: "user",
+                            mobile_phone: $scope.u.mobile_phone
+                        },
+                        function() {
+
+                        });
+                } 
+
+                // 去 验证  用户 手机;  userself ; 
+                $scope.verifyPhone = function(){ 
+
+                    $source.$user.save({op:"verifyphone"}, $scope.u , function(){
+                        
+                        $scope.cancel();
+
+                        angular.alert("验证成功!");
+                        $scope.user.mobile_phone = $scope.u.mobile_phone;
+                         
+                        // var rootUser =  $scope.$parent.$parent.user;
+                        // rootUser.mobile_phone = $scope.u.mobile_phone ; 
+                        // rootUser.mobile_phone_verified = 1 ; 
+                    })  
+                }
+            }
+        })
+    }
+
+    $scope.validEmail = function(){
+        $modal.open( {
+            templateUrl:"athena/account/users_verify_email.html",
+            controller: function($scope , $modalInstance ){
+                $scope.$modalInstance = $modalInstance;
+                $scope.__proto__ = thatScope;
+
+                $scope.u = { email : $scope.user.email || $sessionStorage["user_email_" + user_id ] }; 
+
+                $scope.$watch( 'u.email' , function( e ){
+                    $sessionStorage["user_email_" + user_id ] = e ; 
+                })
+
+                $scope.sendEmail = function(e) {
+
+                    if (!$scope.u.email) {
+                        angular.alert("请正确输入邮箱");
+                        return;
+                    } 
+                    startInterval( "emailInterval" ) ; 
+                      
+
+                    $source.$user.save(
+                        {op:"sendverifyemail"},
+                        { 
+                            email: $scope.u.email
+                        },
+                        function() {
+
+                        }
+                    );
+                } 
+
+
+
+            }
+        })
+    }
 
     
     // 验证联系方式;
@@ -657,23 +778,7 @@ angular.module('app.account', [])
 
                 }
 
-                $scope.sendNote = function(e) {
-                    if (!$scope.u.mobile_phone) {
-                        angular.alert("请输入手机号");
-                        return;
-                    }
-
-                    setInter(e.currentTarget , "phone");
-
-                    $source.$note.get({
-                            op: "user",
-                            mobile_phone: $scope.u.mobile_phone
-                        },
-                        function() {
-
-                        });
-
-                } 
+           
 
 
 

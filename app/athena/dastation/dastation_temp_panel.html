@@ -174,7 +174,9 @@
         <!--jjw b-t-none ng-if-->
         <div class="panel-footer b-t-none" ng-show="lm=='list'">
             <!--jjw m-t m-d m-l-sm-->
-            <button ng-if=" !isShowModul " class="btn btn-primary  dker btn-sm w-70  m-l-sm  pos-abt m-t m-b" ng-click=" goto('app.station.add' , null , project ) ">
+            <button ng-if=" !isShowModul "
+                class="btn btn-primary  dker btn-sm w-70  m-l-sm  pos-abt m-t m-b" 
+                ng-click=" createSystem() ">
                 添加系统
             </button>
             <!--jjw m-t m-d-->

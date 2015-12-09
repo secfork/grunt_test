@@ -1,67 +1,39 @@
-<!-- project  添加 和 属性展示 模版  -->
-<!--jjw bg-white card-->
-<div class="panel-body table-responsive no-padder bg-light bg-white" ng-class="{'card':$state.includes('app.proj') &&!($state.includes('app.proj.prop'))}">
-    <h4 class="text-center" ng-show="$state.includes('app.proj')&&!($state.includes('app.proj.prop'))">添加区域</h4>
-    <form name="form" panelclass class="form-horizontal form-validation j_form_15">
-        <!--    <div class="form-group  "  >
-    <label class= " col-sm-3 control-label   "  >  <h4   >添加项目</h4> </label>
-    </div>
-    -->
-        <input tl-wrap-l label="区域名称" required ng-model=" proj.name ">
-        <!--  <div class="form-group">
-         <label class= "col-sm-3 control-label">开始查看</label>
+ 
+<div class="modal-header ">
+    
+    <h4> 创建区域</h4>
+</div>
 
-        <div class=" col-sm-4">
-            <select class="form-control m-b-xxs "  ng-model="proj.displayMod"
-            ng-init=" proj.displayMod='1' "    >
-            <option value="1">列表视图</option>
-            <option value="2">地图视图</option>
-            </select>
+<div class="modal-body  "  load-mask  >
 
-        </div>
-    </div> -->
-        <!--   <input  tl-wrap-l  label="公司"    ng-model=" proj.proj_company " >-->
-        <input tl-wrap-l label="联系人" ng-model=" proj.contact_user ">
-        <input tl-wrap-l label="电话号码" ng-model=" proj.mobile_phone" ng-pattern="/^\d{8,12}$/">
-        <input tl-wrap-l label="电子邮件" ng-model=" proj.email " type="email">
-        <input tl-wrap-l label="地址" ng-model=" proj.address ">
-        
-        <!-- jjw 添加是否接受报警的checkbox -->
-
-        <div class="form-group  "  ng-if="!isAdd">
-            <label class="col-sm-3" style="padding-top: 7px">
-                <span>接收报警</span>
-            </label>
-            <div class="i-checks small col-sm-9 no-padder">
-                <label class="checkbox i-checks  inline m-r w-sl m-l-sm">
-                    <input type="checkbox" name="check" ng-model="od.issubed"  ng-change = "editSub()"><i></i> 
-                </label>
-            </div>
-        </div> 
-
-        
+  <form name="form"   class="form-horizontal form-validation  ">
+ 
+        <input tl-wrap label="区域名称" required ng-model=" proj.name ">
+     
+        <input tl-wrap label="联系人" ng-model=" proj.contact_user ">
+        <input tl-wrap label="电话号码" ng-model=" proj.mobile_phone" ng-pattern="/^\d{8,12}$/">
+        <input tl-wrap label="电子邮件" ng-model=" proj.email " type="email">
+        <input tl-wrap label="地址" ng-model=" proj.address ">
+ 
 
         <div ng-if="more">
-            <input tl-wrap-l label="邮编" ng-model=" proj.postcode " ng-pattern="/^[0-9]*$/">
-            <input tl-wrap-l label="城市" ng-model=" proj.city ">
-            <input tl-wrap-l label="省/县" ng-model=" proj.province ">
-            <input tl-wrap-l label="国家" ng-model=" proj.country ">
+            <input tl-wrap label="邮编" ng-model=" proj.postcode " ng-pattern="/^[0-9]*$/">
+            <input tl-wrap label="城市" ng-model=" proj.city ">
+            <input tl-wrap label="省/县" ng-model=" proj.province ">
+            <input tl-wrap label="国家" ng-model=" proj.country ">
         </div>
-        <textarea tl-wrap-l label="备注" ng-model=" proj.desc " style="resize: none" ng-maxlength='100' placeholder=" 不应超过100字符"></textarea>
-       
-    <!--     <div class="form-group  " ng-if=" !isShowModul ">
-            <label class="col-sm-3 control-label">
-                <button type="submit" class="btn  btn-info  btn-block-middle  w-xs " 
-                ng-click=" commit()" token> 保存 </button>
-            </label>
-        </div> -->
+        <textarea tl-wrap label="备注" ng-model=" proj.desc " style="resize: none" ng-maxlength='100' placeholder=" 不应超过100字符"></textarea>
  
         
     </form> 
 
-    <!--jjw padder-->
-     <div panelclass class="text-center padder m-t-none" ng-if=" !isShowModul ">
-        <button type="submit" class="btn  btn-success w-60  btn-block-middle m-b col-sm-9 col-sm-offset-3"
-           ng-click=" commit()" token> 保存 </button>
-    </div>
+
 </div>
+
+<ng-include src=" 'athena/debris/_modal_footer.html' "></ng-include>
+
+
+
+ 
+  
+ 

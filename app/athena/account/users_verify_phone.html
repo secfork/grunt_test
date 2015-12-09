@@ -21,9 +21,9 @@
                     <span class="input-group-btn">
 
                     <button class="btn btn-info w-xsm btn-default" type="button"
-
+                        id="smsInterval"
                         ng-click="sendNote( $event )" 
-                        ng-disabled=" !form.phone.$valid ">
+                        ng-disabled=" !form.phone.$valid || interval.smsInterval ">
                         发送验证码
                     </button>
               </span>
@@ -41,6 +41,9 @@
                 <button class="btn btn-info"  ng-click="verifyPhone()">验证手机</button>
             </div>
         </div>
+
+
+
 
         <!--jjw-->
         <!--<div class="form-group">-->
@@ -87,5 +90,8 @@
 
 
 
+<!--@if append --> 
 
+
+<!--@endif -->
 

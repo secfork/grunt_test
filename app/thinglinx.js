@@ -462,7 +462,7 @@ var app = angular.module('thinglinx', [
                 templateUrl: "athena/account/users.html",
                 controller: "account_users"
             })
-            .state("app.account.userdetail" , {
+            .state("app.userdetail" , {
                 url:"/userdetail/:id",
                 templateUrl:"athena/account/user_detail.html",
                 controller:"account_userdetail"

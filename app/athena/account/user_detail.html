@@ -22,14 +22,25 @@
                     </span>
                     <span class="list-group-item">
 				                <span class="pull-right ">
-                                      <button  ng-if="userself" class="btn btn-xs btn-info" ng-click="verifyUser('phone')" >验证</button>
-                                {{user.mobile_phone}}
+                                      <button  ng-if="userself" class="btn btn-xs btn-info" 
+                                      ng-click="validPhone()" >变更/验证</button>
+                                {{user.mobile_phone}}  <!-- 
+                                 {{ user.mobile_phone_verified?'fa-check text-success':'fa-times text-danger' }} -->
+                                <i  class="fa "  ng-if="user.mobile_phone" ng-class="{
+                                    'fa-check text-success':user.mobile_phone_verified ==1 ,
+                                    'fa-times text-danger': user.mobile_phone_verified ==0
+                                }"  ></i>
                                 </span> 电话
                     </span>
                     <span class="list-group-item">
 				                <span class="pull-right ">
-                                  <button  ng-if="userself" class="btn btn-xs btn-info" ng-click="verifyUser('email')" >验证</button>
+                                  <button  ng-if="userself" class="btn btn-xs btn-info"
+                                   ng-click="validEmail()" >变更/验证</button>
                                 {{user.email}}
+                                 <i  class="fa " ng-if="user.email" ng-class="{
+                                        'fa-check text-success':user.email_verified ==1 ,
+                                        'fa-times text-danger': user.email_verified ==0
+                                     }"  ></i>
                                 </span> 
                                 邮箱
                     </span>

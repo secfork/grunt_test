@@ -1142,9 +1142,12 @@ angular.module('app.basecontroller', ['ng'])
 
     $scope.op = {};
 
-    var uuid = $location.$$search.v;
-    if (uuid) {
-        $source.$user.get( {pk:"verifyemail", uuid: uuid} , function( resp ){
+    var code = $location.$$search.code ,
+        e = $location.$$search.e ;
+
+    if (code) {
+        $source.$common.get(  angular.extend( {op:"verifyemail"} , $location.$$search ) , function( resp ){
+
             if( resp.ret){
                 $scope.op.verifyemail = 1 ;
                 $timeout( function  (argument) {

@@ -1,30 +1,39 @@
-<!--jjw bg-white-->
-<div class="panel-body table-responsive no-padder bg-light bg-white"
-    load-mask
-     ng-class="{'card':$state.includes('app.station')}">
-    <!--{{$state}}-->
-    <h4 ng-show="$state.includes('app.station')">添加系统</h4>
-    <form name="form" panelclass class="form-horizontal form-validation j_form_15">
-        <input tl-wrap-l label="系统名称" required ng-model="system.name">
+ 
+<div class="modal-header ">
+    <h4 ng-if="isAdd">添加系统</h4>
+    <h4 ng-if="!isAdd">编辑系统</h4>
+</div>
+
+<div class="modal-body  "  load-mask >
+
+ 
+    <form name="form"   class="form-horizontal form-validation j_form_15">
+        <input tl-wrap label="系统名称" required ng-model="system.name">
        
 
-        <select tl-wrap-l label="所属区域" ng-model="system.region_id"
-           required ng-options="  proj.id  as  proj.name  for  proj   in projects ">
+        <select tl-wrap label="所属区域" ng-model="system.region_id"
+           required ng-options="  proj.id  as  proj.name  for  proj   in regions ">
             <option value="">-请选择区域-</option>
         </select>
 
 
-        <select tl-wrap-l ng-model="systemModel" ng-options=" s  as s.name for s in sysmodels" label="系统模型" required></select>
-        <select tl-wrap-l ng-model="system.profile"
+        <select tl-wrap ng-model="od.systemModel" ng-options=" s  as s.name for s in sysModels" 
+                label="系统模型" required>
+            <option value="">-请选择系统模型-</option>
+        </select>
+
+        <select tl-wrap ng-model="system.profile"
               ng-options="  p.uuid as p.name for  p  in  profiles " 
               label="系统配置项" required>
             <option value="">--请选择配置项--</option>
         </select>
-        <div class="form-group " ng-if=" systemModel.mode==1 && systemModel.comm_type == 1 " ng-init=" system.network= { daserver: { type:'DTU'}  }; ">
-            <label class="col-sm-3 control-label  ">
+        <div class="form-group " ng-if=" od.systemModel.mode==1 && od.systemModel.comm_type == 1 "
+             ng-init=" system.network= { daserver: { type:'DTU'}  }; ">
+            <label class="col-sm-3  col-sm-offset-1 control-label  ">
                 <span>网络类型</span>
             </label>
-            <div class=" col-sm-9">
+
+            <div class=" col-sm-7 ">
                 <div class="radio inline ">
                     <label class="i-checks">
                         <input type="radio" value="DTU" 
@@ -33,39 +42,26 @@
                         <span>DTU</span>
                     </label>
                 </div>
-
-
-            <!--     <div class="radio inline m-l ">
-                    <label class="i-checks">
-                        <input type="radio" value="TcpClient"   ng-model="system.network.daserver.type">
-                        <i></i>
-                        <span>TCP Client</span>
-                    </label>
-                </div>
-                <div class="radio inline m-l ">
-                    <label class="i-checks">
-                        <input type="radio" value="TcpServer" disabled ng-model="system.network.daserver.type">
-                        <i></i>
-                        <span>TCP Server</span>
-                    </label>
-                </div>
- -->
+ 
 
             </div>
         </div>
-        <textarea tl-wrap-l label="备注" ng-maxlength="100" placeholder=" 不应超过100字符" ng-model=" system.desc ">
+        <textarea tl-wrap label="备注" ng-maxlength="100" placeholder=" 不应超过100字符" ng-model=" system.desc ">
         </textarea>
-    </form>
-    <!--jjw padder-->
-    <div panelclass class="text-center padder">
-        <!--jjw col-sm-9 col-sm-offset-3-->
-        <button type="submit" class="btn  btn-success  btn-block-middle w-60 m-b col-sm-9 col-sm-offset-3" ng-click=" commit()" token> 保存 </button>
-    </div>
+    </form> 
+ 
 </div>
 
-<!--jjw 注释-->
-<!--&lt;!&ndash;@if append  &ndash;&gt;-->
-<!--system = {{ system }}-->
-<!--<hr/> systemModel = {{systemModel}}-->
-<!--&lt;!&ndash;@endif  &ndash;&gt;-->
+
+<ng-include src=" 'athena/debris/_modal_footer.html' "></ng-include>
+
+
+ 
+<!--@if append   -->
+
+system ={{system}}
+<hr/>
+od.systemModel = {{od.systemModel}}
+
+<!--@endif  -->
 

@@ -4,15 +4,16 @@ angular.module('app.project', [])
 
 .controller("manage_projs", function($scope, $source, $state, $utils,
     
-    $filter, $timeout, $sys, $localStorage) {
+    $filter, $timeout, $sys, $localStorage , $modal) {
+
+    var  thatScope = $scope;
 
     //@if  append
 
     // 加载 projects ;
     console.log("manage_projs"); // postcode
     //@endif 
-    //
-     
+   
 
     //是否为 show 模块;
     $scope.isShowModul = $state.$current.data && $state.$current.data.isShowModul;
@@ -63,9 +64,7 @@ angular.module('app.project', [])
         }
     }
 
-
-
-
+  
     function getActiveSum(region_ids) {
         $source.$region.save({
             pk: "sum",
@@ -118,34 +117,40 @@ angular.module('app.project', [])
         )
     }
 
+    $scope.addProj = function(){
+        $modal.open( {
+            templateUrl:"athena/region/project_add_temp.html",
+            controller:function( $scope , $modalInstance ){
+                $scope.__proto__ = thatScope ;
+                $scope.$modalInstance = $modalInstance;
+                $scope.proj ={};
 
-})
+                $scope.done=function(){
+                    $scope.validForm();
 
-// 添加 工程;
-.controller("manage_addproj", function($scope, $source, $state, $sys) {
-    //@if  append
+                    $scope.showMask = true ;
+                    $source.$region.save($scope.proj, function(resp) {
+                        //resp.ret && $state.go("app.proj.manage");  
+                        $scope.showMask = false ; 
+                        $scope.proj.id = resp.ret ; 
 
-    console.log('manage_addproj');
-    //@endif 
-    /*添加区域*/
-    $scope.$moduleNav("添加区域", $state);
+                        $scope.page.data.unshift( angular.copy( $scope.proj));
+                        $scope.cancel();
 
-    $scope.isAdd =true ;
-    // 添加 工程
+                      //  angular.alert("添加成功!");
+                    },function(){   $scope.showMask = false;  })
 
-    $scope.commit = function() {
-        $scope.validForm();
-        $scope.showMask = true ;
-        $source.$region.save($scope.proj, function(resp) {
-            //resp.ret && $state.go("app.proj.manage");  
-            $scope.showMask = false ; 
-            angular.alert("添加成功!");
-        },function(){   $scope.showMask = false;  })
 
+                }
+            }
+        })
 
     }
+
+
 })
 
+ 
 // -------------------- project 属性  ------------------------------------------
 .controller("proj_prop", ['$scope', '$state', '$stateParams', function($scope, $state) {
     //@if  append

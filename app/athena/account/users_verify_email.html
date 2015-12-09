@@ -58,8 +58,8 @@
             <div class="col-sm-10 col-sm-offset-2">
                 <button class="btn  w-xsm btn-info" type="button"
                         ng-click="sendEmail( $event )"
-                        ng-disabled="!form.email.$valid  " 
-
+                        ng-disabled="!form.email.$valid || interval.emailInterval " 
+                        id="emailInterval"
                         popover="请在30分钟内完成您的邮箱验证!"
                         popover-trigger="mouseenter"
                         popover-placement="right"
