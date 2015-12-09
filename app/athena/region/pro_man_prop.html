@@ -1,5 +1,31 @@
-<!--jjw bg-normal-->
-<ul class="nav  nav-tabs m-t-xxs bg-normal">
+<div class="bg-light lter b-b wrapper-md ng-scope">
+    <h2 class="m-n font-thin h4"> My Region </h2>
+</div>
+
+<div class="wrapper-md ">
+    <ul class=" nav  nav-tabs m-t-xxs bg-normal">
+        <li ui-sref-active="active">
+            <a ui-sref="app.m_region_prop.system">
+                <i class="icon icon-screen-desktop "></i>
+                <span  >系统</span>
+            </a>
+        </li>
+        <li ui-sref-active="active">
+            <a ui-sref="app.m_region_prop.author">
+                <i class=" icon icon-user"></i>
+                <span  > 权限</span>
+            </a>
+        </li>
+    </ul>
+    <div ui-view class="  b-t-none  "> </div>
+</div>
+
+
+
+
+<!-- ====================  -->
+
+<!-- <ul class="nav  nav-tabs m-t-xxs bg-normal">
     <li ui-sref-active="active">
         <a ui-sref="{{  (isShowModul ? 'app.show.proj_prop.station':'app.proj.prop.station') +'($stateParams)' }}  ">
             <i class=" icon icon-screen-desktop"></i> 系统
@@ -16,4 +42,8 @@
         </a>
     </li>
 </ul>
+
+
+
 <div ui-view class="panel panel-default b-t-none"> </div>
+ -->

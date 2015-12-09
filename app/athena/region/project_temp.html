@@ -1,132 +1,120 @@
-<!--jjw 添加卡片-->
-<div class="border card">
-    <h4>区域管理</h4>
-    <!--jjw no-padder-->
-    <div class="panel-heading  no-padder ">
-
-        <!--jjw m-t m-b m-l 去掉col-push-->
-        <div class="input-group-sm col-md-5 col-xs-12 m-t m-b m-l-xs">
-            <!--<label class="col-md-2 col-sm-12 float-left text-base">-->
-                <!--<span style="line-height: 30px"  ng-click=" loadPageData(1)">搜索</span>-->
-            <!--</label>-->
-            <div class="col-md-8 col-sm-12 col-xs-12">
-                <input style="border-radius: 2px" 
-                  class="form-control input-sm" type="text"
-                       ng-model="f_projname">
-            </div>
-            <!--<span class="input-group-btn">-->
-                <!--<span class="btn btn-default height-30 disabled"     translate="common.search"  ></span>-->
-            <!--</span>-->
-            <div class="col-md-4 col-sm-12 text-base">
-                <button class="btn btn-info btn-sm" 
-                ng-click=" loadPageData(1)">搜索</button>
-            </div>
-        </div>
-    </div>
-    <!--jjw no-border-->
-    <div class="panel-body no-border table-responsive no-padder"  load-mask >
-
-        <!--jjw table-striped j_table 去掉hover-->
-        <table class=" table  table-striped j_table ">
-            <thead class="flip-content">
-            <tr class="background ">
-                <!--
-                 <th>
-                    <span translate="th.th1">在线</span>
-                </th>
-                 -->
-                <th width="20%">
-                    <a translate="th.th2">名称</a>
-                </th>
-                <th width="30%">
-                    <a translate="th.th3">创建时间
-                    </a>
-                </th>
-                <th width="20%">已激活系统</th>
-
-                <th width="20%" ng-if=" ! isShowModul " >未激活系统</th>
-                <th width="10%" ng-if=" ! isShowModul " >操作</th>
-            </tr>
-            </thead>
-            <tbody class="text-center ">
-            <!--  <tr  ng-show=" fps.length==0 " >
-                    <td colspan="6" class="text-center" >=.= 什么都没找到 ! </td>
-               </tr>-->
-            <!--  <tr  ng-repeat="  project  in projs_filet_name "   >-->
-            <!--      <tr  ng-repeat="  proj  in allprojects
-                                              | pageLimit  : currentPageNo * $sys.page.pagesize : $sys.page.pagesize
-                                              | orderBy    : predicate:reverse  "
-                 >   -->
-
-            <tr ng-repeat="  proj  in page.data  "  ng-init=" collectRegionId( proj , $last )" >
-                <!--
-
-
-                <td class="text-left">
-                    <i class="glyphicon glyphicon-signal
-                      {{ !proj.das_act_num ? ' text-danger':''  }}
-                      {{   (proj.das_act_num && proj.das_unact_num)? 'text-warning':''    }}
-                      {{  (proj.das_act_num >0 && !proj.das_unact_num )? ' text-success':''   }}  ">
-
-                     </i> {{proj.das_act_num || 0}} / {{ (proj.das_act_num || 0) + (proj.das_unact_num ||0) }} 在线
-                </td>
-                -->
-                <td>
-                    <a class="text-info-dk  " ng-click="  goto ( _$nextState ,  undefined  , proj ); ">
-                        {{ proj.name }}
-                    </a>
-                </td>
-                <td> {{ proj.create_time | date:"yyyy-MM-dd HH:mm Z" }}</td>
-                <td class="numeric "  id="act_{{proj.id}}">
-              <!--    {{ proj.active_sysno }} -->
-                 </td>
-
-                <td class="numeric " ng-if=" ! isShowModul "
-                    id = "unact_{{proj.id}}"
-                    > 
-              <!--   {{ proj.unacitve_sysno }}  -->
-                </td>
-                
-
-
-
-                <td class="numeric" ng-if=" ! isShowModul ">
-                    <a class="text-info-dk m-r-xs" ng-disabled="true"
-                       ng-click="delProject( proj  , $index   )">移除</a>
-                    <!--@if append -->
-
-                    <!--jjw 注释“可视化”-->
-                    <!--<a class="text-info-dk"-->
-                       <!--ng-href="../syalias/trunk/{{ isShowModul?'syalias':'dyalias'}}.html?account=thinglinx&project=2#/page/Demo"-->
-                       <!--target="_blank">可视化</a>-->
-
-                    <!-- @endif -->
-
-
-                </td>
-
-
-            </tr>
-            </tbody>
-        </table>
-
-        <!--  <h4 class="text-center" ng-show="!page.data.length">无数据</h4> -->
-
-    </div>
-    <!--jjw b-t-none-->
-    <div class="panel-footer b-t-none">
-        <!--jjw m-t m-b m-l-sm-->
-        <button class="btn btn-primary btn-sm w-70  pos-abt m-b m-t m-l-sm" ng-if=" !isShowModul" ng-click="  goto( 'app.proj.addproj' ) ">
-            添加区域
-        </button>
-        <!--jjw m-t m-b-->
-        <div class="text-center m-b m-t height-30" ng-include src=" 'athena/debris/_pager.html'  "></div>
-    </div>
+  
+<div class="bg-light lter b-b wrapper-md ng-scope">
+  <h2 class="m-n font-thin h4">区域管理</h2>
 </div>
 
+
+  
+<div class="wrapper-md"> 
+    <div class="panel panel-default">
+        
  
+     
+        <div class="panel-heading  no-padder ">
+
+            <!--jjw m-t m-b m-l 去掉col-push-->
+            <div class="input-group-sm col-md-5 col-xs-12 m-t m-b m-l-xs">
+                <!--<label class="col-md-2 col-sm-12 float-left text-base">-->
+                    <!--<span style="line-height: 30px"  ng-click=" loadPageData(1)">搜索</span>-->
+                <!--</label>-->
+                <div class="col-md-8 col-sm-12 col-xs-12">
+                    <input style="border-radius: 2px" 
+                      class="form-control input-sm" type="text"
+                           ng-model="f_projname">
+                </div>
+                <!--<span class="input-group-btn">-->
+                    <!--<span class="btn btn-default height-30 disabled"     translate="common.search"  ></span>-->
+                <!--</span>-->
+                <div class="col-md-4 col-sm-12 text-base">
+                    <button class="btn btn-info btn-sm" 
+                    ng-click=" loadPageData(1)">搜索</button>
+                </div>
+            </div>
+        </div>
+        <!--jjw no-border-->
+        <div class="panel-body no-border table-responsive no-padder"  load-mask >
+
+            <!--jjw table-striped j_table 去掉hover-->
+            <table class=" table  table-striped j_table ">
+                <thead class="flip-content">
+                <tr class="background ">
+                    <!--
+                     <th>
+                        <span translate="th.th1">在线</span>
+                    </th>
+                     -->
+                    <th width="20%">
+                        <a translate="th.th2">名称</a>
+                    </th>
+                    <th width="30%">
+                        <a translate="th.th3">创建时间
+                        </a>
+                    </th>
+                    <th width="20%">已激活系统</th>
+
+                    <th width="20%" ng-if=" ! isShowModul " >未激活系统</th>
+                    <th width="10%" ng-if=" ! isShowModul " >操作</th>
+                </tr>
+                </thead>
+                <tbody class="text-center "> 
+
+                <tr ng-repeat="  proj  in page.data  "  ng-init=" collectRegionId( proj , $last )" >
+                    
+                    <td>
+                        <a class="text-info-dk  " ng-click="  goto ( _$nextState ,  proj  , proj ); ">
+                            {{ proj.name }}
+                        </a>
+                    </td>
+                    <td> {{ proj.create_time | date:"yyyy-MM-dd HH:mm Z" }}</td>
+                    <td class="numeric "  id="act_{{proj.id}}">
+                     </td>
+
+                    <td class="numeric " ng-if=" ! isShowModul "
+                        id = "unact_{{proj.id}}" > 
+                    </td>
+                    
 
 
+
+                    <td class="numeric" ng-if=" ! isShowModul ">
+                        <a class="text-info-dk m-r-xs" ng-disabled="true"
+                           ng-click="delProject( proj  , $index   )">移除</a>
+                        <!--@if append -->
+
+                        <!--jjw 注释“可视化”-->
+                        <!--<a class="text-info-dk"-->
+                           <!--ng-href="../syalias/trunk/{{ isShowModul?'syalias':'dyalias'}}.html?account=thinglinx&project=2#/page/Demo"-->
+                           <!--target="_blank">可视化</a>-->
+
+                        <!-- @endif -->
+
+
+                    </td>
+
+
+                </tr>
+                </tbody>
+            </table>
+
+            <!--  <h4 class="text-center" ng-show="!page.data.length">无数据</h4> -->
+
+        </div>
+        <!--jjw b-t-none-->
+        <div class="panel-footer b-t-none">
+            <!--jjw m-t m-b m-l-sm-->
+            <button class="btn btn-primary btn-sm w-70  pos-abt m-b m-t m-l-sm" ng-if=" !isShowModul" ng-click="  goto( 'app.proj.addproj' ) ">
+                添加区域
+            </button>
+            <!--jjw m-t m-b-->
+            <div class="text-center m-b m-t height-30" ng-include src=" 'athena/debris/_pager.html'  "></div>
+        </div>
+     
+
+
+
+    </div>
+
+</div>
 
 
 

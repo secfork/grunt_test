@@ -17,6 +17,7 @@
                style="width: 150px"   >
        
     </span>
+
 </div>
 <!--     navbar collapse -->
 <div class="collapse navbar-collapse box-shadow {{app.settings.navbarCollapseColor}}">
@@ -26,16 +27,20 @@
             <i class="fa {{app.settings.asideFolded ? 'fa-indent' : 'fa-dedent'}} fa-fw"></i>
         </a>
     </div>
+
+
     <!--  导航!!  style=" position:fixed; margin-left:50px "   -->
-    <div class=" nav navbar-nav  hidden-sm   ">
+<!--     <div class=" nav navbar-nav  hidden-sm   ">
         <ul class="breadcrumb  b-a" style="background: transparent; border: none; margin:5px;padding-left: 0px">
             <li class="inline" ng-repeat=" n in navs" ng-if=" $first || n.state">
                 <i class="fa fa-home" ng-if="$first"> </i>
                 <a ng-click="navGo(n)"> {{n.title}} </a>
             </li>
-        </ul>
-        <!--  </div> -->
+        </ul> 
     </div>
+
+ -->
+
     <!-- nabar right   靠右 -->
     <ul class="nav navbar-nav navbar-right">
         <!--     语言种类选择; -->
@@ -90,7 +95,7 @@
                 <li class="  b-b " >
              
 
-                    <a  ui-sref="app.account.userdetail({id: user.id})" style="padding: 10px 15px">用户设置</a>
+                    <a  ui-sref=" app.my_detail " style="padding: 10px 15px">用户设置</a>
                 </li>
                 <li class="text-center  ">
                     <a ng-click="logout()" style="padding: 10px 15px">注销</a>

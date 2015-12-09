@@ -239,24 +239,24 @@ angular.module('app.basecontroller', ['ng'])
 
     // 追加 nav  ;
     $scope.$appendNav = function($title, $state) {
-        if ($scope.navs[$scope.navs.length - 1].title != $title) {
-            pushNav(transState($title, $state));
-        }
+        // if ($scope.navs[$scope.navs.length - 1].title != $title) {
+        //     pushNav(transState($title, $state));
+        // }
     };
 
     // (tab 类型 )替换最后一个 nav;
     $scope.$popNav = function($title, $state) {
-        var l, s, r;
-        l = $scope.navs[$scope.navs.length - 1];
-        s = transState($title, $state, true);
+        // var l, s, r;
+        // l = $scope.navs[$scope.navs.length - 1];
+        // s = transState($title, $state, true);
 
-        if (l.tab) {
-            $scope.navs.pop();
-        }
-        r = pushNav(s);
-        if (!r[0]) {
-            $scope.navs = $scope.navs.splice(0, r[1] + 1);
-        };
+        // if (l.tab) {
+        //     $scope.navs.pop();
+        // }
+        // r = pushNav(s);
+        // if (!r[0]) {
+        //     $scope.navs = $scope.navs.splice(0, r[1] + 1);
+        // };
     };
 
 
@@ -762,7 +762,8 @@ angular.module('app.basecontroller', ['ng'])
     $compile, $source  , $modalStack , $rootScope , $modalStack ) {
 
     $modalStack.dismissAll();
-
+    
+    $scope.od = {};
 
     $source.$common.get({op:"islogined"} , function(resp){
 
@@ -854,7 +855,7 @@ angular.module('app.basecontroller', ['ng'])
 
                      //@endif
                     //$state.go( $sys.rootState );
-                     $state.go("app.proj.manage");
+                     $state.go("app.m_region");
                     //$state.go("app.template");
                 } else {
                     $scope.op.b = false;
@@ -865,7 +866,7 @@ angular.module('app.basecontroller', ['ng'])
             function(resp) { // {err:.. , ret: ... }
                 if( resp.err == "login_yet"){
                     $timeout( function(){
-                        $state.go("app.proj.manage");
+                        $state.go("app.m_region");
                         $modalStack.dismissAll();
 
                     },2000)

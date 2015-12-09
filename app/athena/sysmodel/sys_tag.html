@@ -1,5 +1,6 @@
 
- 
+ <div class="panel panel-default b-t-none">
+
 
  <div class="panel-heading   w-full  " ng-if="isModelState">
      <!--jjw 添加div-->
@@ -8,8 +9,7 @@
          <select ng-model="odp.puuid" class=" input input-sm w form-control inline" ng-options="   p.uuid as p.name for p in profiles  " ng-change="loadSysTag( odp.puuid  )"></select>
      </div>
 </div>
- 
-
+  
  <!--jjw b-b-none-->
 <div  load-mask class="panel-body    table-responsive no-padder b-t-none b-b-none">
     <!--jjw j_table-->
@@ -79,6 +79,12 @@
         添加变量
     </button>
 </div>  
+
+
+     
+ </div>
+
+
 
 
 <!--@if append -->

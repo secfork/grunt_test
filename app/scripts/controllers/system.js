@@ -14,7 +14,7 @@ angular.module('app.system', [])
 
         $scope._$projState = $scope.isShowModul ? 'app.show.proj_prop.station' : 'app.proj.prop.station';
         $scope._$mapState = $scope.isShowModul ? 'app.show.system_prop.map' : 'app.station.prop._map';
-        $scope._$stationState = $scope.isShowModul ? "app.show.system_prop.basic" : "app.station.prop._basic";
+        $scope._$stationState = $scope.isShowModul ? "app.s_system_prop.basic" : "app.m_system_prop._basic";
 
 
         $scope.active2del  =  true ;

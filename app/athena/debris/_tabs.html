@@ -1,16 +1,45 @@
+<!--  
+<div class="bg-light lter b-b wrapper-md ng-scope">
+    <h2 class="m-n font-thin h4">角色管理</h2>
+</div>
+<div class="wrapper-md ">
+    <ul class=" nav  nav-tabs m-t-xxs bg-normal">
+        <li ui-sref-active="active">
+            <a ui-sref="app.account.role.region">
+                <i class="icon icon-screen-desktop "></i>
+                <span translate="区域"></span>
+            </a>
+        </li>
+        <li ui-sref-active="active">
+            <a ui-sref="app.account.role.account">
+                <i class=" icon icon-user"></i>
+                <span translate="账户"></span>
+            </a>
+        </li>
+    </ul>
+    <div ui-view class="panel panel-default b-t-none  "> </div>
+</div> -->
 
-<!--jjw bg-normal-->
-<ul class="nav  nav-tabs   m-t-xxs bg-normal">
+<!-- ================================ -->
 
-    <li ui-sref-active="active"  ng-repeat= "t in tabs "   >
-        <a  ui-sref="{{t.state}}">
-            <i class=" {{t.icon }}"></i>
-            <span translate="{{t.title}}"> 系统配置 </span>
-        </a>
-    </li>
-</ul>
+<div class="bg-light lter b-b wrapper-md ng-scope">
+    <h2 class="m-n font-thin h4">{{ title }}</h2>
+</div>
 
-<div ui-view class="panel panel-default b-t-none"> </div>
+<div class="wrapper-md ">
+
+	<ul class="nav  nav-tabs   m-t-xxs bg-normal">
+
+	    <li ui-sref-active="active"  ng-repeat= "t in tabs "   >
+	        <a  ui-sref="{{t.state}}">
+	            <i class=" {{t.icon }}"></i>
+	            <span translate="{{t.title}}"> 系统配置 </span>
+	        </a>
+	    </li>
+	</ul>
+
+	<div ui-view class=" "> </div>
+</div>
 
 
 

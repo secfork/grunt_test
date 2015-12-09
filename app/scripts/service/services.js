@@ -59,7 +59,7 @@ angular.module('app.services', ["ngResource"], function() {
     
     //    sou: connent( sys联系人) , user( 用户) , 
     //  ? send : cell_phone , verify: code ;  
-    this.$note = $createSource("note/:op/:sou"); 
+    this.$note = $createSource("sms/:op/:sou"); 
 
     this.$common = $createSource("common/:op", {}, {
         // 验证 uuid ; 

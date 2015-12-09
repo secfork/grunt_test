@@ -1,21 +1,29 @@
 <!--  station 属性 导航 tab
  状态     配置     信息版    地图   历史数据   固件    手机网络    属性  -->
 <!--jjw bg text-base-->
-<ul class=" nav  nav-tabs m-t-xxs bg-normal text-base" ng-if=" !isShowModul ">
+
+
+<div class="bg-light lter b-b wrapper-md ng-scope">
+    <h2 class="m-n font-thin h4"> 
+    my system 
+    </h2>
+</div>
+<div class="wrapper-md ">
+    <ul class=" nav  nav-tabs m-t-xxs bg-normal text-base" ng-if=" !isShowModul ">
     <li ui-sref-active="active">
-        <a ui-sref="app.station.prop._basic">
+        <a ui-sref="app.m_system_prop._basic">
             <i class="icon icon-info "></i> 状态 </a>
     </li>
     <li ui-sref-active="active">
-        <a ui-sref="app.station.prop._config">
+        <a ui-sref="app.m_system_prop._config">
             <i class="icon icon-wrench "></i> 配置
         </a>
     </li>
     <li ui-sref-active="active">
-        <a ui-sref="app.station.prop.tag"> <i class="icon icon-bar-chart"></i> 变量</a>
+        <a ui-sref="app.m_system_prop.tag"> <i class="icon icon-bar-chart"></i> 变量</a>
     </li>
     <li ui-sref-active="active">
-        <a ui-sref="app.station.prop.trigger">
+        <a ui-sref="app.m_system_prop.trigger">
             <i class="icon icon-rocket"></i> 触发器
         </a>
     </li>
@@ -32,8 +40,14 @@
         <!--</a>-->
     <!--</li>-->
     <li ui-sref-active="active">
-        <a ui-sref="app.station.prop._map">
+        <a ui-sref="app.m_system_prop._map">
             <i class="icon  icon-pointer "></i> 位置 </a>
     </li>
 </ul>
 <div ui-view> </div>
+
+</div>
+
+
+ <!-- ============================== -->
+

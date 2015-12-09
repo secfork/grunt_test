@@ -107,6 +107,7 @@ angular.module("app.model.system", [])
     function($scope, $source, $q) {
 
 
+
         var d = $scope.$$cache[0]
         try {
             d.gateway_default = angular.fromJson(d.gateway_default || {});
@@ -117,43 +118,44 @@ angular.module("app.model.system", [])
 
         $scope.sysmodel = d;
 
+        $scope.title = d.name
 
         // 属性 tabs 配置;  
         $scope.tabs = [{
             title: "tab.t16",
             icon: "icon icon-info",
-            state: "app.model.sysmodel_p.basic"
+            state: "app.sysmodel_p.basic"
         }];
         $scope.tabs.push({
             title: "tab.t12",
             icon: "icon icon-wrench",
-            state: "app.model.sysmodel_p.sysprofile"
+            state: "app.sysmodel_p.sysprofile"
         });
 
         if ($scope.sysmodel.mode == 1) {
             $scope.tabs.push({
                 title: "tab.t10",
                 icon: "icon icon-screen-desktop",
-                state: "app.model.sysmodel_p.sysdevice"
+                state: "app.sysmodel_p.sysdevice"
             })
         }
 
         $scope.tabs = $scope.tabs.concat([{
                 title: "tab.t11",
                 icon: "icon icon-tag",
-                state: "app.model.sysmodel_p.systag"
+                state: "app.sysmodel_p.systag"
             },
 
             {
                 title: "tab.t13",
                 icon: "icon icon-rocket",
-                state: "app.model.sysmodel_p.trigger"
+                state: "app.sysmodel_p.trigger"
             },
 
             // {
             //     title: "tab.t14",
             //     icon: "icon icon-flag",
-            //     state: "app.model.sysmodel_p.message"
+            //     state: "app.sysmodel_p.message"
             // }
 
         ]);
@@ -161,7 +163,7 @@ angular.module("app.model.system", [])
             $scope.tabs.push({
                 title: "tab.t15",
                 icon: "glyphicon glyphicon-random",
-                state: "app.model.sysmodel_p.gateway"
+                state: "app.sysmodel_p.gateway"
             });
         }
 

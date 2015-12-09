@@ -17,7 +17,7 @@ angular.module('app.project', [])
     //是否为 show 模块;
     $scope.isShowModul = $state.$current.data && $state.$current.data.isShowModul;
 
-    $scope._$nextState = $scope.isShowModul ? 'app.show.proj_prop.station' : 'app.proj.prop.station';
+    $scope._$nextState = $scope.isShowModul ? 'app.s_region_system' : 'app.m_region_prop.system';
 
     // if ($scope.isShowModul) {
     //     $scope.$moduleNav("项目", $state);
@@ -306,6 +306,13 @@ angular.module('app.project', [])
     };
 
 })
+
+.controller("proj_prop_author" , function($scope , $state , $source ){
+
+    
+
+})
+
 
 // 加载工程 属性字段;
 .controller("proj_prop_attr", function($state, $scope, $source) {

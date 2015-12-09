@@ -370,9 +370,17 @@ angular.module('app.account', [])
 
 })
 
-.controller("account_userdetail" , function( $scope , $source , $stateParams, $modal){
+.controller("account_userdetail" , function( $scope , $source , $state , $stateParams, $modal , $sys , $translate ){
     var thatScope = $scope ; 
-    var user_id = $stateParams.id ; 
+    
+    var user_id = $stateParams.id || $scope.user.id ; 
+
+
+    // $scope.userself = $state.includes("app.my_detail"); 
+    $scope.userself =  !$stateParams.id; 
+
+
+
     $scope.user = undefined; 
 
     // 得 id 用户; 
@@ -410,6 +418,35 @@ angular.module('app.account', [])
         ) 
     
     }
+    
+    // 编辑是否接收 某个 region 报警; 
+    $scope.acceptRegionAlarm = function( region ){
+        
+
+
+    }
+
+    // 编辑区域的订阅; 
+    function createSubOfRegion (){
+
+        var d = {
+            filter: { region_id: $scope.proj.id , type:"alarm"},
+            sendee :{ user_id: $scope.user.id }
+        }
+
+        $source.$sub.save( { op:"create"} , d , function( resp ){
+            $scope.od.sub_id =  resp.ret   ;
+            $scope.od.issubed = true ;
+        })
+
+    }
+    // 删除订阅; 
+    function delSubOfRegion ( ) {
+        $source.$sub.get( { op:"delete" , pk: $scope.od.sub_id  } , function( resp ){
+            $scope.od.sub_id =  undefind  ;
+        })
+    }
+
 
 
     // 得到用户的 账户权限; 
@@ -431,17 +468,46 @@ angular.module('app.account', [])
     })
     // 保存 account role 信息; 
     $scope.addAccountRole = function(){
+        if( !$scope.user_accountRol){
+            angular.alert("请选择账户角色!");
+            return ;
+        }
         $source.$user.put({pk:"addrole", op: user_id  , isaccount:true} , { role_id: $scope.user_accountRol.id } , function(resp){
-
+             angular.alert("账户角色保存成功!");
         })
 
     }
 
 
 
+    // 得到 所有 区域 权限;   /getpermissions/:user_id
+    $source.$user.get( { pk:"getpermissions" , op: user_id } , function( resp ){
+        $scope.regoinRoles = resp.ret ; 
+        // 得到是否订阅 报警; 
+        if($scope.userself ){
 
-    // 得到 所有 区域 权限;  ???
-    
+            var  region_ids = [] , rid_role_ref =  {} ;
+
+            $scope.regoinRoles.forEach( function( v , i ){
+                rid_role_ref[ v.region_id ] = v ; 
+                region_ids.push( v.region_id );
+            });
+
+            $source.$sub.get( { op:"select", user: user_id } , function( resp ){
+
+            })
+        }
+    });
+
+    var textArr = [] ; 
+    $scope.privilge2Text = function( privileges ){
+        textArr = [] ; 
+        privileges && privileges.forEach( function( v , i ){
+            textArr.push ( $translate.instant(v) ) ; 
+        })
+        return  textArr.join(";");
+    }
+
   
 
     //addRegionAuthor()

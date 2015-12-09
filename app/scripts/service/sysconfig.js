@@ -101,7 +101,7 @@ angular.module('app.sysconfig', [], function() {})
 
 
         // application  首页;
-        rootState: "app.proj.manage",
+        rootState: "app.m_region",
         // 分页数据; 
 
         // 报警类型;

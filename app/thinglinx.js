@@ -162,23 +162,53 @@ var app = angular.module('thinglinx', [
                 }
 
             })
+ 
 
-            .state("app.show", {
-                url: "/show",
-
-                //                    jjw no-border
-                template: '<div ui-view class="gap-5  panel panel-default no-border  "></div>'
-
-                // , templateUrl:
-                ,
+            //  模版 =================================
+            .state("app.s_region", {
+                url: "/s_region",
+                controller: "manage_projs",
                 data: {
                     isShowModul: true
                 },
-                controller: function($scope, $state) {
-                    $scope.$rootNav("展示");
-                },
+                templateUrl: "athena/region/project_temp.html"
+            })
 
+            .state("app.s_region_system", {  
+                    url: "/s_region/{id}",  // region_id ; 
+                    controller: "proj_prop",
+                    templateUrl: "athena/show/region_system.html"
+
+                })
+
+
+            /*========================*/
+
+            .state("app.s_system", {
+                url: "/system?isactive",
+                templateUrl: "athena/dastation/dastation_temp.html",
+                data: {
+                    isShowModul: true
+                }, 
+                controller: "dastation_ignore_active"
+            })
+
+
+            .state("app.s_system_prop", {
+                url: "/s_system_prop/:uuid",
                 resolve: {
+                    _$system : function( $source , $stateParams ){
+                        //$source.$system.getByPk( {pk: $stateParams.uuid}).$promise ;
+                        return $source.$system.get({
+                                        system_id: $stateParams.uuid,
+                                        tag: true
+                                    }).$promise
+
+                    },
+                    _$status : function(  $source , $stateParams ){
+                        return $source.$system.status( [ $stateParams.uuid ] ).$promise 
+                    },
+
                     deps: ['uiLoad', function(uiLoad) {
                         return uiLoad.load([
                             'lib/flot/jquery.flot.min.js',
@@ -191,100 +221,47 @@ var app = angular.module('thinglinx', [
                             'lib/flot/jquery.flot.tooltip.min.js',
                         ]);
                     }]
-                }
-
-            })
-
-            //  模版 =================================
-            .state("app.show.proj", {
-                url: "/proj",
-                controller: "manage_projs",
-                templateUrl: "athena/region/project_temp.html"
-
-            })
-
-            .state("app.show.proj_prop", {
-
-                    // url: "/{projid}/{projname}/prop",
-                    url: "/proj_prop",
-                    controller: "proj_prop",
-                    templateUrl: "athena/region/pro_man_prop.html"
-
-                })
-                // 得到项目所在的系统 属性;   // app.proj_prop 被忽略掉; 才可;
-                .state("app.show.proj_prop.station", {
-                    url: "/system",
-                    controller: "proj_prop_station",
-                    // 采集站 模版;
-                    templateUrl: "athena/dastation/dastation_temp.html"
-
-                })
-                // 项目自身属性;
-                .state("app.show.proj_prop.attr", {
-                    url: "/attr",
-                    controller: "proj_prop_attr",
-                    templateUrl: "athena/region/project_info.html"
-                })
-
-
-            .state("app.show.system", {
-                url: "/system?isactive",
-                templateUrl: "athena/dastation/dastation_temp.html",
-                controller: "dastation_ignore_active"
-            })
-
-
-            .state("app.show.system_prop", {
-                url: "/system_prop/:uuid",
-                resolve: {
-                    _$system : function( $source , $stateParams ){
-                        //$source.$system.getByPk( {pk: $stateParams.uuid}).$promise ;
-                        return $source.$system.get({
-                                        system_id: $stateParams.uuid,
-                                        tag: true
-                                    }).$promise
-
-                    },
-                    _$status : function(  $source , $stateParams ){
-                        return $source.$system.status( [ $stateParams.uuid ] ).$promise 
-                    }
+                    
                 },
                 controller: "show_system_prop",
                 templateUrl: "athena/show/system_prop.html"
             })
 
-            .state("app.show.system_prop.basic", {
+            .state("app.s_system_prop.basic", {
                 url: "/_basic",
                 templateUrl: "athena/show/system_prop_basic.html",
                 controller: "show_system_basic"
 
             })
 
-            .state("app.show.system_prop.current", {
+            .state("app.s_system_prop.current", {
                     url: "/_current",
                     templateUrl: "athena/show/system_prop_current.html",
                     controller: "show_system_current"
                 })
-                .state("app.show.system_prop.history", {
+                .state("app.s_system_prop.history", {
                     url: "/_history",
                     templateUrl: "athena/show/system_prop_history.html",
                     controller: "show_system_history"
                 })
-                .state("app.show.system_prop.alarm", {
+
+                .state("app.s_system_prop.alarm", {
                     url: "/_alarm",
                     templateUrl: "athena/show/system_prop_alarm.html",
                     controller: "show_system_alarm"
                 })
 
 
-            .state("app.show.system_prop.map", {
+            .state("app.s_system_prop.map", {
                 url: "/_map",
                 templateUrl: "athena/show/system_prop_map.html",
                 //template: "<div class='panel-body h-full' id='station_map' > 423 </div>",
                 controller: "show_system_map"
             })
 
-            .state("app.show.alarm", {
+
+
+            .state("app.s_alarm", {
                 url: "/alarm",
                 templateUrl: "athena/show/alarm.html",
                 controller: "show_alarm"
@@ -292,171 +269,136 @@ var app = angular.module('thinglinx', [
 
 
             //===========================================================
-
-            .state("app.model", {
-                url: "/model",
-                //                    jjw no-border
-                template: '<div ui-view class=" gap-5 panel panel-default no-border"></div>'
-                    //template:'<div ui-view class="fade-in-up smooth wrapper-xs"></div>'
+            .state("app.my_detail" , {
+                url:"/userself",
+                templateUrl:"athena/account/user_detail.html",
+                controller:"account_userdetail"
             })
 
-            .state("app.model.devmodel", {
+                
+            
+            
+            //===========================================================
+ 
+
+            .state("app.devmodel", {
                     url: "/devmodel",
                     templateUrl: "athena/template/template.html",
                     controller: 'devmodel'
 
                 })
-                .state("app.model.sysmodel", {
+                .state("app.sysmodel", {
                     url: "/sysmodel",
                     templateUrl: "athena/sysmodel/sysmodel.html",
                     controller: 'sysmodel'
                 })
 
-            .state("app.model.sysmodel_p", {
+
+            .state("app.sysmodel_p", {
                     url: "/sysmodel_p",
                     // template:'<div ui-view class=" wrapper-xs"></div>' ,
                     templateUrl: 'athena/debris/_tabs.html',
                     controller: "sysmodelProp"
                 })
-                .state("app.model.sysmodel_p.basic", {
+                .state("app.sysmodel_p.basic", {
                     url: "/basic",
                     templateUrl: "athena/sysmodel/sys_basic.html",
                     controller: "sysmodel_basic"
                 })
-                .state("app.model.sysmodel_p.sysdevice", {
+                .state("app.sysmodel_p.sysdevice", {
                     url: "/sysdevice",
                     templateUrl: "athena/sysmodel/sys_device.html",
                     controller: "sysmodel_device"
                 })
-                .state("app.model.sysmodel_p.systag", {
+                .state("app.sysmodel_p.systag", {
                     url: "/systag",
                     templateUrl: "athena/sysmodel/sys_tag.html",
                     controller: "sysmodel_tag"
                 })
 
-            .state("app.model.sysmodel_p.sysprofile", {
+            .state("app.sysmodel_p.sysprofile", {
                     url: "/sysprofile",
                     templateUrl: "athena/sysmodel/sys_profile.html",
                     controller: "sysmodel_profile"
                 })
-                .state("app.model.sysmodel_p.trigger", {
+                .state("app.sysmodel_p.trigger", {
                     url: "/trigger",
                     templateUrl: "athena/sysmodel/sys_proftrigger.html",
                     controller: "sysmodel_prof_trigger"
                 })
 
-            .state("app.model.sysmodel_p.message", {
+            .state("app.sysmodel_p.message", {
                     url: "/message",
                     templateUrl: "athena/sysmodel/sys_message_center.html",
                     controller: "sysmodel_message"
                 })
-                .state("app.model.sysmodel_p.gateway", {
-                    url: "/gateway",
-                    templateUrl: "athena/sysmodel/sys_gateway.html",
-                    controller: "sysmodel_gateway"
-                })
-
-
-
-            //===========================================================
-            //===========================================================
-
-            // project 管理 , 添加;  ================================================
-            .state('app.proj', {
-                    url: '/proj',
-                    //                    jjw no-border
-                    template: '<div ui-view class="gap-5  panel panel-default no-border "></div>',
-                    controller: function($scope, $state) {
-                        $scope.$rootNav("管理");
-                    },
-
-                })
-                .state("app.proj.manage", {
-                    url: "/manage",
-                    controller: "manage_projs",
-                    templateUrl: "athena/region/project_temp.html"
-                })
-
-            .state("app.proj.addproj", {
-                url: "/addproj",
-                controller: "manage_addproj",
-                templateUrl: "athena/region/project_add_temp.html"
+            .state("app.sysmodel_p.gateway", {
+                url: "/gateway",
+                templateUrl: "athena/sysmodel/sys_gateway.html",
+                controller: "sysmodel_gateway"
             })
 
+
+
+            //===========================================================
+            //===========================================================
+
+      
+            .state("app.m_region", {
+                url: "/m_region",
+                controller: "manage_projs",
+                templateUrl: "athena/region/project_temp.html"
+            })
+ 
+
             //   项目 属性 ; ==============================================
-            .state("app.proj.prop", {
-                    // url: "/prop",
+            .state("app.m_region_prop", {
+                    url: "/m_regipn/{id}",
                     controller: "proj_prop",
                     templateUrl: "athena/region/pro_man_prop.html"
                 })
-                // 得到项目所在的系统 属性;
-                // app.proj_prop 被忽略掉; 才可;
-                .state("app.proj.prop.station", {
-                    url: "/station",
-                    controller: "proj_prop_station",
-                    // 采集站 模版;
-                    templateUrl: "athena/dastation/dastation_temp.html"
-                })
-                // 项目自身属性;
-                .state("app.proj.prop.attr", {
-                    url: "/attr",
-                    controller: "proj_prop_attr",
-                    templateUrl: "athena/region/project_add_temp.html"
-                })
-                // 要和系统选项 栏 合并 ;  同一功能;
-                .state("app.proj.prop.addstation", {
-                    url: "/addstation",
-                    controller: "dastation_add",
-                    templateUrl: "athena/dastation/dastation_add_temp.html"
-                })
-
+            // 得到项目所在的系统 属性;
+            // app.proj_prop 被忽略掉; 才可;
+            .state("app.m_region_prop.system", {
+                url: "/system",
+                controller: "proj_prop_station", 
+                templateUrl: "athena/dastation/dastation_temp_panel.html"
+            })
+            // 项目自身属性;
+            .state("app.m_region_prop.author", {
+                url: "/author",
+                controller: "proj_prop_author",
+                templateUrl: "athena/region/prop_author.html"
+            }) 
 
 
             //==========采集站 =====================   class="fade-in-right-big smooth"
-            //
-            .state('app.station', {
-                    url: '/station',
-                    template: '<div ui-view  class=" gap-5  panel panel-default no-border"></div>',
-                    controller: function($scope, $state) {
-                        $scope.$rootNav("管理");
-                    }
-
-                })
-                //================
-                .state("app.station.active", {
-                    url: "/active?isactive",
-                    controller: "dastation_ignore_active",
-                    templateUrl: "athena/dastation/dastation_temp.html"
-                })
-                .state("app.station.unactive", {
-                    url: "/unactive?isactive",
-                    controller: "dastation_ignore_active",
-                    templateUrl: "athena/dastation/dastation_temp.html"
-                })
-
-            .state("app.station.add", {
-                url: "/add",
-                controller: "dastation_add",
-                templateUrl: "athena/dastation/dastation_add_temp.html"
+          
+            //================
+            .state("app.m_system", {
+                url: "/active?isactive",
+                controller: "dastation_ignore_active",
+                templateUrl: "athena/dastation/dastation_temp.html"
             })
+            
 
             // 采集站 属性;
-            .state("app.station.prop", {
+            .state("app.m_system_prop", {
                     //abstract:true ,
-                    url: "/prop", // 开始就传递 station id 参数;
+                    url: "/m_system/{uuid}", // 开始就传递 station id 参数;
                     controller: "dastation_prop",
                     templateUrl: "athena/dastation/dastation_prop.html"
                 })
                 //========================
 
             // 又分  dastation 的 好多 tab  属性;
-            .state("app.station.prop._basic", {
+            .state("app.m_system_prop._basic", {
                 url: "/_basic",
                 controller: "das_basic",
                 templateUrl: "athena/dastation/prop_basic.html"
             })
 
-            .state("app.station.prop._config", {
+            .state("app.m_system_prop._config", {
                 url: "/_config",
                 controller: "das_config",
                 templateUrl: "athena/dastation/prop_config.html"
@@ -464,29 +406,29 @@ var app = angular.module('thinglinx', [
 
 
             // 系统信息版( sation 中 使用 );  描述信息版(外部描述 ,);
-            .state("app.station.prop.tag", {
+            .state("app.m_system_prop.tag", {
                     url: "/_tag",
                     controller: "das_tag",
                     templateUrl: "athena/sysmodel/sys_tag.html"
                 })
-                .state("app.station.prop.trigger", {
+                .state("app.m_system_prop.trigger", {
                     url: "/_trigger",
                     controller: "das_trigger",
                     templateUrl: "athena/sysmodel/sys_proftrigger.html"
                 })
-                .state("app.station.prop.message", {
+                .state("app.m_system_prop.message", {
                     url: "/_message",
                     controller: "das_message",
                     templateUrl: "athena/sysmodel/sys_message_center.html"
                 })
 
-            .state("app.station.prop.contact", {
+            .state("app.m_system_prop.contact", {
                 url: "/_contact",
                 templateUrl: "athena/dastation/prop_contact.html",
                 controller: "das_contact"
             })
 
-            .state("app.station.prop._map", {
+            .state("app.m_system_prop._map", {
                 url: "/_map",
                 controller: "das_map",
                 templateUrl: "athena/dastation/prop_map.html"
@@ -507,16 +449,7 @@ var app = angular.module('thinglinx', [
 
 
             // athena_user --------------------------------------------------
-
-            .state('app.account', {
-                url: '/account',
-                //                    jjw no-border
-                template: '<div ui-view ></div>',
-                controller: function($scope, $state) {
-                    $scope.$rootNav("管理");
-                }
-
-            })
+ 
 
             .state("app.account.info", {
                 url: "/info",
@@ -524,7 +457,7 @@ var app = angular.module('thinglinx', [
                 templateUrl: "athena/account/info.html"
             })
 
-            .state("app.account.user", {
+            .state("app.user", {
                 url: "/user",
                 templateUrl: "athena/account/users.html",
                 controller: "account_users"
@@ -540,7 +473,7 @@ var app = angular.module('thinglinx', [
 
             //app.account.author
             // 账户 -->编辑权限;
-            .state("app.account.role", {
+            .state("app.role", {
                 url: "/role",
                 // controller: "acco_role",
                 templateUrl: "athena/account/role.html"
@@ -548,13 +481,13 @@ var app = angular.module('thinglinx', [
 
         
 
-                .state("app.account.role.region", {
+                .state("app.role.region", {
                     url: "/region",
                     data:{ role_category:1},
                     templateUrl: "athena/account/role_panel.html",
                     controller: "role_ctrl"
                 })
-                .state("app.account.role.account", {
+                .state("app.role.account", {
                     url: "/account",
                     data:{ role_category:0},
                     templateUrl: "athena/account/role_panel.html",

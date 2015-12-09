@@ -1,25 +1,21 @@
- 
-<div class="panel-heading   w-full  " ng-if="isModelState">
-
- 
-    <!--jjw 添加div-->
-    <div class="form-group m-t-sm m-b-sm m-l-xs">
-        <span style="margin-right: 30px">  配置项 </span>
-        <select ng-model="odp.puuid" class="input input-sm w form-control inline " ng-options="p.uuid as p.name for p in profiles  " ng-change="loadPageData( 1 )">
-        </select>
+<div class="panel panel-default b-t-none">
+    <div class="panel-heading     " ng-if="isModelState">
+        <!--jjw 添加div-->
+        <div class="form-group m-t-sm m-b-sm m-l-xs">
+            <span style="margin-right: 30px">  配置项 </span>
+            <select ng-model="odp.puuid" class="input input-sm w form-control inline " ng-options="p.uuid as p.name for p in profiles  " ng-change="loadPageData( 1 )">
+            </select>
+        </div>
     </div>
-</div>
-
- <!--jjw b-b-none-->
-<div class="panel-body table-responsive   no-padder b-t-none b-b-none"  load-mask >
-     <!--jjw j_table-->
-     <table class="  table  table-striped j_table b-t-none">
+    <!--jjw b-b-none-->
+    <div class="panel-body table-responsive   no-padder b-t-none b-b-none" load-mask>
+        <!--jjw j_table-->
+        <table class="  table  table-striped j_table b-t-none">
             <thead class="flip-content">
                 <tr class="background ">
                     <th> 名称 </th>
                     <th> 触发类型</th>
                     <th> 行为 </th>
-                  
                     <th> 触发源 </th>
                     <th> 条件 </th>
                     <th width="20%"> 备注 </th>
@@ -32,16 +28,9 @@
                     <td> {{ _config.type[t.type] }}</td>
                     <td> {{ _config.action[t.action] }}</td>
                     <td> {{ _config.origin[t.origin] }}</td>
-                   
-                    <td ng-style="t.lose_tag"> 
-                        <i class="fa fa-android  text-info-dker "  
-                            popover-trigger="mouseenter"
-                            popover="{{ conditions( t.conditions ) }}"
-                            popover-placement="top"
-                            popover-title="触发条件"
-                         ></i>
+                    <td ng-style="t.lose_tag">
+                        <i class="fa fa-android  text-info-dker " popover-trigger="mouseenter" popover="{{ conditions( t.conditions ) }}" popover-placement="top" popover-title="触发条件"></i>
                     </td>
-                   
                     <td> {{t.desc }} </td>
                     <td ng-if="isModelState">
                         <a class="text-info m-r-xs" ng-click="c_u_Trigger(  $index  , t   )">编辑</a>
@@ -50,14 +39,12 @@
                 </tr>
             </tbody>
         </table>
-</div>
-<!--jjw b-b b-l b-r-->
- <div class="panel-footer b-b b-l b-r text-center b-t-none" >
- 
-        <button class="btn btn-primary btn-sm w-94 m-t-sm m-b-sm pull-left "
-            ng-if="isModelState"
-            ng-click=" c_u_Trigger('create') ">
+    </div>
+    <!--jjw b-b b-l b-r-->
+    <div class="panel-footer b-b b-l b-r text-center b-t-none">
+        <button class="btn btn-primary btn-sm w-94 m-t-sm m-b-sm pull-left " ng-if="isModelState" ng-click=" c_u_Trigger('create') ">
             添加触发器
-        </button> 
+        </button>
         <div class=" text-center inline m-t-sm m-b-sm  m-l-n-xxl height-30" ng-include src=" 'athena/debris/_pager.html'  "></div>
- </div>
+    </div>
+</div>
